@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>16CD9788-DEFF-4A01-ACEE-EE69E41AFBB6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Device Cabinet</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F1E349C5-23F7-417E-8A34-67DB0B38F93C</key>
+		<string>ssh://github.com/FeeB/TestDeviceCabinet.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Device Cabinet.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F1E349C5-23F7-417E-8A34-67DB0B38F93C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/FeeB/TestDeviceCabinet.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F1E349C5-23F7-417E-8A34-67DB0B38F93C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F1E349C5-23F7-417E-8A34-67DB0B38F93C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TestDeviceCabinet</string>
+		</dict>
+	</array>
+</dict>
+</plist>
