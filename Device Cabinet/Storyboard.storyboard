@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="542" y="27"/>
         </scene>
-        <!--View Controller - Erstelle eine Person-->
+        <!--Create Person View Controller - Erstelle eine Person-->
         <scene sceneID="jBN-YA-Wuv">
             <objects>
-                <viewController id="t2O-cR-IAe" sceneMemberID="viewController">
+                <viewController id="t2O-cR-IAe" customClass="CreatePersonViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lsz-ig-f1H"/>
                         <viewControllerLayoutGuide type="bottom" id="pHm-Mi-NwD"/>
@@ -80,16 +80,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccC-39-AvV">
-                                <rect key="frame" x="20" y="323" width="46" height="30"/>
+                                <rect key="frame" x="20" y="286" width="48" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="storePerson" destination="t2O-cR-IAe" eventType="touchUpInside" id="4r8-fg-x7u"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Erstelle eine Person" id="5eO-7n-i8e"/>
+                    <connections>
+                        <outlet property="firstName" destination="jrG-Rb-Kdi" id="tLr-ju-Sg6"/>
+                        <outlet property="lastName" destination="6Er-lw-yyn" id="hQ1-iY-hbE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mX3-3h-urF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
