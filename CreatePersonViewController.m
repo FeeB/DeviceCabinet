@@ -37,9 +37,12 @@
 }
 
 -(IBAction)storePerson{
-    Person *person;
+    Person *person = [[Person alloc] init];
     person.firstName = firstName.text;
     person.lastName = lastName.text;
+    NSLog(@"%@", person.firstName);
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", person.firstName, person.lastName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 /*
