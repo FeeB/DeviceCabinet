@@ -24,6 +24,7 @@
 		3A5E17B719654B0700681289 /* Cabinet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B619654B0700681289 /* Cabinet.m */; };
 		3A5E17BA19654B2300681289 /* CreatePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B919654B2300681289 /* CreatePersonViewController.m */; };
 		3A5E17BC19654BBE00681289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17BB19654BBE00681289 /* Main.storyboard */; };
+		3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		3A5E17B819654B2300681289 /* CreatePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePersonViewController.h; path = ../CreatePersonViewController.h; sourceTree = "<group>"; };
 		3A5E17B919654B2300681289 /* CreatePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePersonViewController.m; path = ../CreatePersonViewController.m; sourceTree = "<group>"; };
 		3A5E17BB19654BBE00681289 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "Device Cabinet/Main.storyboard"; sourceTree = "<group>"; };
+		3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDeviceViewController.h; sourceTree = SOURCE_ROOT; };
+		3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDeviceViewController.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 			children = (
 				3A5E17B819654B2300681289 /* CreatePersonViewController.h */,
 				3A5E17B919654B2300681289 /* CreatePersonViewController.m */,
+				3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */,
+				3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */,
 				3A5E178F19654AC700681289 /* AppDelegate.h */,
 				3A5E179019654AC700681289 /* AppDelegate.m */,
 				3A5E179219654AC700681289 /* Images.xcassets */,
@@ -265,6 +270,7 @@
 			files = (
 				3A5E17B719654B0700681289 /* Cabinet.m in Sources */,
 				3A5E17B119654AED00681289 /* Person.m in Sources */,
+				3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */,
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
 				3A5E178D19654AC700681289 /* main.m in Sources */,
 				3A5E17B419654AF900681289 /* Device.m in Sources */,

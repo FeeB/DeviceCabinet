@@ -12,7 +12,7 @@
 @interface Device : NSObject
 
 @property NSString *deviceName;
-@property NSString *brand;
+@property NSString *category;
 @property BOOL isBooked;
 @property UIImage *image;
 @property Person *bookedFromPerson;

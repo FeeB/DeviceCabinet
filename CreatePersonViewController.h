@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreatePersonViewController : UIViewController{
-    IBOutlet UITextField *firstName;
-    IBOutlet UITextField *lastName;
-}
+@interface CreatePersonViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITextField *firstName;
+@property (weak, nonatomic) IBOutlet UITextField *lastName;
+
 
 - (IBAction)storePerson;
 
