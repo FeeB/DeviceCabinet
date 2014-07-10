@@ -61,10 +61,15 @@
     return _pickerData[row];
 }
 
+-(IBAction)textFieldReturn:(id)sender
+{
+    [sender resignFirstResponder];
+}
+
 - (IBAction)storeDevice{
     Device *device = [[Device alloc]init];
     device.deviceName = _deviceName.text;
-    device.category = _picker.textInputContextIdentifier;
+    device.category = [_pickerData objectAtIndex:[_picker selectedRowInComponent:0]];
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Gerätename: %1@, Kategorie: %2@", device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
