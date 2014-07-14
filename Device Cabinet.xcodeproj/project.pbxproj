@@ -65,6 +65,7 @@
 		3A5E17BB19654BBE00681289 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "Device Cabinet/Main.storyboard"; sourceTree = "<group>"; };
 		3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDeviceViewController.h; sourceTree = SOURCE_ROOT; };
 		3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDeviceViewController.m; sourceTree = SOURCE_ROOT; };
+		7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Device Cabinet.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +132,7 @@
 		3A5E178619654AC700681289 /* Device Cabinet */ = {
 			isa = PBXGroup;
 			children = (
+				7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */,
 				3A5E17B819654B2300681289 /* CreatePersonViewController.h */,
 				3A5E17B919654B2300681289 /* CreatePersonViewController.m */,
 				3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */,
@@ -219,6 +221,14 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "___FULLUSERNAME___";
 				TargetAttributes = {
+					3A5E177C19654AC700681289 = {
+						DevelopmentTeam = LPDJDFJM54;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					3A5E179719654AC700681289 = {
 						TestTargetID = 3A5E177C19654AC700681289;
 					};
@@ -391,10 +401,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Device Cabinet/Device Cabinet.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Device Cabinet/Device Cabinet-Prefix.pch";
 				INFOPLIST_FILE = "Device Cabinet/Device Cabinet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -404,10 +418,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Device Cabinet/Device Cabinet.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Device Cabinet/Device Cabinet-Prefix.pch";
 				INFOPLIST_FILE = "Device Cabinet/Device Cabinet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
