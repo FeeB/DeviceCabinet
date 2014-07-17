@@ -8,6 +8,7 @@
 
 #import "CreatePersonViewController.h"
 #import "Person.h"
+@import CloudKit;
 
 @interface CreatePersonViewController ()
 
@@ -43,7 +44,10 @@
     NSLog(@"%@", person.firstName);
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", person.firstName, person.lastName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"persons"];
 }
+
 
 /*
 #pragma mark - Navigation
