@@ -11,5 +11,7 @@
 		<string>CloudDocuments</string>
 		<string>CloudKit</string>
 	</array>
+	<key>com.apple.developer.ubiquity-container-identifiers</key>
+	<array/>
 </dict>
 </plist>

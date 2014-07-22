@@ -37,7 +37,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)storePerson{
+-(IBAction)storePerson
+{
     Person *person = [[Person alloc] init];
     person.firstName = _firstName.text;
     person.lastName = _lastName.text;
@@ -45,7 +46,23 @@
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", person.firstName, person.lastName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
-    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"persons"];
+    
+    CKContainer* container = [CKContainer defaultContainer];
+    [container accountStatusWithCompletionHandler:^(CKAccountStatus status, NSError* err){
+        [container accountStatusWithCompletionHandler:^(CKAccountStatus status, NSError* err){
+            if( status == CKAccountStatusAvailable ) {
+                CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:@"Persons"];
+                [personRecord setObject:person forKey: @"person"];
+                
+                CKDatabase* public = [container publicCloudDatabase];
+                [public saveRecord:personRecord completionHandler:^(CKRecord* rec, NSError* err){
+                    NSLog(@"all done %@ %@", rec, err);
+                }];
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"ICLOUD" message:@"iCloud is not correctly configured" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }];
+    }];
 }
 
 
