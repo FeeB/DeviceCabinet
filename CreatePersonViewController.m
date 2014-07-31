@@ -39,29 +39,28 @@
 
 -(IBAction)storePerson
 {
-    Person *person = [[Person alloc] init];
-    person.firstName = _firstName.text;
-    person.lastName = _lastName.text;
-    NSLog(@"%@", person.firstName);
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", person.firstName, person.lastName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    Person *personObject = [[Person alloc] init];
+    personObject.firstName = _firstName.text;
+    personObject.lastName = _lastName.text;
+    NSLog(@"%@", personObject.firstName);
+    [[[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", personObject.firstName, personObject.lastName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]show];
     
     
     CKContainer* container = [CKContainer defaultContainer];
     [container accountStatusWithCompletionHandler:^(CKAccountStatus status, NSError* err){
-        [container accountStatusWithCompletionHandler:^(CKAccountStatus status, NSError* err){
-            if( status == CKAccountStatusAvailable ) {
-                CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:@"Persons"];
-                [personRecord setObject:person forKey: @"person"];
+        //todo: Account is not recognize in simulator
+        if( err == nil ) {
+            CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:@"Persons"];
+            [personRecord setObject:[personObject firstName] forKey: @"firstName"];
+            [personRecord setObject:[personObject lastName] forKey: @"lastName"];
                 
-                CKDatabase* public = [container publicCloudDatabase];
-                [public saveRecord:personRecord completionHandler:^(CKRecord* rec, NSError* err){
-                    NSLog(@"all done %@ %@", rec, err);
-                }];
-            } else {
-                [[[UIAlertView alloc] initWithTitle:@"ICLOUD" message:@"iCloud is not correctly configured" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
-        }];
+            CKDatabase* public = [container publicCloudDatabase];
+            [public saveRecord:personRecord completionHandler:^(CKRecord* rec, NSError* err){
+                NSLog(@"all done %@ %@", rec, err);
+            }];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"ICLOUD" message:@"iCloud is not correctly configured" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
     }];
 }
 

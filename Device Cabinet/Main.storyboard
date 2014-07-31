@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="01N-6d-O7Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="01N-6d-O7Y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Main-->
+        <!--Main-->
         <scene sceneID="7HT-QZ-hOp">
             <objects>
                 <viewController id="vdO-V6-zGZ" sceneMemberID="viewController">
@@ -104,7 +105,7 @@
             </objects>
             <point key="canvasLocation" x="1535" y="757"/>
         </scene>
-        <!--Create Person View Controller - Erstelle eine Person-->
+        <!--Erstelle eine Person-->
         <scene sceneID="jBN-YA-Wuv">
             <objects>
                 <viewController id="t2O-cR-IAe" customClass="CreatePersonViewController" sceneMemberID="viewController">
@@ -188,6 +189,9 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4">
+            <size key="portraitSize" width="320" height="568"/>
+            <size key="landscapeSize" width="568" height="320"/>
+        </simulatedScreenMetrics>
     </simulatedMetricsContainer>
 </document>
