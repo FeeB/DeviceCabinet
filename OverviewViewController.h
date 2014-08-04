@@ -10,5 +10,7 @@
 
 @interface OverviewViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+- (void)fetchRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler;
+
 
 @end
