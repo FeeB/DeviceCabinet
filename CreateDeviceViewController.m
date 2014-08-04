@@ -8,6 +8,7 @@
 
 #import "CreateDeviceViewController.h"
 #import "Device.h"
+#import <CloudKit/CloudKit.h>
 
 @interface CreateDeviceViewController (){
     NSArray *_pickerData;
@@ -70,6 +71,19 @@
     Device *device = [[Device alloc]init];
     device.deviceName = _deviceName.text;
     device.category = [_pickerData objectAtIndex:[_picker selectedRowInComponent:0]];
+    
+    CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
+    
+    CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:@"Devices"];
+    [deviceRecord setObject:device.deviceName forKey: @"devicename"];
+    [deviceRecord setObject:device.category forKey: @"category"];
+    
+    
+    [publicDatabase saveRecord:deviceRecord
+             completionHandler:^(CKRecord *savedDevice, NSError *error) {
+                 NSLog(@"Error: %@ %@", savedDevice, error);
+             }];
+
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Gerätename: %1@, Kategorie: %2@", device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
