@@ -21,22 +21,10 @@ NSString * const LastNameField = @"lastName";
 
 @implementation CreatePersonViewController
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        _container = [CKContainer defaultContainer];
-        _publicDatabase = [_container publicCloudDatabase];
-    }
-    
-    return self;
-}
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -55,6 +43,8 @@ NSString * const LastNameField = @"lastName";
 
 -(IBAction)storePerson
 {
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
     Person *personObject = [[Person alloc] init];
     personObject.firstName = self.firstName.text;
     personObject.lastName = self.lastName.text;
@@ -63,9 +53,9 @@ NSString * const LastNameField = @"lastName";
     personRecord[FirstNameField] = personObject.firstName;
     personRecord[LastNameField] = personObject.lastName;
     
-    [self.publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
+    [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@ %@", savedPerson, error);
+            NSLog(@"Error: %@ saved: %@", error, savedPerson);
         } else {
             NSLog(@"Saved: %@", savedPerson);
         }

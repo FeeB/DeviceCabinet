@@ -26,6 +26,7 @@
 		3A5E17BC19654BBE00681289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17BB19654BBE00681289 /* Main.storyboard */; };
 		3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */; };
 		3AA1C92B1973E15C00695409 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1C92A1973E15C00695409 /* CloudKit.framework */; };
+		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDeviceViewController.h; sourceTree = SOURCE_ROOT; };
 		3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDeviceViewController.m; sourceTree = SOURCE_ROOT; };
 		3AA1C92A1973E15C00695409 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		3AC5A811198FB19C00576854 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverviewViewController.h; path = ../OverviewViewController.h; sourceTree = "<group>"; };
+		3AC5A812198FB19C00576854 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverviewViewController.m; path = ../OverviewViewController.m; sourceTree = "<group>"; };
 		7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Device Cabinet.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +153,8 @@
 		3A5E178619654AC700681289 /* Device Cabinet */ = {
 			isa = PBXGroup;
 			children = (
+				3AC5A811198FB19C00576854 /* OverviewViewController.h */,
+				3AC5A812198FB19C00576854 /* OverviewViewController.m */,
 				7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */,
 				3A5E17B819654B2300681289 /* CreatePersonViewController.h */,
 				3A5E17B919654B2300681289 /* CreatePersonViewController.m */,
@@ -299,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A5E17B719654B0700681289 /* Cabinet.m in Sources */,
+				3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */,
 				3A5E17B119654AED00681289 /* Person.m in Sources */,
 				3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */,
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
