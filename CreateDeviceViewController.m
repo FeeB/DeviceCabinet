@@ -85,8 +85,8 @@
              }];
 
     
-//    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Gerätename: %1@, Kategorie: %2@", device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [alert show];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Gerätename: %1@, Kategorie: %2@", device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 
 }
 

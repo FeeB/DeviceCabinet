@@ -28,24 +28,38 @@ NSString* const ReferenceItemRecordName = @"Devices";
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     
-    CKRecordID *recordId = [[CKRecordID alloc] initWithRecordName:@"iPhone 4"];
+    NSString *deviceName = @"iPad 2";
     
-    [publicDatabase fetchRecordWithID:recordId completionHandler:^(CKRecord *fetchedRecord, NSError *error) {
-        if(error){
-            [self.list addObject: @"test"];
-            [self.table reloadData];
-            NSLog(@"Error: %@, fetched: %@", error, fetchedRecord);
-        }else{
-            [self.list addObject: fetchedRecord];
-            [self.table reloadData];
-        }
-    }];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", deviceName];
+//    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Devices" predicate:predicate];
+//    [publicDatabase performQuery:query
+//                     inZoneWithID:nil
+//                completionHandler:^(NSArray *results, NSError *error){
+//                    if (!error){
+//                        for (CKRecord *record in results) {
+//                            NSLog(@"Found: %@", record);
+//                        }
+//                    }
+//                }];
     
-//    [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
-//        
-//        self.list.array = records;
+//    CKRecordID *recordId = [[CKRecordID alloc] initWithRecordName:@"Devices"];
 //
+//    [publicDatabase fetchRecordWithID:recordId completionHandler:^(CKRecord *fetchedRecord, NSError *error) {
+//        if(error){
+//            [self.list addObject: @"test"];
+//            [self.table reloadData];
+//            NSLog(@"Error: %@, fetched: %@", error, fetchedRecord);
+//        }else{
+//            [self.list addObject: fetchedRecord];
+//            [self.table reloadData];
+//        }
 //    }];
+    
+    [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
+        
+        self.list.array = records;
+
+    }];
 
    
     //tableData = [NSArray arrayWithObjects:@"test", @"test2", nil];
