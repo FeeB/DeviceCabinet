@@ -25,44 +25,16 @@ NSString* const ReferenceItemRecordName = @"Devices";
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     
-    CKContainer *container = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [container publicCloudDatabase];
-    
-    NSString *deviceName = @"iPad 2";
-    
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name = %@", deviceName];
-//    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Devices" predicate:predicate];
-//    [publicDatabase performQuery:query
-//                     inZoneWithID:nil
-//                completionHandler:^(NSArray *results, NSError *error){
-//                    if (!error){
-//                        for (CKRecord *record in results) {
-//                            NSLog(@"Found: %@", record);
-//                        }
-//                    }
-//                }];
-    
-//    CKRecordID *recordId = [[CKRecordID alloc] initWithRecordName:@"Devices"];
-//
-//    [publicDatabase fetchRecordWithID:recordId completionHandler:^(CKRecord *fetchedRecord, NSError *error) {
-//        if(error){
-//            [self.list addObject: @"test"];
-//            [self.table reloadData];
-//            NSLog(@"Error: %@, fetched: %@", error, fetchedRecord);
-//        }else{
-//            [self.list addObject: fetchedRecord];
-//            [self.table reloadData];
-//        }
-//    }];
-    
     [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
+                
+        for (CKRecord *recordName in records){
+            [self.list addObject:recordName[@"devicename"]];
+        }
         
-        self.list.array = records;
+        [self.table reloadData];
 
     }];
 
-   
-    //tableData = [NSArray arrayWithObjects:@"test", @"test2", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,7 +80,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     // Just request the name field for all records
-    //queryOperation.desiredKeys = @[@"name"];
+    queryOperation.desiredKeys = @[@"devicename"];
     
     NSMutableArray *results = [[NSMutableArray alloc] init];
     

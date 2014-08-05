@@ -79,6 +79,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jog-hd-viu"/>
+                    <connections>
+                        <outlet property="table" destination="YR5-vG-mSc" id="85z-QS-u8w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0na-Ma-DGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
