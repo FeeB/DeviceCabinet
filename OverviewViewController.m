@@ -25,12 +25,27 @@ NSString* const ReferenceItemRecordName = @"Devices";
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     
-    [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
-        
-        self.list.array = records;
-        
-        //[self.tableView reloadData];
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    
+    CKRecordID *recordId = [[CKRecordID alloc] initWithRecordName:@"iPhone 4"];
+    
+    [publicDatabase fetchRecordWithID:recordId completionHandler:^(CKRecord *fetchedRecord, NSError *error) {
+        if(error){
+            [self.list addObject: @"test"];
+            [self.table reloadData];
+            NSLog(@"Error: %@, fetched: %@", error, fetchedRecord);
+        }else{
+            [self.list addObject: fetchedRecord];
+            [self.table reloadData];
+        }
     }];
+    
+//    [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
+//        
+//        self.list.array = records;
+//
+//    }];
 
    
     //tableData = [NSArray arrayWithObjects:@"test", @"test2", nil];
@@ -79,7 +94,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     // Just request the name field for all records
-    queryOperation.desiredKeys = @[@"name"];
+    //queryOperation.desiredKeys = @[@"name"];
     
     NSMutableArray *results = [[NSMutableArray alloc] init];
     
