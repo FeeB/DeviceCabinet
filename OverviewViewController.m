@@ -26,7 +26,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     _list = [[NSMutableArray alloc] init];
     
     [self fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
-                
+        
         for (CKRecord *recordName in records){
             [self.list addObject:recordName[@"devicename"]];
         }
@@ -76,7 +76,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     
     NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:recordType predicate:truePredicate];
-    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"devicename" ascending:YES]];
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     // Just request the name field for all records
