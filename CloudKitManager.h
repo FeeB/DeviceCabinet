@@ -12,6 +12,7 @@
 @interface CloudKitManager : NSObject
 
 - (void)fetchRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler;
-- (void)fetchRecordWithID:(NSString *)recordID completionHandler:(void (^)(CKRecord *record))completionHandler;
+-(void)fetchRecordWithDeviceName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler;
+-(void)fetchRecordWithPersonName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler;
 
 @end

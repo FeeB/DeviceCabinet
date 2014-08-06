@@ -8,6 +8,7 @@
 
 #import "DeviceViewController.h"
 #import <CloudKit/CloudKit.h>
+#import "CloudKitManager.h"
 
 @interface DeviceViewController ()
 
@@ -31,12 +32,52 @@
     deviceCategoryLabel.text = deviceCategory;
     bookedFromLabel.text = bookedFrom;
     
-    
+    self.personRecord = [[CKRecord alloc] initWithRecordType:@"Persons"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)storeReference {
+    CKContainer *container = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    
+    NSLog(@"ID: %@", self.deviceRecord.recordID);
+    
+    [publicDatabase fetchRecordWithID:self.deviceRecord.recordID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            CKReference *bookedReference = [[CKReference alloc]
+                                            initWithRecord:self.personRecord
+                                            action:CKReferenceActionNone];
+            record[@"booked"] = bookedReference;
+            
+            [publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+                if (error) {
+                    NSLog(@"Error: %@ saved: %@", error, record);
+                } else {
+                    NSLog(@"Success");
+                }
+            }];
+        }
+    }];
+}
+
+-(IBAction)bookDevice {
+    
+    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+    
+    [cloudManager fetchRecordWithPersonName:@"braun" completionHandler:^(NSArray *records) {
+        for (CKRecord *recordName in records){
+            self.personRecord = recordName.copy;
+            NSLog(@"Record person in methode: %@", self.personRecord);
+        }
+        
+        [self storeReference];
+    }];
 }
 
 

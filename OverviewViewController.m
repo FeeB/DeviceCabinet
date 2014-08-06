@@ -18,7 +18,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
 
 @property (nonatomic, readonly) NSMutableArray *list;
 @property (nonatomic, readonly) NSMutableArray *categories;
-@property (nonatomic, strong) NSMutableDictionary *dataArray;
+@property (nonatomic, strong) NSMutableArray *recordArray;
 
 @end
 
@@ -31,7 +31,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
-    _dataArray = [[NSMutableDictionary alloc] init];
+    _recordArray = [[NSMutableArray alloc] init];
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
@@ -39,14 +39,9 @@ NSString* const ReferenceItemRecordName = @"Devices";
         
         for (CKRecord *recordName in records){
             [self.list addObject:recordName[@"devicename"]];
-            [self.categories addObject:recordName[@"category"]];
+            [self.recordArray addObject:recordName];
         }
-        
-        self.dataArray = [NSMutableDictionary dictionaryWithObjects:self.categories forKeys:self.list];
         [self.table reloadData];
-        
-
-
     }];
     
     
@@ -83,8 +78,9 @@ NSString* const ReferenceItemRecordName = @"Devices";
     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     [self.navigationController pushViewController:controller animated:YES];
     controller.deviceName = cellText;
-    controller.deviceCategory = [self.dataArray valueForKey:cellText];
-    NSLog(@"category: %@", [self.dataArray valueForKey:cellText]);
+    CKRecord *currentRecord = [self.recordArray objectAtIndex:indexPath.row];
+    controller.deviceCategory = currentRecord[@"category"];
+    controller.deviceRecord = currentRecord;
 }
 
 /*

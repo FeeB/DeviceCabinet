@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CloudKit/CloudKit.h>
 
 @interface DeviceViewController : UIViewController
 
@@ -18,6 +19,12 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
 @property (nonatomic, weak) IBOutlet NSString *bookedFrom;
+
+@property (nonatomic, strong) CKRecord *deviceRecord;
+@property (nonatomic, strong) CKRecord *personRecord;
+
+-(IBAction)bookDevice;
+-(void)storeReference;
 
 
 @end
