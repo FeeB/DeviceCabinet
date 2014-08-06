@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBB19921CB1004B6F13 /* ProfileViewController.m */; };
+		3A367EC019921DE2004B6F13 /* CloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBF19921DE2004B6F13 /* CloudKitManager.m */; };
+		3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EC21992233E004B6F13 /* DeviceViewController.m */; };
 		3A5E178119654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E178319654AC700681289 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178219654AC700681289 /* CoreGraphics.framework */; };
 		3A5E178519654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
@@ -54,6 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A367EBA19921CB1004B6F13 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
+		3A367EBB19921CB1004B6F13 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
+		3A367EBE19921DE2004B6F13 /* CloudKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitManager.h; sourceTree = "<group>"; };
+		3A367EBF19921DE2004B6F13 /* CloudKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitManager.m; sourceTree = "<group>"; };
+		3A367EC11992233E004B6F13 /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceViewController.h; path = ../DeviceViewController.h; sourceTree = "<group>"; };
+		3A367EC21992233E004B6F13 /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceViewController.m; path = ../DeviceViewController.m; sourceTree = "<group>"; };
 		3A5E177D19654AC700681289 /* Device Cabinet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Device Cabinet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5E178019654AC700681289 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A5E178219654AC700681289 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A367EBD19921D9D004B6F13 /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				3A367EBE19921DE2004B6F13 /* CloudKitManager.h */,
+				3A367EBF19921DE2004B6F13 /* CloudKitManager.m */,
+			);
+			name = CloudKit;
+			sourceTree = "<group>";
+		};
 		3A5E177419654AC700681289 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +140,7 @@
 				3A5E17B319654AF900681289 /* Device.m */,
 				3A5E17B519654B0700681289 /* Cabinet.h */,
 				3A5E17B619654B0700681289 /* Cabinet.m */,
+				3A367EBD19921D9D004B6F13 /* CloudKit */,
 				3A5E178619654AC700681289 /* Device Cabinet */,
 				3A5E179F19654AC700681289 /* Device CabinetTests */,
 				3A5E177F19654AC700681289 /* Frameworks */,
@@ -153,6 +172,10 @@
 		3A5E178619654AC700681289 /* Device Cabinet */ = {
 			isa = PBXGroup;
 			children = (
+				3A367EC11992233E004B6F13 /* DeviceViewController.h */,
+				3A367EC21992233E004B6F13 /* DeviceViewController.m */,
+				3A367EBA19921CB1004B6F13 /* ProfileViewController.h */,
+				3A367EBB19921CB1004B6F13 /* ProfileViewController.m */,
 				3AC5A811198FB19C00576854 /* OverviewViewController.h */,
 				3AC5A812198FB19C00576854 /* OverviewViewController.m */,
 				7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */,
@@ -304,11 +327,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A5E17B719654B0700681289 /* Cabinet.m in Sources */,
+				3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */,
 				3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */,
 				3A5E17B119654AED00681289 /* Person.m in Sources */,
+				3A367EC019921DE2004B6F13 /* CloudKitManager.m in Sources */,
 				3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */,
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
 				3A5E178D19654AC700681289 /* main.m in Sources */,
+				3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */,
 				3A5E17B419654AF900681289 /* Device.m in Sources */,
 				3A5E17BA19654B2300681289 /* CreatePersonViewController.m in Sources */,
 			);

@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CloudKitManager.h"
 
 @interface OverviewViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-- (void)fetchRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler;
-@property IBOutlet UITableView *table;
+@property (nonatomic, strong) IBOutlet UITableView *table;
+@property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
 
+@property (nonatomic, weak) IBOutlet NSString *deviceCategory;
+
+//-(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
