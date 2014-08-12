@@ -33,17 +33,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     _categories = [[NSMutableArray alloc] init];
     _deviceArray = [[NSMutableArray alloc] init];
     
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    
-    [cloudManager fetchDeviceRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *deviceObjects) {
-        
-        for (Device *device in deviceObjects){
-            [self.list addObject:device.deviceName];
-            [self.deviceArray addObject:device];
-        }
-        [self.table reloadData];
-    }];
-    
+    [self getAllDevices];
     
 }
 
@@ -52,6 +42,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
     // Dispose of any resources that can be recreated.
 }
 
+//standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.list count];
@@ -71,11 +62,27 @@ NSString* const ReferenceItemRecordName = @"Devices";
     return cell;
 }
 
+//On click on one cell the device view will appear
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     [self.navigationController pushViewController:controller animated:YES];
 
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
+}
+
+//get all devices for the device overview
+-(void)getAllDevices{
+    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+    
+    [cloudManager fetchDeviceRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *deviceObjects) {
+        
+        for (Device *device in deviceObjects){
+            [self.list addObject:device.deviceName];
+            [self.deviceArray addObject:device];
+        }
+        [self.table reloadData];
+    }];
+
 }
 
 /*

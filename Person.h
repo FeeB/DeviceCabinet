@@ -19,5 +19,8 @@
 @property NSMutableArray *devices;
 @property CKRecordID *ID;
 @property NSString *userName;
+@property NSString *fullName;
+
+-(void)createFullNameWithFirstName;
 
 @end

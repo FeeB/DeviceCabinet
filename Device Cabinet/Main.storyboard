@@ -47,12 +47,12 @@
             </objects>
             <point key="canvasLocation" x="392" y="77"/>
         </scene>
-        <!--Device View Controller-->
+        <!--Gerätübersicht-->
         <scene sceneID="uQG-Mh-yQ6">
             <objects>
                 <viewController storyboardIdentifier="DeviceControllerID" id="Eqs-YC-kYu" customClass="DeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Gp-CS-GRh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gerätename:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NmG-Iq-xQi">
@@ -104,13 +104,13 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="bookDevice" destination="Eqs-YC-kYu" eventType="touchUpInside" id="242-zU-6ZZ"/>
+                                    <action selector="fetchPersonRecordOnClick" destination="Eqs-YC-kYu" eventType="touchUpInside" id="CFN-5J-JES"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="DUk-k6-lFr"/>
+                    <navigationItem key="navigationItem" title="Gerätübersicht" id="DUk-k6-lFr"/>
                     <connections>
                         <outlet property="bookedFromLabel" destination="hGm-MM-eEt" id="8cy-uc-stV"/>
                         <outlet property="deviceCategoryLabel" destination="OvO-Kh-jRv" id="iKH-li-MW5"/>
@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="392" y="804"/>
+            <point key="canvasLocation" x="392" y="814"/>
         </scene>
         <!--Profil-->
         <scene sceneID="0OO-jp-7jb">
@@ -154,6 +154,10 @@
                                 <rect key="frame" x="20" y="212" width="273" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aFT-S4-a1D" id="FBK-j5-ySX"/>
+                                    <outlet property="delegate" destination="aFT-S4-a1D" id="FCr-hD-hCf"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rS3-Wf-1J8">
                                 <rect key="frame" x="207" y="480" width="86" height="30"/>
@@ -180,8 +184,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profil" id="dGw-sR-8UW"/>
                     <connections>
-                        <outlet property="bookedDevicesView" destination="Mnw-y9-jr8" id="Ecd-xt-Bpc"/>
                         <outlet property="name" destination="hIt-0c-Dy1" id="MdL-Md-3T4"/>
+                        <outlet property="table" destination="Mnw-y9-jr8" id="8Vx-sX-Vv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -433,6 +437,6 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8XW-VX-dk2"/>
+        <segue reference="7yg-bC-ibs"/>
     </inferredMetricsTieBreakers>
 </document>

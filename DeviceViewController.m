@@ -19,9 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //set label text
     self.deviceCategoryLabel.text = self.deviceObject.category;
     self.deviceLabel.text = self.deviceObject.deviceName;
-    self.bookedFromLabel.text = self.bookedFrom;
+    
+    //set full name of person in name label
+    Person *bookedFrom = self.deviceObject.bookedFromPerson;
+    [bookedFrom createFullNameWithFirstName];
+    self.bookedFromLabel.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
 }
@@ -34,14 +40,14 @@
 -(void)storeReference {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    
-    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personIf:self.personObject.ID completionHandler:^(CKRecord *record) {
+    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^(CKRecord *record) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }];
 }
 
--(IBAction)bookDevice {
+//Action when user clicks on button
+-(IBAction)fetchPersonRecordOnClick {
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     

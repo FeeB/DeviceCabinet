@@ -22,7 +22,7 @@
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
--(IBAction)bookDevice;
+-(IBAction)fetchPersonRecordOnClick;
 -(void)storeReference;
 
 

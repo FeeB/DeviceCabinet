@@ -19,6 +19,7 @@
 -(Person *)getBackPersonObjektWithRecord:(CKRecord *)record;
 -(Device *)getBackDeviceObjektWithRecord:(CKRecord *)record;
 -(void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *record))completionHandler;
--(void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personIf:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record))completionHandler;
+-(void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record))completionHandler;
+-(void)getBackAllBookedDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler;
 
 @end

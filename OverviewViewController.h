@@ -15,7 +15,7 @@
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
 
 @property (nonatomic, weak) IBOutlet NSString *deviceCategory;
-
-//-(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+-(void)getAllDevices;
+-(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

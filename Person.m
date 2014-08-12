@@ -10,4 +10,10 @@
 
 @implementation Person
 
+
+-(void)createFullNameWithFirstName{
+   self.fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+    NSLog(@"%@", self.fullName);
+}
+
 @end
