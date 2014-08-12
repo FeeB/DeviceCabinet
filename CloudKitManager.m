@@ -32,7 +32,7 @@
 }
 
 
-- (void)fetchDeviceRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler {
+- (void)fetchDeviceRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *deviceObjects))completionHandler {
     
     NSPredicate *truePredicate = [NSPredicate predicateWithValue:YES];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:recordType predicate:truePredicate];
@@ -45,8 +45,7 @@
     NSMutableArray *results = [[NSMutableArray alloc] init];
     
     queryOperation.recordFetchedBlock = ^(CKRecord *record) {
-        Device *device = [[Device alloc]init];
-        device = [self getBackDeviceObjektWithRecord:record];
+        Device *device = [self getBackDeviceObjektWithRecord:record];
         [results addObject:device];
     };
     
@@ -66,8 +65,8 @@
     [publicDatabase addOperation:queryOperation];
 }
 
--(void)fetchDeviceRecordWithDeviceName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"devicename = %@", recordName];
+-(void)fetchDeviceRecordWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects))completionHandler {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"devicename = %@", deviceName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Devices" predicate:predicate];
     
     NSMutableArray *resultObejcts = [[NSMutableArray alloc] init];
@@ -79,8 +78,7 @@
             abort();
         } else {
             for (CKRecord *record in results) {
-                Device *device = [[Device alloc]init];
-                device = [self getBackDeviceObjektWithRecord:record];
+                Device *device = [self getBackDeviceObjektWithRecord:record];
                 [resultObejcts addObject:device];
             }
             dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -90,11 +88,12 @@
     }];
 }
 
--(void)fetchPersonRecordWithPersonName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"lastName = %@", recordName];
+-(void)fetchPersonRecordWithUserName:(NSString *)userName completionHandler:(void (^)(NSArray *personObjects))completionHandler {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userName = %@", userName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Persons" predicate:predicate];
     
-     NSMutableArray *resultObejcts = [[NSMutableArray alloc] init];
+     NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
         if (error) {
@@ -103,24 +102,23 @@
             abort();
         } else {
             for (CKRecord *record in results) {
-                Person *person = [[Person alloc]init];
-                person = [self getBackPersonObjektWithRecord:record];
-                [resultObejcts addObject:person];
+                Person *person = [self getBackPersonObjektWithRecord:record];
+                [resultObjects addObject:person];
             }
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(results);
+                completionHandler(resultObjects);
             });
         }
     }];
 }
 
--(void)fetchPersonRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecord *record))completionHandler{
-    [self.publicDatabase fetchRecordWithID:recordID completionHandler:^(CKRecord *record, NSError *error){
+-(void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *person))completionHandler{
+    [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error){
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(record);
+                completionHandler([self getBackPersonObjektWithRecord:record]);
             });
         }
         
@@ -152,7 +150,7 @@
     person.firstName = record[@"firstName"];
     person.lastName = record[@"lastName"];
     person.ID = record.recordID;
-    
+        
     return person;
 }
 
@@ -160,11 +158,15 @@
     Device *device = [[Device alloc]init];
     device.deviceName = record[@"devicename"];
     device.category = record[@"category"];
-    device.bookedFromPerson = record[@"booked"];
+    
     device.ID = record.recordID;
     
-    if (device.bookedFromPerson != nil) {
+    if (record[@"booked"] != nil) {
         device.isBooked = true;
+        CKReference *reference = record[@"booked"];
+        [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person) {
+            device.bookedFromPerson = person;
+        }];
     }
 
     

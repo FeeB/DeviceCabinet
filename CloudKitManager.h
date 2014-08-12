@@ -13,12 +13,12 @@
 
 @interface CloudKitManager : NSObject
 
-- (void)fetchDeviceRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *records))completionHandler;
--(void)fetchDeviceRecordWithDeviceName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler;
--(void)fetchPersonRecordWithPersonName:(NSString *)recordName completionHandler:(void (^)(NSArray *records))completionHandler;
+- (void)fetchDeviceRecordsWithType:(NSString *)recordType completionHandler:(void (^)(NSArray *deviceObjects))completionHandler;
+-(void)fetchDeviceRecordWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects))completionHandler;
+-(void)fetchPersonRecordWithUserName:(NSString *)userName completionHandler:(void (^)(NSArray *personObjects))completionHandler;
 -(Person *)getBackPersonObjektWithRecord:(CKRecord *)record;
 -(Device *)getBackDeviceObjektWithRecord:(CKRecord *)record;
--(void)fetchPersonRecordWithID:(CKRecordID *)recordID completionHandler:(void (^)(CKRecord *record))completionHandler;
+-(void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *record))completionHandler;
 -(void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personIf:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record))completionHandler;
 
 @end

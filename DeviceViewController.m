@@ -19,7 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.deviceCategoryLabel.text = self.deviceObject.deviceName;
+    self.deviceCategoryLabel.text = self.deviceObject.category;
+    self.deviceLabel.text = self.deviceObject.deviceName;
     self.bookedFromLabel.text = self.bookedFrom;
     
     self.personObject = [[Person alloc] init];
@@ -33,6 +34,7 @@
 -(void)storeReference {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
+    
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personIf:self.personObject.ID completionHandler:^(CKRecord *record) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -43,10 +45,9 @@
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager fetchPersonRecordWithPersonName:@"braun" completionHandler:^(NSArray *personObjects) {
+    [cloudManager fetchPersonRecordWithUserName:@"fbraun" completionHandler:^(NSArray *personObjects) {
         for (Person *person in personObjects){
             self.personObject = person;
-            NSLog(@"Record person in methode: %@", self.personObject);
         }
         
         [self storeReference];

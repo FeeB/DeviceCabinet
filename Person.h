@@ -18,5 +18,6 @@
 @property BOOL hasBookedDevice;
 @property NSMutableArray *devices;
 @property CKRecordID *ID;
+@property NSString *userName;
 
 @end
