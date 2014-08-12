@@ -18,7 +18,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
 
 @property (nonatomic, readonly) NSMutableArray *list;
 @property (nonatomic, readonly) NSMutableArray *categories;
-@property (nonatomic, strong) NSMutableArray *recordArray;
+@property (nonatomic, strong) NSMutableArray *deviceArray;
 
 @end
 
@@ -31,15 +31,15 @@ NSString* const ReferenceItemRecordName = @"Devices";
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
-    _recordArray = [[NSMutableArray alloc] init];
+    _deviceArray = [[NSMutableArray alloc] init];
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager fetchRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *records) {
+    [cloudManager fetchDeviceRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *deviceObjects) {
         
-        for (CKRecord *recordName in records){
-            [self.list addObject:recordName[@"devicename"]];
-            [self.recordArray addObject:recordName];
+        for (Device *device in deviceObjects){
+            [self.list addObject:device.deviceName];
+            [self.deviceArray addObject:device];
         }
         [self.table reloadData];
     }];
@@ -72,15 +72,10 @@ NSString* const ReferenceItemRecordName = @"Devices";
 }
 
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *cellText = cell.textLabel.text;
-
     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     [self.navigationController pushViewController:controller animated:YES];
-    controller.deviceName = cellText;
-    CKRecord *currentRecord = [self.recordArray objectAtIndex:indexPath.row];
-    controller.deviceCategory = currentRecord[@"category"];
-    controller.deviceRecord = currentRecord;
+
+    controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
 }
 
 /*

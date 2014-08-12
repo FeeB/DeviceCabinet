@@ -8,20 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <CloudKit/CloudKit.h>
+#import "Device.h"
+#import "Person.h"
 
 @interface DeviceViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
-@property (nonatomic, weak) IBOutlet NSString *deviceName;
-
 @property (nonatomic, weak) IBOutlet UILabel *deviceCategoryLabel;
-@property (nonatomic, weak) IBOutlet NSString *deviceCategory;
 
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
-@property (nonatomic, weak) IBOutlet NSString *bookedFrom;
+@property (nonatomic, weak) NSString *bookedFrom;
 
-@property (nonatomic, strong) CKRecord *deviceRecord;
-@property (nonatomic, strong) CKRecord *personRecord;
+@property (nonatomic, strong) Device *deviceObject;
+@property (nonatomic, strong) Person *personObject;
 
 -(IBAction)bookDevice;
 -(void)storeReference;

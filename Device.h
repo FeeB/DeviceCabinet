@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CloudKit/CloudKit.h>
+
 @class Person;
 
 @interface Device : NSObject
@@ -16,5 +18,6 @@
 @property BOOL isBooked;
 @property UIImage *image;
 @property Person *bookedFromPerson;
+@property CKRecordID *ID;
 
 @end

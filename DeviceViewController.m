@@ -16,23 +16,13 @@
 
 @implementation DeviceViewController
 
-@synthesize deviceLabel;
-@synthesize deviceName;
-
-@synthesize deviceCategoryLabel;
-@synthesize deviceCategory;
-
-@synthesize bookedFromLabel;
-@synthesize bookedFrom;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    deviceLabel.text = deviceName;
-    deviceCategoryLabel.text = deviceCategory;
-    bookedFromLabel.text = bookedFrom;
+    self.deviceCategoryLabel.text = self.deviceObject.deviceName;
+    self.bookedFromLabel.text = self.bookedFrom;
     
-    self.personRecord = [[CKRecord alloc] initWithRecordType:@"Persons"];
+    self.personObject = [[Person alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,28 +31,11 @@
 }
 
 -(void)storeReference {
-    CKContainer *container = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [container publicCloudDatabase];
+    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    NSLog(@"ID: %@", self.deviceRecord.recordID);
-    
-    [publicDatabase fetchRecordWithID:self.deviceRecord.recordID completionHandler:^(CKRecord *record, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            CKReference *bookedReference = [[CKReference alloc]
-                                            initWithRecord:self.personRecord
-                                            action:CKReferenceActionNone];
-            record[@"booked"] = bookedReference;
-            
-            [publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
-                if (error) {
-                    NSLog(@"Error: %@ saved: %@", error, record);
-                } else {
-                    NSLog(@"Success");
-                }
-            }];
-        }
+    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personIf:self.personObject.ID completionHandler:^(CKRecord *record) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
@@ -70,10 +43,10 @@
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager fetchRecordWithPersonName:@"braun" completionHandler:^(NSArray *records) {
-        for (CKRecord *recordName in records){
-            self.personRecord = recordName.copy;
-            NSLog(@"Record person in methode: %@", self.personRecord);
+    [cloudManager fetchPersonRecordWithPersonName:@"braun" completionHandler:^(NSArray *personObjects) {
+        for (Person *person in personObjects){
+            self.personObject = person;
+            NSLog(@"Record person in methode: %@", self.personObject);
         }
         
         [self storeReference];
