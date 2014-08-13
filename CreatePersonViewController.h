@@ -11,12 +11,11 @@
 
 @interface CreatePersonViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *firstName;
-@property (weak, nonatomic) IBOutlet UITextField *lastName;
-@property (weak, nonatomic) IBOutlet UITextField *password;
-@property (weak, nonatomic) IBOutlet UITextField *userName;
-@property (weak, nonatomic) IBOutlet UISwitch *isAdmin;
-
+@property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *isAdminSwitch;
 
 - (IBAction)storePerson;
 

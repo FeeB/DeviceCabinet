@@ -53,7 +53,7 @@
                     <connections>
                         <outlet property="table" destination="YR5-vG-mSc" id="85z-QS-u8w"/>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="fromTableToDeviceView" id="zVJ-kL-hEy"/>
-                        <segue destination="1U2-KN-iqp" kind="modal" identifier="logIn" id="wb9-fn-pNc"/>
+                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="logIn" id="wb9-fn-pNc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0na-Ma-DGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="392" y="814"/>
+            <point key="canvasLocation" x="1134" y="860"/>
         </scene>
         <!--Profil-->
         <scene sceneID="0OO-jp-7jb">
@@ -226,7 +226,7 @@
                         <outlet property="name" destination="hIt-0c-Dy1" id="MdL-Md-3T4"/>
                         <outlet property="personButton" destination="p4K-85-Y0U" id="Y8B-qS-ELI"/>
                         <outlet property="table" destination="Mnw-y9-jr8" id="8Vx-sX-Vv6"/>
-                        <segue destination="1U2-KN-iqp" kind="modal" identifier="logIn" id="44s-ko-ABX"/>
+                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="logIn" id="44s-ko-ABX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -307,7 +307,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1227" y="429"/>
+            <point key="canvasLocation" x="1759" y="429"/>
         </scene>
         <!--Password View Controller-->
         <scene sceneID="yyC-gA-Ozv">
@@ -456,10 +456,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="firstName" destination="jrG-Rb-Kdi" id="tLr-ju-Sg6"/>
-                        <outlet property="isAdmin" destination="VO0-fZ-fde" id="Tpd-tO-cmj"/>
-                        <outlet property="lastName" destination="6Er-lw-yyn" id="hQ1-iY-hbE"/>
-                        <outlet property="password" destination="yVy-G4-p6z" id="Y5K-jB-SgM"/>
+                        <outlet property="firstNameTextField" destination="jrG-Rb-Kdi" id="9Ka-nf-seZ"/>
+                        <outlet property="isAdminSwitch" destination="VO0-fZ-fde" id="jy5-y0-4aW"/>
+                        <outlet property="lastNameTextField" destination="6Er-lw-yyn" id="8sn-st-BvD"/>
+                        <outlet property="passwordTextField" destination="yVy-G4-p6z" id="Tu7-XG-sRo"/>
+                        <outlet property="userNameTextField" destination="tnG-Qr-O7i" id="kXk-zB-I8A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mX3-3h-urF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -526,7 +527,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Epa-4L-Mt9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-459" y="799"/>
+            <point key="canvasLocation" x="392" y="1121"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="tbY-Gu-qxZ">
@@ -585,7 +586,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="8hJ-Z3-IIP" kind="modal" id="Jk1-yV-aog"/>
+                                    <segue destination="8hJ-Z3-IIP" kind="push" id="Jk1-yV-aog"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -602,7 +603,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAi-el-de0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-49" y="799"/>
+            <point key="canvasLocation" x="-41" y="1121"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Oem-0N-Ju5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ht1-Gt-e4Z" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FfV-pC-lnJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1U2-KN-iqp" kind="relationship" relationship="rootViewController" id="QJe-Sr-Flj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3yS-02-psB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426" y="1121"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -614,7 +633,7 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="axc-rQ-ksv"/>
+        <segue reference="7yg-bC-ibs"/>
         <segue reference="wb9-fn-pNc"/>
     </inferredMetricsTieBreakers>
 </document>

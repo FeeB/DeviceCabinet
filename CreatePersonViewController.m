@@ -9,13 +9,7 @@
 #import "CreatePersonViewController.h"
 #import "Person.h"
 #import <CloudKit/CloudKit.h>
-
-NSString * const PersonsRecordType = @"Persons";
-NSString * const FirstNameField= @"firstName";
-NSString * const LastNameField = @"lastName";
-NSString * const PasswordField = @"password";
-NSString * const UsernameField = @"userName";
-NSString * const IsAdminSwitch = @"isAdmin";
+#import "CloudKitManager.h"
 
 @interface CreatePersonViewController ()
     @property (readonly) CKContainer *container;
@@ -44,42 +38,28 @@ NSString * const IsAdminSwitch = @"isAdmin";
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)storePerson
+- (IBAction)storePerson
 {
-    CKContainer *container = [CKContainer defaultContainer];
-    CKDatabase *publicDatabase = [container publicCloudDatabase];
-    Person *personObject = [[Person alloc] init];
-    CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:PersonsRecordType];
+    __block Person *person = [[Person alloc] init];
+    person.firstName = self.firstNameTextField.text;
+    person.lastName = self.lastNameTextField.text;
+    person.decodedPasswort = self.passwordTextField.text;
+    [person encodePassword];
+    person.userName = self.userNameTextField.text;
+    person.isAdmin = self.isAdminSwitch.on;
     
-    personObject.firstName = self.firstName.text;
-    personObject.lastName = self.lastName.text;
-    personObject.decodedPasswort = self.password.text;
-    [personObject encodePassword];
-    personObject.userName = self.userName.text;
-    
-    if (self.isAdmin.on){
-        personObject.isAdmin = true;
-        personRecord[IsAdminSwitch] = @"true";
-    }
-    
-    
-    personRecord[FirstNameField] = personObject.firstName;
-    personRecord[LastNameField] = personObject.lastName;
-    personRecord[PasswordField] = personObject.encodedPasswort;
-    personRecord[UsernameField] = personObject.userName;
-    
-    
-    [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@ saved: %@", error, savedPerson);
+    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
+    [cloudManager fetchPersonWithUsername:person.userName completionHandler:^(Person *person) {
+        if (person) {
+            // ERROR: User already exists
         } else {
-            NSLog(@"Saved: %@", savedPerson);
+            [cloudManager storePerson:person completionHandler:^{
+                [[[UIAlertView alloc]initWithTitle:@"Gespeichert!"
+                                           message:[NSString stringWithFormat: @"Ihr Name: %@ %@", person.firstName, person.lastName]
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }];
         }
     }];
-    
-//    [[[UIAlertView alloc]initWithTitle:@"Gespeichert!"
-//                              message:[NSString stringWithFormat: @"Ihr Name: %1@ %2@", personObject.firstName, personObject.lastName]
-//                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 

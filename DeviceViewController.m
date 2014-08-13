@@ -54,18 +54,16 @@
 -(void)storeReference {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^(CKRecord *record) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^{
+        [[[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
 -(void)deleteReference{
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^(CKRecord *record) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich zurückgegeben!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^{
+        [[[UIAlertView alloc]initWithTitle:@"Erfolgreich zurückgegeben!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -80,11 +78,8 @@
         
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
         
-        [cloudManager fetchPersonRecordWithUserName:currentUserName completionHandler:^(NSArray *personObjects) {
-            for (Person *person in personObjects){
-                self.personObject = person;
-            }
-            
+        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
+            self.personObject = person;
             [self storeReference];
         }];
     }else{

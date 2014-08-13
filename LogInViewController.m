@@ -28,13 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)logInOnClick{
+- (IBAction)logInOnClick{
     CloudKitManager *manager = [[CloudKitManager alloc]init];
     
-    [manager fetchPersonRecordWithUserName:[self.userNameField text] completionHandler:^(NSArray *personObjects) {
-        for (Person *person in personObjects) {
-            self.personObject = person;
-        }
+    [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person) {
+        self.personObject = person;
         NSString *encodedPassword = [self.passwordField.text MD5];
         
         if ([encodedPassword isEqualToString:self.personObject.encodedPasswort]) {
@@ -48,7 +46,7 @@
     
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
+- (BOOL) textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }

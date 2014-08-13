@@ -12,9 +12,6 @@
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
 
-NSString* const ReferenceItemRecordName = @"Devices";
-
-
 @interface OverviewViewController ()
 
 @property (nonatomic, readonly) NSMutableArray *list;
@@ -30,17 +27,12 @@ NSString* const ReferenceItemRecordName = @"Devices";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    __block BOOL isLoggedIn = false;
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults objectForKey:@"userName"]) {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+    if (username) {
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager fetchPersonRecordWithUserName:[userDefaults objectForKey:@"userName"] completionHandler:^(NSArray *personObjects) {
-            if ([personObjects count]) {
-                isLoggedIn = true;
-            }
-            
-            if (!isLoggedIn) {
+        [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
+            if (!person) {
                 [self performSegueWithIdentifier:@"logIn" sender:self];
             }
         }];
@@ -94,7 +86,7 @@ NSString* const ReferenceItemRecordName = @"Devices";
 //get all devices for the device overview
 -(void)getAllDevices{
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDeviceRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *deviceObjects) {
+    [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects) {
         
         for (Device *device in deviceObjects){
             [self.list addObject:device.deviceName];

@@ -65,18 +65,16 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    [cloudManager fetchPersonRecordWithUserName:[userDefaults objectForKey:@"userName"] completionHandler:^(NSArray *personObjects) {
-        for (Person *person in personObjects){
-            self.personObject = person;
-            [self.personObject createFullNameWithFirstName];
-            self.name.text = self.personObject.fullName;
-            if (self.personObject.isAdmin) {
-                [self.personButton setHidden:false];
-                [self.deviceButton setHidden:false];
-            }
+    [cloudManager fetchPersonWithUsername:[userDefaults objectForKey:@"userName"] completionHandler:^(Person *person) {
+        self.personObject = person;
+        [self.personObject createFullNameWithFirstName];
+        self.name.text = self.personObject.fullName;
+        if (self.personObject.isAdmin) {
+            [self.personButton setHidden:false];
+            [self.deviceButton setHidden:false];
         }
     
-        [cloudManager getBackAllBookedDevicesWithPersonID:self.personObject.ID completionHandler:^(NSArray *devicesArray) {
+        [cloudManager fetchDevicesWithPersonID:self.personObject.ID completionHandler:^(NSArray *devicesArray) {
             for (Device *device in devicesArray){
                 [self.list addObject:device.deviceName];
                 [self.deviceArray addObject:device];

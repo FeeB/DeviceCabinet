@@ -24,7 +24,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)sendRegisterMail:(id)sender{
+- (IBAction)sendRegisterMail:(id)sender{
     // Email Subject
     NSString *emailTitle = @"Register Mail from Device Cabinet App";
     // Email Content

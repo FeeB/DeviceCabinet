@@ -31,10 +31,8 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    [cloudManager fetchPersonRecordWithUserName:[userDefaults objectForKey:@"userName"] completionHandler:^(NSArray *personObjects) {
-        for (Person *personObject in personObjects) {
-            self.person = personObject;
-        }
+    [cloudManager fetchPersonWithUsername:[userDefaults objectForKey:@"userName"] completionHandler:^(Person *person) {
+        self.person = person;
         
         [cloudManager resetPasswordFromPersonObjectWithPersonID:self.person.ID password:[self.password.text MD5] completionHandler:^(CKRecord *record) {
             if (record) {
