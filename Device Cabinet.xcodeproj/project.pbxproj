@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A1BB825199B7B0300888298 /* MD5Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BB824199B7B0300888298 /* MD5Extension.m */; };
 		3A1BB82D199BA60B00888298 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BB82C199BA60B00888298 /* PasswordViewController.m */; };
+		3A1BB830199BB64800888298 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BB82F199BB64800888298 /* RegisterViewController.m */; };
 		3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBB19921CB1004B6F13 /* ProfileViewController.m */; };
 		3A367EC019921DE2004B6F13 /* CloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBF19921DE2004B6F13 /* CloudKitManager.m */; };
 		3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EC21992233E004B6F13 /* DeviceViewController.m */; };
@@ -36,6 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3A1BB831199BB92200888298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A5E177519654AC700681289 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A5E177C19654AC700681289;
+			remoteInfo = "Device Cabinet";
+		};
 		3A5E179D19654AC700681289 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A5E177519654AC700681289 /* Project object */;
@@ -64,6 +72,8 @@
 		3A1BB824199B7B0300888298 /* MD5Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Extension.m; path = "Device Cabinet/MD5Extension.m"; sourceTree = "<group>"; };
 		3A1BB82B199BA60B00888298 /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		3A1BB82C199BA60B00888298 /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		3A1BB82E199BB64800888298 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		3A1BB82F199BB64800888298 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		3A367EBA19921CB1004B6F13 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
 		3A367EBB19921CB1004B6F13 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
 		3A367EBE19921DE2004B6F13 /* CloudKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitManager.h; sourceTree = "<group>"; };
@@ -175,6 +185,8 @@
 				3A367EBB19921CB1004B6F13 /* ProfileViewController.m */,
 				3A1BB82B199BA60B00888298 /* PasswordViewController.h */,
 				3A1BB82C199BA60B00888298 /* PasswordViewController.m */,
+				3A1BB82E199BB64800888298 /* RegisterViewController.h */,
+				3A1BB82F199BB64800888298 /* RegisterViewController.m */,
 			);
 			name = Profil;
 			sourceTree = "<group>";
@@ -309,6 +321,7 @@
 				3A5E179E19654AC700681289 /* PBXTargetDependency */,
 				3AAC5C9F197E6E49006D26CE /* PBXTargetDependency */,
 				3AAC5CA1197E6E49006D26CE /* PBXTargetDependency */,
+				3A1BB832199BB92200888298 /* PBXTargetDependency */,
 			);
 			name = "Device CabinetTests";
 			productName = "Device CabinetTests";
@@ -391,6 +404,7 @@
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
 				3A5E178D19654AC700681289 /* main.m in Sources */,
 				3AF7C8FF199A2A8A00CF5B16 /* LogInViewController.m in Sources */,
+				3A1BB830199BB64800888298 /* RegisterViewController.m in Sources */,
 				3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */,
 				3A5E17B419654AF900681289 /* Device.m in Sources */,
 				3A1BB825199B7B0300888298 /* MD5Extension.m in Sources */,
@@ -409,6 +423,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3A1BB832199BB92200888298 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A5E177C19654AC700681289 /* Device Cabinet */;
+			targetProxy = 3A1BB831199BB92200888298 /* PBXContainerItemProxy */;
+		};
 		3A5E179E19654AC700681289 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A5E177C19654AC700681289 /* Device Cabinet */;
