@@ -27,7 +27,7 @@
     //set full name of person in name label
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
     [bookedFrom createFullNameWithFirstName];
-    self.bookedFromLabel.text = bookedFrom.fullName;
+    self.bookedFromLabelText.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
     
@@ -36,10 +36,13 @@
         NSString *currentUserName = [currentUser objectForKey:@"userName"];
         if ([currentUserName isEqualToString:self.deviceObject.bookedFromPerson.userName]) {
             [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
+            [self.bookedFromLabelText setText:@"Dir"];
         }else{
             [self.bookDevice setEnabled:false];
             [self.bookDevice setTitle:@"Bereits ausgeliehen" forState:UIControlStateNormal];
         }
+    }else{
+        [self.bookedFromLabel setHidden:true];
     }
 }
 

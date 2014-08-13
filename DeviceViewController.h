@@ -16,6 +16,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceCategoryLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bookedFromLabelText;
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
 
 @property (nonatomic, strong) Device *deviceObject;

@@ -110,11 +110,11 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0bC-hI-2bB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0bC-hI-2bB">
                                 <rect key="frame" x="78" y="329" width="164" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Jetzt ausleihen">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="fetchPersonRecordOnClick" destination="Eqs-YC-kYu" eventType="touchUpInside" id="CFN-5J-JES"/>
@@ -126,7 +126,8 @@
                     <navigationItem key="navigationItem" title="Gerätübersicht" id="DUk-k6-lFr"/>
                     <connections>
                         <outlet property="bookDevice" destination="0bC-hI-2bB" id="dTW-Dv-3ld"/>
-                        <outlet property="bookedFromLabel" destination="hGm-MM-eEt" id="8cy-uc-stV"/>
+                        <outlet property="bookedFromLabel" destination="OC0-rJ-B2E" id="2CS-1m-nma"/>
+                        <outlet property="bookedFromLabelText" destination="hGm-MM-eEt" id="LyB-9s-EG2"/>
                         <outlet property="deviceCategoryLabel" destination="OvO-Kh-jRv" id="iKH-li-MW5"/>
                         <outlet property="deviceLabel" destination="GFd-qr-nHb" id="A4G-0P-Qbm"/>
                     </connections>
@@ -561,6 +562,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="7yg-bC-ibs"/>
-        <segue reference="44s-ko-ABX"/>
+        <segue reference="wb9-fn-pNc"/>
     </inferredMetricsTieBreakers>
 </document>

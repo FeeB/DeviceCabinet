@@ -53,9 +53,10 @@
     return YES;
 }
 
+//toDo reload parentView
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    NSLog(@"%@", self.parentViewController);
+//    NSLog(@"%@", self.parentViewController);
     [self.parentViewController viewDidLoad];
 }
 
