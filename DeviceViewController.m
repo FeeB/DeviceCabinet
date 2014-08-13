@@ -30,6 +30,17 @@
     self.bookedFromLabel.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
+    
+    if (self.deviceObject.isBooked) {
+        NSUserDefaults *currentUser = [NSUserDefaults standardUserDefaults];
+        NSString *currentUserName = [currentUser objectForKey:@"userName"];
+        if ([currentUserName isEqualToString:self.deviceObject.bookedFromPerson.userName]) {
+            [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
+        }else{
+            [self.bookDevice setEnabled:false];
+            [self.bookDevice setTitle:@"Bereits ausgeliehen" forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,18 +57,37 @@
     }];
 }
 
-//Action when user clicks on button
--(IBAction)fetchPersonRecordOnClick {
-    
+-(void)deleteReference{
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager fetchPersonRecordWithUserName:@"fbraun" completionHandler:^(NSArray *personObjects) {
-        for (Person *person in personObjects){
-            self.personObject = person;
-        }
-        
-        [self storeReference];
+    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^(CKRecord *record) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Erfolgreich zurückgegeben!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }];
+}
+
+//Action when user clicks on button
+-(IBAction)fetchPersonRecordOnClick {
+    NSUserDefaults *currentUser = [NSUserDefaults standardUserDefaults];
+    NSString *currentUserName = [currentUser objectForKey:@"userName"];
+    
+    if (!self.deviceObject.isBooked){
+        [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
+        self.deviceObject.isBooked = true;
+        
+        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+        
+        [cloudManager fetchPersonRecordWithUserName:currentUserName completionHandler:^(NSArray *personObjects) {
+            for (Person *person in personObjects){
+                self.personObject = person;
+            }
+            
+            [self storeReference];
+        }];
+    }else{
+        [self deleteReference];
+        [self.bookDevice setTitle:@"Jetzt ausleihen" forState:UIControlStateNormal];
+    }
 }
 
 

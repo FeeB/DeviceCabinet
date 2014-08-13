@@ -29,6 +29,8 @@
     _deviceArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
     [self getAllBookedDevices];
+    [self.personButton setHidden:true];
+    [self.deviceButton setHidden:true];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,12 +63,17 @@
 -(void)getAllBookedDevices{
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    [cloudManager fetchPersonRecordWithUserName:@"fbraun" completionHandler:^(NSArray *personObjects) {
+    [cloudManager fetchPersonRecordWithUserName:[userDefaults objectForKey:@"userName"] completionHandler:^(NSArray *personObjects) {
         for (Person *person in personObjects){
             self.personObject = person;
             [self.personObject createFullNameWithFirstName];
             self.name.text = self.personObject.fullName;
+            if (self.personObject.isAdmin) {
+                [self.personButton setHidden:false];
+                [self.deviceButton setHidden:false];
+            }
         }
     
         [cloudManager getBackAllBookedDevicesWithPersonID:self.personObject.ID completionHandler:^(NSArray *devicesArray) {
@@ -85,6 +92,12 @@
     [self.navigationController pushViewController:controller animated:YES];
     
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
+}
+
+-(IBAction)logOut{
+    NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+    [self performSegueWithIdentifier:@"logIn" sender:self];
 }
 
 

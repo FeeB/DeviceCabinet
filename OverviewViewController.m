@@ -10,6 +10,7 @@
 #import <CloudKit/CloudKit.h>
 #import "CloudKitManager.h"
 #import "DeviceViewController.h"
+#import "LogInViewController.h"
 
 NSString* const ReferenceItemRecordName = @"Devices";
 
@@ -28,6 +29,27 @@ NSString* const ReferenceItemRecordName = @"Devices";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    __block BOOL isLoggedIn = false;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:@"userName"]) {
+        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+        [cloudManager fetchPersonRecordWithUserName:[userDefaults objectForKey:@"userName"] completionHandler:^(NSArray *personObjects) {
+            if ([personObjects count]) {
+                isLoggedIn = true;
+            }
+            
+            if (!isLoggedIn) {
+                [self performSegueWithIdentifier:@"logIn" sender:self];
+            }
+        }];
+    }else{
+        [self performSegueWithIdentifier:@"logIn" sender:self];
+    }
+    
+   
+    
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
@@ -66,14 +88,12 @@ NSString* const ReferenceItemRecordName = @"Devices";
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     [self.navigationController pushViewController:controller animated:YES];
-
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
 }
 
 //get all devices for the device overview
 -(void)getAllDevices{
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    
     [cloudManager fetchDeviceRecordsWithType:ReferenceItemRecordName completionHandler:^(NSArray *deviceObjects) {
         
         for (Device *device in deviceObjects){
@@ -83,6 +103,12 @@ NSString* const ReferenceItemRecordName = @"Devices";
         [self.table reloadData];
     }];
 
+}
+
+-(IBAction)logOut{
+    NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+    [self performSegueWithIdentifier:@"logIn" sender:self];
 }
 
 /*

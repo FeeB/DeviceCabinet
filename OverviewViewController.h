@@ -17,5 +17,6 @@
 @property (nonatomic, weak) IBOutlet NSString *deviceCategory;
 -(void)getAllDevices;
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+-(IBAction)logOut;
 
 @end

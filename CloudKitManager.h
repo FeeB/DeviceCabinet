@@ -21,5 +21,7 @@
 -(void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *record))completionHandler;
 -(void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record))completionHandler;
 -(void)getBackAllBookedDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler;
+-(void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record))completionHandler;
+-(void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler;
 
 @end

@@ -15,15 +15,15 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceCategoryLabel;
-
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
-@property (nonatomic, weak) NSString *bookedFrom;
+@property (nonatomic, weak) IBOutlet UIButton *bookDevice;
 
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
 -(IBAction)fetchPersonRecordOnClick;
 -(void)storeReference;
+-(void)deleteReference;
 
 
 @end

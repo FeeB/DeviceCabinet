@@ -20,7 +20,13 @@
 @property CKRecordID *ID;
 @property NSString *userName;
 @property NSString *fullName;
+@property NSString *encodedPasswort;
+@property NSString *decodedPasswort;
+@property NSString *role;
+@property BOOL isAdmin;
 
 -(void)createFullNameWithFirstName;
+-(void)encodePassword;
+-(void)decodePassword;
 
 @end

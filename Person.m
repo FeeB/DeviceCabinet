@@ -7,13 +7,17 @@
 //
 
 #import "Person.h"
+#import "MD5Extension.h"
 
 @implementation Person
 
 
 -(void)createFullNameWithFirstName{
    self.fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
-    NSLog(@"%@", self.fullName);
 }
+
+-(void)encodePassword{
+    self.encodedPasswort = [self.decodedPasswort MD5];
+};
 
 @end

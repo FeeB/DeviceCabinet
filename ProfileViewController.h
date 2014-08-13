@@ -14,9 +14,12 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *name;
 @property (nonatomic, strong) IBOutlet UITableView *table;
+@property (nonatomic, weak) IBOutlet UIButton *personButton;
+@property (nonatomic, weak) IBOutlet UIButton *deviceButton;
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 -(void)getAllBookedDevices;
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+-(IBAction)logOut;
 
 @end

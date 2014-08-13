@@ -13,6 +13,9 @@
 NSString * const PersonsRecordType = @"Persons";
 NSString * const FirstNameField= @"firstName";
 NSString * const LastNameField = @"lastName";
+NSString * const PasswordField = @"password";
+NSString * const UsernameField = @"userName";
+NSString * const IsAdminSwitch = @"isAdmin";
 
 @interface CreatePersonViewController ()
     @property (readonly) CKContainer *container;
@@ -46,12 +49,25 @@ NSString * const LastNameField = @"lastName";
     CKContainer *container = [CKContainer defaultContainer];
     CKDatabase *publicDatabase = [container publicCloudDatabase];
     Person *personObject = [[Person alloc] init];
+    CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:PersonsRecordType];
+    
     personObject.firstName = self.firstName.text;
     personObject.lastName = self.lastName.text;
+    personObject.decodedPasswort = self.password.text;
+    [personObject encodePassword];
+    personObject.userName = self.userName.text;
     
-    CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:PersonsRecordType];
+    if (self.isAdmin.on){
+        personObject.isAdmin = true;
+        personRecord[IsAdminSwitch] = @"true";
+    }
+    
+    
     personRecord[FirstNameField] = personObject.firstName;
     personRecord[LastNameField] = personObject.lastName;
+    personRecord[PasswordField] = personObject.encodedPasswort;
+    personRecord[UsernameField] = personObject.userName;
+    
     
     [publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         if (error) {

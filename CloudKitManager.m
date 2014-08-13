@@ -110,18 +110,18 @@
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
         if (error) {
-            // In your app, this error needs love and care.
+//            // In your app, this error needs love and care.
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
-        } else {
-            for (CKRecord *record in results) {
-                Person *person = [self getBackPersonObjektWithRecord:record];
-                [resultObjects addObject:person];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(resultObjects);
-            });
+//            abort();
         }
+        for (CKRecord *record in results) {
+            Person *person = [self getBackPersonObjektWithRecord:record];
+            [resultObjects addObject:person];
+        }
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(resultObjects);
+        });
+//        }
     }];
 }
 
@@ -149,8 +149,50 @@
             NSLog(@"Error: %@", error);
         } else {
             //create reference with person record ID
-            CKReference *bookedReference = [[CKReference alloc] initWithRecordID:personID action:CKReferenceActionNone];
+            CKReference *bookedReference = [[CKReference alloc] initWithRecordID:personID action:CKReferenceActionDeleteSelf];
             record[@"booked"] = bookedReference;
+            
+            //store device record back
+            [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+                if (error) {
+                    NSLog(@"Error: %@ saved: %@", error, record);
+                } else {
+                    NSLog(@"Success");
+                }
+            }];
+        }
+    }];
+}
+
+-(void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record))completionHandler{
+    //fetch device record
+    [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            CKReference *bookedReference;
+            record[@"booked"] = bookedReference;
+            
+            //store device record back
+            [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+                if (error) {
+                    NSLog(@"Error: %@ saved: %@", error, record);
+                } else {
+                    NSLog(@"Success");
+                }
+            }];
+        }
+    }];
+}
+
+-(void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler{
+    //fetch device record
+    [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            //create reference with person record ID
+            record[@"password"] = password;
             
             //store device record back
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
@@ -206,7 +248,13 @@
     Person *person = [[Person alloc]init];
     person.firstName = record[@"firstName"];
     person.lastName = record[@"lastName"];
+    person.userName = record[@"userName"];
+    person.encodedPasswort = record[@"password"];
     person.ID = record.recordID;
+    
+    if (record[@"isAdmin"]) {
+        person.isAdmin = true;
+    }
         
     return person;
 }
@@ -226,6 +274,8 @@
         [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person) {
             device.bookedFromPerson = person;
         }];
+    }else{
+        device.isBooked = false;
     }
 
     

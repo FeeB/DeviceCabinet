@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Person.h"
 
 @interface LogInViewController : UIViewController <UITextFieldDelegate>
 
@@ -16,6 +17,9 @@
 @property (nonatomic, weak) IBOutlet UITextField *passwordField;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
 
+@property (nonatomic, weak) Person *personObject;
+
 -(IBAction)logInOnClick;
+- (void)viewWillDisappear:(BOOL)animated;
 
 @end
