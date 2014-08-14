@@ -11,6 +11,7 @@
 #import "CloudKitManager.h"
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
+#import "UserDefaults.h"
 
 @interface OverviewViewController ()
 
@@ -28,10 +29,11 @@
     [super viewDidLoad];
     
     
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    if (username) {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *currentUserName = [userDefaults getCurrentUsername];
+    if (currentUserName) {
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
+        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
             if (!person) {
                 [self performSegueWithIdentifier:@"logIn" sender:self];
             }
@@ -39,8 +41,6 @@
     }else{
         [self performSegueWithIdentifier:@"logIn" sender:self];
     }
-    
-   
     
     // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
@@ -98,8 +98,8 @@
 }
 
 -(IBAction)logOut{
-    NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    [userDefaults resetCurrentUser];
     [self performSegueWithIdentifier:@"logIn" sender:self];
 }
 

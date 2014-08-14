@@ -9,6 +9,7 @@
 #import "PasswordViewController.h"
 #import "CloudKitManager.h"
 #import "MD5Extension.h"
+#import "UserDefaults.h"
 
 @interface PasswordViewController ()
 
@@ -29,9 +30,9 @@
 -(IBAction)resetPassword{
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
-    [cloudManager fetchPersonWithUsername:[userDefaults objectForKey:@"userName"] completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:[userDefaults getCurrentUsername] completionHandler:^(Person *person) {
         self.person = person;
         
         [cloudManager resetPasswordFromPersonObjectWithPersonID:self.person.ID password:[self.password.text MD5] completionHandler:^(CKRecord *record) {

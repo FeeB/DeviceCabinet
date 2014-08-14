@@ -10,6 +10,7 @@
 #import "CloudKitManager.h"
 #import "Person.h"
 #import "MD5Extension.h"
+#import "UserDefaults.h"
 
 @interface LogInViewController ()
 
@@ -36,9 +37,8 @@
         NSString *encodedPassword = [self.passwordField.text MD5];
         
         if ([encodedPassword isEqualToString:self.personObject.encodedPasswort]) {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:self.personObject.userName forKey:@"userName"];
-            [userDefaults synchronize];
+            UserDefaults *userDefault = [[UserDefaults alloc]init];
+            [userDefault storeCurrentUser:self.personObject.userName];
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }

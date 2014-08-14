@@ -9,6 +9,7 @@
 #import "DeviceViewController.h"
 #import <CloudKit/CloudKit.h>
 #import "CloudKitManager.h"
+#import "UserDefaults.h"
 
 @interface DeviceViewController ()
 
@@ -32,8 +33,8 @@
     self.personObject = [[Person alloc] init];
     
     if (self.deviceObject.isBooked) {
-        NSUserDefaults *currentUser = [NSUserDefaults standardUserDefaults];
-        NSString *currentUserName = [currentUser objectForKey:@"userName"];
+        UserDefaults *userDefaults = [[UserDefaults alloc]init];
+        NSString *currentUserName = [userDefaults getCurrentUsername];
         if ([currentUserName isEqualToString:self.deviceObject.bookedFromPerson.userName]) {
             [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
             [self.bookedFromLabelText setText:@"Dir"];
@@ -69,8 +70,8 @@
 
 //Action when user clicks on button
 -(IBAction)fetchPersonRecordOnClick {
-    NSUserDefaults *currentUser = [NSUserDefaults standardUserDefaults];
-    NSString *currentUserName = [currentUser objectForKey:@"userName"];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *currentUserName = [userDefaults getCurrentUsername];
     
     if (!self.deviceObject.isBooked){
         [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];

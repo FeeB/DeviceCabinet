@@ -11,6 +11,7 @@
 #import "Person.h"
 #import "Device.h"
 #import "DeviceViewController.h"
+#import "UserDefaults.h"
 
 @interface ProfileViewController ()
 
@@ -63,9 +64,9 @@
 -(void)getAllBookedDevices{
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
-    [cloudManager fetchPersonWithUsername:[userDefaults objectForKey:@"userName"] completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:[userDefaults getCurrentUsername] completionHandler:^(Person *person) {
         self.personObject = person;
         [self.personObject createFullNameWithFirstName];
         self.name.text = self.personObject.fullName;
@@ -93,8 +94,8 @@
 }
 
 -(IBAction)logOut{
-    NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    [userDefaults resetCurrentUser];
     [self performSegueWithIdentifier:@"logIn" sender:self];
 }
 
