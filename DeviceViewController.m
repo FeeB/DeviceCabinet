@@ -7,7 +7,6 @@
 //
 
 #import "DeviceViewController.h"
-#import <CloudKit/CloudKit.h>
 #import "CloudKitManager.h"
 #import "UserDefaults.h"
 

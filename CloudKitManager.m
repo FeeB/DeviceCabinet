@@ -20,6 +20,14 @@ NSString * const RecordTypePersonPasswordField = @"password";
 NSString * const RecordTypePersonUsernameField = @"userName";
 NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
 
+NSString * const RecordTypeDeviceIsBookedField = @"booked";
+NSString * const RecordTypeDeviceNameField = @"devicename";
+NSString * const RecordTypeDeviceCategoryField = @"category";
+
+NSString * const PredicateFormatForDevices = @"devicename = %@";
+NSString * const PredicateFormatForPersons = @"userName = %@";
+NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
+
 @interface CloudKitManager ()
 
 @property (readonly) CKContainer *container;
@@ -49,7 +57,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
     //Query with specific record type
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:truePredicate];
     //sort the result with devicenames in ascending order
-    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"devicename" ascending:YES]];
+    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:RecordTypeDeviceNameField ascending:YES]];
     
     CKQueryOperation *queryOperation = [[CKQueryOperation alloc] initWithQuery:query];
     
@@ -83,7 +91,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
 - (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects))completionHandler {
     
     //query where with the specific name
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"devicename = %@", deviceName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForDevices, deviceName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
     
     NSMutableArray *resultObejcts = [[NSMutableArray alloc] init];
@@ -112,7 +120,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person))completionHandler {
     
     //query with specific user name
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userName = %@", userName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForPersons, userName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypePerson predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
@@ -137,7 +145,6 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
                 completionHandler([self getBackPersonObjectWithRecord:record]);
             });
         }
-        
     }];
 }
 
@@ -156,6 +163,21 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
      }];
 }
 
+- (void)storeDevice:(Device *)device completionHandler:(void (^)())completionHandler
+{
+    CKRecord *deviceRecord = [self recordFromDevice:device];
+    [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@ saved: %@", error, savedPerson);
+        } else {
+            NSLog(@"Saved: %@", savedPerson);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler();
+        });
+    }];
+}
+
 //fetch device record with record ID, create a reference on this device record with person record ID and store the device record back
 
 - (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)())completionHandler{
@@ -166,7 +188,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
         } else {
             //create reference with person record ID
             CKReference *bookedReference = [[CKReference alloc] initWithRecordID:personID action:CKReferenceActionDeleteSelf];
-            record[@"booked"] = bookedReference;
+            record[RecordTypeDeviceIsBookedField] = bookedReference;
             
             //store device record back
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
@@ -178,7 +200,6 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler(record);
                 });
-
             }];
         }
     }];
@@ -191,7 +212,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
             NSLog(@"Error: %@", error);
         } else {
             CKReference *bookedReference;
-            record[@"booked"] = bookedReference;
+            record[RecordTypeDeviceIsBookedField] = bookedReference;
             
             //store device record back
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
@@ -203,7 +224,6 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler(record);
                 });
-
             }];
         }
     }];
@@ -216,7 +236,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
             NSLog(@"Error: %@", error);
         } else {
             //create reference with person record ID
-            record[@"password"] = password;
+            record[RecordTypePersonPasswordField] = password;
             
             //store device record back
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
@@ -228,7 +248,6 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler(record);
                 });
-
             }];
         }
     }];
@@ -243,7 +262,7 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
         } else {
             //get all devices records which have a reference towards the person record
             //query the devices
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"booked = %@", personRecord];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForBookedDevicesFromPerson, personRecord];
             CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
                 
             NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
@@ -264,11 +283,8 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
                     });
                 }
             }];
-
         }
-        
     }];
-    
 }
 
 //helper method to get person objects from person records
@@ -284,6 +300,26 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
     return person;
 }
 
+//helper method to get device objects from device records
+- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record {
+    Device *device = [[Device alloc]init];
+    device.deviceName = record[RecordTypeDeviceNameField];
+    device.category = record[RecordTypeDeviceCategoryField];
+    device.ID = record.recordID;
+    
+    //if device record has a reference to a person record
+    if (record[RecordTypeDeviceIsBookedField] != nil) {
+        device.isBooked = true;
+        CKReference *reference = record[RecordTypeDeviceIsBookedField];
+        [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person) {
+            device.bookedFromPerson = person;
+        }];
+    }else{
+        device.isBooked = false;
+    }
+    return device;
+}
+
 - (CKRecord *)recordFromPerson:(Person *)person
 {
     CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:RecordTypePerson];
@@ -296,27 +332,13 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
     return personRecord;
 }
 
-//helper method to get device objects from device records
-- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record {
-    Device *device = [[Device alloc]init];
-    device.deviceName = record[@"devicename"];
-    device.category = record[@"category"];
+- (CKRecord *)recordFromDevice:(Device *)device
+{
+    CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:RecordTypeDevice];
+    [deviceRecord setObject:device.deviceName forKey: RecordTypeDeviceNameField];
+    [deviceRecord setObject:device.category forKey: RecordTypeDeviceCategoryField];
     
-    device.ID = record.recordID;
-    
-    //if device record has a reference to a person record
-    if (record[@"booked"] != nil) {
-        device.isBooked = true;
-        CKReference *reference = record[@"booked"];
-        [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person) {
-            device.bookedFromPerson = person;
-        }];
-    }else{
-        device.isBooked = false;
-    }
-
-    
-    return device;
+    return deviceRecord;
 }
 
 @end

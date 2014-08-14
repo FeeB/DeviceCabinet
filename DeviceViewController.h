@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CloudKit/CloudKit.h>
 #import "Device.h"
 #import "Person.h"
 

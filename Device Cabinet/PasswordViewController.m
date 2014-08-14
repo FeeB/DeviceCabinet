@@ -36,9 +36,7 @@
         self.person = person;
         
         [cloudManager resetPasswordFromPersonObjectWithPersonID:self.person.ID password:[self.password.text MD5] completionHandler:^(CKRecord *record) {
-            if (record) {
-                NSLog(@"toDo: Was hier");
-            }
+            [[[UIAlertView alloc]initWithTitle:@"Passwort zurückgesetzt" message:[NSString stringWithFormat: @"Ihr Passwort wurde geändert"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];

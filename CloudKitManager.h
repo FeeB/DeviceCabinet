@@ -16,6 +16,7 @@
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects))completionHandler;
 - (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects))completionHandler;
 - (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler;
+- (void)storeDevice:(Device *)device completionHandler:(void (^)())completionHandler;
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person))completionHandler;
 - (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)())completionHandler;

@@ -7,11 +7,13 @@
 //
 
 #import "OverviewViewController.h"
-#import <CloudKit/CloudKit.h>
 #import "CloudKitManager.h"
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
 #import "UserDefaults.h"
+
+NSString * const DeviceControllerIdentifier = @"DeviceControllerID";
+NSString * const LogInSegueIdentifier = @"logIn";
 
 @interface OverviewViewController ()
 
@@ -35,11 +37,11 @@
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
         [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
             if (!person) {
-                [self performSegueWithIdentifier:@"logIn" sender:self];
+                [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
             }
         }];
     }else{
-        [self performSegueWithIdentifier:@"logIn" sender:self];
+        [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
     }
     
     // Do any additional setup after loading the view.
@@ -78,7 +80,7 @@
 
 //On click on one cell the device view will appear
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier];
     [self.navigationController pushViewController:controller animated:YES];
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
 }
@@ -100,7 +102,7 @@
 -(IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetCurrentUser];
-    [self performSegueWithIdentifier:@"logIn" sender:self];
+    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
 }
 
 /*

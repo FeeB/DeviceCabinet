@@ -27,6 +27,5 @@
 
 -(void)createFullNameWithFirstName;
 -(void)encodePassword;
--(void)decodePassword;
 
 @end
