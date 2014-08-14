@@ -35,11 +35,11 @@
         UserDefaults *userDefaults = [[UserDefaults alloc]init];
         NSString *currentUserName = [userDefaults getCurrentUsername];
         if ([currentUserName isEqualToString:self.deviceObject.bookedFromPerson.userName]) {
-            [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
-            [self.bookedFromLabelText setText:@"Dir"];
+            [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
+            [self.bookedFromLabelText setText:NSLocalizedString(@"you", nil)];
         }else{
             [self.bookDevice setEnabled:false];
-            [self.bookDevice setTitle:@"Bereits ausgeliehen" forState:UIControlStateNormal];
+            [self.bookDevice setTitle:NSLocalizedString(@"already booked", nil) forState:UIControlStateNormal];
         }
     }else{
         [self.bookedFromLabel setHidden:true];
@@ -55,7 +55,7 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:@"Erfolgreich ausgeliehen!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"book success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -63,7 +63,7 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:@"Erfolgreich zurückgegeben!" message:[NSString stringWithFormat: @"Sie haben das Gerät erfolgreich ausgeliehen"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 
@@ -73,7 +73,7 @@
     NSString *currentUserName = [userDefaults getCurrentUsername];
     
     if (!self.deviceObject.isBooked){
-        [self.bookDevice setTitle:@"Zurückgeben" forState:UIControlStateNormal];
+        [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
         self.deviceObject.isBooked = true;
         
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
@@ -84,7 +84,7 @@
         }];
     }else{
         [self deleteReference];
-        [self.bookDevice setTitle:@"Jetzt ausleihen" forState:UIControlStateNormal];
+        [self.bookDevice setTitle:NSLocalizedString(@"book button", nil) forState:UIControlStateNormal];
     }
 }
 

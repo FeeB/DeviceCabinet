@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  Device Cabinet
+
+  Created by Braun,Fee on 14.08.14.
+  Copyright (c) 2014 Braun,Fee. All rights reserved.
+*/
+
+"book button" = "Jetzt ausleihen";
+"return button" = "Zurückgeben";
+"return success" = "Erfolgreich zurückgegeben!";
+"return success text" = "Sie haben das Gerät erfolgreich zurückgegeben";
+"book success" = "Erfolgreich ausgeliehen!";
+"book success text" = "Sie haben das Gerät erfolgreich ausgeliehen";
+"already booked" = "Bereits ausgeliehen";
+"you" = "Dir";
+
+"saved" = "Gespeichert!";
+"saved device" = "Das Gerät %@ wurde in der Kategorie %@ gespeichert";
+"saved person" = "Person %@ %@ wurde gespeichert";
+
+"email" = "fee.braun@brands4friends.de";
+"mail title" = "Registrieren Mail aus der Device Cabinet App";
+
+"reset password" = "Passwort zurückgesetzt";
+"reset password text" = "Ihr Passwort wurde geändert";
+
+

@@ -53,8 +53,8 @@
             // ERROR: User already exists
         } else {
             [cloudManager storePerson:person completionHandler:^{
-                [[[UIAlertView alloc]initWithTitle:@"Gespeichert!"
-                                           message:[NSString stringWithFormat: @"Ihr Name: %@ %@", person.firstName, person.lastName]
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
+                                           message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }];
         }

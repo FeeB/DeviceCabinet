@@ -30,27 +30,12 @@ NSString * const LogInSegueIdentifier = @"logIn";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *currentUserName = [userDefaults getCurrentUsername];
-    if (currentUserName) {
-        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
-            if (!person) {
-                [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
-            }
-        }];
-    }else{
-        [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
-    }
-    
-    // Do any additional setup after loading the view.
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
     _deviceArray = [[NSMutableArray alloc] init];
     
+    [self checkCurrentUserIsLoggedIn];
     [self getAllDevices];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,6 +88,21 @@ NSString * const LogInSegueIdentifier = @"logIn";
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetCurrentUser];
     [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+}
+
+- (void)checkCurrentUserIsLoggedIn{
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *currentUserName = [userDefaults getCurrentUsername];
+    if (currentUserName) {
+        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
+            if (!person) {
+                [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+            }
+        }];
+    }else{
+        [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+    }
 }
 
 /*

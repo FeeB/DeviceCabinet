@@ -28,11 +28,11 @@ NSString * const KeyForUserDefaults = @"username";
 
 - (NSString *)getCurrentUsername{
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    
     return [self.userDefaults objectForKey:KeyForUserDefaults];
 }
 
 - (void)storeCurrentUser:(NSString *)username{
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
     [self.userDefaults setObject:username forKey:KeyForUserDefaults];
     [self.userDefaults synchronize];
 }

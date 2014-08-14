@@ -8,9 +8,6 @@
 
 #import "RegisterViewController.h"
 
-NSString * const EmailAddress = @"fee.braun@brands4friends.de";
-NSString * const EmailTitle = @"Register Mail from Device Cabinet App";
-
 @interface RegisterViewController ()
 
 @end
@@ -29,11 +26,11 @@ NSString * const EmailTitle = @"Register Mail from Device Cabinet App";
 
 - (IBAction)sendRegisterMail:(id)sender{
     // Email Subject
-    NSString *emailTitle = EmailTitle;
+    NSString *emailTitle = NSLocalizedString(@"mail title", nil);
     // Email Content
     NSString *messageBody = self.userName.text;
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:EmailAddress];
+    NSArray *toRecipents = [NSArray arrayWithObject:NSLocalizedString(@"email", nil)];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;

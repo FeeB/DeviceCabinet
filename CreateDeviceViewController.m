@@ -74,7 +74,7 @@
     
     CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
     [cloudManager storeDevice:device completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:@"Gespeichert!" message:[NSString stringWithFormat: @"Gerätename: %1@, Kategorie: %2@", device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved device", nil), device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 }
 

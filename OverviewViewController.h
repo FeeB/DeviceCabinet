@@ -15,8 +15,9 @@
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
 
 @property (nonatomic, weak) IBOutlet NSString *deviceCategory;
--(void)getAllDevices;
--(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
--(IBAction)logOut;
+- (void)getAllDevices;
+- (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (IBAction)logOut;
+- (void)checkCurrentUserIsLoggedIn;
 
 @end

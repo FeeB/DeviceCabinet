@@ -14,8 +14,8 @@
 #import "UserDefaults.h"
 
 
-NSString * const DeviceControllerIdentifier = @"DeviceControllerID";
-NSString * const LogInSegueIdentifier = @"logIn";
+NSString * const DeviceControllerIdentifier2 = @"DeviceControllerID";
+NSString * const LogInSegueIdentifier2 = @"logIn";
 
 @interface ProfileViewController ()
 
@@ -91,7 +91,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 //On click on one cell the device view will appear
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier];
+    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier2];
     [self.navigationController pushViewController:controller animated:YES];
     
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
@@ -100,7 +100,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
 -(IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetCurrentUser];
-    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+    [self performSegueWithIdentifier:LogInSegueIdentifier2 sender:self];
 }
 
 
