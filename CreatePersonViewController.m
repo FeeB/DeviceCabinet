@@ -10,6 +10,8 @@
 #import "Person.h"
 #import "CloudKitManager.h"
 
+NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
+
 @interface CreatePersonViewController ()
     @property (readonly) CKContainer *container;
     @property (readonly) CKDatabase *publicDatabase;
@@ -29,6 +31,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = CGPointMake(160, 240);
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +46,8 @@
 
 - (IBAction)storePerson
 {
+    [self.spinner startAnimating];
+    
     __block Person *person = [[Person alloc] init];
     person.firstName = self.firstNameTextField.text;
     person.lastName = self.lastNameTextField.text;
@@ -46,18 +55,13 @@
     [person encodePassword];
     person.userName = self.userNameTextField.text;
     person.isAdmin = self.isAdminSwitch.on;
-    
+        
     CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchPersonWithUsername:person.userName completionHandler:^(Person *person) {
-        if (person) {
-            // ERROR: User already exists
-        } else {
-            [cloudManager storePerson:person completionHandler:^{
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
-                                           message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }];
-        }
+    [cloudManager storePerson:person completionHandler:^{
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
+                                   message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
+                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self performSegueWithIdentifier:OverviewFromPersonSegueIdentifier sender:self];
     }];
 }
 

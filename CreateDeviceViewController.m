@@ -10,6 +10,8 @@
 #import "Device.h"
 #import "CloudKitManager.h"
 
+NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToOverview";
+
 @interface CreateDeviceViewController (){
     NSArray *_pickerData;
 }
@@ -32,6 +34,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = CGPointMake(160, 240);
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
     
     // Connect data
     self.picker.dataSource = self;
@@ -72,9 +79,12 @@
     device.deviceName = _deviceName.text;
     device.category = [_pickerData objectAtIndex:[_picker selectedRowInComponent:0]];
     
+    [self.spinner startAnimating];
+    
     CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
     [cloudManager storeDevice:device completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved device", nil), device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self performSegueWithIdentifier:OverviewFromDeviceSegueIdentifier sender:self];
     }];
 }
 

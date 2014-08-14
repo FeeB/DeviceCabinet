@@ -20,6 +20,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = CGPointMake(160, 240);
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
+    
     //set label text
     self.deviceCategoryLabel.text = self.deviceObject.category;
     self.deviceLabel.text = self.deviceObject.deviceName;
@@ -52,30 +57,36 @@
 }
 
 -(void)storeReference {
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+    [self.spinner startAnimating];
     
+    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"book success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self.spinner stopAnimating];
+        [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
     }];
 }
 
 -(void)deleteReference{
+    [self.spinner startAnimating];
+    
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return success text", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self.spinner stopAnimating];
+        [self.bookDevice setTitle:NSLocalizedString(@"book button", nil) forState:UIControlStateNormal];
     }];
 }
 
 //Action when user clicks on button
 -(IBAction)fetchPersonRecordOnClick {
+    
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     NSString *currentUserName = [userDefaults getCurrentUsername];
     
     if (!self.deviceObject.isBooked){
-        [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
         self.deviceObject.isBooked = true;
-        
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
         
         [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
@@ -84,7 +95,6 @@
         }];
     }else{
         [self deleteReference];
-        [self.bookDevice setTitle:NSLocalizedString(@"book button", nil) forState:UIControlStateNormal];
     }
 }
 

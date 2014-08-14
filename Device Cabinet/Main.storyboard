@@ -296,7 +296,7 @@
                                 </state>
                             </button>
                             <connections>
-                                <segue destination="SLp-aA-eAp" kind="push" id="70H-vD-UDn"/>
+                                <segue destination="SLp-aA-eAp" kind="push" identifier="CreateDeviceToOverview" id="70H-vD-UDn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -450,7 +450,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="SLp-aA-eAp" kind="push" id="7yg-bC-ibs"/>
+                                    <segue destination="SLp-aA-eAp" kind="push" identifier="CreatePersonToOverview" id="7yg-bC-ibs"/>
                                 </connections>
                             </button>
                         </barButtonItem>

@@ -21,6 +21,8 @@
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 -(IBAction)fetchPersonRecordOnClick;
 -(void)storeReference;
 -(void)deleteReference;

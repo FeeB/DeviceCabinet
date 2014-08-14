@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 @property (weak, nonatomic) IBOutlet UITextField *deviceName;
 
-
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 -(IBAction)textFieldReturn:(id)sender;
 - (IBAction) storeDevice;

@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *isAdminSwitch;
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 - (IBAction)storePerson;
 
 @end
