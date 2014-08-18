@@ -11,15 +11,19 @@
 
 @interface LogInViewController : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, weak) IBOutlet UILabel *whoAmILabel;
+@property (nonatomic, weak) IBOutlet UILabel *userLabel;
+@property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
 @property (nonatomic, weak) IBOutlet UITextField *userNameField;
-@property (nonatomic, weak) IBOutlet UILabel *passwordLabel;
-@property (nonatomic, weak) IBOutlet UITextField *passwordField;
-@property (nonatomic, weak) IBOutlet UIButton *logInButton;
+@property (nonatomic, weak) IBOutlet UIButton *personLogInButton;
+@property (nonatomic, weak) IBOutlet UIButton *deviceLogInButton;
 
 @property (nonatomic, weak) Person *personObject;
+@property (nonatomic, weak) Device *deviceObject;
 
--(IBAction)logInOnClick;
+- (IBAction)personLogInOnClick;
+- (IBAction)deviceLogInOnClick;
 - (void)viewWillDisappear:(BOOL)animated;
 
 @end

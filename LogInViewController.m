@@ -11,6 +11,7 @@
 #import "Person.h"
 #import "MD5Extension.h"
 #import "UserDefaults.h"
+#import "UIdGenerator.h"
 
 @interface LogInViewController ()
 
@@ -20,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.passwordField.secureTextEntry = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -29,21 +29,45 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)logInOnClick{
+- (IBAction)personLogInOnClick{
     CloudKitManager *manager = [[CloudKitManager alloc]init];
     
     [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person) {
         self.personObject = person;
-        NSString *encodedPassword = [self.passwordField.text MD5];
         
-        if ([encodedPassword isEqualToString:self.personObject.encodedPasswort]) {
+        if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
             UserDefaults *userDefault = [[UserDefaults alloc]init];
-            [userDefault storeCurrentUser:self.personObject.userName];
+            [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
             
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username not found text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }];
     
+}
+
+- (IBAction)deviceLogInOnClick {
+    UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
+    NSString *deviceId = [uIdGenerator getDeviceId];
+    
+    CloudKitManager *manager = [[CloudKitManager alloc]init];
+    
+    [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device) {
+        NSLog(@"deviceId: %@", deviceId);
+        self.deviceObject = device;
+        
+        if (device) {
+            UserDefaults *userDefault = [[UserDefaults alloc]init];
+            [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+            
+            [self performSegueWithIdentifier:@"CreateDeviceToDeviceView" sender:self];
+        } else {
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register device text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [self performSegueWithIdentifier:@"fromLogInToCreateDevice" sender:self];
+        }
+    }];
+
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField{

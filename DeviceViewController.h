@@ -17,15 +17,19 @@
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabelText;
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
+@property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
+@property (nonatomic, weak) IBOutlet UITextField *usernameTextField;
+@property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
 
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
--(IBAction)fetchPersonRecordOnClick;
--(void)storeReference;
--(void)deleteReference;
+- (IBAction)fetchPersonRecordOnClick;
+- (void)storeReference;
+- (void)deleteReference;
+- (void)showOrHideTextFields;
 
 
 @end

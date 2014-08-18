@@ -32,10 +32,10 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
-    [cloudManager fetchPersonWithUsername:[userDefaults getCurrentUsername] completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person) {
         self.person = person;
         
-        [cloudManager resetPasswordFromPersonObjectWithPersonID:self.person.ID password:[self.password.text MD5] completionHandler:^(CKRecord *record) {
+        [cloudManager resetPasswordFromPersonObjectWithPersonID:self.person.recordId password:[self.password.text MD5] completionHandler:^(CKRecord *record) {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"reset password", nil) message:[NSString stringWithFormat: NSLocalizedString(@"reset password text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
         [self dismissViewControllerAnimated:YES completion:nil];

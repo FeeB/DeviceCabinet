@@ -9,6 +9,8 @@
 #import "CreatePersonViewController.h"
 #import "Person.h"
 #import "CloudKitManager.h"
+#import "UserDefaults.h"
+#import "OverviewViewController.h"
 
 NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
 
@@ -51,8 +53,6 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
     __block Person *person = [[Person alloc] init];
     person.firstName = self.firstNameTextField.text;
     person.lastName = self.lastNameTextField.text;
-    person.decodedPasswort = self.passwordTextField.text;
-    [person encodePassword];
     person.userName = self.userNameTextField.text;
     person.isAdmin = self.isAdminSwitch.on;
         
@@ -61,6 +61,14 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
                                    message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        
+        UserDefaults *userDefaults = [[UserDefaults alloc]init];
+        [userDefaults storeUserDefaults:person.userName userType:@"person"];
+        
+        OverviewViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"OverviewControllerId"];
+        controller.comesFromRegister = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+        
         [self performSegueWithIdentifier:OverviewFromPersonSegueIdentifier sender:self];
     }];
 }

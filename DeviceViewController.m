@@ -28,7 +28,11 @@
     //set label text
     self.deviceCategoryLabel.text = self.deviceObject.category;
     self.deviceLabel.text = self.deviceObject.deviceName;
+    self.systemVersionLabel.text = self.deviceObject.systemVersion;
     
+    [self showOrHideTextFields];
+    
+    //toDo: set name after completionHandler
     //set full name of person in name label
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
     [bookedFrom createFullNameWithFirstName];
@@ -36,19 +40,6 @@
     
     self.personObject = [[Person alloc] init];
     
-    if (self.deviceObject.isBooked) {
-        UserDefaults *userDefaults = [[UserDefaults alloc]init];
-        NSString *currentUserName = [userDefaults getCurrentUsername];
-        if ([currentUserName isEqualToString:self.deviceObject.bookedFromPerson.userName]) {
-            [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
-            [self.bookedFromLabelText setText:NSLocalizedString(@"you", nil)];
-        }else{
-            [self.bookDevice setEnabled:false];
-            [self.bookDevice setTitle:NSLocalizedString(@"already booked", nil) forState:UIControlStateNormal];
-        }
-    }else{
-        [self.bookedFromLabel setHidden:true];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,12 +49,13 @@
 
 -(void)storeReference {
     [self.spinner startAnimating];
-    
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.ID personID:self.personObject.ID completionHandler:^{
+    
+    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"book success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
+        [self performSegueWithIdentifier:@"FromDeviceViewToOverview" sender:nil];
     }];
 }
 
@@ -72,10 +64,11 @@
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.ID completionHandler:^{
+    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return success text", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"book button", nil) forState:UIControlStateNormal];
+        [self performSegueWithIdentifier:@"FromDeviceViewToOverview" sender:nil];
     }];
 }
 
@@ -83,18 +76,47 @@
 -(IBAction)fetchPersonRecordOnClick {
     
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *currentUserName = [userDefaults getCurrentUsername];
+    NSString *username = [userDefaults getUserIdentifier];
+    NSString *userType = [userDefaults getUserType];
+    
+    if ([userType isEqualToString:@"device"]){
+        username = self.usernameTextField.text;
+    }
     
     if (!self.deviceObject.isBooked){
         self.deviceObject.isBooked = true;
         CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        
-        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
+        [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
             self.personObject = person;
             [self storeReference];
         }];
     }else{
         [self deleteReference];
+    }
+}
+
+- (void)showOrHideTextFields{
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
+    NSString *currentUserType = [userDefaults getUserType];
+    
+    [self.usernameTextField setHidden:true];
+    [self.usernameLabel setHidden:true];
+    
+    if (self.deviceObject.isBooked) {
+        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.userName] || [currentUserType isEqualToString:@"device"]) {
+            [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
+        }else{
+            [self.bookDevice setEnabled:false];
+            [self.bookDevice setTitle:NSLocalizedString(@"already booked", nil) forState:UIControlStateNormal];
+        }
+    }else{
+        [self.bookedFromLabel setHidden:true];
+        
+        if ([[userDefaults getUserType] isEqualToString:@"device"]){
+            [self.usernameTextField setHidden:false];
+            [self.usernameLabel setHidden:false];
+        }
     }
 }
 

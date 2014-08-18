@@ -23,10 +23,13 @@ NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
 NSString * const RecordTypeDeviceIsBookedField = @"booked";
 NSString * const RecordTypeDeviceNameField = @"devicename";
 NSString * const RecordTypeDeviceCategoryField = @"category";
+NSString * const RecordTypeDeviceIdField = @"deviceId";
+NSString * const RecordTypeDeviceSystemVersionField = @"systemVersion";
 
 NSString * const PredicateFormatForDevices = @"devicename = %@";
 NSString * const PredicateFormatForPersons = @"userName = %@";
 NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
+NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 @interface CloudKitManager ()
 
@@ -73,7 +76,6 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
         if (error) {
             // In your app, this error needs love and care.
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(results);
@@ -112,6 +114,24 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
             });
         }
     }];
+}
+
+- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device))completionHandler {
+    
+    //query with specific user name
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForDeviceId, deviceId];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
+    
+    [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        Device *device;
+        if (results.count > 0) {
+            device = [self getBackDeviceObjectWithRecord:results[0]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(device);
+        });
+    }];
+
 }
 
 //Get back one person record from a specific user name
@@ -293,9 +313,8 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
     person.firstName = record[RecordTypePersonFirstNameField];
     person.lastName = record[RecordTypePersonLastNameField];
     person.userName = record[RecordTypePersonUsernameField];
-    person.encodedPasswort = record[RecordTypePersonPasswordField];
     person.isAdmin = [record[RecordTypePersonIsAdminSwitch] boolValue];
-    person.ID = record.recordID;
+    person.recordId = record.recordID;
     
     return person;
 }
@@ -305,7 +324,9 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
     Device *device = [[Device alloc]init];
     device.deviceName = record[RecordTypeDeviceNameField];
     device.category = record[RecordTypeDeviceCategoryField];
-    device.ID = record.recordID;
+    device.recordId = record.recordID;
+    device.deviceId = record[RecordTypeDeviceIdField];
+    device.systemVersion = record[RecordTypeDeviceSystemVersionField];
     
     //if device record has a reference to a person record
     if (record[RecordTypeDeviceIsBookedField] != nil) {
@@ -325,7 +346,6 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
     CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:RecordTypePerson];
     personRecord[RecordTypePersonFirstNameField] = person.firstName;
     personRecord[RecordTypePersonLastNameField] = person.lastName;
-    personRecord[RecordTypePersonPasswordField] = person.encodedPasswort;
     personRecord[RecordTypePersonUsernameField] = person.userName;
     personRecord[RecordTypePersonIsAdminSwitch] = [NSNumber numberWithBool:person.isAdmin];
     
@@ -337,6 +357,8 @@ NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
     CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:RecordTypeDevice];
     [deviceRecord setObject:device.deviceName forKey: RecordTypeDeviceNameField];
     [deviceRecord setObject:device.category forKey: RecordTypeDeviceCategoryField];
+    [deviceRecord setObject:device.deviceId forKey:RecordTypeDeviceIdField];
+    [deviceRecord setObject:device.systemVersion forKey:RecordTypeDeviceSystemVersionField];
     
     return deviceRecord;
 }

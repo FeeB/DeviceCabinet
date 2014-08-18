@@ -16,8 +16,4 @@
    self.fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
 }
 
--(void)encodePassword{
-    self.encodedPasswort = [self.decodedPasswort MD5];
-};
-
 @end

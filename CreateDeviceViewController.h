@@ -10,12 +10,12 @@
 
 @interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UIPickerView *picker;
-@property (weak, nonatomic) IBOutlet UITextField *deviceName;
+@property (weak, nonatomic) IBOutlet UIPickerView *devicePicker;
+@property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
--(IBAction)textFieldReturn:(id)sender;
+- (IBAction)textFieldReturn:(id)sender;
 - (IBAction) storeDevice;
 
 

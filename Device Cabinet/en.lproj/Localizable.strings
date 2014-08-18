@@ -9,9 +9,9 @@
 "book button" = "Jetzt ausleihen";
 "return button" = "Zurückgeben";
 "return success" = "Erfolgreich zurückgegeben!";
-"return success text" = "Sie haben das Gerät erfolgreich zurückgegeben";
+"return success text" = "Sie haben das Gerät %@ erfolgreich zurückgegeben";
 "book success" = "Erfolgreich ausgeliehen!";
-"book success text" = "Sie haben das Gerät erfolgreich ausgeliehen";
+"book success text" = "Sie haben das Gerät %@ erfolgreich ausgeliehen";
 "already booked" = "Bereits ausgeliehen";
 "you" = "Dir";
 

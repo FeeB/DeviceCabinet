@@ -18,6 +18,8 @@
 @property BOOL isBooked;
 @property UIImage *image;
 @property Person *bookedFromPerson;
-@property CKRecordID *ID;
+@property CKRecordID *recordId;
+@property NSString *deviceId;
+@property NSString *systemVersion;
 
 @end

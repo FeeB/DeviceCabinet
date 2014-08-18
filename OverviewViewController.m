@@ -11,6 +11,7 @@
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
 #import "UserDefaults.h"
+#import "UIdGenerator.h"
 
 NSString * const DeviceControllerIdentifier = @"DeviceControllerID";
 NSString * const LogInSegueIdentifier = @"logIn";
@@ -34,7 +35,10 @@ NSString * const LogInSegueIdentifier = @"logIn";
     _categories = [[NSMutableArray alloc] init];
     _deviceArray = [[NSMutableArray alloc] init];
     
-    [self checkCurrentUserIsLoggedIn];
+    if (!self.comesFromRegister) {
+        [self checkCurrentUserIsLoggedIn];
+    }
+    
     [self getAllDevices];
 }
 
@@ -86,21 +90,43 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 -(IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults resetCurrentUser];
+    [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
 }
 
 - (void)checkCurrentUserIsLoggedIn{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *currentUserName = [userDefaults getCurrentUsername];
-    if (currentUserName) {
-        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager fetchPersonWithUsername:currentUserName completionHandler:^(Person *person) {
-            if (!person) {
-                [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
-            }
-        }];
-    }else{
+    NSString *userType = [userDefaults getUserType];
+    NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
+    
+    if (currentUserIdentifier) {
+        if ([userType isEqualToString:@"person"]) {
+            
+            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+            [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person) {
+                if (!person) {
+                    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+                }
+            }];
+        } else {
+            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+            [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device) {
+                if (device) {
+                    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+                    controller.deviceObject = device;
+                    [self.navigationController pushViewController:controller animated:YES];
+                    [self.navigationController setNavigationBarHidden:YES];
+                }else{
+                    UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
+                    [uIdGenerator resetKeyChain];
+                    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+                    
+                }
+            }];
+        }
+    } else{
+        UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
+        [uIdGenerator resetKeyChain];
         [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
     }
 }

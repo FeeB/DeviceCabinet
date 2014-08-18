@@ -17,15 +17,12 @@
 @property NSString *lastName;
 @property BOOL hasBookedDevice;
 @property NSMutableArray *devices;
-@property CKRecordID *ID;
+@property CKRecordID *recordId;
 @property NSString *userName;
 @property NSString *fullName;
-@property NSString *encodedPasswort;
-@property NSString *decodedPasswort;
 @property NSString *role;
 @property BOOL isAdmin;
 
 -(void)createFullNameWithFirstName;
--(void)encodePassword;
 
 @end

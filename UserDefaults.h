@@ -11,8 +11,9 @@
 @interface UserDefaults : UIViewController
 
 @property (nonatomic, weak) NSUserDefaults *userDefaults;
-- (NSString *)getCurrentUsername;
-- (void)storeCurrentUser:(NSString *)username;
-- (void)resetCurrentUser;
+- (NSString *)getUserIdentifier;
+- (NSString *)getUserType;
+- (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType;
+- (void)resetUserDefaults;
 
 @end

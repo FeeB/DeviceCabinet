@@ -70,7 +70,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
-    [cloudManager fetchPersonWithUsername:[userDefaults getCurrentUsername] completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person) {
         self.personObject = person;
         [self.personObject createFullNameWithFirstName];
         self.name.text = self.personObject.fullName;
@@ -79,7 +79,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
             [self.deviceButton setHidden:false];
         }
     
-        [cloudManager fetchDevicesWithPersonID:self.personObject.ID completionHandler:^(NSArray *devicesArray) {
+        [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray) {
             for (Device *device in devicesArray){
                 [self.list addObject:device.deviceName];
                 [self.deviceArray addObject:device];
@@ -99,7 +99,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
 
 -(IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults resetCurrentUser];
+    [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogInSegueIdentifier2 sender:self];
 }
 

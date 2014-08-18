@@ -8,7 +8,8 @@
 
 #import "UserDefaults.h"
 
-NSString * const KeyForUserDefaults = @"username";
+NSString * const KeyForUserDefaults = @"identifier";
+NSString * const KeyForUserType = @"type";
 
 @interface UserDefaults ()
 
@@ -26,18 +27,24 @@ NSString * const KeyForUserDefaults = @"username";
     // Dispose of any resources that can be recreated.
 }
 
-- (NSString *)getCurrentUsername{
+- (NSString *)getUserIdentifier {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
     return [self.userDefaults objectForKey:KeyForUserDefaults];
 }
 
-- (void)storeCurrentUser:(NSString *)username{
+- (NSString *)getUserType {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    [self.userDefaults setObject:username forKey:KeyForUserDefaults];
+    return [self.userDefaults objectForKey:KeyForUserType];
+}
+
+- (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType{
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+    [self.userDefaults setObject:uniqueIdentifier forKey:KeyForUserDefaults];
+    [self.userDefaults setObject:userType forKey:KeyForUserType];
     [self.userDefaults synchronize];
 }
 
-- (void)resetCurrentUser{
+- (void)resetUserDefaults{
     NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
 }

@@ -13,8 +13,9 @@
 
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
-
 @property (nonatomic, weak) IBOutlet NSString *deviceCategory;
+@property (nonatomic, assign) BOOL comesFromRegister;
+
 - (void)getAllDevices;
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)logOut;
