@@ -23,5 +23,9 @@
 "register device" = "Erst registrieren";
 "register device text" = "Dieses Gerät ist noch nicht registriert!";
 
+"username empty" = "Feld darf nicht leer sein";
+"username empty text" = "Bitte gib deinen Usernamen ein!";
 
+"empty textfield" = "Feld darf nicht leer sein";
+"empty textfield text" = "Bitte fülle das Feld %@ aus";
 
