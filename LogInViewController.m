@@ -30,21 +30,24 @@
 }
 
 - (IBAction)personLogInOnClick{
-    CloudKitManager *manager = [[CloudKitManager alloc]init];
     
-    [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person) {
-        self.personObject = person;
-        
-        if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
-            UserDefaults *userDefault = [[UserDefaults alloc]init];
-            [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+    if (self.userNameField.text && self.userNameField.text.length > 0) {
+        CloudKitManager *manager = [[CloudKitManager alloc]init];
+        [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person) {
+            self.personObject = person;
             
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username not found text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }];
-    
+            if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
+                UserDefaults *userDefault = [[UserDefaults alloc]init];
+                [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username not found text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }];
+    }else{
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username empty", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username empty text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }    
 }
 
 - (IBAction)deviceLogInOnClick {

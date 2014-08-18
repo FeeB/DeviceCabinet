@@ -48,29 +48,46 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
 
 - (IBAction)storePerson
 {
-    [self.spinner startAnimating];
+    BOOL isStorable = true;
+    NSMutableArray *txtFields = [[NSMutableArray alloc]initWithObjects:self.firstNameTextField.text, self.lastNameTextField.text, self.userNameTextField.text, nil];
     
-    __block Person *person = [[Person alloc] init];
-    person.firstName = self.firstNameTextField.text;
-    person.lastName = self.lastNameTextField.text;
-    person.userName = self.userNameTextField.text;
-    person.isAdmin = self.isAdminSwitch.on;
+    for (NSString *textField in txtFields) {
+        if ([textField isEqualToString:@""]) {
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty textfield", nil)
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"empty textfield text", nil), textField]
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            isStorable = false;
+            break;
+        }
+    }
+    
+    if (isStorable) {
+        [self.spinner startAnimating];
         
-    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager storePerson:person completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
-                                   message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
-                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        __block Person *person = [[Person alloc] init];
+        person.firstName = self.firstNameTextField.text;
+        person.lastName = self.lastNameTextField.text;
+        person.userName = self.userNameTextField.text;
+        person.isAdmin = self.isAdminSwitch.on;
         
-        UserDefaults *userDefaults = [[UserDefaults alloc]init];
-        [userDefaults storeUserDefaults:person.userName userType:@"person"];
-        
-        OverviewViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"OverviewControllerId"];
-        controller.comesFromRegister = YES;
-        [self.navigationController pushViewController:controller animated:YES];
-        
-        [self performSegueWithIdentifier:OverviewFromPersonSegueIdentifier sender:self];
-    }];
+        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
+        [cloudManager storePerson:person completionHandler:^{
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults storeUserDefaults:person.userName userType:@"person"];
+            
+            OverviewViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"OverviewControllerId"];
+            controller.comesFromRegister = YES;
+            [self.navigationController pushViewController:controller animated:YES];
+            
+            [self performSegueWithIdentifier:OverviewFromPersonSegueIdentifier sender:self];
+        }];
+
+    }
+    
 }
 
 
