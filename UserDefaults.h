@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface UserDefaults : UIViewController
+@interface UserDefaults : NSObject
 
 @property (nonatomic, weak) NSUserDefaults *userDefaults;
 - (NSString *)getUserIdentifier;
