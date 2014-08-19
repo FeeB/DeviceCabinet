@@ -9,15 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CloudKitManager.h"
 
-@interface OverviewViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface OverviewViewController : UITableViewController
 
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
-@property (nonatomic, weak) IBOutlet NSString *deviceCategory;
 @property (nonatomic, assign) BOOL comesFromRegister;
 
 - (void)getAllDevices;
-- (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)logOut;
 - (void)checkCurrentUserIsLoggedIn;
 

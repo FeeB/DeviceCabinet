@@ -73,8 +73,8 @@ NSString * const LogInSegueIdentifier = @"logIn";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"fromTableToDeviceView"]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        NSArray *array = [self.lists objectAtIndex:self.table.indexPathForSelectedRow.section];
-        controller.deviceObject = [array objectAtIndex:self.table.indexPathForSelectedRow.row];
+        NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
+        controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
 }
 
@@ -114,7 +114,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
             [self.lists addObject:freeDevices];
         }
 
-        [self.table reloadData];
+        [self.tableView reloadData];
     }];
 
 }
