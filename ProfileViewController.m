@@ -12,6 +12,7 @@
 #import "Device.h"
 #import "DeviceViewController.h"
 #import "UserDefaults.h"
+#import "TEDLocalization.h"
 
 
 NSString * const DeviceControllerIdentifier2 = @"DeviceControllerID";
@@ -36,6 +37,8 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     // Do any additional setup after loading the view.
     [self getAllBookedDevices];
     self.bookedDevicesLabel.text = NSLocalizedString(@"booked-devices", nil);
+
+    [TEDLocalization localize:self];
 }
 
 - (void)didReceiveMemoryWarning {

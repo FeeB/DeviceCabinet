@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_KeychainItemWrapper 2
 #define COCOAPODS_VERSION_PATCH_KeychainItemWrapper 0
 
+// TEDLocalization
+#define COCOAPODS_POD_AVAILABLE_TEDLocalization
+#define COCOAPODS_VERSION_MAJOR_TEDLocalization 1
+#define COCOAPODS_VERSION_MINOR_TEDLocalization 0
+#define COCOAPODS_VERSION_PATCH_TEDLocalization 0
+

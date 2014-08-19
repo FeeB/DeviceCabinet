@@ -48,3 +48,5 @@
 "register-device-text" = "The device is not registered yet, please register it now";
 "empty-textfield" = "Please fill out the textfields";
 "empty-textfield-text" = "The textfield %@ can't be empty";
+
+"Title-Profile" = "Profile";
