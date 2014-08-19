@@ -169,7 +169,6 @@
                         <outlet property="systemVersionLabel" destination="ROy-P1-DvV" id="3Z4-h3-CwZ"/>
                         <outlet property="usernameLabel" destination="eDc-bw-kti" id="Zfn-7W-vhU"/>
                         <outlet property="usernameTextField" destination="2Ju-Nq-2aM" id="4Dx-gf-UxZ"/>
-                        <segue destination="SLp-aA-eAp" kind="push" identifier="FromDeviceViewToOverview" id="sgo-Ev-vpQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -312,7 +311,7 @@
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="devicePicker" destination="tEp-tq-fpi" id="l0B-kc-fzb"/>
                         <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
-                        <segue destination="Eqs-YC-kYu" kind="modal" identifier="CreateDeviceToDeviceView" id="Phs-EO-HNL"/>
+                        <segue destination="Eqs-YC-kYu" kind="modal" identifier="fromCreateDeviceToDeviceView" id="Phs-EO-HNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -537,7 +536,7 @@
                         <outlet property="userNameLabel" destination="B4y-LC-Whv" id="vbs-Tp-xMX"/>
                         <outlet property="whoAmILabel" destination="1jz-Sj-GWU" id="ND7-zG-EBq"/>
                         <segue destination="SLp-aA-eAp" kind="push" identifier="fromLogInToOverview" id="axc-rQ-ksv"/>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="CreateDeviceToDeviceView" id="47g-C0-1IY"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="fromLoginToDeviceView" id="47g-C0-1IY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAi-el-de0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,8 +571,8 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="47g-C0-1IY"/>
-        <segue reference="44s-ko-ABX"/>
-        <segue reference="sgo-Ev-vpQ"/>
+        <segue reference="wb9-fn-pNc"/>
+        <segue reference="axc-rQ-ksv"/>
+        <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
 </document>
