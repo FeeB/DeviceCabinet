@@ -14,10 +14,10 @@
 
 NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView";
 
-@interface CreateDeviceViewController (){
-    NSArray *_pickerData;
-}
-
+@interface CreateDeviceViewController ()
+    @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+    @property (nonatomic, strong) NSArray *pickerData;
+    @property (nonatomic, strong) Device *device;
 @end
 
 @implementation CreateDeviceViewController
@@ -39,7 +39,6 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
     self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
     self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);
     [self.saveButton setTitle:NSLocalizedString(@"save", nil) forState:UIControlStateNormal];
-    
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
@@ -81,34 +80,37 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
 }
 
 - (IBAction)storeDevice {
- 
-    UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
-    
-    Device *device = [[Device alloc]init];
-    device.deviceName = self.deviceNameTextField.text;
-    device.category = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
-    device.deviceId = [uIdGenerator getDeviceId];
-    device.systemVersion = [[UIDevice currentDevice] systemVersion];
-    
     if (self.deviceNameTextField.text && self.deviceNameTextField.text.length > 0) {
         [self.spinner startAnimating];
         
-        DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
-        controller.deviceObject = device;
+        UIdGenerator *uIdGenerator = [[UIdGenerator alloc] init];
         
-        CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
-        [cloudManager storeDevice:device completionHandler:^{
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved-device", nil), device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            
-            [self.navigationController pushViewController:controller animated:YES];
-            [self.navigationController setNavigationBarHidden:YES];
-            
+        self.device = [[Device alloc] init];
+        self.device.deviceName = self.deviceNameTextField.text;
+        self.device.category = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
+        self.device.deviceId = [uIdGenerator getDeviceId];
+        self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
+        
+        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
+        [cloudManager storeDevice:self.device completionHandler:^{
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved-device", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
     } else {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty-textfield", nil) message:[NSString stringWithFormat:NSLocalizedString(@"empty-textfield-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
-   
-    
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self performSegueWithIdentifier:@"fromCreateDeviceToDeviceView" sender:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"fromCreateDeviceToDeviceView"]) {
+        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        controller.deviceObject = self.device;
+    }
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField{

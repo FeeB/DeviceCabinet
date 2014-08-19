@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *devicePicker;
 @property (weak, nonatomic) IBOutlet UILabel *deviceCategoryLabel;
@@ -16,11 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
-
 - (IBAction)textFieldReturn:(id)sender;
 - (IBAction) storeDevice;
-
-
 
 @end
