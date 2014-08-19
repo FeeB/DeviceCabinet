@@ -20,29 +20,29 @@
 
 "devicename" = "Device name";
 "category" = "Category";
-"System version" = "System version";
+"system-version" = "System version";
 
-"booked devices" = "Booked devices";
+"booked-devices" = "Booked devices";
 
 "save" = "save";
 
-"book button" = "Book Now!";
-"return button" = "Return device";
-"return success" = "Return success!";
-"return success text" = "You have returned the device successfully";
-"book success" = "Book success!";
-"book success text" = "You have booked the device successfully";
-"already booked" = "Already booked";
+"book-button" = "Book Now!";
+"return-button" = "Return device";
+"return-success" = "Return success!";
+"return-success-text" = "You have returned the device successfully";
+"book-success" = "Book success!";
+"book-success-text" = "You have booked the device successfully";
+"already-booked" = "Already booked";
 
 "saved" = "Saved!";
-"saved device" = "The device %@ was saved in the category %@";
-"saved person" = "The person %@ %@ was saved";
+"saved-device" = "The device %@ was saved in the category %@";
+"saved-person" = "The person %@ %@ was saved";
 
-"username empty" = "Enter your username!";
-"username empty text" = "The textfield for the username can't be empty";
-"username not found" = "Username not found";
-"username not found text" = "Please try again to enter you username or register as a new user";
-"register device" = "Register the device";
-"register device text" = "The device is not registered yet, please register it now";
-"empty textfield" = "Please fill out the textfields";
-"empty textfield text" = "The textfield %@ can't be empty";
+"username-empty" = "Enter your username!";
+"username-empty-text" = "The textfield for the username can't be empty";
+"username-not-found" = "Username not found";
+"username-not-found-text" = "Please try again to enter you username or register as a new user";
+"register-device" = "Register the device";
+"register-device-text" = "The device is not registered yet, please register it now";
+"empty-textfield" = "Please fill out the textfields";
+"empty-textfield-text" = "The textfield %@ can't be empty";

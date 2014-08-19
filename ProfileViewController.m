@@ -35,7 +35,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     _deviceArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
     [self getAllBookedDevices];
-    self.bookedDevicesLabel.text = NSLocalizedString(@"booked devices", nil);
+    self.bookedDevicesLabel.text = NSLocalizedString(@"booked-devices", nil);
 }
 
 - (void)didReceiveMemoryWarning {

@@ -57,8 +57,8 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
     
     for (NSString *textField in txtFields) {
         if ([textField isEqualToString:@""]) {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty textfield", nil)
-                                       message:[NSString stringWithFormat: NSLocalizedString(@"empty textfield text", nil), textField]
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty-textfield", nil)
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"empty-textfield-text", nil), textField]
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             isStorable = false;
             break;
@@ -76,7 +76,7 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^{
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
-                                       message:[NSString stringWithFormat: NSLocalizedString(@"saved person", nil), person.firstName, person.lastName]
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"saved-person", nil), person.firstName, person.lastName]
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             
             UserDefaults *userDefaults = [[UserDefaults alloc]init];

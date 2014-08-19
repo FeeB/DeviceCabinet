@@ -98,14 +98,14 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
         [cloudManager storeDevice:device completionHandler:^{
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved device", nil), device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved-device", nil), device.deviceName, device.category] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             
             [self.navigationController pushViewController:controller animated:YES];
             [self.navigationController setNavigationBarHidden:YES];
             
         }];
     } else {
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty textfield", nil) message:[NSString stringWithFormat:NSLocalizedString(@"empty textfield text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty-textfield", nil) message:[NSString stringWithFormat:NSLocalizedString(@"empty-textfield-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
    
     

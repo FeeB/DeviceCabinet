@@ -49,11 +49,11 @@
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:NSLocalizedString(@"username not found text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-not-found", nil) message:NSLocalizedString(@"username-not-found-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }];
     }else{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username empty", nil) message:NSLocalizedString(@"username empty text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-empty", nil) message:NSLocalizedString(@"username-empty-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }    
 }
 
@@ -73,7 +73,7 @@
             
             [self performSegueWithIdentifier:@"CreateDeviceToDeviceView" sender:self];
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register device text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register-device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register-device-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self performSegueWithIdentifier:@"fromLogInToCreateDevice" sender:self];
         }
     }];
