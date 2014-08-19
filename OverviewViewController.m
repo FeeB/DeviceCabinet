@@ -21,6 +21,8 @@ NSString * const LogInSegueIdentifier = @"logIn";
 @property (nonatomic, readonly) NSMutableArray *list;
 @property (nonatomic, readonly) NSMutableArray *categories;
 @property (nonatomic, strong) NSMutableArray *deviceArray;
+@property (nonatomic, strong) NSMutableArray *bookedDevices;
+@property (nonatomic, strong) NSMutableArray *freeDevices;
 
 @end
 
@@ -34,6 +36,8 @@ NSString * const LogInSegueIdentifier = @"logIn";
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
     _deviceArray = [[NSMutableArray alloc] init];
+    _bookedDevices = [[NSMutableArray alloc] init];
+    _freeDevices = [[NSMutableArray alloc] init];
     
     if (!self.comesFromRegister) {
         [self checkCurrentUserIsLoggedIn];
@@ -47,23 +51,32 @@ NSString * const LogInSegueIdentifier = @"logIn";
     // Dispose of any resources that can be recreated.
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.list count];
+}
+
 //standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.list count];
-}
+    NSDictionary *dictionary = [self.list objectAtIndex:section];
+    NSArray *array = [dictionary objectForKey:@"data"];
+    return [array count];}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [self.list objectAtIndex:indexPath.row];
+    NSDictionary *dictionary = [self.list objectAtIndex:indexPath.section];
+    NSArray *array = [dictionary objectForKey:@"data"];
+    Device *cellDevice = [array objectAtIndex:indexPath.row];
+    NSString *cellValue = cellDevice.deviceName;
+    cell.textLabel.text = cellValue;
+    
     return cell;
 }
 
@@ -74,15 +87,32 @@ NSString * const LogInSegueIdentifier = @"logIn";
     controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if(section == 0)
+        return NSLocalizedString(@"booked-devices", nil);
+    else
+        return NSLocalizedString(@"free-devices", nil);;
+}
+
 //get all devices for the device overview
 -(void)getAllDevices{
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects) {
         
         for (Device *device in deviceObjects){
-            [self.list addObject:device.deviceName];
+//            [self.list addObject:device.deviceName];
             [self.deviceArray addObject:device];
+            if (device.isBooked) {
+                [self.bookedDevices addObject:device];
+            } else {
+                [self.freeDevices addObject:device];
+            }
         }
+        NSDictionary *bookedDictionary = [NSDictionary dictionaryWithObject:self.bookedDevices forKey:@"data"];
+        NSDictionary *freeDictionary = [NSDictionary dictionaryWithObject:self.freeDevices forKey:@"data"];
+        [self.list addObject:bookedDictionary];
+        [self.list addObject:freeDictionary];
         [self.table reloadData];
     }];
 

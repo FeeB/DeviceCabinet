@@ -23,6 +23,7 @@
 "system-version" = "System version";
 
 "booked-devices" = "Booked devices";
+"free-devices" = "Available devices";
 
 "save" = "save";
 

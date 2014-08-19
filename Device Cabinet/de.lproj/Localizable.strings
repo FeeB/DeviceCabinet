@@ -22,6 +22,7 @@
 "system-version" = "Betriebssystem";
 
 "booked-devices" = "Ausgeliehene Geräte";
+"free-devices" = "Verfügbare Geräte";
 
 "save" = "speichern";
 
