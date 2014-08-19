@@ -52,7 +52,7 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"book success text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book success", nil) message:NSLocalizedString(@"book success text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"return button", nil) forState:UIControlStateNormal];
         [self performSegueWithIdentifier:@"FromDeviceViewToOverview" sender:nil];

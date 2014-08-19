@@ -42,11 +42,11 @@
                 
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username not found text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username not found", nil) message:NSLocalizedString(@"username not found text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }];
     }else{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username empty", nil) message:[NSString stringWithFormat:NSLocalizedString(@"username empty text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username empty", nil) message:NSLocalizedString(@"username empty text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }    
 }
 
@@ -78,10 +78,8 @@
     return YES;
 }
 
-//toDo reload parentView
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    NSLog(@"%@", self.parentViewController);
     [self.parentViewController viewDidLoad];
 }
 
