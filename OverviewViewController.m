@@ -20,7 +20,6 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 @property (nonatomic, readonly) NSMutableArray *list;
 @property (nonatomic, readonly) NSMutableArray *categories;
-@property (nonatomic, strong) NSMutableArray *deviceArray;
 @property (nonatomic, strong) NSMutableArray *bookedDevices;
 @property (nonatomic, strong) NSMutableArray *freeDevices;
 
@@ -35,7 +34,6 @@ NSString * const LogInSegueIdentifier = @"logIn";
     
     _list = [[NSMutableArray alloc] init];
     _categories = [[NSMutableArray alloc] init];
-    _deviceArray = [[NSMutableArray alloc] init];
     _bookedDevices = [[NSMutableArray alloc] init];
     _freeDevices = [[NSMutableArray alloc] init];
     
@@ -84,7 +82,10 @@ NSString * const LogInSegueIdentifier = @"logIn";
 -(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier];
     [self.navigationController pushViewController:controller animated:YES];
-    controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
+
+    NSDictionary *dictionary = [self.list objectAtIndex:indexPath.section];
+    NSArray *array = [dictionary objectForKey:@"data"];
+    controller.deviceObject = [array objectAtIndex:indexPath.row];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -101,8 +102,6 @@ NSString * const LogInSegueIdentifier = @"logIn";
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects) {
         
         for (Device *device in deviceObjects){
-//            [self.list addObject:device.deviceName];
-            [self.deviceArray addObject:device];
             if (device.isBooked) {
                 [self.bookedDevices addObject:device];
             } else {
