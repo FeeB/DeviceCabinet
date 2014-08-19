@@ -90,10 +90,20 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
-    if(section == 0)
-        return NSLocalizedString(@"booked-devices", nil);
-    else
-        return NSLocalizedString(@"free-devices", nil);;
+    if(section == 0) {
+        if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] > 0) {
+            return NSLocalizedString(@"booked-devices", nil);
+        } else{
+            return nil;
+        }
+    } else {
+        if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] > 0) {
+            return NSLocalizedString(@"free-devices", nil);
+        } else{
+            return nil;
+        }
+
+    }
 }
 
 //get all devices for the device overview
