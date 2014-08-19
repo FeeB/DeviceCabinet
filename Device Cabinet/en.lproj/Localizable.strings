@@ -1,30 +1,50 @@
-/* 
-  Localizable.strings
-  Device Cabinet
+/*
+ localizable.strings
+ Device Cabinet
+ 
+ Created by Braun,Fee on 19.08.14.
+ Copyright (c) 2014 Braun,Fee. All rights reserved.
+ */
 
-  Created by Braun,Fee on 14.08.14.
-  Copyright (c) 2014 Braun,Fee. All rights reserved.
-*/
+"Login" = "Log in...";
+"tester" = "...as tester";
+"device" = "...as test device";
+"register" = "Register";
 
-"book button" = "Jetzt ausleihen";
-"return button" = "Zurückgeben";
-"return success" = "Erfolgreich zurückgegeben!";
-"return success text" = "Du hast das Gerät %@ erfolgreich zurückgegeben";
-"book success" = "Erfolgreich ausgeliehen!";
-"book success text" = "Du hast das Gerät %@ erfolgreich ausgeliehen";
-"already booked" = "Bereits ausgeliehen";
+"firstname" = "First name";
+"lastname" = "Last name";
+"username" = "Username";
 
-"saved" = "Gespeichert!";
-"saved device" = "Das Gerät %@ wurde in der Kategorie %@ gespeichert";
-"saved person" = "Person %@ %@ wurde gespeichert";
+"overview" = "Overview";
+"profile" = "Profile";
 
-"username not found" = "Username nicht gefudnen!";
-"username not found text" = "Der Username existiert nicht, vielleicht hast Du dich vertippt? Ansonsten musst du dich erst registrieren";
-"register device" = "Erst registrieren";
-"register device text" = "Dieses Gerät ist noch nicht registriert!";
+"devicename" = "Device name";
+"category" = "Category";
+"system-version" = "System version";
+"enter-username" = "Enter your username:";
 
-"username empty" = "Feld darf nicht leer sein";
-"username empty text" = "Bitte gib deinen Usernamen ein!";
+"booked-devices" = "Booked devices";
+"free-devices" = "Available devices";
 
-"empty textfield" = "Feld darf nicht leer sein";
-"empty textfield text" = "Bitte fülle das Feld %@ aus";
+"save" = "save";
+
+"book-button" = "Book Now!";
+"return-button" = "Return device";
+"return-success" = "Return success!";
+"return-success-text" = "You have returned the device successfully";
+"book-success" = "Book success!";
+"book-success-text" = "You have booked the device successfully";
+"already-booked" = "Already booked";
+
+"saved" = "Saved!";
+"saved-device" = "The device %@ was saved in the category %@";
+"saved-person" = "The person %@ %@ was saved";
+
+"username-empty" = "Enter your username!";
+"username-empty-text" = "The textfield for the username can't be empty";
+"username-not-found" = "Username not found";
+"username-not-found-text" = "Please try again to enter you username or register as a new user";
+"register-device" = "Register the device";
+"register-device-text" = "The device is not registered yet, please register it now";
+"empty-textfield" = "Please fill out the textfields";
+"empty-textfield-text" = "The textfield %@ can't be empty";
