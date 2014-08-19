@@ -21,6 +21,7 @@
 "devicename" = "Device name";
 "category" = "Category";
 "system-version" = "System version";
+"enter-username" = "Enter your username:";
 
 "booked-devices" = "Booked devices";
 "free-devices" = "Available devices";

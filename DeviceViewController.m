@@ -33,6 +33,7 @@
     self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
     self.systemVersionLabel.text = NSLocalizedString(@"system-version", nil);
     [self.bookDevice setTitle:NSLocalizedString(@"book-button", nil) forState:UIControlStateNormal];
+    self.usernameLabel.text = NSLocalizedString(@"enter-username", nil);
     
     [self showOrHideTextFields];
     

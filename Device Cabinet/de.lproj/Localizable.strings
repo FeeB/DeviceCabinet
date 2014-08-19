@@ -20,6 +20,7 @@
 "devicename" = "Gerätename";
 "category" = "Kategorie";
 "system-version" = "Betriebssystem";
+"enter-username" = "Gib deinen Usernamen ein:";
 
 "booked-devices" = "Ausgeliehene Geräte";
 "free-devices" = "Verfügbare Geräte";
