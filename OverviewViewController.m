@@ -44,11 +44,6 @@ NSString * const LogInSegueIdentifier = @"logIn";
     [self getAllDevices];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self.list count];
 }
@@ -58,7 +53,8 @@ NSString * const LogInSegueIdentifier = @"logIn";
 {
     NSDictionary *dictionary = [self.list objectAtIndex:section];
     NSArray *array = [dictionary objectForKey:@"data"];
-    return [array count];}
+    return [array count];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
