@@ -52,7 +52,7 @@
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-not-found", nil) message:NSLocalizedString(@"username-not-found-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }];
-    }else{
+    } else {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-empty", nil) message:NSLocalizedString(@"username-empty-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }    
 }
@@ -68,10 +68,11 @@
         self.deviceObject = device;
         
         if (device) {
+            // TODO? What is going on here? Shouldnt that be about devices?
             UserDefaults *userDefault = [[UserDefaults alloc]init];
             [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
-            
-            [self performSegueWithIdentifier:@"CreateDeviceToDeviceView" sender:self];
+
+            [self performSegueWithIdentifier:@"fromLoginToDeviceView" sender:self];
         } else {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register-device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register-device-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self performSegueWithIdentifier:@"fromLogInToCreateDevice" sender:self];
@@ -80,7 +81,7 @@
 
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
@@ -89,15 +90,5 @@
     [super viewWillDisappear:animated];
     [self.parentViewController viewDidLoad];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
