@@ -47,12 +47,7 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)storeReference {
+- (void)storeReference {
     [self.spinner startAnimating];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
@@ -60,11 +55,11 @@
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book-success", nil) message:NSLocalizedString(@"book-success-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"return-button", nil) forState:UIControlStateNormal];
-        [self performSegueWithIdentifier:@"FromDeviceViewToOverview" sender:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
--(void)deleteReference{
+- (void)deleteReference{
     [self.spinner startAnimating];
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
@@ -73,7 +68,7 @@
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return-success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return-success-text", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"book-button", nil) forState:UIControlStateNormal];
-        [self performSegueWithIdentifier:@"FromDeviceViewToOverview" sender:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -124,16 +119,5 @@
         }
     }
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
