@@ -18,6 +18,8 @@
 @property (nonatomic, weak) IBOutlet UITextField *userNameField;
 @property (nonatomic, weak) IBOutlet UIButton *personLogInButton;
 @property (nonatomic, weak) IBOutlet UIButton *deviceLogInButton;
+@property (nonatomic, weak) IBOutlet UIButton *personRegisterButton;
+@property (nonatomic, weak) IBOutlet UIButton *deviceRegisterButton;
 
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;

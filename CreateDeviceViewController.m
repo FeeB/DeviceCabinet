@@ -36,6 +36,10 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
+    self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
+    self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);
+    [self.saveButton setTitle:NSLocalizedString(@"save", nil) forState:UIControlStateNormal];
+    
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);

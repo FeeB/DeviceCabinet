@@ -161,9 +161,12 @@
                         <outlet property="bookDevice" destination="0bC-hI-2bB" id="dTW-Dv-3ld"/>
                         <outlet property="bookedFromLabel" destination="OC0-rJ-B2E" id="2CS-1m-nma"/>
                         <outlet property="bookedFromLabelText" destination="hGm-MM-eEt" id="LyB-9s-EG2"/>
-                        <outlet property="deviceCategoryLabel" destination="OvO-Kh-jRv" id="iKH-li-MW5"/>
-                        <outlet property="deviceLabel" destination="GFd-qr-nHb" id="A4G-0P-Qbm"/>
-                        <outlet property="systemVersionLabel" destination="M1u-Vf-HLG" id="uXj-1b-5uN"/>
+                        <outlet property="deviceCategoryLabel" destination="hrG-XQ-84K" id="gqW-r9-beX"/>
+                        <outlet property="deviceNameLabel" destination="NmG-Iq-xQi" id="LDb-96-mZQ"/>
+                        <outlet property="individualDeviceCategoryLabel" destination="OvO-Kh-jRv" id="yMe-Du-rzW"/>
+                        <outlet property="individualDeviceNameLabel" destination="GFd-qr-nHb" id="IbS-QK-bhy"/>
+                        <outlet property="individualSystemVersionLabel" destination="M1u-Vf-HLG" id="jVU-sq-8vf"/>
+                        <outlet property="systemVersionLabel" destination="ROy-P1-DvV" id="3Z4-h3-CwZ"/>
                         <outlet property="usernameLabel" destination="eDc-bw-kti" id="Zfn-7W-vhU"/>
                         <outlet property="usernameTextField" destination="2Ju-Nq-2aM" id="4Dx-gf-UxZ"/>
                         <segue destination="SLp-aA-eAp" kind="push" identifier="FromDeviceViewToOverview" id="sgo-Ev-vpQ"/>
@@ -229,8 +232,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="name" destination="hIt-0c-Dy1" id="MdL-Md-3T4"/>
-                        <outlet property="table" destination="Mnw-y9-jr8" id="8Vx-sX-Vv6"/>
+                        <outlet property="bookedDevicesLabel" destination="faI-UR-3EN" id="Tcj-Ta-LSF"/>
+                        <outlet property="nameLabel" destination="hIt-0c-Dy1" id="e6m-aB-pJp"/>
+                        <outlet property="tableView" destination="Mnw-y9-jr8" id="Mdt-Kz-MqJ"/>
                         <segue destination="ht1-Gt-e4Z" kind="modal" identifier="logIn" id="44s-ko-ABX"/>
                     </connections>
                 </viewController>
@@ -303,8 +307,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deviceCategoryLabel" destination="aJC-HS-wBm" id="k5O-Rf-yB6"/>
+                        <outlet property="deviceNameLabel" destination="qhy-HR-mCf" id="8ni-0x-7Rm"/>
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="devicePicker" destination="tEp-tq-fpi" id="l0B-kc-fzb"/>
+                        <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
                         <segue destination="Eqs-YC-kYu" kind="modal" identifier="CreateDeviceToDeviceView" id="Phs-EO-HNL"/>
                     </connections>
                 </viewController>
@@ -343,16 +350,10 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vorname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4F2-YN-zu3">
-                                        <rect key="frame" x="20" y="40" width="68" height="21"/>
+                                        <rect key="frame" x="20" y="40" width="286" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nachname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4QQ-Qj-PlD">
-                                        <rect key="frame" x="20" y="114" width="83" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="tnG-Qr-O7i">
@@ -365,25 +366,14 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FTc-YH-fv7">
-                                        <rect key="frame" x="20" y="181" width="79" height="21"/>
+                                        <rect key="frame" x="20" y="181" width="220" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Admin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vzb-id-cmJ">
-                                        <rect key="frame" x="20" y="265" width="50" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="VO0-fZ-fde">
-                                        <rect key="frame" x="128" y="260" width="51" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </switch>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ccC-39-AvV">
-                                        <rect key="frame" x="20" y="308" width="82" height="31"/>
+                                        <rect key="frame" x="20" y="266" width="82" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Registrieren">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -392,6 +382,12 @@
                                             <action selector="storePerson" destination="t2O-cR-IAe" eventType="touchUpInside" id="4r8-fg-x7u"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nachname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4QQ-Qj-PlD">
+                                        <rect key="frame" x="20" y="114" width="234" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -409,9 +405,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="firstNameLabel" destination="4F2-YN-zu3" id="WYc-d6-Uuf"/>
                         <outlet property="firstNameTextField" destination="jrG-Rb-Kdi" id="9Ka-nf-seZ"/>
-                        <outlet property="isAdminSwitch" destination="VO0-fZ-fde" id="jy5-y0-4aW"/>
+                        <outlet property="lastNameLabel" destination="4QQ-Qj-PlD" id="ZFK-DY-Fun"/>
                         <outlet property="lastNameTextField" destination="6Er-lw-yyn" id="8sn-st-BvD"/>
+                        <outlet property="userNameLabel" destination="FTc-YH-fv7" id="9hy-h9-Ofi"/>
                         <outlet property="userNameTextField" destination="tnG-Qr-O7i" id="kXk-zB-I8A"/>
                         <segue destination="wu6-Nf-a2I" kind="modal" identifier="CreatePersonToOverview" id="hCm-ba-dS6"/>
                     </connections>
@@ -473,16 +471,6 @@
                                     <outlet property="delegate" destination="1U2-KN-iqp" id="YfY-9v-N7I"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jYM-Ut-DEP">
-                                <rect key="frame" x="176" y="212" width="82" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Registrieren">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="t2O-cR-IAe" kind="push" id="ohD-AW-NKB"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log dich ein..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1jz-Sj-GWU">
                                 <rect key="frame" x="20" y="94" width="280" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -524,6 +512,16 @@
                                     <segue destination="fWZ-Ut-nkS" kind="push" identifier="fromLogInToCreateDevice" id="ZsE-3P-J6e"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jYM-Ut-DEP">
+                                <rect key="frame" x="176" y="212" width="82" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Registrieren">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="t2O-cR-IAe" kind="push" id="ohD-AW-NKB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -531,7 +529,9 @@
                     <connections>
                         <outlet property="deviceLabel" destination="lrH-3e-DBH" id="QLe-mu-1Wd"/>
                         <outlet property="deviceLogInButton" destination="6GL-VL-qrP" id="pGa-lh-eI4"/>
+                        <outlet property="deviceRegisterButton" destination="qEc-v8-efB" id="w7N-xR-5gW"/>
                         <outlet property="personLogInButton" destination="Sk8-P6-Hdr" id="xew-b9-DbT"/>
+                        <outlet property="personRegisterButton" destination="jYM-Ut-DEP" id="adc-C4-zdm"/>
                         <outlet property="userLabel" destination="761-XB-2jU" id="any-mH-l81"/>
                         <outlet property="userNameField" destination="ASd-ub-gSQ" id="qWf-Ky-Kho"/>
                         <outlet property="userNameLabel" destination="B4y-LC-Whv" id="vbs-Tp-xMX"/>
@@ -572,8 +572,8 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="axc-rQ-ksv"/>
-        <segue reference="wb9-fn-pNc"/>
         <segue reference="47g-C0-1IY"/>
+        <segue reference="44s-ko-ABX"/>
+        <segue reference="sgo-Ev-vpQ"/>
     </inferredMetricsTieBreakers>
 </document>

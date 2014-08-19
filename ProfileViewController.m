@@ -27,7 +27,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
 
 @implementation ProfileViewController
 
-@synthesize table;
+@synthesize tableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,8 +35,7 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     _deviceArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
     [self getAllBookedDevices];
-    [self.personButton setHidden:true];
-    [self.deviceButton setHidden:true];
+    self.bookedDevicesLabel.text = NSLocalizedString(@"booked devices", nil);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,18 +72,14 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person) {
         self.personObject = person;
         [self.personObject createFullNameWithFirstName];
-        self.name.text = self.personObject.fullName;
-        if (self.personObject.isAdmin) {
-            [self.personButton setHidden:false];
-            [self.deviceButton setHidden:false];
-        }
+        self.nameLabel.text = self.personObject.fullName;
     
         [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray) {
             for (Device *device in devicesArray){
                 [self.list addObject:device.deviceName];
                 [self.deviceArray addObject:device];
             }
-            [self.table reloadData];
+            [self.tableView reloadData];
         }];
     }];
 }

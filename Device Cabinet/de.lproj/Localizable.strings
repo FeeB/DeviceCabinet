@@ -5,6 +5,25 @@
   Created by Braun,Fee on 14.08.14.
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
+"Login" = "Log dich ein...";
+"tester" = "...als Tester";
+"device" = "...als Testgerät";
+"register" = "Registrieren";
+
+"firstname" = "Vorname";
+"lastname" = "Nachname";
+"username" = "Username";
+
+"overview" = "Übersicht";
+"profile" = "Profil";
+
+"devicename" = "Gerätename";
+"category" = "Kategorie";
+"System version" = "Betriebssystem";
+
+"booked devices" = "Ausgeliehene Geräte";
+
+"save" = "speichern";
 
 "book button" = "Jetzt ausleihen";
 "return button" = "Zurückgeben";

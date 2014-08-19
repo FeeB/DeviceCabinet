@@ -12,11 +12,14 @@
 
 @interface DeviceViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *individualDeviceNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *deviceNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *individualDeviceCategoryLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceCategoryLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabelText;
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
+@property (nonatomic, weak) IBOutlet UILabel *individualSystemVersionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
 @property (nonatomic, weak) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, weak) IBOutlet UILabel *usernameLabel;

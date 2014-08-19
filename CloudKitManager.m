@@ -313,7 +313,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     person.firstName = record[RecordTypePersonFirstNameField];
     person.lastName = record[RecordTypePersonLastNameField];
     person.userName = record[RecordTypePersonUsernameField];
-    person.isAdmin = [record[RecordTypePersonIsAdminSwitch] boolValue];
     person.recordId = record.recordID;
     
     return person;
@@ -347,7 +346,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     personRecord[RecordTypePersonFirstNameField] = person.firstName;
     personRecord[RecordTypePersonLastNameField] = person.lastName;
     personRecord[RecordTypePersonUsernameField] = person.userName;
-    personRecord[RecordTypePersonIsAdminSwitch] = [NSNumber numberWithBool:person.isAdmin];
     
     return personRecord;
 }

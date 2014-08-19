@@ -26,9 +26,13 @@
     [self.view addSubview:self.spinner];
     
     //set label text
-    self.deviceCategoryLabel.text = self.deviceObject.category;
-    self.deviceLabel.text = self.deviceObject.deviceName;
-    self.systemVersionLabel.text = self.deviceObject.systemVersion;
+    self.individualDeviceCategoryLabel.text = self.deviceObject.category;
+    self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);
+    self.individualDeviceNameLabel.text = self.deviceObject.deviceName;
+    self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
+    self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
+    self.systemVersionLabel.text = NSLocalizedString(@"System version", nil);
+    [self.bookDevice setTitle:NSLocalizedString(@"book button", nil) forState:UIControlStateNormal];
     
     [self showOrHideTextFields];
     

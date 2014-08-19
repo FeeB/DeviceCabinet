@@ -21,7 +21,6 @@
 @property NSString *userName;
 @property NSString *fullName;
 @property NSString *role;
-@property BOOL isAdmin;
 
 -(void)createFullNameWithFirstName;
 

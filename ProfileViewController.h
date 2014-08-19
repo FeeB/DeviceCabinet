@@ -12,14 +12,14 @@
 
 @interface ProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, weak) IBOutlet UILabel *name;
-@property (nonatomic, strong) IBOutlet UITableView *table;
-@property (nonatomic, weak) IBOutlet UIButton *personButton;
-@property (nonatomic, weak) IBOutlet UIButton *deviceButton;
+@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UILabel *bookedDevicesLabel;
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
--(void)getAllBookedDevices;
--(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
--(IBAction)logOut;
+
+- (void)getAllBookedDevices;
+- (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (IBAction)logOut;
 
 @end

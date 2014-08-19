@@ -22,6 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.whoAmILabel.text = NSLocalizedString(@"Login", nil);
+    self.userLabel.text = NSLocalizedString(@"tester", nil);
+    self.userNameLabel.text = NSLocalizedString(@"username", nil);
+    [self.personRegisterButton setTitle:NSLocalizedString(@"register", nil) forState:UIControlStateNormal];
+    [self.deviceRegisterButton setTitle:NSLocalizedString(@"register", nil) forState:UIControlStateNormal];
+    self.deviceLabel.text = NSLocalizedString(@"device", nil);
 }
 
 - (void)didReceiveMemoryWarning {

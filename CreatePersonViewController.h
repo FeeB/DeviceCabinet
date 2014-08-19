@@ -12,10 +12,11 @@
 @interface CreatePersonViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
-@property (weak, nonatomic) IBOutlet UISwitch *isAdminSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 

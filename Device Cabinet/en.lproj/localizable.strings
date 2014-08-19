@@ -6,6 +6,26 @@
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
 
+"Login" = "Log in...";
+"tester" = "...as tester";
+"device" = "...as test device";
+"register" = "Register";
+
+"firstname" = "First name";
+"lastname" = "Last name";
+"username" = "Username";
+
+"overview" = "Overview";
+"profile" = "Profile";
+
+"devicename" = "Device name";
+"category" = "Category";
+"System version" = "System version";
+
+"booked devices" = "Booked devices";
+
+"save" = "save";
+
 "book button" = "Book Now!";
 "return button" = "Return device";
 "return success" = "Return success!";

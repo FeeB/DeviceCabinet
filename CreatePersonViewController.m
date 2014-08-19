@@ -34,6 +34,10 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.lastNameLabel.text = NSLocalizedString(@"lastname", nil);
+    self.firstNameLabel.text = NSLocalizedString(@"firstname", nil);
+    self.userNameLabel.text = NSLocalizedString(@"username", nil);
+    
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
     self.spinner.hidesWhenStopped = YES;
@@ -68,7 +72,6 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
         person.firstName = self.firstNameTextField.text;
         person.lastName = self.lastNameTextField.text;
         person.userName = self.userNameTextField.text;
-        person.isAdmin = self.isAdminSwitch.on;
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^{
