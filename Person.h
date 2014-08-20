@@ -22,6 +22,6 @@
 @property NSString *fullName;
 @property NSString *role;
 
--(void)createFullNameWithFirstName;
+- (void)createFullNameWithFirstName;
 
 @end

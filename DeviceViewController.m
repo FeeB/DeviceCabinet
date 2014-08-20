@@ -48,7 +48,6 @@
     self.bookedFromLabelText.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
-    
 }
 
 - (void)storeReference {
@@ -62,7 +61,7 @@
     }];
 }
 
-- (void)deleteReference{
+- (void)deleteReference {
     [self.spinner startAnimating];
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
@@ -75,13 +74,12 @@
     }];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 //Action when user clicks on button
--(IBAction)fetchPersonRecordOnClick {
+- (IBAction)fetchPersonRecordOnClick {
     
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     NSString *username = [userDefaults getUserIdentifier];
@@ -103,7 +101,7 @@
     }
 }
 
-- (void)showOrHideTextFields{
+- (void)showOrHideTextFields {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
     NSString *currentUserType = [userDefaults getUserType];

@@ -40,14 +40,14 @@ NSString * const KeyForKeychain = @"deviceId";
      NSLog(@"object: %@", [keychain objectForKey:(__bridge id)(kSecAttrAccount)]);
 }
 
--(NSString *) getIdfromKeychain{
+- (NSString *) getIdfromKeychain {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
     NSLog(@"object: %@", [keychain objectForKey:(__bridge id)(kSecAttrAccount)]);
     return object;
 }
 
-- (void) resetKeyChain{
+- (void) resetKeyChain {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain resetKeychainItem];
 }

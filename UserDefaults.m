@@ -27,14 +27,14 @@ NSString * const KeyForUserType = @"type";
     return [self.userDefaults objectForKey:KeyForUserType];
 }
 
-- (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType{
+- (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
     [self.userDefaults setObject:uniqueIdentifier forKey:KeyForUserDefaults];
     [self.userDefaults setObject:userType forKey:KeyForUserType];
     [self.userDefaults synchronize];
 }
 
-- (void)resetUserDefaults{
+- (void)resetUserDefaults {
     NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
 }

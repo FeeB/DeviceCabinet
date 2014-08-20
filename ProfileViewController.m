@@ -39,13 +39,11 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 }
 
 //standard methods for tableview
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.list count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
@@ -59,8 +57,7 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 }
 
 //fetch person record to know the record ID to get all devices with a reference to this person object
--(void)getAllBookedDevices{
-    
+- (void)getAllBookedDevices {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
@@ -91,7 +88,7 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     }
 }
 
-- (IBAction)logOut{
+- (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogoutButtonSegue sender:self];

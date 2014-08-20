@@ -12,7 +12,7 @@
 @implementation Person
 
 
--(void)createFullNameWithFirstName{
+- (void)createFullNameWithFirstName {
    self.fullName = [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
 }
 

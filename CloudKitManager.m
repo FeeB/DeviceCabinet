@@ -138,7 +138,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 //Because we have to query the record we get back an array with only one record
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person))completionHandler {
-    
     //query with specific user name
     NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForPersons, userName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypePerson predicate:predicate];
@@ -156,8 +155,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 //fetch person record with record ID
 
-- (void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *person))completionHandler{
-    [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error){
+- (void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *person))completionHandler {
+    [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
@@ -168,8 +167,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)storePerson:(Person *)person completionHandler:(void (^)())completionHandler
-{
+- (void)storePerson:(Person *)person completionHandler:(void (^)())completionHandler {
     CKRecord *personRecord = [self recordFromPerson:person];
     [self.publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         if (error) {
@@ -183,8 +181,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
      }];
 }
 
-- (void)storeDevice:(Device *)device completionHandler:(void (^)())completionHandler
-{
+- (void)storeDevice:(Device *)device completionHandler:(void (^)())completionHandler {
     CKRecord *deviceRecord = [self recordFromDevice:device];
     [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         if (error) {
@@ -200,7 +197,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 //fetch device record with record ID, create a reference on this device record with person record ID and store the device record back
 
-- (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)())completionHandler{
+- (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)())completionHandler {
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
@@ -225,7 +222,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)())completionHandler{
+- (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)())completionHandler {
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
@@ -249,7 +246,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler{
+- (void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler {
     //fetch device record
     [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
@@ -274,7 +271,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 }
 
 //Query all Devices which have a reference from one person record ID
-- (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler{
+- (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler {
     //fetch the person record
     [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *personRecord, NSError *error){
         if (error) {
@@ -340,8 +337,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     return device;
 }
 
-- (CKRecord *)recordFromPerson:(Person *)person
-{
+- (CKRecord *)recordFromPerson:(Person *)person {
     CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:RecordTypePerson];
     personRecord[RecordTypePersonFirstNameField] = person.firstName;
     personRecord[RecordTypePersonLastNameField] = person.lastName;
@@ -350,8 +346,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     return personRecord;
 }
 
-- (CKRecord *)recordFromDevice:(Device *)device
-{
+- (CKRecord *)recordFromDevice:(Device *)device {
     CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:RecordTypeDevice];
     [deviceRecord setObject:device.deviceName forKey: RecordTypeDeviceNameField];
     [deviceRecord setObject:device.category forKey: RecordTypeDeviceCategoryField];

@@ -22,16 +22,14 @@
 
 NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -47,14 +45,12 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
     [self.view addSubview:self.spinner];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)storePerson
-{
+- (IBAction)storePerson {
     BOOL isStorable = true;
     NSMutableArray *txtFields = [[NSMutableArray alloc]initWithObjects:self.firstNameTextField.text, self.lastNameTextField.text, self.userNameTextField.text, nil];
     
@@ -97,7 +93,7 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField{
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
