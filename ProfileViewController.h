@@ -13,7 +13,7 @@
 @interface ProfileViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView *customTableView;
 @property (nonatomic, weak) IBOutlet UILabel *bookedDevicesLabel;
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
