@@ -97,6 +97,7 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
     if ([segue.identifier isEqualToString:FromStartToDeviceOverviewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
+        controller.comesFromStartView = YES;
     }
 }
 

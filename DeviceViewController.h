@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
+@property (nonatomic, assign) BOOL comesFromStartView;
+
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;
 - (void)deleteReference;

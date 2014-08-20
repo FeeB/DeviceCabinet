@@ -44,8 +44,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     self.navigationItem.hidesBackButton = YES;
     
-    [self showOrHideTextFields];
-    
     //toDo: set name after completionHandler
     //set full name of person in name label
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
@@ -53,6 +51,11 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.bookedFromLabelText.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self showOrHideTextFields];
 }
 
 - (void)storeReference {
@@ -63,6 +66,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
+        self.deviceObject.isBooked = YES;
+        self.deviceObject.bookedFromPerson = self.personObject;
     }];
 }
 
@@ -75,12 +80,16 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
-        
+        self.deviceObject.isBooked = NO;
     }];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (!self.comesFromStartView) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self viewWillAppear:YES];
+    }
 }
 
 //Action when user clicks on button
@@ -92,7 +101,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     BOOL isStorable = YES;
     
-    if ([userType isEqualToString:@"device"]){
+    if ([userType isEqualToString:@"device"] && !self.deviceObject.isBooked){
         if (self.usernameTextField && self.usernameTextField.text.length > 0) {
             username = self.usernameTextField.text;
         } else {
@@ -124,6 +133,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     [self.usernameTextField setHidden:true];
     [self.usernameLabel setHidden:true];
+    [self.bookedFromLabel setHidden:false];
     
     if (self.deviceObject.isBooked) {
         if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.userName] || [currentUserType isEqualToString:@"device"]) {
