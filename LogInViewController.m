@@ -21,18 +21,21 @@
 
 @implementation LogInViewController
 
+NSString *FromLogInToOverviewSegue = @"FromLoginToDeviceView";
+NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [TEDLocalization localize:self];
     
-    self.whoAmILabel.text = NSLocalizedString(@"Login", nil);
-    self.userLabel.text = NSLocalizedString(@"tester", nil);
-    self.userNameLabel.text = NSLocalizedString(@"username", nil);
-    [self.personRegisterButton setTitle:NSLocalizedString(@"register", nil) forState:UIControlStateNormal];
-    [self.deviceRegisterButton setTitle:NSLocalizedString(@"register", nil) forState:UIControlStateNormal];
-    self.deviceLabel.text = NSLocalizedString(@"device", nil);
+    self.whoAmILabel.text = NSLocalizedString(@"LABEL_LOGIN", nil);
+    self.userLabel.text = NSLocalizedString(@"LABEL_TESTER", nil);
+    self.userNameLabel.text = NSLocalizedString(@"LABEL_USERNAME", nil);
+    [self.personRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
+    [self.deviceRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
+    self.deviceLabel.text = NSLocalizedString(@"LABEL_DEVICE", nil);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,13 +54,13 @@
                 UserDefaults *userDefault = [[UserDefaults alloc]init];
                 [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
                 
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
             } else {
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-not-found", nil) message:NSLocalizedString(@"username-not-found-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }];
     } else {
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"username-empty", nil) message:NSLocalizedString(@"username-empty-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }    
 }
 
@@ -68,27 +71,26 @@
     CloudKitManager *manager = [[CloudKitManager alloc]init];
     
     [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device) {
-        NSLog(@"deviceId: %@", deviceId);
         self.deviceObject = device;
         
         if (device) {
-            [self performSegueWithIdentifier:@"FromLoginToDeviceView" sender:self];
+            [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:self];
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register-device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register-device-text", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }];
 
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"FromLoginToDeviceView"]){
+    if ([segue.identifier isEqualToString:FromLogInToOverviewSegue]){
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.deviceObject;
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [self performSegueWithIdentifier:@"FromLogInToCreateDevice" sender:self];
+    [self performSegueWithIdentifier:FromLogInToCreateDeviceSegue sender:self];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

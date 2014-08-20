@@ -5,48 +5,50 @@
   Created by Braun,Fee on 14.08.14.
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
-"Login" = "Log dich ein...";
-"tester" = "...als Tester";
-"device" = "...als Testgerät";
-"register" = "Registrieren";
+"LABEL_LOGIN" = "Log dich ein...";
+"LABEL_TESTER" = "...als Tester";
+"LABEL_DEVICE" = "...als Testgerät";
 
-"firstname" = "Vorname";
-"lastname" = "Nachname";
-"username" = "Username";
+"BUTTON_REGISTER" = "Registrieren";
 
-"overview" = "Übersicht";
-"profile" = "Profil";
+"LABEL_FIRSTNAME" = "Vorname";
+"LABEL_LASTNAME" = "Nachname";
+"LABEL_USERNAME" = "Username";
 
-"devicename" = "Gerätename";
-"category" = "Kategorie";
-"system-version" = "Betriebssystem";
-"enter-username" = "Gib deinen Usernamen ein:";
+"LABEL_OVERVIEW" = "Übersicht";
+"LABEL_PROFILE" = "Profil";
 
-"booked-devices" = "Ausgeliehene Geräte";
-"free-devices" = "Verfügbare Geräte";
+"LABEL_DEVICENAME" = "Gerätename:";
+"LABEL_CATEGORY" = "Kategorie:";
+"LABEL_SYSTEM_VERSION" = "Betriebssystem:";
+"LABEL_BOOKED_FROM" = "Ausgeliehen von:";
+"LABEL_ENTER_USERNAME" = "Gib deinen Usernamen ein:";
 
-"save" = "speichern";
+"SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
+"SECTION_FREE_DEVICES" = "Verfügbare Geräte";
 
-"book-button" = "Jetzt ausleihen";
-"return-button" = "Zurückgeben";
-"return-success" = "Erfolgreich zurückgegeben!";
-"return-success-text" = "Sie haben das Gerät erfolgreich zurückgegeben";
-"book-success" = "Erfolgreich ausgeliehen!";
-"book-success-text" = "Sie haben das Gerät erfolgreich ausgeliehen";
-"already-booked" = "Bereits ausgeliehen";
+"BUTTON_SAVE" = "speichern";
 
-"saved" = "Gespeichert!";
-"saved-device" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
-"saved-person" = "Person %@ %@ wurde registriert";
+"BUTTON_BOOK" = "Jetzt ausleihen";
+"BUTTON_RETURN" = "Zurückgeben";
+"HEADLINE_RETURN_SUCCESS" = "Erfolgreich zurückgegeben!";
+"MESSAGE_RETURN_SUCCESS" = "Sie haben das Gerät erfolgreich zurückgegeben";
+"HEADLINE_BOOK_SUCCESS" = "Erfolgreich ausgeliehen!";
+"MESSAGE_BOOK_SUCCESS" = "Sie haben das Gerät erfolgreich ausgeliehen";
+"BUTTON_ALREADY_BOOKED" = "Bereits ausgeliehen";
 
-"username-empty" = "Gib deinen Usernamen ein!";
-"username-empty-text" = "Das Textfeld für den Usernamen darf nicht leer sein";
-"username-not-found" = "Username nicht gefunden";
-"username-not-found-text" = "Bitte gebe deinen Usernamen erneut ein oder registriere dich";
-"register-device" = "Gerät registrieren";
-"register-device-text" = "Das Gerät ist noch nicht registriert, bitte registriere es jetzt";
-"empty-textfield" = "Fülle alle Textfelder aus";
-"empty-textfield-text" = "Das Textfeld %@ darf nicht leer sein";
+"HEADLINE_SAVED" = "Gespeichert!";
+"MESSAGE_SAVED_DEVICE" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
+"MESSAGE_SAVED_PERSON" = "Person %@ %@ wurde registriert";
+
+"HEADLINE_USERNAME_EMPTY" = "Gib deinen Usernamen ein!";
+"MESSAGE_USERNAME_EMPTY" = "Das Textfeld für den Usernamen darf nicht leer sein";
+"HEADLINE_USERNAME_NOT_FOUND" = "Username nicht gefunden";
+"MESSAGE_USERNAME_NOT_FOUND" = "Bitte gebe deinen Usernamen erneut ein oder registriere dich";
+"HEADLINE_REGISTER_DEVICE" = "Gerät registrieren";
+"MESSAGE_REGISTER_DEVICE" = "Das Gerät ist noch nicht registriert, bitte registriere es jetzt";
+"HEADLINE_EMPTY_TEXTFIELD" = "Fülle alle Textfelder aus";
+"MESSAGE_EMPTY_TEXTFIELD" = "Das Textfeld %@ darf nicht leer sein";
 
 "TITLE_PROFILE" = "Profil";
 "TITLE_OVERVIEW" = "Übersicht";

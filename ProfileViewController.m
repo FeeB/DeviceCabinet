@@ -18,17 +18,17 @@
 
 @property (nonatomic, strong) NSMutableArray *list;
 
-
 @end
 
 @implementation ProfileViewController
 
-@synthesize customTableView;
+NSString *FromProfileToDeviceSegue = @"FromProfileToDeviceOverview";
+NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.bookedDevicesLabel.text = NSLocalizedString(@"booked-devices", nil);
+    self.bookedDevicesLabel.text = NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
 
     [TEDLocalization localize:self];
 }
@@ -81,11 +81,11 @@
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"FromProfileToDeviceOverview" sender:nil];
+    [self performSegueWithIdentifier:FromProfileToDeviceSegue sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"FromProfileToDeviceOverview"]) {
+    if ([segue.identifier isEqualToString:FromProfileToDeviceSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = [self.list objectAtIndex:self.customTableView.indexPathForSelectedRow.row];
     }
@@ -94,7 +94,7 @@
 - (IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
+    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
 }
 
 @end

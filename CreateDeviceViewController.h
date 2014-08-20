@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
+extern NSString const *FromCreateDeviceToOverviewSegue;
+
 - (IBAction)textFieldReturn:(id)sender;
 - (IBAction) storeDevice;
 

@@ -13,8 +13,6 @@
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
 
-NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView";
-
 @interface CreateDeviceViewController ()
     @property (nonatomic, strong) UIActivityIndicatorView *spinner;
     @property (nonatomic, strong) NSArray *pickerData;
@@ -22,6 +20,8 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
 @end
 
 @implementation CreateDeviceViewController
+
+NSString *FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,9 +39,9 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
     [TEDLocalization localize:self];
     
     _pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
-    self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
-    self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);
-    [self.saveButton setTitle:NSLocalizedString(@"save", nil) forState:UIControlStateNormal];
+    self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
+    self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
+    [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
@@ -96,21 +96,21 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storeDevice:self.device completionHandler:^{
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil) message:[NSString stringWithFormat: NSLocalizedString(@"saved-device", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
     } else {
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty-textfield", nil) message:[NSString stringWithFormat:NSLocalizedString(@"empty-textfield-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_EMPTY_TEXTFIELD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_EMPTY_TEXTFIELD", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    [self performSegueWithIdentifier:@"FromCreateDeviceToDeviceView" sender:nil];
+    [self performSegueWithIdentifier:FromCreateDeviceToOverviewSegue sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"FromCreateDeviceToDeviceView"]) {
+    if ([segue.identifier isEqualToString:FromCreateDeviceToOverviewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
     }

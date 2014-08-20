@@ -30,13 +30,14 @@
     
     //set label text
     self.individualDeviceCategoryLabel.text = self.deviceObject.category;
-    self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);
+    self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     self.individualDeviceNameLabel.text = self.deviceObject.deviceName;
-    self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
+    self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
     self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
-    self.systemVersionLabel.text = NSLocalizedString(@"system-version", nil);
-    [self.bookDevice setTitle:NSLocalizedString(@"book-button", nil) forState:UIControlStateNormal];
-    self.usernameLabel.text = NSLocalizedString(@"enter-username", nil);
+    self.systemVersionLabel.text = NSLocalizedString(@"LABEL_SYSTEM_VERSION", nil);
+    [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
+    self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
+    self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
     
     [self showOrHideTextFields];
     
@@ -55,9 +56,9 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book-success", nil) message:NSLocalizedString(@"book-success-text", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
-        [self.bookDevice setTitle:NSLocalizedString(@"return-button", nil) forState:UIControlStateNormal];
+        [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
     }];
 }
 
@@ -67,9 +68,9 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return-success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return-success-text", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
-        [self.bookDevice setTitle:NSLocalizedString(@"book-button", nil) forState:UIControlStateNormal];
+        [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
         
     }];
 }
@@ -112,10 +113,10 @@
     
     if (self.deviceObject.isBooked) {
         if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.userName] || [currentUserType isEqualToString:@"device"]) {
-            [self.bookDevice setTitle:NSLocalizedString(@"return-button", nil) forState:UIControlStateNormal];
+            [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         }else{
             [self.bookDevice setEnabled:false];
-            [self.bookDevice setTitle:NSLocalizedString(@"already-booked", nil) forState:UIControlStateNormal];
+            [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil) forState:UIControlStateNormal];
         }
     }else{
         [self.bookedFromLabel setHidden:true];

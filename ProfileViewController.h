@@ -18,6 +18,10 @@
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 
+extern NSString const *FromProfileToDeviceSegue;
+extern NSString const *LogoutButtonSegue;
+
+
 - (void)getAllBookedDevices;
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)logOut;

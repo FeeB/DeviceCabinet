@@ -5,49 +5,50 @@
  Created by Braun,Fee on 19.08.14.
  Copyright (c) 2014 Braun,Fee. All rights reserved.
  */
+"LABEL_LOGIN" = "Log in";
+"LABEL_TESTER" = "as tester";
+"LABEL_DEVICE" = "as test device";
 
-"Login" = "Log in...";
-"tester" = "...as tester";
-"device" = "...as test device";
-"register" = "Register";
+"BUTTON_REGISTER" = "Register";
 
-"firstname" = "First name";
-"lastname" = "Last name";
-"username" = "Username";
+"LABEL_FIRSTNAME" = "First name";
+"LABEL_LASTNAME" = "Last name";
+"LABEL_USERNAME" = "Username";
 
-"overview" = "Overview";
-"profile" = "Profile";
+"LABEL_OVERVIEW" = "Overview";
+"LABEL_PROFILE" = "Profile";
 
-"devicename" = "Device name";
-"category" = "Category";
-"system-version" = "System version";
-"enter-username" = "Enter your username:";
+"LABEL_DEVICENAME" = "Device name:";
+"LABEL_CATEGORY" = "Category:";
+"LABEL_SYSTEM_VERSION" = "System version:";
+"LABEL_BOOKED_FROM" = "Booked from:";
+"LABEL_ENTER_USERNAME" = "Enter your username:";
 
-"booked-devices" = "Booked devices";
-"free-devices" = "Available devices";
+"SECTION_BOOKED_DEVICES" = "Booked devices";
+"SECTION_FREE_DEVICES" = "Available devices";
 
-"save" = "save";
+"BUTTON_SAVE" = "Save";
 
-"book-button" = "Book Now!";
-"return-button" = "Return device";
-"return-success" = "Return success!";
-"return-success-text" = "You have returned the device successfully";
-"book-success" = "Book success!";
-"book-success-text" = "You have booked the device successfully";
-"already-booked" = "Already booked";
+"BUTTON_BOOK" = "Book Now!";
+"BUTTON_RETURN" = "Return device";
+"HEADLINE_RETURN_SUCCESS" = "Return success!";
+"MESSAGE_RETURN_SUCCESS" = "You have returned the device successfully";
+"HEADLINE_BOOK_SUCCESS" = "Book success!";
+"MESSAGE_BOOK_SUCCESS" = "You have booked the device successfully";
+"BUTTON_ALREADY_BOOKED" = "Already booked";
 
-"saved" = "Saved!";
-"saved-device" = "The device %@ was registered in the category %@";
-"saved-person" = "The person %@ %@ was registered";
+"HEADLINE_SAVED" = "Saved!";
+"MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
+"MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 
-"username-empty" = "Enter your username!";
-"username-empty-text" = "The textfield for the username can't be empty";
-"username-not-found" = "Username not found";
-"username-not-found-text" = "Please try again to enter you username or register as a new user";
-"register-device" = "Register the device";
-"register-device-text" = "The device is not registered yet, please register it now";
-"empty-textfield" = "Please fill out the textfields";
-"empty-textfield-text" = "The textfield %@ can't be empty";
+"HEADLINE_USERNAME_EMPTY" = "Enter your username";
+"MESSAGE_USERNAME_EMPTY" = "The textfield for the username can't be empty";
+"HEADLINE_USERNAME_NOT_FOUND" = "Username not found";
+"MESSAGE_USERNAME_NOT_FOUND" = "Please try again to enter you username or register as a new user";
+"HEADLINE_REGISTER_DEVICE" = "Register the device";
+"MESSAGE_REGISTER_DEVICE" = "The device is not registered yet, please register it now";
+"HEADLINE_EMPTY_TEXTFIELD" = "Please fill out the textfields";
+"MESSAGE_EMPTY_TEXTFIELD" = "The textfield %@ can't be empty";
 
 "TITLE_PROFILE" = "Profile";
 "TITLE_OVERVIEW" = "Overview";

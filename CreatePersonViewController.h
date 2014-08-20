@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
+extern NSString const *FromCreatePersonToOverviewSegue;
+
 - (IBAction)storePerson;
 
 @end

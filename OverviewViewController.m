@@ -13,14 +13,17 @@
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "TEDLocalization.h"
+#import "ProfileViewController.h"
 
 @interface OverviewViewController ()
 
 @property (nonatomic, strong) NSMutableArray *lists;
-
+@property (nonatomic, strong) Device *device;
 @end
 
 @implementation OverviewViewController
+
+NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,11 +70,11 @@
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
+    [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"FromOverviewToDeviceView"]) {
+    if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
         controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
@@ -80,13 +83,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (self.lists.count == 2) {
-        return section == 0 ? NSLocalizedString(@"booked-devices", nil) : NSLocalizedString(@"free-devices", nil);
+        return section == 0 ? NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
     } else {
         NSArray *devices = self.lists[0];
         if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
-            return NSLocalizedString(@"booked-devices", nil);
+            return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
         } else {
-            return NSLocalizedString(@"free-devices", nil);
+            return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
         }
     }
 }
@@ -122,7 +125,7 @@
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
+    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
 }
 
 - (void)checkCurrentUserIsLoggedIn {
@@ -136,20 +139,19 @@
             CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
             [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person) {
                 if (!person) {
-                    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
+                    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
                 }
             }];
         } else {
             CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
             [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device) {
                 if (device) {
-                    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
-                    controller.deviceObject = device;
-                    [self.navigationController pushViewController:controller animated:YES];
+                    self.device = device;
+                    [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
                 } else {
                     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
                     [uIdGenerator resetKeyChain];
-                    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
+                    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
                     
                 }
             }];
@@ -157,7 +159,7 @@
     } else {
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
         [uIdGenerator resetKeyChain];
-        [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
+        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
     }
 }
 

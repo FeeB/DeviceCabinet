@@ -13,14 +13,14 @@
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
 
-NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
-
 @interface CreatePersonViewController ()
     @property (readonly) CKContainer *container;
     @property (readonly) CKDatabase *publicDatabase;
 @end
 
 @implementation CreatePersonViewController
+
+NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,9 +37,9 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
     
     [TEDLocalization localize:self];
     
-    self.lastNameLabel.text = NSLocalizedString(@"lastname", nil);
-    self.firstNameLabel.text = NSLocalizedString(@"firstname", nil);
-    self.userNameLabel.text = NSLocalizedString(@"username", nil);
+    self.lastNameLabel.text = NSLocalizedString(@"LABEL_LASTNAME", nil);
+    self.firstNameLabel.text = NSLocalizedString(@"LABEL_FIRSTNAME", nil);
+    self.userNameLabel.text = NSLocalizedString(@"LABEL_USERNAME", nil);
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
@@ -60,8 +60,8 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
     
     for (NSString *textField in txtFields) {
         if ([textField isEqualToString:@""]) {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"empty-textfield", nil)
-                                       message:[NSString stringWithFormat: NSLocalizedString(@"empty-textfield-text", nil), textField]
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_EMPTY_TEXTFIELD", nil)
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_EMPTY_TEXTFIELD", nil), textField]
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             isStorable = false;
             break;
@@ -78,20 +78,20 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^{
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"saved", nil)
-                                       message:[NSString stringWithFormat: NSLocalizedString(@"saved-person", nil), person.firstName, person.lastName]
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
+                                       message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
             [userDefaults storeUserDefaults:person.userName userType:@"person"];
             
-            [self performSegueWithIdentifier:@"FromCreatePersonToOverview" sender:self];
+            [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
         }];
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"FromCreatePersonToOverview"]) {
+    if ([segue.identifier isEqualToString:FromCreatePersonToOverviewSegue]) {
         OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
         controller.comesFromRegister = YES;
     }
