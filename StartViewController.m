@@ -12,6 +12,7 @@
 #import "CloudKitManager.h"
 #import "Device.h"
 #import "DeviceViewController.h"
+#import "UIdGenerator.h"
 
 NSString * const FromeStartToOverviewSegue = @"FromStartToOverview";
 NSString * const FromStartToLogInSegue = @"FromStartToLogIn";
@@ -86,6 +87,8 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
             self.device = device;
             [self performSegueWithIdentifier:FromStartToDeviceOverviewSegue sender:nil];
         } else {
+            UIdGenerator *generator = [[UIdGenerator alloc] init];
+            [generator resetKeyChain];
             [self performSegueWithIdentifier:FromStartToLogInSegue sender:self];
             
         }
