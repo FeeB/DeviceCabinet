@@ -48,4 +48,13 @@
 "empty-textfield" = "Fülle alle Textfelder aus";
 "empty-textfield-text" = "Das Textfeld %@ darf nicht leer sein";
 
-"Title-Profile" = "Profil";
+"TITLE_PROFILE" = "Profil";
+"TITLE_OVERVIEW" = "Übersicht";
+"TITLE_CREATE_DEVICE" = "Gerät registrieren";
+"TITLE_DEVICE_OVERVIEW" = "Gerätübersicht";
+"TITLE_CREATE_PERSON" = "Person registrieren";
+"TITLE_LOGIN" = "LogIn";
+
+"BUTTON_PROFILE" = "Profil";
+"BUTTON_LOGOUT" = "LogOut";
+"BUTTON_OVERVIEW" = "Übersicht";

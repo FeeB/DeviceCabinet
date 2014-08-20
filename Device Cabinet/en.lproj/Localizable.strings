@@ -49,4 +49,13 @@
 "empty-textfield" = "Please fill out the textfields";
 "empty-textfield-text" = "The textfield %@ can't be empty";
 
-"Title-Profile" = "Profile";
+"TITLE_PROFILE" = "Profile";
+"TITLE_OVERVIEW" = "Overview";
+"TITLE_CREATE_DEVICE" = "Register Device";
+"TITLE_DEVICE_OVERVIEW" = "Device Overview";
+"TITLE_CREATE_PERSON" = "Register Person";
+"TITLE_LOGIN" = "LogIn";
+
+"BUTTON_PROFILE" = "Profile";
+"BUTTON_LOGOUT" = "LogOut";
+"BUTTON_OVERVIEW" = "Overview";

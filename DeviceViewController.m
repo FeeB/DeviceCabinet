@@ -9,6 +9,7 @@
 #import "DeviceViewController.h"
 #import "CloudKitManager.h"
 #import "UserDefaults.h"
+#import "TEDLocalization.h"
 
 @interface DeviceViewController ()
 
@@ -19,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);

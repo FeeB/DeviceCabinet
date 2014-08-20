@@ -12,6 +12,7 @@
 #import "LogInViewController.h"
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
+#import "TEDLocalization.h"
 
 NSString * const DeviceControllerIdentifier = @"DeviceControllerID";
 NSString * const LogInSegueIdentifier = @"logIn";
@@ -26,6 +27,8 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [TEDLocalization localize:self];
     
     if (!self.comesFromRegister) {
         [self checkCurrentUserIsLoggedIn];
@@ -146,7 +149,6 @@ NSString * const LogInSegueIdentifier = @"logIn";
                     DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
                     controller.deviceObject = device;
                     [self.navigationController pushViewController:controller animated:YES];
-                    [self.navigationController setNavigationBarHidden:YES];
                 } else {
                     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
                     [uIdGenerator resetKeyChain];
