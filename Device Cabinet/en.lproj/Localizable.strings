@@ -37,7 +37,7 @@
 "MESSAGE_BOOK_SUCCESS" = "You have booked the device successfully";
 "BUTTON_ALREADY_BOOKED" = "Already booked";
 
-"HEADLINE_SAVED" = "Saved!";
+"HEADLINE_SAVED" = "Registered!";
 "MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
 "MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 

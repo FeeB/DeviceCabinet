@@ -37,7 +37,7 @@
 "MESSAGE_BOOK_SUCCESS" = "Sie haben das Gerät erfolgreich ausgeliehen";
 "BUTTON_ALREADY_BOOKED" = "Bereits ausgeliehen";
 
-"HEADLINE_SAVED" = "Gespeichert!";
+"HEADLINE_SAVED" = "Registriert!";
 "MESSAGE_SAVED_DEVICE" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
 "MESSAGE_SAVED_PERSON" = "Person %@ %@ wurde registriert";
 

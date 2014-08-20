@@ -100,7 +100,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TITLE_DEVICE_OVERVIEW" id="DUk-k6-lFr"/>
+                    <navigationItem key="navigationItem" title="TITLE_DEVICE_OVERVIEW" id="DUk-k6-lFr">
+                        <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="BXd-2g-g9H">
+                            <connections>
+                                <action selector="logOut" destination="Eqs-YC-kYu" id="mGC-hR-Vec"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bookDevice" destination="0bC-hI-2bB" id="dTW-Dv-3ld"/>
                         <outlet property="bookedFromLabel" destination="OC0-rJ-B2E" id="2CS-1m-nma"/>
@@ -113,6 +119,7 @@
                         <outlet property="systemVersionLabel" destination="ROy-P1-DvV" id="3Z4-h3-CwZ"/>
                         <outlet property="usernameLabel" destination="eDc-bw-kti" id="Zfn-7W-vhU"/>
                         <outlet property="usernameTextField" destination="2Ju-Nq-2aM" id="4Dx-gf-UxZ"/>
+                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="nLc-J1-fvm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -366,13 +373,13 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="ew1-BH-cUs">
                             <connections>
-                                <action selector="logOut" destination="iw6-Gk-HuI" id="b2E-dl-ou7"/>
+                                <action selector="logOut" destination="iw6-Gk-HuI" id="PnH-XD-Ezu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="FromOverviewToDeviceView" id="Xju-vS-6Xe"/>
-                        <segue destination="1U2-KN-iqp" kind="push" identifier="FromLogOutButtonToLogIn" id="vy6-84-4Qx"/>
+                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="O9K-3h-XkW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -572,7 +579,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ZGk-mU-Eru"/>
-        <segue reference="JWu-wD-7dv"/>
-        <segue reference="Phs-EO-HNL"/>
+        <segue reference="nLM-4G-FEK"/>
+        <segue reference="O9K-3h-XkW"/>
+        <segue reference="Xju-vS-6Xe"/>
     </inferredMetricsTieBreakers>
 </document>
