@@ -11,6 +11,7 @@
 #import "CloudKitManager.h"
 #import "UIdGenerator.h"
 #import "DeviceViewController.h"
+#import "TEDLocalization.h"
 
 NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView";
 
@@ -35,6 +36,8 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [TEDLocalization localize:self];
+    
     _pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
     self.deviceNameLabel.text = NSLocalizedString(@"devicename", nil);
     self.deviceCategoryLabel.text = NSLocalizedString(@"category", nil);

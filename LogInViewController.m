@@ -13,6 +13,7 @@
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "DeviceViewController.h"
+#import "TEDLocalization.h"
 
 @interface LogInViewController ()
 
@@ -23,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [TEDLocalization localize:self];
     
     self.whoAmILabel.text = NSLocalizedString(@"Login", nil);
     self.userLabel.text = NSLocalizedString(@"tester", nil);

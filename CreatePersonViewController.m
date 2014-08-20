@@ -11,6 +11,7 @@
 #import "CloudKitManager.h"
 #import "UserDefaults.h"
 #import "OverviewViewController.h"
+#import "TEDLocalization.h"
 
 NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
 
@@ -33,6 +34,8 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [TEDLocalization localize:self];
     
     self.lastNameLabel.text = NSLocalizedString(@"lastname", nil);
     self.firstNameLabel.text = NSLocalizedString(@"firstname", nil);

@@ -37,8 +37,8 @@
 "already-booked" = "Already booked";
 
 "saved" = "Saved!";
-"saved-device" = "The device %@ was saved in the category %@";
-"saved-person" = "The person %@ %@ was saved";
+"saved-device" = "The device %@ was registered in the category %@";
+"saved-person" = "The person %@ %@ was registered";
 
 "username-empty" = "Enter your username!";
 "username-empty-text" = "The textfield for the username can't be empty";
