@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="695"/>
+            <point key="canvasLocation" x="-210" y="1416"/>
         </scene>
         <!--TITLE_PROFILE-->
         <scene sceneID="0OO-jp-7jb">
@@ -161,7 +161,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="TITLE_PROFILE" id="dGw-sR-8UW">
-                        <barButtonItem key="rightBarButtonItem" title="LogOut" id="pdn-5l-g7b">
+                        <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="pdn-5l-g7b">
                             <connections>
                                 <action selector="logOut" destination="aFT-S4-a1D" id="rNz-pD-teR"/>
                             </connections>
@@ -169,9 +169,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bookedDevicesLabel" destination="faI-UR-3EN" id="Tcj-Ta-LSF"/>
+                        <outlet property="customTableView" destination="Mnw-y9-jr8" id="Yjm-uw-3hr"/>
                         <outlet property="nameLabel" destination="hIt-0c-Dy1" id="e6m-aB-pJp"/>
-                        <outlet property="tableView" destination="Mnw-y9-jr8" id="Mdt-Kz-MqJ"/>
-                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="logIn" id="44s-ko-ABX"/>
+                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="44s-ko-ABX"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromProfileToDeviceOverview" id="vhX-Ru-WCX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,12 +243,12 @@
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="devicePicker" destination="tEp-tq-fpi" id="l0B-kc-fzb"/>
                         <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
-                        <segue destination="Eqs-YC-kYu" kind="modal" identifier="fromCreateDeviceToDeviceView" id="Phs-EO-HNL"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromCreateDeviceToDeviceView" id="Phs-EO-HNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-553" y="1414"/>
+            <point key="canvasLocation" x="-611" y="1416"/>
         </scene>
         <!--TITLE_CREATE_PERSON-->
         <scene sceneID="jBN-YA-Wuv">
@@ -331,12 +332,12 @@
                         <outlet property="lastNameTextField" destination="6Er-lw-yyn" id="8sn-st-BvD"/>
                         <outlet property="userNameLabel" destination="FTc-YH-fv7" id="9hy-h9-Ofi"/>
                         <outlet property="userNameTextField" destination="tnG-Qr-O7i" id="kXk-zB-I8A"/>
-                        <segue destination="qo8-yT-HJK" kind="modal" id="jmk-4s-w4l"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromCreatePersonToOverview" id="TDX-HC-rRw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mX3-3h-urF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-115" y="695"/>
+            <point key="canvasLocation" x="-83" y="695"/>
         </scene>
         <!--TITLE_OVERVIEW-->
         <scene sceneID="uZb-EK-JUo">
@@ -362,7 +363,7 @@
                     <navigationItem key="navigationItem" title="TITLE_OVERVIEW" id="Kby-7z-Zbi">
                         <barButtonItem key="leftBarButtonItem" title="BUTTON_PROFILE" id="P40-Xb-dNi">
                             <connections>
-                                <segue destination="aFT-S4-a1D" kind="push" id="wjo-ov-m8J"/>
+                                <segue destination="aFT-S4-a1D" kind="push" identifier="FromProfileButtonToProfile" id="wjo-ov-m8J"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="ew1-BH-cUs">
@@ -372,8 +373,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="fromTableToDeviceView" id="Xju-vS-6Xe"/>
-                        <segue destination="1U2-KN-iqp" kind="modal" identifier="logIn" id="vy6-84-4Qx"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromOverviewToDeviceView" id="Xju-vS-6Xe"/>
+                        <segue destination="1U2-KN-iqp" kind="push" identifier="FromLogOutButtonToLogIn" id="vy6-84-4Qx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -452,7 +453,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fWZ-Ut-nkS" kind="modal" identifier="fromLogInToCreateDevice" id="ZsE-3P-J6e"/>
+                                    <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromLogInToCreateDevice" id="ZsE-3P-J6e"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jYM-Ut-DEP">
@@ -462,7 +463,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="t2O-cR-IAe" kind="modal" id="ohD-AW-NKB"/>
+                                    <segue destination="t2O-cR-IAe" kind="push" identifier="FromLogInToCreatePerson" id="ohD-AW-NKB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -479,8 +480,8 @@
                         <outlet property="userNameField" destination="ASd-ub-gSQ" id="qWf-Ky-Kho"/>
                         <outlet property="userNameLabel" destination="B4y-LC-Whv" id="vbs-Tp-xMX"/>
                         <outlet property="whoAmILabel" destination="1jz-Sj-GWU" id="ND7-zG-EBq"/>
-                        <segue destination="Eqs-YC-kYu" kind="modal" identifier="fromLoginToDeviceView" id="47g-C0-1IY"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" id="HeV-BO-8ND"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromLoginToDeviceView" id="47g-C0-1IY"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromLogInToOverview" id="HeV-BO-8ND"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAi-el-de0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -533,8 +534,8 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QJe-Sr-Flj"/>
+        <segue reference="vy6-84-4Qx"/>
         <segue reference="HeV-BO-8ND"/>
-        <segue reference="Phs-EO-HNL"/>
+        <segue reference="47g-C0-1IY"/>
     </inferredMetricsTieBreakers>
 </document>

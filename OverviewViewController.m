@@ -14,9 +14,6 @@
 #import "UIdGenerator.h"
 #import "TEDLocalization.h"
 
-NSString * const DeviceControllerIdentifier = @"DeviceControllerID";
-NSString * const LogInSegueIdentifier = @"logIn";
-
 @interface OverviewViewController ()
 
 @property (nonatomic, strong) NSMutableArray *lists;
@@ -70,11 +67,11 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"fromTableToDeviceView" sender:nil];
+    [self performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"fromTableToDeviceView"]) {
+    if ([segue.identifier isEqualToString:@"FromOverviewToDeviceView"]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
         controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
@@ -125,7 +122,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
 }
 
 - (void)checkCurrentUserIsLoggedIn {
@@ -139,7 +136,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
             CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
             [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person) {
                 if (!person) {
-                    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+                    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
                 }
             }];
         } else {
@@ -152,7 +149,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
                 } else {
                     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
                     [uIdGenerator resetKeyChain];
-                    [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+                    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
                     
                 }
             }];
@@ -160,7 +157,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
     } else {
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
         [uIdGenerator resetKeyChain];
-        [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
+        [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
     }
 }
 

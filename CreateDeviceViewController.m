@@ -102,12 +102,12 @@ NSString * const OverviewFromDeviceSegueIdentifier = @"CreateDeviceToDeviceView"
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    [self performSegueWithIdentifier:@"fromCreateDeviceToDeviceView" sender:nil];
+    [self performSegueWithIdentifier:@"FromCreateDeviceToDeviceView" sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"fromCreateDeviceToDeviceView"]) {
+    if ([segue.identifier isEqualToString:@"FromCreateDeviceToDeviceView"]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
     }

@@ -12,6 +12,7 @@
 #import "MD5Extension.h"
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
+#import "DeviceViewController.h"
 
 @interface LogInViewController ()
 
@@ -68,17 +69,23 @@
         self.deviceObject = device;
         
         if (device) {
-            // TODO? What is going on here? Shouldnt that be about devices?
-            UserDefaults *userDefault = [[UserDefaults alloc]init];
-            [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
-
-            [self performSegueWithIdentifier:@"fromLoginToDeviceView" sender:self];
+            [self performSegueWithIdentifier:@"FromLoginToDeviceView" sender:self];
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register-device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register-device-text", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            [self performSegueWithIdentifier:@"fromLogInToCreateDevice" sender:self];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"register-device", nil) message:[NSString stringWithFormat:NSLocalizedString(@"register-device-text", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }];
 
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"FromLoginToDeviceView"]){
+        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        controller.deviceObject = self.deviceObject;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self performSegueWithIdentifier:@"FromLogInToCreateDevice" sender:self];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

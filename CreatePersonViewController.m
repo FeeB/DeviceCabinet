@@ -82,15 +82,16 @@ NSString * const OverviewFromPersonSegueIdentifier = @"CreatePersonToOverview";
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
             [userDefaults storeUserDefaults:person.userName userType:@"person"];
             
-            OverviewViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"OverviewControllerId"];
-            controller.comesFromRegister = YES;
-            [self.navigationController pushViewController:controller animated:YES];
-            
-            [self performSegueWithIdentifier:OverviewFromPersonSegueIdentifier sender:self];
+            [self performSegueWithIdentifier:@"FromCreatePersonToOverview" sender:self];
         }];
-
     }
-    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"FromCreatePersonToOverview"]) {
+        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
+        controller.comesFromRegister = YES;
+    }
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField{

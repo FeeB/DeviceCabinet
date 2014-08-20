@@ -14,37 +14,28 @@
 #import "UserDefaults.h"
 #import "TEDLocalization.h"
 
-
-NSString * const DeviceControllerIdentifier2 = @"DeviceControllerID";
-NSString * const LogInSegueIdentifier2 = @"logIn";
-
 @interface ProfileViewController ()
 
-@property (nonatomic, readonly) NSMutableArray *list;
-@property (nonatomic, strong) NSMutableArray *deviceArray;
+@property (nonatomic, strong) NSMutableArray *list;
 
 
 @end
 
 @implementation ProfileViewController
 
-@synthesize tableView;
+@synthesize customTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _list = [[NSMutableArray alloc] init];
-    _deviceArray = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
-    [self getAllBookedDevices];
     self.bookedDevicesLabel.text = NSLocalizedString(@"booked-devices", nil);
 
     [TEDLocalization localize:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getAllBookedDevices];
 }
 
 //standard methods for tableview
@@ -62,7 +53,8 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [self.list objectAtIndex:indexPath.row];
+    Device *device = [self.list objectAtIndex:indexPath.row];
+    cell.textLabel.text = device.deviceName;
     return cell;
 }
 
@@ -78,27 +70,31 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
         self.nameLabel.text = self.personObject.fullName;
     
         [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray) {
+            self.list = [[NSMutableArray alloc] init];
             for (Device *device in devicesArray){
-                [self.list addObject:device.deviceName];
-                [self.deviceArray addObject:device];
+                [self.list addObject:device];
             }
-            [self.tableView reloadData];
+            [self.customTableView reloadData];
         }];
     }];
 }
 
 //On click on one cell the device view will appear
--(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier2];
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    controller.deviceObject = [self.deviceArray objectAtIndex:indexPath.row];
+- (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"FromProfileToDeviceOverview" sender:nil];
 }
 
--(IBAction)logOut{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"FromProfileToDeviceOverview"]) {
+        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        controller.deviceObject = [self.list objectAtIndex:self.customTableView.indexPathForSelectedRow.row];
+    }
+}
+
+- (IBAction)logOut{
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:LogInSegueIdentifier2 sender:self];
+    [self performSegueWithIdentifier:@"FromLogOutButtonToLogIn" sender:self];
 }
 
 @end
