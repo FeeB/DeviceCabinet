@@ -33,6 +33,7 @@
 - (void)storeReference;
 - (void)deleteReference;
 - (void)showOrHideTextFields;
+- (IBAction)logOut;
 
 
 @end

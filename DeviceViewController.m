@@ -10,6 +10,9 @@
 #import "CloudKitManager.h"
 #import "UserDefaults.h"
 #import "TEDLocalization.h"
+#import "ProfileViewController.h"
+
+NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 @interface DeviceViewController ()
 
@@ -38,6 +41,8 @@
     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
+    
+    self.navigationItem.hidesBackButton = YES;
     
     [self showOrHideTextFields];
     
@@ -85,19 +90,30 @@
     NSString *username = [userDefaults getUserIdentifier];
     NSString *userType = [userDefaults getUserType];
     
+    BOOL isStorable = YES;
+    
     if ([userType isEqualToString:@"device"]){
-        username = self.usernameTextField.text;
+        if (self.usernameTextField && self.usernameTextField.text.length > 0) {
+            username = self.usernameTextField.text;
+        } else {
+            isStorable = NO;
+           [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+        
     }
     
-    if (!self.deviceObject.isBooked){
-        self.deviceObject.isBooked = true;
-        CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
-            self.personObject = person;
-            [self storeReference];
-        }];
-    }else{
-        [self deleteReference];
+    if (isStorable) {
+        if (!self.deviceObject.isBooked){
+            self.deviceObject.isBooked = true;
+            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
+            [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
+                self.personObject = person;
+                [self storeReference];
+            }];
+        }else{
+            [self deleteReference];
+        }
+
     }
 }
 
@@ -124,6 +140,12 @@
             [self.usernameLabel setHidden:false];
         }
     }
+}
+
+- (IBAction)logOut {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    [userDefaults resetUserDefaults];
+    [self performSegueWithIdentifier:LogoutButtonSegue sender:nil];
 }
 
 @end
