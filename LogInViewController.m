@@ -21,7 +21,8 @@
 
 @implementation LogInViewController
 
-NSString *FromLogInToOverviewSegue = @"FromLoginToDeviceView";
+NSString *FromLogInToOverviewSegue = @"FromLogInToOverview";
+NSString *FromLogInToDeviceViewSegue = @"FromLoginToDeviceView";
 NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 
 - (void)viewDidLoad {
@@ -74,7 +75,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
         self.deviceObject = device;
         
         if (device) {
-            [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:self];
+            [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
         } else {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
@@ -83,7 +84,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromLogInToOverviewSegue]){
+    if ([segue.identifier isEqualToString:FromLogInToDeviceViewSegue]){
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.deviceObject;
     }
