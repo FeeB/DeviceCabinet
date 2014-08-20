@@ -55,10 +55,9 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book-success", nil) message:NSLocalizedString(@"book-success-text", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"book-success", nil) message:NSLocalizedString(@"book-success-text", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"return-button", nil) forState:UIControlStateNormal];
-        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -68,11 +67,16 @@
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^{
-        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return-success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return-success-text", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"return-success", nil) message:[NSString stringWithFormat: NSLocalizedString(@"return-success-text", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"book-button", nil) forState:UIControlStateNormal];
-        [self.navigationController popViewControllerAnimated:YES];
+        
     }];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //Action when user clicks on button
