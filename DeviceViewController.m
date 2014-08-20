@@ -42,8 +42,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
     
-    self.navigationItem.hidesBackButton = YES;
-    
     //toDo: set name after completionHandler
     //set full name of person in name label
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
@@ -51,6 +49,12 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.bookedFromLabelText.text = bookedFrom.fullName;
     
     self.personObject = [[Person alloc] init];
+    
+    if (self.comesFromStartView) {
+        self.navigationItem.hidesBackButton = YES;
+    } else {
+        self.navigationItem.hidesBackButton = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
