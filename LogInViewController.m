@@ -37,6 +37,8 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     [self.personRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
     [self.deviceRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
     self.deviceLabel.text = NSLocalizedString(@"LABEL_DEVICE", nil);
+    
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)didReceiveMemoryWarning {

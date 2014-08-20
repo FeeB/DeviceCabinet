@@ -25,6 +25,7 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
     [self checkCurrentUserIsLoggedIn];
 }
 
