@@ -86,13 +86,6 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromCreatePersonToOverviewSegue]) {
-        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
-        controller.comesFromRegister = YES;
-    }
-}
-
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;

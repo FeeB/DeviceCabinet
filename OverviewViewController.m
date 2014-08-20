@@ -29,10 +29,6 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
     [super viewDidLoad];
     
     [TEDLocalization localize:self];
-    
-    if (!self.comesFromRegister) {
-        [self checkCurrentUserIsLoggedIn];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,39 +122,5 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
     [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
 }
 
-- (void)checkCurrentUserIsLoggedIn {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *userType = [userDefaults getUserType];
-    NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
-    
-    if (currentUserIdentifier) {
-        if ([userType isEqualToString:@"person"]) {
-            
-            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-            [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person) {
-                if (!person) {
-                    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-                }
-            }];
-        } else {
-            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-            [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device) {
-                if (device) {
-                    self.device = device;
-                    [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
-                } else {
-                    UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
-                    [uIdGenerator resetKeyChain];
-                    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-                    
-                }
-            }];
-        }
-    } else {
-        UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
-        [uIdGenerator resetKeyChain];
-        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-    }
-}
 
 @end

@@ -12,13 +12,11 @@
 @interface OverviewViewController : UITableViewController
 
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
-@property (nonatomic, assign) BOOL comesFromRegister;
 
 extern NSString const *FromOverViewToDeviceViewSegue;
 
 
 - (void)getAllDevices;
 - (IBAction)logOut;
-- (void)checkCurrentUserIsLoggedIn;
 
 @end

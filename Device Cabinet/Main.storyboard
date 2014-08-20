@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="qo8-yT-HJK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="CuS-ue-Z6R">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
@@ -177,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="444" y="-43"/>
+            <point key="canvasLocation" x="976" y="-43"/>
         </scene>
         <!--TITLE_CREATE_DEVICE-->
         <scene sceneID="fBC-mR-p0D">
@@ -233,9 +233,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="fNh-xU-8ft">
-                        <barButtonItem key="rightBarButtonItem" title="BUTTON_OVERVIEW" id="QRK-nN-6dn"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="fNh-xU-8ft"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="deviceCategoryLabel" destination="aJC-HS-wBm" id="k5O-Rf-yB6"/>
@@ -379,7 +377,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-54" y="-43"/>
+            <point key="canvasLocation" x="478" y="-43"/>
         </scene>
         <!--TITLE_LOGIN-->
         <scene sceneID="tbY-Gu-qxZ">
@@ -506,11 +504,32 @@
             </objects>
             <point key="canvasLocation" x="-956" y="695"/>
         </scene>
+        <!--Start View Controller-->
+        <scene sceneID="kYh-Iy-uoh">
+            <objects>
+                <viewController id="sft-wa-3Sq" customClass="StartViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QdT-fk-l0V">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IRv-Ka-4qH"/>
+                    <connections>
+                        <segue destination="1U2-KN-iqp" kind="push" identifier="FromStartToLogIn" id="ZGk-mU-Eru"/>
+                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromStartToDeviceOverview" id="x8v-0s-i3Z"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromStartToOverview" id="JWu-wD-7dv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6QH-aF-R1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-553" y="-43"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="E3v-C9-qxO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qo8-yT-HJK" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="jvn-R8-cvd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z8g-93-Qjg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -522,7 +541,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4K-Dm-dpN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-956" y="-43"/>
+            <point key="canvasLocation" x="-6" y="-43"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kZy-pQ-Qta">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-3U-Yq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CuS-ue-Z6R" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3ki-SP-5W1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sft-wa-3Sq" kind="relationship" relationship="rootViewController" id="zLV-Tz-Yfx"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-1085" y="-43"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -534,8 +571,8 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vy6-84-4Qx"/>
-        <segue reference="HeV-BO-8ND"/>
+        <segue reference="ZGk-mU-Eru"/>
+        <segue reference="JWu-wD-7dv"/>
         <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
 </document>
