@@ -25,6 +25,4 @@
 
 - (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)())completionHandler;
 
-- (void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler;
-
 @end

@@ -67,6 +67,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         [self.spinner stopAnimating];
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         self.deviceObject.isBooked = YES;
+        [self.personObject createFullNameWithFirstName];
         self.deviceObject.bookedFromPerson = self.personObject;
     }];
 }
@@ -134,6 +135,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.usernameTextField setHidden:true];
     [self.usernameLabel setHidden:true];
     [self.bookedFromLabel setHidden:false];
+    [self.bookedFromLabelText setHidden:false];
     
     if (self.deviceObject.isBooked) {
         if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.userName] || [currentUserType isEqualToString:@"device"]) {
@@ -144,6 +146,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         }
     }else{
         [self.bookedFromLabel setHidden:true];
+        [self.bookedFromLabelText setHidden:true];
         
         if ([[userDefaults getUserType] isEqualToString:@"device"]){
             [self.usernameTextField setHidden:false];

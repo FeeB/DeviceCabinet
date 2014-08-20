@@ -68,8 +68,10 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     
     //fetch records and convert them to device objects
     queryOperation.recordFetchedBlock = ^(CKRecord *record) {
-        Device *device = [self getBackDeviceObjectWithRecord:record];
-        [results addObject:device];
+        [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device) {
+            [results addObject:device];
+
+        }];
     };
     
     queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
@@ -106,8 +108,9 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         } else {
             //convert the record objects into device objects
             for (CKRecord *record in results) {
-                Device *device = [self getBackDeviceObjectWithRecord:record];
-                [resultObejcts addObject:device];
+               [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device) {
+                    [resultObejcts addObject:device];
+                }];
             }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(resultObejcts);
@@ -123,13 +126,11 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-        Device *device;
         if (results.count > 0) {
-            device = [self getBackDeviceObjectWithRecord:results[0]];
+            [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *device) {
+                    completionHandler(device);
+            }];
         }
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(device);
-        });
     }];
 
 }
@@ -246,30 +247,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)resetPasswordFromPersonObjectWithPersonID:(CKRecordID *)personID password:(NSString *)password completionHandler:(void (^)(CKRecord *record))completionHandler {
-    //fetch device record
-    [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *record, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            //create reference with person record ID
-            record[RecordTypePersonPasswordField] = password;
-            
-            //store device record back
-            [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
-                if (error) {
-                    NSLog(@"Error: %@ saved: %@", error, record);
-                } else {
-                    NSLog(@"Success");
-                }
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    completionHandler(record);
-                });
-            }];
-        }
-    }];
-}
-
 //Query all Devices which have a reference from one person record ID
 - (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray))completionHandler {
     //fetch the person record
@@ -292,12 +269,14 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                 } else {
                     //store records as device objects
                     for (CKRecord *deviceRecord in results) {
-                        Device *device = [self getBackDeviceObjectWithRecord:deviceRecord];
-                        [resultObjects addObject:device];
+                        [self getBackDeviceObjectWithRecord:deviceRecord completionHandler:^(Device *device) {
+                            [resultObjects addObject:device];
+                            dispatch_async(dispatch_get_main_queue(), ^(void){
+                                completionHandler(resultObjects);
+                            });
+                        }];
                     }
-                    dispatch_async(dispatch_get_main_queue(), ^(void){
-                        completionHandler(resultObjects);
-                    });
+                    
                 }
             }];
         }
@@ -316,7 +295,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 }
 
 //helper method to get device objects from device records
-- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record {
+- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record completionHandler:(void (^)(Device *device))completionHandler {
     Device *device = [[Device alloc]init];
     device.deviceName = record[RecordTypeDeviceNameField];
     device.category = record[RecordTypeDeviceCategoryField];
@@ -334,6 +313,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }else{
         device.isBooked = false;
     }
+    completionHandler(device);
     return device;
 }
 
