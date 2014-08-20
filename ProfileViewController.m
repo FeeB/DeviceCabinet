@@ -12,6 +12,7 @@
 #import "Device.h"
 #import "DeviceViewController.h"
 #import "UserDefaults.h"
+#import "TEDLocalization.h"
 
 
 NSString * const DeviceControllerIdentifier2 = @"DeviceControllerID";
@@ -36,6 +37,8 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     // Do any additional setup after loading the view.
     [self getAllBookedDevices];
     self.bookedDevicesLabel.text = NSLocalizedString(@"booked-devices", nil);
+
+    [TEDLocalization localize:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,16 +100,5 @@ NSString * const LogInSegueIdentifier2 = @"logIn";
     [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogInSegueIdentifier2 sender:self];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

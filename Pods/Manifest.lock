@@ -1,0 +1,13 @@
+PODS:
+  - KeychainItemWrapper (1.2)
+  - TEDLocalization (1.0.0)
+
+DEPENDENCIES:
+  - KeychainItemWrapper
+  - TEDLocalization
+
+SPEC CHECKSUMS:
+  KeychainItemWrapper: 577e9e920185892873ded075b8ceb730bebdfd91
+  TEDLocalization: d883f60067238ac68f54825f3b342be4b5028cb6
+
+COCOAPODS: 0.33.1

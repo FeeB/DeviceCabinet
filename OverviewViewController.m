@@ -18,47 +18,35 @@ NSString * const LogInSegueIdentifier = @"logIn";
 
 @interface OverviewViewController ()
 
-@property (nonatomic, readonly) NSMutableArray *list;
-@property (nonatomic, readonly) NSMutableArray *categories;
-@property (nonatomic, strong) NSMutableArray *bookedDevices;
-@property (nonatomic, strong) NSMutableArray *freeDevices;
+@property (nonatomic, strong) NSMutableArray *lists;
 
 @end
 
 @implementation OverviewViewController
 
-@synthesize table;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    _list = [[NSMutableArray alloc] init];
-    _categories = [[NSMutableArray alloc] init];
-    _bookedDevices = [[NSMutableArray alloc] init];
-    _freeDevices = [[NSMutableArray alloc] init];
     
     if (!self.comesFromRegister) {
         [self checkCurrentUserIsLoggedIn];
     }
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self getAllDevices];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.list count];
+    return self.lists.count;
 }
 
 //standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dictionary = [self.list objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"data"];
-    return [array count];}
+    NSArray *array = [self.lists objectAtIndex:section];
+    return array.count;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -69,8 +57,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    NSDictionary *dictionary = [self.list objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"data"];
+    NSArray *array = [self.lists objectAtIndex:indexPath.section];
     Device *cellDevice = [array objectAtIndex:indexPath.row];
     NSString *cellValue = cellDevice.deviceName;
     cell.textLabel.text = cellValue;
@@ -79,61 +66,66 @@ NSString * const LogInSegueIdentifier = @"logIn";
 }
 
 //On click on one cell the device view will appear
--(IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DeviceViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:DeviceControllerIdentifier];
-    [self.navigationController pushViewController:controller animated:YES];
+- (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"fromTableToDeviceView" sender:nil];
+}
 
-    NSDictionary *dictionary = [self.list objectAtIndex:indexPath.section];
-    NSArray *array = [dictionary objectForKey:@"data"];
-    controller.deviceObject = [array objectAtIndex:indexPath.row];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"fromTableToDeviceView"]) {
+        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
+        controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    if(section == 0) {
-        if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] > 0) {
-            return NSLocalizedString(@"booked-devices", nil);
-        } else{
-            return nil;
-        }
+    if (self.lists.count == 2) {
+        return section == 0 ? NSLocalizedString(@"booked-devices", nil) : NSLocalizedString(@"free-devices", nil);
     } else {
-        if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] > 0) {
+        NSArray *devices = self.lists[0];
+        if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
+            return NSLocalizedString(@"booked-devices", nil);
+        } else {
             return NSLocalizedString(@"free-devices", nil);
-        } else{
-            return nil;
         }
-
     }
 }
 
 //get all devices for the device overview
--(void)getAllDevices{
+- (void)getAllDevices {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects) {
-        
+        self.lists = [[NSMutableArray alloc] init];
+        NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
+        NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
+
         for (Device *device in deviceObjects){
             if (device.isBooked) {
-                [self.bookedDevices addObject:device];
+                [bookedDevices addObject:device];
             } else {
-                [self.freeDevices addObject:device];
+                [freeDevices addObject:device];
             }
         }
-        NSDictionary *bookedDictionary = [NSDictionary dictionaryWithObject:self.bookedDevices forKey:@"data"];
-        NSDictionary *freeDictionary = [NSDictionary dictionaryWithObject:self.freeDevices forKey:@"data"];
-        [self.list addObject:bookedDictionary];
-        [self.list addObject:freeDictionary];
-        [self.table reloadData];
+        
+        if (bookedDevices.count > 0) {
+            [self.lists addObject:bookedDevices];
+        }
+        if (freeDevices.count > 0) {
+            [self.lists addObject:freeDevices];
+        }
+
+        [self.tableView reloadData];
     }];
 
 }
 
--(IBAction)logOut{
+- (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
 }
 
-- (void)checkCurrentUserIsLoggedIn{
+- (void)checkCurrentUserIsLoggedIn {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     NSString *userType = [userDefaults getUserType];
     NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
@@ -155,7 +147,7 @@ NSString * const LogInSegueIdentifier = @"logIn";
                     controller.deviceObject = device;
                     [self.navigationController pushViewController:controller animated:YES];
                     [self.navigationController setNavigationBarHidden:YES];
-                }else{
+                } else {
                     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
                     [uIdGenerator resetKeyChain];
                     [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
@@ -163,21 +155,11 @@ NSString * const LogInSegueIdentifier = @"logIn";
                 }
             }];
         }
-    } else{
+    } else {
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
         [uIdGenerator resetKeyChain];
         [self performSegueWithIdentifier:LogInSegueIdentifier sender:self];
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

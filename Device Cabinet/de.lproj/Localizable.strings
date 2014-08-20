@@ -47,3 +47,5 @@
 "register-device-text" = "Das Gerät ist noch nicht registriert, bitte registriere es jetzt";
 "empty-textfield" = "Fülle alle Textfelder aus";
 "empty-textfield-text" = "Das Textfeld %@ darf nicht leer sein";
+
+"Title-Profile" = "Profil";
