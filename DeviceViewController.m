@@ -42,12 +42,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
     
-    //toDo: set name after completionHandler
-    //set full name of person in name label
-    Person *bookedFrom = self.deviceObject.bookedFromPerson;
-    [bookedFrom createFullNameWithFirstName];
-    self.bookedFromLabelText.text = bookedFrom.fullName;
-    
     self.personObject = [[Person alloc] init];
     
     if (self.comesFromStartView) {
@@ -60,15 +54,21 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showOrHideTextFields];
+    
+    Person *bookedFrom = self.deviceObject.bookedFromPerson;
+    [bookedFrom createFullNameWithFirstName];
+    self.bookedFromLabelText.text = bookedFrom.fullName;
 }
 
 - (void)storeReference {
     [self.spinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         self.deviceObject.isBooked = YES;
         [self.personObject createFullNameWithFirstName];
@@ -78,12 +78,14 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 - (void)deleteReference {
     [self.spinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
         self.deviceObject.isBooked = NO;
     }];

@@ -66,6 +66,7 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
     
     if (isStorable) {
         [self.spinner startAnimating];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         __block Person *person = [[Person alloc] init];
         person.firstName = self.firstNameTextField.text;

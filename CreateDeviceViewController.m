@@ -78,6 +78,7 @@ NSString *FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
 - (IBAction)storeDevice {
     if (self.deviceNameTextField.text && self.deviceNameTextField.text.length > 0) {
         [self.spinner startAnimating];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc] init];
         
