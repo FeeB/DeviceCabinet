@@ -104,7 +104,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         if (error) {
             // In your app, this error needs love and care.
             NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-            abort();
         } else {
             //convert the record objects into device objects
             for (CKRecord *record in results) {
@@ -126,13 +125,19 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        
+        __block Device *device;
         if (results.count > 0) {
-            [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *device) {
-                    completionHandler(device);
+            [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *deviceObject) {
+                device = deviceObject;
             }];
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(device);
+        });
+        
     }];
-
 }
 
 //Get back one person record from a specific user name

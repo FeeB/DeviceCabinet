@@ -24,7 +24,6 @@ NSString * const KeyForKeychain = @"deviceId";
         CFRelease(cfuuid);
         UserDefaults *userDefaults = [[UserDefaults alloc]init];
         [userDefaults storeUserDefaults:udidString userType:@"device"];
-        NSLog(@"id: %@", udidString);
         [self setDeviceId:udidString];
     }
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
@@ -34,16 +33,13 @@ NSString * const KeyForKeychain = @"deviceId";
 
 - (void) setDeviceId:(NSString *)deviceId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
-//    [keychain setObject:(__bridge id)(kSecAttrAccessibleWhenUnlocked) forKey:(__bridge id)(kSecAttrAccessible)];
     [keychain setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
     [keychain setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
-     NSLog(@"object: %@", [keychain objectForKey:(__bridge id)(kSecAttrAccount)]);
 }
 
 - (NSString *) getIdfromKeychain {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
-    NSLog(@"object: %@", [keychain objectForKey:(__bridge id)(kSecAttrAccount)]);
     return object;
 }
 
