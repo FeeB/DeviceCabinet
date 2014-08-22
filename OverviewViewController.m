@@ -91,7 +91,7 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 //get all devices for the device overview
 - (void)getAllDevices {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects) {
+    [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         self.lists = [[NSMutableArray alloc] init];
         NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
         NSMutableArray *freeDevices = [[NSMutableArray alloc] init];

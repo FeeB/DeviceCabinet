@@ -61,12 +61,12 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
-    [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person, NSError *error) {
         self.personObject = person;
         [self.personObject createFullNameWithFirstName];
         self.nameLabel.text = self.personObject.fullName;
     
-        [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray) {
+        [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray, NSError *error) {
             self.list = [[NSMutableArray alloc] init];
             for (Device *device in devicesArray){
                 [self.list addObject:device];

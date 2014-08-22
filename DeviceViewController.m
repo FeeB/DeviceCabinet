@@ -65,7 +65,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^{
+    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -82,7 +82,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^{
+    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         [self.spinner stopAnimating];
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -122,7 +122,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         if (!self.deviceObject.isBooked){
             self.deviceObject.isBooked = true;
             CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-            [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person) {
+            [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person, NSError   *error) {
                 self.personObject = person;
                 [self storeReference];
             }];

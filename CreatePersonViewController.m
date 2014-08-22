@@ -83,21 +83,23 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
                     case 4 : {
                         NSError *currentError = [errorMapper noConnectionToCloudKit];
                         [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoveryOptions
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                   message:currentError.localizedRecoverySuggestion
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                        break;
                     }
                     //user not logged in to cloudKit
                     case 9 : {
                         NSError *currentError = [errorMapper userIsNotLoggedInWithiCloudAccount];
                         [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoveryOptions
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                   message:currentError.localizedRecoverySuggestion
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                        break;
                     }
                     default: {
                         NSError *currentError = [errorMapper somethingWentWrong];
                         [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoveryOptions
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                                   message:currentError.localizedRecoverySuggestion
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                         break;
                     }
                         
@@ -105,7 +107,7 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                 
                 UserDefaults *userDefaults = [[UserDefaults alloc]init];
                 [userDefaults storeUserDefaults:person.userName userType:@"person"];

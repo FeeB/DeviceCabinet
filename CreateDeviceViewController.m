@@ -89,7 +89,7 @@ NSString *FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager storeDevice:self.device completionHandler:^{
+        [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
     } else {

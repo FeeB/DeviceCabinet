@@ -50,7 +50,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     
     if (self.userNameField.text && self.userNameField.text.length > 0) {
         CloudKitManager *manager = [[CloudKitManager alloc]init];
-        [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person) {
+        [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
             self.personObject = person;
             
             if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
@@ -73,7 +73,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     
     CloudKitManager *manager = [[CloudKitManager alloc]init];
     
-    [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device) {
+    [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device, NSError *error) {
         self.deviceObject = device;
         
         if (device) {

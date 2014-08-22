@@ -69,7 +69,7 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 
 - (void)handlePersonUserWithIdentifier:(NSString *)currentUserIdentifier {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person) {
+    [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person, NSError *error) {
         
         if (person) {
             [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
@@ -81,7 +81,7 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 
 - (void)handleDeviceUserWithIdentifier:(NSString *)currentUserIdentifier {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device) {
+    [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
         
         if (device) {
             self.device = device;
