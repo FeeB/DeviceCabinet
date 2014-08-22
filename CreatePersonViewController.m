@@ -12,6 +12,7 @@
 #import "UserDefaults.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
+#import "ErrorMapper.h"
 
 @interface CreatePersonViewController ()
     @property (readonly) CKContainer *container;
@@ -74,10 +75,45 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
         person.userName = self.userNameTextField.text;
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager storePerson:person completionHandler:^{
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
-                                       message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [cloudManager storePerson:person completionHandler:^(NSError *error) {
+            if (error) {
+                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                switch (error.code) {
+                    //empty item
+                    case 11: {
+                        NSError *currentError = [errorMapper itemNotFoundInDatabase];
+                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
+                                                   message:currentError.localizedRecoveryOptions
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                        break;
+                    }
+                    //no connection
+                    case 4 : {
+                        NSError *currentError = [errorMapper noConnectionToCloudKit];
+                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
+                                                   message:currentError.localizedRecoveryOptions
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                    }
+                    //user not logged in to cloudKit
+                    case 9 : {
+                        NSError *currentError = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
+                                                   message:currentError.localizedRecoveryOptions
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                    }
+                    default: {
+                        NSError *currentError = [errorMapper somethingWentWrong];
+                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
+                                                   message:currentError.localizedRecoveryOptions
+                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                        break;
+                    }
+                        
+                }
+            }
+           [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
+                                      message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
+                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
             [userDefaults storeUserDefaults:person.userName userType:@"person"];
