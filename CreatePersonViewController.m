@@ -79,14 +79,6 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
             if (error) {
                 ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
                 switch (error.code) {
-                    //empty item
-                    case 11: {
-                        NSError *currentError = [errorMapper itemNotFoundInDatabase];
-                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoveryOptions
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                        break;
-                    }
                     //no connection
                     case 4 : {
                         NSError *currentError = [errorMapper noConnectionToCloudKit];
@@ -110,15 +102,16 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
                     }
                         
                 }
+            } else {
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
+                                           message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                
+                UserDefaults *userDefaults = [[UserDefaults alloc]init];
+                [userDefaults storeUserDefaults:person.userName userType:@"person"];
+                
+                [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
             }
-           [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
-                                      message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-                                     delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            
-            UserDefaults *userDefaults = [[UserDefaults alloc]init];
-            [userDefaults storeUserDefaults:person.userName userType:@"person"];
-            
-            [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
         }];
     }
 }
