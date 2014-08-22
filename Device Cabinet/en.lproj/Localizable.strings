@@ -60,3 +60,12 @@
 "BUTTON_PROFILE" = "Profile";
 "BUTTON_LOGOUT" = "LogOut";
 "BUTTON_OVERVIEW" = "Overview";
+
+"ERROR_HEADLINE_NO_CONNECTION" = "A network error occured";
+"ERROR_MESSAGE_NO_CONNECTION" = "CloudKit has a problem with the network. Please try again later.";
+"ERROR_HEADLINE_NO_ICLOUD" = "iCloud Account missing";
+"ERROR_MESSAGE_NO_ICLOUD" = "Please log in your iCloud account on your phone to perform this action";
+"ERROR_HEADLINE_SOMETHING_WENT_WRONG" = "Something went wrong";
+"ERROR_MESSAGE_SOMETHING_WENT_WRONG" = "Sorry something went wrong, please try again.";
+"ERROR_HEADLINE_ITEM_NOT_FOUND" = "Item was not found";
+"ERROR_MESSAGE_ITEM_NOT_FOUND" = "This item was not found in the database";

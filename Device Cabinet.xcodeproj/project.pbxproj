@@ -34,6 +34,7 @@
 		3A8B67E019A4C21300740724 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B67DF19A4C21300740724 /* StartViewController.m */; };
 		3AA1C92B1973E15C00695409 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1C92A1973E15C00695409 /* CloudKit.framework */; };
 		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
+		3AE45F1419A73D3700FFCB3E /* ErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */; };
 		3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA37F6199CA763001AAF71 /* UserDefaults.m */; };
 		3AEA37FD199CBD76001AAF71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AEA37FF199CBD76001AAF71 /* Localizable.strings */; };
 		3AF7C8FF199A2A8A00CF5B16 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7C8FE199A2A8A00CF5B16 /* LogInViewController.m */; };
@@ -125,6 +126,8 @@
 		3AB5D5DE19A3484200D71CD2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3AC5A811198FB19C00576854 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverviewViewController.h; path = ../OverviewViewController.h; sourceTree = "<group>"; };
 		3AC5A812198FB19C00576854 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverviewViewController.m; path = ../OverviewViewController.m; sourceTree = "<group>"; };
+		3AE45F1219A73D3700FFCB3E /* ErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorMapper.h; sourceTree = "<group>"; };
+		3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapper.m; sourceTree = "<group>"; };
 		3AEA37F5199CA763001AAF71 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
 		3AEA37F6199CA763001AAF71 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		3AEA37FB199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				3AEA37F8199CAC33001AAF71 /* UserDefaults */,
 				3A1BB828199BA53E00888298 /* MD5 */,
 				3A367EBD19921D9D004B6F13 /* CloudKit */,
+				3AE45F1219A73D3700FFCB3E /* ErrorMapper.h */,
+				3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				3A5E17B119654AED00681289 /* Person.m in Sources */,
 				3A367EC019921DE2004B6F13 /* CloudKitManager.m in Sources */,
 				3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */,
+				3AE45F1419A73D3700FFCB3E /* ErrorMapper.m in Sources */,
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
 				3A5E178D19654AC700681289 /* main.m in Sources */,
 				3AF7C8FF199A2A8A00CF5B16 /* LogInViewController.m in Sources */,
