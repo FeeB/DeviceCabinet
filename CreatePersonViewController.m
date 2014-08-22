@@ -77,33 +77,9 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^(NSError *error) {
             if (error) {
-                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-                switch (error.code) {
-                    //no connection
-                    case 4 : {
-                        NSError *currentError = [errorMapper noConnectionToCloudKit];
-                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoverySuggestion
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                        break;
-                    }
-                    //user not logged in to cloudKit
-                    case 9 : {
-                        NSError *currentError = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoverySuggestion
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                        break;
-                    }
-                    default: {
-                        NSError *currentError = [errorMapper somethingWentWrong];
-                        [[[UIAlertView alloc]initWithTitle:currentError.localizedDescription
-                                                   message:currentError.localizedRecoverySuggestion
-                                                  delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                        break;
-                    }
-                        
-                }
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]

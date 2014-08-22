@@ -10,6 +10,7 @@
 #import <CloudKit/CloudKit.h>
 #import "Person.h"
 #import "Device.h"
+#import "ErrorMapper.h"
 
 NSString* const RecordTypeDevice = @"Devices";
 NSString* const RecordTypePerson = @"Persons";
@@ -68,7 +69,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     
     //fetch records and convert them to device objects
     queryOperation.recordFetchedBlock = ^(CKRecord *record) {
-        [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device) {
+        [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device, NSError *error) {
             [results addObject:device];
 
         }];
@@ -76,9 +77,27 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     
     queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
         if (error) {
-            // In your app, this error needs love and care.
-            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-        } else {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(results, error);
             });
@@ -107,7 +126,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         } else {
             //convert the record objects into device objects
             for (CKRecord *record in results) {
-               [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device) {
+               [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device, NSError *error) {
                     [resultObejcts addObject:device];
                 }];
             }
@@ -128,7 +147,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         
         __block Device *device;
         if (results.count > 0) {
-            [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *deviceObject) {
+            [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *deviceObject, NSError *error) {
                 device = deviceObject;
             }];
         }
@@ -234,7 +253,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
             //store records as device objects
             for (CKRecord *deviceRecord in results) {
-                [self getBackDeviceObjectWithRecord:deviceRecord completionHandler:^(Device *device) {
+                [self getBackDeviceObjectWithRecord:deviceRecord completionHandler:^(Device *device, NSError *error) {
                     [resultObjects addObject:device];
                     dispatch_async(dispatch_get_main_queue(), ^(void){
                         completionHandler(resultObjects, error);
@@ -258,7 +277,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 }
 
 //helper method to get device objects from device records
-- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record completionHandler:(void (^)(Device *device))completionHandler {
+- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
     Device *device = [[Device alloc]init];
     device.deviceName = record[RecordTypeDeviceNameField];
     device.category = record[RecordTypeDeviceCategoryField];
@@ -272,11 +291,12 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         CKReference *reference = record[RecordTypeDeviceIsBookedField];
         [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person, NSError *error) {
             device.bookedFromPerson = person;
+            completionHandler(device, error);
         }];
     }else{
         device.isBooked = false;
     }
-    completionHandler(device);
+    
     return device;
 }
 
