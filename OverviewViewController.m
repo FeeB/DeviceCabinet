@@ -92,28 +92,33 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 - (void)getAllDevices {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
-        self.lists = [[NSMutableArray alloc] init];
-        NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
-        NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
-
-        for (Device *device in deviceObjects){
-            if (device.isBooked) {
-                [bookedDevices addObject:device];
-            } else {
-                [freeDevices addObject:device];
+        if (error) {
+            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                       message:error.localizedRecoverySuggestion
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        } else {
+            self.lists = [[NSMutableArray alloc] init];
+            NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
+            NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
+            
+            for (Device *device in deviceObjects){
+                if (device.isBooked) {
+                    [bookedDevices addObject:device];
+                } else {
+                    [freeDevices addObject:device];
+                }
             }
+            
+            if (bookedDevices.count > 0) {
+                [self.lists addObject:bookedDevices];
+            }
+            if (freeDevices.count > 0) {
+                [self.lists addObject:freeDevices];
+            }
+            
+            [self.tableView reloadData];
         }
-        
-        if (bookedDevices.count > 0) {
-            [self.lists addObject:bookedDevices];
-        }
-        if (freeDevices.count > 0) {
-            [self.lists addObject:freeDevices];
-        }
-
-        [self.tableView reloadData];
     }];
-
 }
 
 - (IBAction)logOut {

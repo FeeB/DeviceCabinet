@@ -62,17 +62,23 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
     [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person, NSError *error) {
-        self.personObject = person;
-        [self.personObject createFullNameWithFirstName];
-        self.nameLabel.text = self.personObject.fullName;
-    
-        [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray, NSError *error) {
-            self.list = [[NSMutableArray alloc] init];
-            for (Device *device in devicesArray){
-                [self.list addObject:device];
-            }
-            [self.customTableView reloadData];
-        }];
+        if (error) {
+            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                       message:error.localizedRecoverySuggestion
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        } else {
+            self.personObject = person;
+            [self.personObject createFullNameWithFirstName];
+            self.nameLabel.text = self.personObject.fullName;
+            
+            [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray, NSError *error) {
+                self.list = [[NSMutableArray alloc] init];
+                for (Device *device in devicesArray){
+                    [self.list addObject:device];
+                }
+                [self.customTableView reloadData];
+            }];
+        }
     }];
 }
 

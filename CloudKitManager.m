@@ -74,6 +74,10 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     };
     
     queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
+//        Just for debugging:
+//        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+//        error = [errorMapper noConnectionToCloudKit];
+        
         if (error) {
             ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
             switch (error.code) {
@@ -214,12 +218,16 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 //Because we have to query the record we get back an array with only one record
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
-
+    
     //query with specific user name
     NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForPersons, userName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypePerson predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+//        Just for debugging:
+//        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+//        error = [errorMapper noConnectionToCloudKit];
+        
         if (error) {
             ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
             switch (error.code) {

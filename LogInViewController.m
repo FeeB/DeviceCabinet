@@ -49,8 +49,8 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 - (IBAction)personLogInOnClick{
     
     if (self.userNameField.text && self.userNameField.text.length > 0) {
-        CloudKitManager *manager = [[CloudKitManager alloc]init];
-        [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
+        CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
+        [cloudManager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
             if (error) {
                 if (error.code == 1) {
                     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -80,9 +80,9 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
     NSString *deviceId = [uIdGenerator getDeviceId];
     
-    CloudKitManager *manager = [[CloudKitManager alloc]init];
+    CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
     
-    [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device, NSError *error) {
+    [cloudManager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device, NSError *error) {
         if (error) {
             if (error.code == 1) {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
