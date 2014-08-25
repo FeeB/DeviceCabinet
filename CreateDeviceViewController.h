@@ -20,7 +20,6 @@ extern NSString const *FromCreateDeviceToOverviewSegue;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
-- (IBAction)textFieldReturn:(id)sender;
 - (IBAction) storeDevice;
 
 @end

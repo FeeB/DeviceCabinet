@@ -16,7 +16,6 @@ NSString * const KeyForKeychain = @"deviceId";
 
 - (NSString *)getDeviceId {
     NSString *udidString = [self getIdfromKeychain];
-    NSLog(@"ID: %@ ", udidString);
     if([udidString isEqualToString:@""])
     {
         CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
