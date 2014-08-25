@@ -7,7 +7,6 @@
 //
 
 #import "Person.h"
-#import "MD5Extension.h"
 
 @implementation Person
 

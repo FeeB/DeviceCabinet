@@ -23,13 +23,12 @@
 @property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
 @property (nonatomic, weak) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
 @property (nonatomic, assign) BOOL comesFromStartView;
-
-@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;

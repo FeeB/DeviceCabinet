@@ -9,7 +9,6 @@
 #import "LogInViewController.h"
 #import "CloudKitManager.h"
 #import "Person.h"
-#import "MD5Extension.h"
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "DeviceViewController.h"
