@@ -76,14 +76,16 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^(NSError *error) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
-                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [self.spinner stopAnimating];
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 
                 UserDefaults *userDefaults = [[UserDefaults alloc]init];
                 [userDefaults storeUserDefaults:person.userName userType:@"person"];

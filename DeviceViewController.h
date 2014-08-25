@@ -27,8 +27,6 @@
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
-
 @property (nonatomic, assign) BOOL comesFromStartView;
 
 - (IBAction)fetchPersonRecordOnClick;

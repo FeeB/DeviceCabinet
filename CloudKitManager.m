@@ -88,6 +88,10 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                     error = [errorMapper noConnectionToCloudKit];
                     break;
                 }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
                 //user not logged in to cloudKit
                 case 9 : {
                     error = [errorMapper userIsNotLoggedInWithiCloudAccount];
@@ -121,9 +125,32 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
         if (error) {
-            // In your app, this error needs love and care.
-            NSLog(@"An error occured in %@: %@", NSStringFromSelector(_cmd), error);
-        } else {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }else {
             //convert the record objects into device objects
             for (CKRecord *record in results) {
                [self getBackDeviceObjectWithRecord:record completionHandler:^(Device *device, NSError *error) {
@@ -144,18 +171,46 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-        
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         __block Device *device;
         if (results.count > 0) {
             [self getBackDeviceObjectWithRecord:results[0] completionHandler:^(Device *deviceObject, NSError *error) {
                 device = deviceObject;
             }];
+        } else if (!error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            error = [errorMapper itemNotFoundInDatabase];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(device, error);
         });
-        
     }];
 }
 
@@ -163,14 +218,45 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 //Because we have to query the record we get back an array with only one record
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
+
     //query with specific user name
     NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForPersons, userName];
     CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypePerson predicate:predicate];
     
     [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         Person *person;
         if (results.count > 0) {
             person = [self getBackPersonObjectWithRecord:results[0]];
+        } else if (!error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            error = [errorMapper itemNotFoundInDatabase];
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(person, error);
@@ -182,6 +268,33 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 - (void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackPersonObjectWithRecord:record], error);
         });
@@ -191,6 +304,33 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (void)storePerson:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler {
     CKRecord *personRecord = [self recordFromPerson:person];
     [self.publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(error);
         });
@@ -200,6 +340,33 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(NSError *error))completionHandler {
     CKRecord *deviceRecord = [self recordFromDevice:device];
     [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(error);
         });
@@ -211,12 +378,66 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         //create reference with person record ID
         CKReference *bookedReference = [[CKReference alloc] initWithRecordID:personID action:CKReferenceActionDeleteSelf];
         record[RecordTypeDeviceIsBookedField] = bookedReference;
         
         //store device record back
         [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+            if (error) {
+                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                switch (error.code) {
+                    case 11 : {
+                        error = [errorMapper itemNotFoundInDatabase];
+                        break;
+                    }
+                        //no connection
+                    case 4 : {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                    case 4097: {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                        //user not logged in to cloudKit
+                    case 9 : {
+                        error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                        break;
+                    }
+                    default: {
+                        error = [errorMapper somethingWentWrong];
+                        break;
+                    }
+                }
+            }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(record, error);
             });
@@ -227,11 +448,65 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         CKReference *bookedReference;
         record[RecordTypeDeviceIsBookedField] = bookedReference;
         
         //store device record back
         [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+            if (error) {
+                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                switch (error.code) {
+                    case 11 : {
+                        error = [errorMapper itemNotFoundInDatabase];
+                        break;
+                    }
+                        //no connection
+                    case 4 : {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                    case 4097: {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                        //user not logged in to cloudKit
+                    case 9 : {
+                        error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                        break;
+                    }
+                    default: {
+                        error = [errorMapper somethingWentWrong];
+                        break;
+                    }
+                }
+            }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(record, error);
             });
@@ -243,6 +518,33 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray, NSError *error))completionHandler {
     //fetch the person record
     [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *personRecord, NSError *error){
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
         //get all devices records which have a reference towards the person record
         //query the devices
         NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForBookedDevicesFromPerson, personRecord];
@@ -251,9 +553,63 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         
         [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+            if (error) {
+                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                switch (error.code) {
+                    case 11 : {
+                        error = [errorMapper itemNotFoundInDatabase];
+                        break;
+                    }
+                        //no connection
+                    case 4 : {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                    case 4097: {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                        //user not logged in to cloudKit
+                    case 9 : {
+                        error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                        break;
+                    }
+                    default: {
+                        error = [errorMapper somethingWentWrong];
+                        break;
+                    }
+                }
+            }
             //store records as device objects
             for (CKRecord *deviceRecord in results) {
                 [self getBackDeviceObjectWithRecord:deviceRecord completionHandler:^(Device *device, NSError *error) {
+                    if (error) {
+                        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                        switch (error.code) {
+                            case 11 : {
+                                error = [errorMapper itemNotFoundInDatabase];
+                                break;
+                            }
+                                //no connection
+                            case 4 : {
+                                error = [errorMapper noConnectionToCloudKit];
+                                break;
+                            }
+                            case 4097: {
+                                error = [errorMapper noConnectionToCloudKit];
+                                break;
+                            }
+                                //user not logged in to cloudKit
+                            case 9 : {
+                                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                                break;
+                            }
+                            default: {
+                                error = [errorMapper somethingWentWrong];
+                                break;
+                            }
+                        }
+                    }
                     [resultObjects addObject:device];
                     dispatch_async(dispatch_get_main_queue(), ^(void){
                         completionHandler(resultObjects, error);

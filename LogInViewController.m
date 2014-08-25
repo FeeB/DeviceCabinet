@@ -51,15 +51,24 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     if (self.userNameField.text && self.userNameField.text.length > 0) {
         CloudKitManager *manager = [[CloudKitManager alloc]init];
         [manager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
-            self.personObject = person;
-            
-            if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
-                UserDefaults *userDefault = [[UserDefaults alloc]init];
-                [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
-                
-                [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
+            if (error) {
+                if (error.code == 1) {
+                    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                } else {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                }
             } else {
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                self.personObject = person;
+                if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
+                    UserDefaults *userDefault = [[UserDefaults alloc]init];
+                    [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+                    
+                    [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
+                } else {
+                    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
             }
         }];
     } else {
@@ -74,13 +83,19 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     CloudKitManager *manager = [[CloudKitManager alloc]init];
     
     [manager fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device, NSError *error) {
-        self.deviceObject = device;
-        
-        if (device) {
-            [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
+        if (error) {
+            if (error.code == 1) {
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            } else {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            }
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            self.deviceObject = device;
+            [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
         }
+        
     }];
 
 }

@@ -15,7 +15,7 @@
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 @interface DeviceViewController ()
-
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @end
 
 @implementation DeviceViewController

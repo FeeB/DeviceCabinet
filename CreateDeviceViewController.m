@@ -90,7 +90,15 @@ NSString *FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
         
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [self.spinner stopAnimating];
+            } else {
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
         }];
     } else {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_EMPTY_TEXTFIELD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_EMPTY_TEXTFIELD", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

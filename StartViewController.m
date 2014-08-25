@@ -83,14 +83,13 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
         
-        if (device) {
-            self.device = device;
-            [self performSegueWithIdentifier:FromStartToDeviceOverviewSegue sender:nil];
-        } else {
+        if (error) {
             UIdGenerator *generator = [[UIdGenerator alloc] init];
             [generator resetKeyChain];
             [self performSegueWithIdentifier:FromStartToLogInSegue sender:self];
-            
+        } else {
+            self.device = device;
+            [self performSegueWithIdentifier:FromStartToDeviceOverviewSegue sender:nil];
         }
     }];
     
