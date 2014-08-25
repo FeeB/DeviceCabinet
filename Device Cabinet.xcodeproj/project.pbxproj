@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A1BB825199B7B0300888298 /* MD5Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BB824199B7B0300888298 /* MD5Extension.m */; };
 		3A1BB836199BB94B00888298 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1BB835199BB94B00888298 /* MessageUI.framework */; };
 		3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBB19921CB1004B6F13 /* ProfileViewController.m */; };
 		3A367EC019921DE2004B6F13 /* CloudKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBF19921DE2004B6F13 /* CloudKitManager.m */; };
@@ -35,9 +34,10 @@
 		3AA1C92B1973E15C00695409 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1C92A1973E15C00695409 /* CloudKit.framework */; };
 		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
 		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
-		3AE15A3A19AB6F970003BF60 /* ErrorMapperTextCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3919AB6F970003BF60 /* ErrorMapperTextCase.m */; };
+		3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */; };
 		3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */; };
 		3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */; };
+		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		3AE45F1419A73D3700FFCB3E /* ErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */; };
 		3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA37F6199CA763001AAF71 /* UserDefaults.m */; };
 		3AEA37FD199CBD76001AAF71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AEA37FF199CBD76001AAF71 /* Localizable.strings */; };
@@ -85,8 +85,6 @@
 
 /* Begin PBXFileReference section */
 		19E8A0D3227D45BBA4DD749B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		3A1BB823199B7B0300888298 /* MD5Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5Extension.h; path = "Device Cabinet/MD5Extension.h"; sourceTree = "<group>"; };
-		3A1BB824199B7B0300888298 /* MD5Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5Extension.m; path = "Device Cabinet/MD5Extension.m"; sourceTree = "<group>"; };
 		3A1BB835199BB94B00888298 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3A367EBA19921CB1004B6F13 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
 		3A367EBB19921CB1004B6F13 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
@@ -131,9 +129,10 @@
 		3AC5A811198FB19C00576854 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverviewViewController.h; path = ../OverviewViewController.h; sourceTree = "<group>"; };
 		3AC5A812198FB19C00576854 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverviewViewController.m; path = ../OverviewViewController.m; sourceTree = "<group>"; };
 		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
-		3AE15A3919AB6F970003BF60 /* ErrorMapperTextCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperTextCase.m; sourceTree = "<group>"; };
+		3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperTestCase.m; sourceTree = "<group>"; };
 		3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
 		3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGeneratorTestCase.m; sourceTree = "<group>"; };
+		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AE45F1219A73D3700FFCB3E /* ErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorMapper.h; sourceTree = "<group>"; };
 		3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapper.m; sourceTree = "<group>"; };
 		3AEA37F5199CA763001AAF71 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
@@ -178,23 +177,12 @@
 		3A1BB827199BA52B00888298 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3AE15A3F19AB7A390003BF60 /* ErrorMapping */,
 				3A84063A19A1F5F4007E3A6B /* DeviceId */,
 				3AEA37F8199CAC33001AAF71 /* UserDefaults */,
-				3A1BB828199BA53E00888298 /* MD5 */,
 				3A367EBD19921D9D004B6F13 /* CloudKit */,
-				3AE45F1219A73D3700FFCB3E /* ErrorMapper.h */,
-				3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		3A1BB828199BA53E00888298 /* MD5 */ = {
-			isa = PBXGroup;
-			children = (
-				3A1BB823199B7B0300888298 /* MD5Extension.h */,
-				3A1BB824199B7B0300888298 /* MD5Extension.m */,
-			);
-			name = MD5;
 			sourceTree = "<group>";
 		};
 		3A1BB829199BA54D00888298 /* LogIn/Register */ = {
@@ -307,9 +295,10 @@
 				3A5E17A519654AC700681289 /* Device_CabinetTests.m */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
 				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
-				3AE15A3919AB6F970003BF60 /* ErrorMapperTextCase.m */,
+				3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */,
 				3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */,
 				3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */,
+				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
 			);
 			path = "Device CabinetTests";
 			sourceTree = "<group>";
@@ -332,6 +321,15 @@
 				3A84063519A1F04D007E3A6B /* UIdGenerator.m */,
 			);
 			name = DeviceId;
+			sourceTree = "<group>";
+		};
+		3AE15A3F19AB7A390003BF60 /* ErrorMapping */ = {
+			isa = PBXGroup;
+			children = (
+				3AE45F1219A73D3700FFCB3E /* ErrorMapper.h */,
+				3AE45F1319A73D3700FFCB3E /* ErrorMapper.m */,
+			);
+			name = ErrorMapping;
 			sourceTree = "<group>";
 		};
 		3AEA37F8199CAC33001AAF71 /* UserDefaults */ = {
@@ -502,7 +500,6 @@
 				3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */,
 				3A5E17B419654AF900681289 /* Device.m in Sources */,
 				3A8B67E019A4C21300740724 /* StartViewController.m in Sources */,
-				3A1BB825199B7B0300888298 /* MD5Extension.m in Sources */,
 				3A5E17BA19654B2300681289 /* CreatePersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,9 +508,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */,
 				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
-				3AE15A3A19AB6F970003BF60 /* ErrorMapperTextCase.m in Sources */,
+				3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */,
 				3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */,
 				3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */,
 			);
