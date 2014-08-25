@@ -58,6 +58,12 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
     [bookedFrom createFullNameWithFirstName];
     self.bookedFromLabelText.text = bookedFrom.fullName;
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(viewWillAppear:)
+                                   userInfo:nil
+                                    repeats:NO];
 }
 
 - (void)storeReference {
