@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Person.h"
 
-@interface CreatePersonViewController : UIViewController <UITextFieldDelegate>
+@interface CreatePersonViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 extern NSString const *FromCreatePersonToOverviewSegue;
 

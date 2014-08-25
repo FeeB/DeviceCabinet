@@ -29,6 +29,8 @@
 
 @property (nonatomic, assign) BOOL comesFromStartView;
 
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;
 - (void)deleteReference;

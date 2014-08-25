@@ -44,6 +44,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     self.personObject = [[Person alloc] init];
     
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
+    
     if (self.comesFromStartView) {
         self.navigationItem.hidesBackButton = YES;
     } else {

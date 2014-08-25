@@ -15,20 +15,14 @@
 #import "ErrorMapper.h"
 
 @interface CreatePersonViewController ()
-    @property (readonly) CKContainer *container;
-    @property (readonly) CKDatabase *publicDatabase;
+@property (readonly) CKContainer *container;
+@property (readonly) CKDatabase *publicDatabase;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @end
 
 @implementation CreatePersonViewController
 
 NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,6 +38,9 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
     self.spinner.center = CGPointMake(160, 240);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
+    
 }
 
 - (void)didReceiveMemoryWarning {
