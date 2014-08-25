@@ -103,6 +103,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromLogInToDeviceViewSegue]){
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        controller.comesFromStartView = YES;
         controller.deviceObject = self.deviceObject;
     }
 }
