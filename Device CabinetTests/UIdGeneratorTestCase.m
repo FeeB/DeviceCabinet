@@ -43,7 +43,7 @@
     [generator resetKeyChain];
     NSString *udidString = [generator getIdfromKeychain];
     
-    XCTAssertEqualObjects(udidString, @"");
+    XCTAssertEqualObjects(udidString, @"", @"UdId should be empty");
 }
 
 - (void)testDeviceIdIsNotEmptyWithGetDeviceId {
@@ -51,7 +51,7 @@
     [generator resetKeyChain];
     NSString *udidString = [generator getDeviceId];
     
-    XCTAssertNotEqual(udidString, @"");
+    XCTAssertNotEqual(udidString, @"", @"UdId shouldn't be empty");
 }
 
 - (void)testSetDeviceId {
@@ -60,7 +60,7 @@
     
     [generator setDeviceId:udidString];
     
-    XCTAssertEqualObjects([generator getDeviceId], udidString);
+    XCTAssertEqualObjects([generator getDeviceId], udidString, @"UdId should be same Id");
 }
 
 @end
