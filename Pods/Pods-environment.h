@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_KeychainItemWrapper 2
 #define COCOAPODS_VERSION_PATCH_KeychainItemWrapper 0
 
+// OCMock
+#define COCOAPODS_POD_AVAILABLE_OCMock
+#define COCOAPODS_VERSION_MAJOR_OCMock 3
+#define COCOAPODS_VERSION_MINOR_OCMock 1
+#define COCOAPODS_VERSION_PATCH_OCMock 1
+
 // TEDLocalization
 #define COCOAPODS_POD_AVAILABLE_TEDLocalization
 #define COCOAPODS_VERSION_MAJOR_TEDLocalization 1
