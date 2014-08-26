@@ -17,9 +17,7 @@ NSString* const RecordTypePerson = @"Persons";
 
 NSString * const RecordTypePersonFirstNameField = @"firstName";
 NSString * const RecordTypePersonLastNameField = @"lastName";
-NSString * const RecordTypePersonPasswordField = @"password";
 NSString * const RecordTypePersonUsernameField = @"userName";
-NSString * const RecordTypePersonIsAdminSwitch = @"isAdmin";
 
 NSString * const RecordTypeDeviceIsBookedField = @"booked";
 NSString * const RecordTypeDeviceNameField = @"devicename";
@@ -152,16 +150,15 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                     break;
                 }
             }
-        }else {
-            //convert the record objects into device objects
-            for (CKRecord *record in results) {
-                Device *device = [self getBackDeviceObjectWithRecord:record];
-                [resultObejcts addObject:device];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(resultObejcts, error);
-            });
         }
+        //convert the record objects into device objects
+        for (CKRecord *record in results) {
+            Device *device = [self getBackDeviceObjectWithRecord:record];
+            [resultObejcts addObject:device];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(resultObejcts, error);
+        });
     }];
 }
 
