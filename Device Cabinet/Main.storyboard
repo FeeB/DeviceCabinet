@@ -383,10 +383,11 @@
                             <outlet property="delegate" destination="iw6-Gk-HuI" id="aY4-UR-AZW"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="TITLE_OVERVIEW" id="Kby-7z-Zbi">
                         <barButtonItem key="leftBarButtonItem" title="BUTTON_PROFILE" id="P40-Xb-dNi">
                             <connections>
-                                <segue destination="aFT-S4-a1D" kind="push" identifier="FromProfileButtonToProfile" id="wjo-ov-m8J"/>
+                                <action selector="profileButton" destination="iw6-Gk-HuI" id="iyj-CV-TEC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="ew1-BH-cUs">
@@ -395,16 +396,19 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="logOutButton" destination="ew1-BH-cUs" id="HBx-9Y-TjK"/>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="FromOverviewToDeviceView" id="Xju-vS-6Xe"/>
                         <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="O9K-3h-XkW"/>
+                        <segue destination="aFT-S4-a1D" kind="push" identifier="FromProfileButtonToProfile" id="C2L-jQ-I4q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="478" y="-43"/>
         </scene>
-        <!--TITLE_LOGIN-->
+        <!--Title-->
         <scene sceneID="tbY-Gu-qxZ">
             <objects>
                 <viewController storyboardIdentifier="LogInController" id="1U2-KN-iqp" customClass="LogInViewController" sceneMemberID="viewController">
@@ -492,7 +496,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TITLE_LOGIN" id="vMh-Fi-vhm"/>
+                    <navigationItem key="navigationItem" title="Title" id="DQN-cH-jNJ">
+                        <barButtonItem key="leftBarButtonItem" title="BUTTON_OVERVIEW" id="1ig-uL-dqj">
+                            <connections>
+                                <segue destination="iw6-Gk-HuI" kind="push" id="m21-Db-JxO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="deviceLabel" destination="lrH-3e-DBH" id="QLe-mu-1Wd"/>
                         <outlet property="deviceLogInButton" destination="6GL-VL-qrP" id="pGa-lh-eI4"/>
@@ -596,9 +606,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Phs-EO-HNL"/>
-        <segue reference="QJe-Sr-Flj"/>
-        <segue reference="nLc-J1-fvm"/>
-        <segue reference="TDX-HC-rRw"/>
+        <segue reference="ZGk-mU-Eru"/>
+        <segue reference="HeV-BO-8ND"/>
+        <segue reference="47g-C0-1IY"/>
+        <segue reference="O9K-3h-XkW"/>
     </inferredMetricsTieBreakers>
 </document>

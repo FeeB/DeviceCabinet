@@ -24,9 +24,12 @@
 @implementation OverviewViewController
 
 NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
+NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self showTitelForLogOutButton];
     
     [TEDLocalization localize:self];
 }
@@ -64,7 +67,12 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
+    if (self.userIsLoggedIn) {
+        [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
+    } else {
+        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+    }
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -121,10 +129,28 @@ NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
     }];
 }
 
+- (void)showTitelForLogOutButton {
+    if (self.userIsLoggedIn) {
+        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGOUT", nil)];
+    } else {
+        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGIN", nil)];
+    }
+}
+
+
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
     [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+}
+
+- (IBAction)profileButton {
+    if (self.userIsLoggedIn) {
+        [self performSegueWithIdentifier:FromProfileButtonToProfileSegue sender:self];
+    } else {
+        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+    }
+    
 }
 
 

@@ -12,6 +12,8 @@
 @interface OverviewViewController : UITableViewController
 
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *logOutButton;
+@property (nonatomic, assign) BOOL userIsLoggedIn;
 
 extern NSString const *FromOverViewToDeviceViewSegue;
 

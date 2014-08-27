@@ -59,6 +59,7 @@
 
 "BUTTON_PROFILE" = "Profile";
 "BUTTON_LOGOUT" = "LogOut";
+"BUTTON_LOGIN" = "LogIn";
 "BUTTON_OVERVIEW" = "Overview";
 
 "ERROR_HEADLINE_NO_CONNECTION" = "A network error occured";

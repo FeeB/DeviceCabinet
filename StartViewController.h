@@ -10,4 +10,6 @@
 
 @interface StartViewController : UIViewController
 
+@property (nonatomic, assign) BOOL isUserLoggedIn;
+
 @end

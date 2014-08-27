@@ -13,6 +13,7 @@
 #import "Device.h"
 #import "DeviceViewController.h"
 #import "UIdGenerator.h"
+#import "OverviewViewController.h"
 
 NSString * const FromeStartToOverviewSegue = @"FromStartToOverview";
 NSString * const FromStartToLogInSegue = @"FromStartToLogIn";
@@ -41,7 +42,8 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
             [self handleDeviceUserWithIdentifier:currentUserIdentifier];        }
         
     } else {
-        [self performSegueWithIdentifier:FromStartToLogInSegue sender:self];
+        self.isUserLoggedIn = NO;
+        [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
     }
 }
 
@@ -71,8 +73,15 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person, NSError *error) {
         if (error) {
-            [self performSegueWithIdentifier:FromStartToLogInSegue sender:self];
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults resetUserDefaults];
+            
+            self.isUserLoggedIn = NO;
+            
+            [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
         } else {
+            self.isUserLoggedIn = YES;
+            
             [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
         }
     }];
@@ -81,13 +90,20 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 - (void)handleDeviceUserWithIdentifier:(NSString *)currentUserIdentifier {
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
-        
         if (error) {
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults resetUserDefaults];
+
             UIdGenerator *generator = [[UIdGenerator alloc] init];
             [generator resetKeyChain];
-            [self performSegueWithIdentifier:FromStartToLogInSegue sender:self];
+            
+            self.isUserLoggedIn = NO;
+
+            [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
         } else {
+            self.isUserLoggedIn = YES;
             self.device = device;
+            
             [self performSegueWithIdentifier:FromStartToDeviceOverviewSegue sender:nil];
         }
     }];
@@ -99,6 +115,9 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
         controller.comesFromStartView = YES;
+    } else if ([segue.identifier isEqualToString:FromeStartToOverviewSegue]) {
+        OverviewViewController *overviewController = (OverviewViewController *)segue.destinationViewController;
+        overviewController.userIsLoggedIn = self.isUserLoggedIn;
     }
 }
 

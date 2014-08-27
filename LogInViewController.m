@@ -13,6 +13,7 @@
 #import "UIdGenerator.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
+#import "OverviewViewController.h"
 
 @interface LogInViewController ()
 
@@ -36,8 +37,6 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     [self.personRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
     [self.deviceRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
     self.deviceLabel.text = NSLocalizedString(@"LABEL_DEVICE", nil);
-    
-    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +91,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
             }
         } else {
             self.deviceObject = device;
+            
             [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
         }
         
@@ -104,6 +104,9 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.comesFromStartView = YES;
         controller.deviceObject = self.deviceObject;
+    } else if ([segue.identifier isEqualToString:FromLogInToOverviewSegue]) {
+        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
+        controller.userIsLoggedIn = YES;
     }
 }
 
