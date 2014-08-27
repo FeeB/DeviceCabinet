@@ -406,13 +406,17 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                 }
             }
         }
+        NSError *firstError = error;
+        
         //create reference with person record ID
         CKReference *bookedReference = [[CKReference alloc] initWithRecordID:personID action:CKReferenceActionDeleteSelf];
         record[RecordTypeDeviceIsBookedField] = bookedReference;
         
         //store device record back
         [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
-            if (error) {
+            if (firstError) {
+                error = firstError;
+            } else if (error) {
                 ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
                 switch (error.code) {
                     case 11 : {
@@ -476,12 +480,16 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                 }
             }
         }
+        NSError *firstError = error;
+        
         CKReference *bookedReference;
         record[RecordTypeDeviceIsBookedField] = bookedReference;
         
         //store device record back
         [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
-            if (error) {
+            if (firstError) {
+                error = firstError;
+            } else if (error) {
                 ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
                 switch (error.code) {
                     case 11 : {
@@ -546,6 +554,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                 }
             }
         }
+        NSError *firstError = error;
         //get all devices records which have a reference towards the person record
         //query the devices
         NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForBookedDevicesFromPerson, personRecord];
@@ -554,7 +563,9 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         
         [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
-            if (error) {
+            if (firstError) {
+                error = firstError;
+            } else if (error) {
                 ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
                 switch (error.code) {
                     case 11 : {
