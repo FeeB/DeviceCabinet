@@ -26,6 +26,7 @@
 
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";
+"SECTION_ERROR" = "Fehlermeldung";
 
 "BUTTON_SAVE" = "speichern";
 

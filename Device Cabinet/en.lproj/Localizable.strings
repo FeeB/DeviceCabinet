@@ -26,6 +26,7 @@
 
 "SECTION_BOOKED_DEVICES" = "Booked devices";
 "SECTION_FREE_DEVICES" = "Available devices";
+"SECTION_ERROR" = "Error message";
 
 "BUTTON_SAVE" = "Save";
 

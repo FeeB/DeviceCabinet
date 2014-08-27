@@ -58,9 +58,15 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     }
     
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
-    Device *cellDevice = [array objectAtIndex:indexPath.row];
-    NSString *cellValue = cellDevice.deviceName;
-    cell.textLabel.text = cellValue;
+    if ([[self.lists objectAtIndex:indexPath.section] isKindOfClass:[Device class]]) {
+        Device *cellDevice = [array objectAtIndex:indexPath.row];
+        NSString *cellValue = cellDevice.deviceName;
+        cell.textLabel.text = cellValue;
+    } else {
+        cell.textLabel.text = array[0];
+        cell.userInteractionEnabled = NO;
+    }
+    
     
     return cell;
 }
@@ -87,11 +93,15 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     if (self.lists.count == 2) {
         return section == 0 ? NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
     } else {
-        NSArray *devices = self.lists[0];
-        if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
-            return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
+        if ([self.lists[0] isKindOfClass:[Device class]]) {
+            NSArray *devices = self.lists[0];
+            if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
+                return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
+            } else {
+                return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
+            }
         } else {
-            return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
+            return NSLocalizedString(@"SECTION_ERROR", nil);
         }
     }
 }
@@ -101,9 +111,17 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         if (error) {
+            self.lists = [[NSMutableArray alloc] init];
+            NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
+            [errorMessage addObject:error.localizedRecoverySuggestion];
+            [self.lists addObject:errorMessage];
+            
+            [self.tableView reloadData];
+            
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+
         } else {
             self.lists = [[NSMutableArray alloc] init];
             NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
