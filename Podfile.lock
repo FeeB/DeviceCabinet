@@ -1,16 +1,22 @@
 PODS:
   - KeychainItemWrapper (1.2)
-  - OCMock (3.1.1)
+  - OCHamcrest (4.0.1)
+  - OCMockito (1.3.0):
+    - OCHamcrest (~> 4.0)
+    - TPWeakProxy (~> 1.0)
   - TEDLocalization (1.0.0)
+  - TPWeakProxy (1.0.0)
 
 DEPENDENCIES:
   - KeychainItemWrapper
-  - OCMock
+  - OCMockito
   - TEDLocalization
 
 SPEC CHECKSUMS:
   KeychainItemWrapper: 577e9e920185892873ded075b8ceb730bebdfd91
-  OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
+  OCHamcrest: b464725bbb48d0f1cd9c6f4ec3cb35fe0c4f2b94
+  OCMockito: eca2670b3ce4a457d316b046a36d6f2b980a4da7
   TEDLocalization: d883f60067238ac68f54825f3b342be4b5028cb6
+  TPWeakProxy: a23251ba7fbe268c93f809cc072ef834f5063798
 
 COCOAPODS: 0.33.1
