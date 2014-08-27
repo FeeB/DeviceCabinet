@@ -408,7 +408,7 @@
             </objects>
             <point key="canvasLocation" x="478" y="-43"/>
         </scene>
-        <!--Title-->
+        <!--TITLE_LOGIN-->
         <scene sceneID="tbY-Gu-qxZ">
             <objects>
                 <viewController storyboardIdentifier="LogInController" id="1U2-KN-iqp" customClass="LogInViewController" sceneMemberID="viewController">
@@ -496,7 +496,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="DQN-cH-jNJ">
+                    <navigationItem key="navigationItem" title="TITLE_LOGIN" id="DQN-cH-jNJ">
                         <barButtonItem key="leftBarButtonItem" title="BUTTON_OVERVIEW" id="1ig-uL-dqj">
                             <connections>
                                 <segue destination="iw6-Gk-HuI" kind="push" id="m21-Db-JxO"/>
