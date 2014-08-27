@@ -191,6 +191,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         [self.bookedFromLabelText setHidden:true];
         
         if ([[userDefaults getUserType] isEqualToString:@"device"]){
+            self.navigationItem.hidesBackButton = YES;
             [self.usernameTextField setHidden:false];
             [self.usernameLabel setHidden:false];
         }
