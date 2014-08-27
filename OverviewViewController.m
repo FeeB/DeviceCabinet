@@ -58,7 +58,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     }
     
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
-    if ([[self.lists objectAtIndex:indexPath.section] isKindOfClass:[Device class]]) {
+    if ([array[0] isKindOfClass:[Device class]]) {
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         NSString *cellValue = cellDevice.deviceName;
         cell.textLabel.text = cellValue;
