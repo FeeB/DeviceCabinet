@@ -14,15 +14,16 @@
 #import "UserDefaults.h"
 #import "TEDLocalization.h"
 
-@interface ProfileViewController ()
+NSString * const FromProfileToDeviceSegue = @"FromProfileToDeviceOverview";
 
+@interface ProfileViewController ()
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *list;
 
 @end
 
 @implementation ProfileViewController
 
-NSString *FromProfileToDeviceSegue = @"FromProfileToDeviceOverview";
 NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 
 - (void)viewDidLoad {
@@ -31,6 +32,12 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     self.bookedDevicesLabel.text = NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
 
     [TEDLocalization localize:self];
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.transform = CGAffineTransformMakeScale(2, 2);
+    self.spinner.center = self.customTableView.center;
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,6 +65,7 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 
 //fetch person record to know the record ID to get all devices with a reference to this person object
 - (void)getAllBookedDevices {
+    [self.spinner startAnimating];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     
@@ -77,6 +85,7 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
                     [self.list addObject:device];
                 }
                 [self.customTableView reloadData];
+                [self.spinner stopAnimating];
             }];
         }
     }];
