@@ -24,10 +24,6 @@
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 
-extern NSString const *FromLogInToOverviewSegue;
-extern NSString const *FromLogInToDeviceViewSegue;
-extern NSString const *FromLogInToCreateDeviceSegue;
-
 - (IBAction)personLogInOnClick;
 - (IBAction)deviceLogInOnClick;
 - (void)viewWillDisappear:(BOOL)animated;

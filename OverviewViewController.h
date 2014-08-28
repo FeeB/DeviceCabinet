@@ -15,9 +15,6 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logOutButton;
 @property (nonatomic, assign) BOOL userIsLoggedIn;
 
-extern NSString const *FromOverViewToDeviceViewSegue;
-
-
 - (void)getAllDevices;
 - (IBAction)logOut;
 

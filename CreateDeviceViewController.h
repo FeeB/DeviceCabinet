@@ -16,8 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
-extern NSString const *FromCreateDeviceToOverviewSegue;
-
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 - (IBAction) storeDevice;

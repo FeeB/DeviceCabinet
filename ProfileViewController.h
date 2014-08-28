@@ -18,7 +18,6 @@
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 
-extern NSString const *FromProfileToDeviceSegue;
 extern NSString const *LogoutButtonSegue;
 
 

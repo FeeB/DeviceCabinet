@@ -13,6 +13,8 @@
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
 
+NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
+
 @interface CreateDeviceViewController ()
     @property (nonatomic, strong) UIActivityIndicatorView *spinner;
     @property (nonatomic, strong) NSArray *pickerData;
@@ -20,8 +22,6 @@
 @end
 
 @implementation CreateDeviceViewController
-
-NSString *FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -14,6 +14,8 @@
 #import "TEDLocalization.h"
 #import "ErrorMapper.h"
 
+NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
+
 @interface CreatePersonViewController ()
 @property (readonly) CKContainer *container;
 @property (readonly) CKDatabase *publicDatabase;
@@ -21,8 +23,6 @@
 @end
 
 @implementation CreatePersonViewController
-
-NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,6 +90,13 @@ NSString *FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
                 [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
             }
         }];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:FromCreatePersonToOverviewSegue]){
+        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
+        controller.userIsLoggedIn = YES;
     }
 }
 

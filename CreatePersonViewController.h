@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
-extern NSString const *FromCreatePersonToOverviewSegue;
-
 - (IBAction)storePerson;
 
 @end
