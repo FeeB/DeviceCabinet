@@ -16,8 +16,14 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-@interface CloudKitManagerTestCase : XCTestCase
+@interface CloudKitManager (Manager_Test)
+- (CKRecord *)recordFromDevice:(Device *)device;
+- (CKRecord *)recordFromPerson:(Person *)person;
+- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record;
+- (Person *)getBackPersonObjectWithRecord:(CKRecord *)record;
+@end
 
+@interface CloudKitManagerTestCase : XCTestCase
 @end
 
 @implementation CloudKitManagerTestCase
@@ -47,8 +53,8 @@
 - (void)testGetRecordFromPerson {
     Person *person = [self createATestPerson];
     
-    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    CKRecord *record = [cloudManager recordFromPerson:person];
+    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CKRecord *record = [manager recordFromPerson:person];
     
     XCTAssertEqualObjects(record[@"firstName"], person.firstName, @"The first name of the person should be the same in the record");
     XCTAssertEqualObjects(record[@"lastName"], person.lastName, @"The last name of the person should be the same in the record");
@@ -58,8 +64,8 @@
 - (void)testGetRecordFromDevice {
     Device *device = [self createATestDevice];
     
-    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    CKRecord *record = [cloudManager recordFromDevice:device];
+    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CKRecord *record = [manager recordFromDevice:device];
     
     XCTAssertEqualObjects(record[@"devicename"], device.deviceName, @"The devicename of the device should be the same in the record");
     XCTAssertEqualObjects(record[@"category"], device.category, @"The category of the device should be the same in the record");
@@ -70,8 +76,8 @@
 - (void)testGetBackDeviceObjectWithRecord {
     CKRecord *record = [self createATestDeviceRecord];
     
-    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    Device *device = [cloudManager getBackDeviceObjectWithRecord:record];
+    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    Device *device = [manager getBackDeviceObjectWithRecord:record];
     
     XCTAssertEqualObjects(device.deviceName, record[@"devicename"], @"The devicename in the record should be the same in the device object");
     XCTAssertEqualObjects(device.category, record[@"category"], @"The category in the record should be the same in the device object");
@@ -82,24 +88,12 @@
 - (void)testGetBackPersonObjectWithRecord {
     CKRecord *record = [self createATestPersonRecord];
     
-    CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-    Person *person = [cloudManager getBackPersonObjectWithRecord:record];
+    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    Person *person = [manager getBackPersonObjectWithRecord:record];
     
     XCTAssertEqualObjects(person.firstName, record[@"firstName"], @"The first name in the record should be the same in the person object");
     XCTAssertEqualObjects(person.lastName, record[@"lastName"], @"The last name in the record should be the same in the person object");
     XCTAssertEqualObjects(person.userName, record[@"userName"], @"The username in the record should be the same in the person object");
-}
-
-- (void)testStoreDevice {
-    CloudKitManager *manager = [[CloudKitManager alloc] init];
-    Device *device = [self createATestDevice];
-    Person *person = [self createATestPerson];
-    CKContainer *container = mockClass([CKContainer defaultContainer]);
-    CKDatabase *database = mockClass([container publicCloudDatabase]);
-    
-//    [given([manager fetchPersonWithUsername:person.userName completionHandler:anything()]) ]
-    
- 
 }
 
 - (Device *)createATestDevice {
