@@ -25,4 +25,7 @@
 
 - (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler;
 
+- (void)uploadAssetWithURL:(NSURL *)assetURL deviceId:(CKRecordID *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
+
+
 @end

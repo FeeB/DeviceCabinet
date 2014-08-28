@@ -16,7 +16,7 @@
 #import "ProfileViewController.h"
 
 @interface OverviewViewController ()
-
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
 @property (nonatomic, strong) Device *device;
 @end
@@ -32,6 +32,16 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     [self showTitelForLogOutButton];
     
     [TEDLocalization localize:self];
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.transform = CGAffineTransformMakeScale(2, 2);
+    self.spinner.center = self.tableView.center;
+    self.spinner.hidesWhenStopped = YES;
+    [self.view addSubview:self.spinner];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +71,8 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     if ([array[0] isKindOfClass:[Device class]]) {
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         NSString *cellValue = cellDevice.deviceName;
+        
+        cell.imageView.image = cellDevice.image;
         cell.textLabel.text = cellValue;
     } else {
         cell.textLabel.text = array[0];
@@ -108,8 +120,10 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 
 //get all devices for the device overview
 - (void)getAllDevices {
+    [self.spinner startAnimating];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+        [self.spinner stopAnimating];
         if (error) {
             self.lists = [[NSMutableArray alloc] init];
             NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
@@ -169,6 +183,11 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
     }
     
+}
+
+- (void)updateTable {
+    [self getAllDevices];
+    [self.refreshControl endRefreshing];
 }
 
 

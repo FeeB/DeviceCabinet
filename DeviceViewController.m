@@ -27,7 +27,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.center = CGPointMake(160, 240);
+    self.spinner.transform = CGAffineTransformMakeScale(2, 2);
+    self.spinner.center = self.view.center;
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     
@@ -46,6 +47,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
+    self.imageView.image = self.deviceObject.image;
+    
     if (self.comesFromStartView) {
         self.navigationItem.hidesBackButton = YES;
     } else {
@@ -60,6 +63,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
     [bookedFrom createFullNameWithFirstName];
     self.bookedFromLabelText.text = bookedFrom.fullName;
+    
+    self.imageView.image = self.deviceObject.image;
     
     [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
@@ -208,5 +213,75 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [textField resignFirstResponder];
     return YES;
 }
+
+- (IBAction)takePhoto {
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    }
+    
+    imagePicker.sourceType = sourceType;
+    imagePicker.delegate = self;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        [self.spinner startAnimating];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        
+        // retrieve the image and resize it down
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        
+        CGSize newSize = CGSizeMake(512, 512);
+        
+        if (image.size.width > image.size.height) {
+            newSize.height = round(newSize.width * image.size.height / image.size.width);
+        } else {
+            newSize.width = round(newSize.height * image.size.width / image.size.height);
+        }
+        
+        UIGraphicsBeginImageContext(newSize);
+        [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+        NSData *data = UIImageJPEGRepresentation(UIGraphicsGetImageFromCurrentImageContext(), 0.75);
+        UIGraphicsEndImageContext();
+        
+        // write the image out to a cache file
+        NSURL *cachesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+        NSString *temporaryName = [[NSUUID UUID].UUIDString stringByAppendingPathExtension:@"jpeg"];
+        NSURL *localURL = [cachesDirectory URLByAppendingPathComponent:temporaryName];
+        [data writeToURL:localURL atomically:YES];
+        
+        // upload the cache file as a CKAsset
+        CloudKitManager *cloudmanager = [[CloudKitManager alloc] init];
+        [cloudmanager uploadAssetWithURL:localURL deviceId:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
+            if (error) {
+                [self.spinner stopAnimating];
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            } else {
+                self.deviceObject = device;
+                [self.spinner stopAnimating];
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                [self viewWillAppear:YES];
+            }
+        }];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

@@ -14,6 +14,8 @@
 
 NSString* const RecordTypeDevice = @"Devices";
 NSString* const RecordTypePerson = @"Persons";
+NSString * const PhotoAssetRecordType = @"Photos";
+NSString * const PhotoAssetField = @"photo";
 
 NSString * const RecordTypePersonFirstNameField = @"firstName";
 NSString * const RecordTypePersonLastNameField = @"lastName";
@@ -24,6 +26,7 @@ NSString * const RecordTypeDeviceNameField = @"devicename";
 NSString * const RecordTypeDeviceCategoryField = @"category";
 NSString * const RecordTypeDeviceIdField = @"deviceId";
 NSString * const RecordTypeDeviceSystemVersionField = @"systemVersion";
+NSString * const RecordTypeDeviceImageField = @"photo";
 
 NSString * const PredicateFormatForDevices = @"devicename = %@";
 NSString * const PredicateFormatForPersons = @"userName = %@";
@@ -605,6 +608,78 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
+- (void)uploadAssetWithURL:(NSURL *)assetURL deviceId:(CKRecordID *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+    
+    [self.publicDatabase fetchRecordWithID:deviceId completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
+        NSError *firstError = error;
+    
+        CKAsset *photo = [[CKAsset alloc] initWithFileURL:assetURL];
+        record[PhotoAssetField] = photo;
+    
+        [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
+            if (firstError) {
+                error = firstError;
+            } else if (error) {
+                ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+                switch (error.code) {
+                    case 11 : {
+                        error = [errorMapper itemNotFoundInDatabase];
+                        break;
+                    }
+                        //no connection
+                    case 4 : {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                    case 4097: {
+                        error = [errorMapper noConnectionToCloudKit];
+                        break;
+                    }
+                        //user not logged in to cloudKit
+                    case 9 : {
+                        error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                        break;
+                    }
+                    default: {
+                        error = [errorMapper somethingWentWrong];
+                        break;
+                    }
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler([self getBackDeviceObjectWithRecord:record], error);
+            });
+        }];
+    }];
+}
+
 //helper method to get person objects from person records
 - (Person *)getBackPersonObjectWithRecord:(CKRecord *)record {
     Person *person = [[Person alloc]init];
@@ -624,6 +699,10 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     device.recordId = record.recordID;
     device.deviceId = record[RecordTypeDeviceIdField];
     device.systemVersion = record[RecordTypeDeviceSystemVersionField];
+    
+    CKAsset *photoAsset = record[RecordTypeDeviceImageField];
+    UIImage *image = [UIImage imageWithContentsOfFile:photoAsset.fileURL.path];
+    device.image = image;
     
     //if device record has a reference to a person record
     if (record[RecordTypeDeviceIsBookedField] != nil) {
