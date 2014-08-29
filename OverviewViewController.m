@@ -66,14 +66,23 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
-    
+        
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
     if ([array[0] isKindOfClass:[Device class]]) {
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         NSString *cellValue = cellDevice.deviceName;
         
-        cell.imageView.image = cellDevice.image;
+        
+        
         cell.textLabel.text = cellValue;
+        
+        if (cellDevice.image) {
+            cell.imageView.image = cellDevice.image;
+        } else {
+            UIImage *image = [UIImage imageNamed:@"placeholder_image.png"];
+            cell.imageView.image = image;
+        }
+         
     } else {
         cell.textLabel.text = array[0];
         cell.userInteractionEnabled = NO;
@@ -105,7 +114,8 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     if (self.lists.count == 2) {
         return section == 0 ? NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
     } else {
-        if ([self.lists[0] isKindOfClass:[Device class]]) {
+        NSArray *array = self.lists[0];
+        if ([array[0] isKindOfClass:[Device class]]) {
             NSArray *devices = self.lists[0];
             if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
                 return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
