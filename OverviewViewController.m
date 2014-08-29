@@ -60,31 +60,31 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    // Configure the cell...
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
         
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
+    UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     if ([array[0] isKindOfClass:[Device class]]) {
+        
         Device *cellDevice = [array objectAtIndex:indexPath.row];
-        NSString *cellValue = cellDevice.deviceName;
+        cellLabel.text = cellDevice.deviceName;
         
-        
-        
-        cell.textLabel.text = cellValue;
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
         
         if (cellDevice.image) {
-            cell.imageView.image = cellDevice.image;
+            imageView.image = cellDevice.image;
         } else {
-            UIImage *image = [UIImage imageNamed:@"placeholder_image.png"];
-            cell.imageView.image = image;
+            imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
         }
          
     } else {
-        cell.textLabel.text = array[0];
+        cellLabel.text = array[0];
         cell.userInteractionEnabled = NO;
     }
     
