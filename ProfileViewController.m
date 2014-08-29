@@ -80,12 +80,18 @@ NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
             self.nameLabel.text = self.personObject.fullName;
             
             [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray, NSError *error) {
-                self.list = [[NSMutableArray alloc] init];
-                for (Device *device in devicesArray){
-                    [self.list addObject:device];
+                if (error) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                } else {
+                    self.list = [[NSMutableArray alloc] init];
+                    for (Device *device in devicesArray){
+                        [self.list addObject:device];
+                    }
+                    [self.customTableView reloadData];
+                    [self.spinner stopAnimating];
                 }
-                [self.customTableView reloadData];
-                [self.spinner stopAnimating];
             }];
         }
     }];

@@ -634,10 +634,10 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             for (CKRecord *deviceRecord in results) {
                 Device *device = [self getBackDeviceObjectWithRecord:deviceRecord];
                 [resultObjects addObject:device];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    completionHandler(resultObjects, error);
-                });
             }
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler(resultObjects, error);
+            });
         }];
 
     }];
