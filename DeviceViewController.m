@@ -78,22 +78,33 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
-    [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
-        if (error) {
-            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                       message:error.localizedRecoverySuggestion
-                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-            
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            [self.spinner stopAnimating];
+    [cloudManager fetchDeviceRecordWithID:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
+        if (!device.isBooked) {
+            [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
+                if (error) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                    
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    [self.spinner stopAnimating];
+                } else {
+                    [self.spinner stopAnimating];
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    
+                    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                    [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
+                    self.deviceObject.isBooked = YES;
+                    [self.personObject createFullNameWithFirstName];
+                    self.deviceObject.bookedFromPerson = self.personObject;
+                }
+            }];
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.spinner stopAnimating];
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
-            self.deviceObject.isBooked = YES;
-            [self.personObject createFullNameWithFirstName];
-            self.deviceObject.bookedFromPerson = self.personObject;
+            
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_ALREADY_BOOKED", nil) message:NSLocalizedString(@"MESSAGE_ALREADY_BOOKED", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [self viewWillAppear:YES];
         }
     }];
 }

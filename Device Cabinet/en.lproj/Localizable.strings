@@ -50,6 +50,8 @@
 "MESSAGE_REGISTER_DEVICE" = "The device is not registered yet, please register it now";
 "HEADLINE_EMPTY_TEXTFIELD" = "Please fill out the textfields";
 "MESSAGE_EMPTY_TEXTFIELD" = "The textfield %@ can't be empty";
+"HEADLINE_ALREADY_BOOKED" = "Device is already booked";
+"MESSAGE_ALREADY_BOOKED" = "Sorry, somebody booked the device in the meantime";
 
 "TITLE_PROFILE" = "Profile";
 "TITLE_OVERVIEW" = "Overview";

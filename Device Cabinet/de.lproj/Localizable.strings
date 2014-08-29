@@ -50,6 +50,8 @@
 "MESSAGE_REGISTER_DEVICE" = "Das Gerät ist noch nicht registriert, bitte registriere es jetzt";
 "HEADLINE_EMPTY_TEXTFIELD" = "Fülle alle Textfelder aus";
 "MESSAGE_EMPTY_TEXTFIELD" = "Das Textfeld %@ darf nicht leer sein";
+"HEADLINE_ALREADY_BOOKED" = "Gerät wurde ausgeliehen";
+"MESSAGE_ALREADY_BOOKED" = "Entschuldige, das Gerät wurde in der Zwischenzeit ausgeliehen";
 
 "TITLE_PROFILE" = "Profil";
 "TITLE_OVERVIEW" = "Übersicht";

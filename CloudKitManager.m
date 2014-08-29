@@ -270,8 +270,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 //fetch person record with record ID
 
-- (void)fetchPersonRecordWithID:(CKRecordID *)deviceID completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
-    [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
+- (void)fetchPersonRecordWithID:(CKRecordID *)personRecordID completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
+    [self.publicDatabase fetchRecordWithID:personRecordID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
             ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
             switch (error.code) {
@@ -301,6 +301,41 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackPersonObjectWithRecord:record], error);
+        });
+    }];
+}
+
+- (void)fetchDeviceRecordWithID:(CKRecordID *)deviceRecordID completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+    [self.publicDatabase fetchRecordWithID:deviceRecordID completionHandler:^(CKRecord *record, NSError *error) {
+        if (error) {
+            ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+            switch (error.code) {
+                case 11 : {
+                    error = [errorMapper itemNotFoundInDatabase];
+                    break;
+                }
+                    //no connection
+                case 4 : {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                case 4097: {
+                    error = [errorMapper noConnectionToCloudKit];
+                    break;
+                }
+                    //user not logged in to cloudKit
+                case 9 : {
+                    error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                    break;
+                }
+                default: {
+                    error = [errorMapper somethingWentWrong];
+                    break;
+                }
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler([self getBackDeviceObjectWithRecord:record], error);
         });
     }];
 }
