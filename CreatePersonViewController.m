@@ -71,6 +71,13 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         person.lastName = self.lastNameTextField.text;
         person.userName = self.userNameTextField.text;
         
+//        NSURL *url = [NSURL URLWithString:@"http://0.0.0.0:3000/devices"];
+//        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+//        [urlRequest setHTTPMethod:@"POST"];
+//        //do something to fix this
+//        [urlRequest setHTTPBody:person];
+//        [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+        
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storePerson:person completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
