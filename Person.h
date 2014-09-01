@@ -20,7 +20,6 @@
 @property CKRecordID *recordId;
 @property NSString *userName;
 @property NSString *fullName;
-@property NSString *role;
 
 - (void)createFullNameWithFirstName;
 
