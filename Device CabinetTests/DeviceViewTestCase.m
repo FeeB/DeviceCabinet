@@ -10,6 +10,10 @@
 #import <XCTest/XCTest.h>
 #import "DeviceViewController.h"
 #import "UserDefaults.h"
+#define MOCKITO_SHORTHAND
+#import <OCMockito/OCMockito.h>
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
 
 @interface DeviceViewTestCase : XCTestCase
 
@@ -40,36 +44,42 @@
 }
 
 - (void)testHiddenTextFieldsWhenUserIsAPerson {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+    
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeUserDefaults:@"123" userType:@"person"];
     
-    DeviceViewController *controller = [[DeviceViewController alloc] init];
     [controller showOrHideTextFields];
+    [controller viewWillAppear:YES];
     
-//    Not yet??
-//    XCTAssertTrue([controller.usernameTextField isHidden], @"The username text field should be hidden");
-//    XCTAssertTrue([controller.usernameLabel isHidden], @"The username label should be hidden");
+    XCTAssertTrue([controller.usernameTextField isHidden], @"The username text field should be hidden");
+    XCTAssertTrue([controller.usernameLabel isHidden], @"The username label should be hidden");
 }
 
 - (void)testHiddenTextFieldsWhenUserIsADeviceAndNotBooked {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+    
     Device *device = [[Device alloc] init];
     device.isBooked = NO;
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeUserDefaults:@"123" userType:@"device"];
     
-    DeviceViewController *controller = [[DeviceViewController alloc] init];
     controller.deviceObject = device;
     
     [controller showOrHideTextFields];
-    [controller viewWillAppear:YES];
-    
-//    always nil
-//    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_BOOK", nil), @"Book Button should have book now title");
+    [controller viewDidLoad];
+
+    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_BOOK", nil), @"Book Button should have book now title");
     XCTAssertFalse([controller.usernameTextField isHidden], @"The username text field shouldn't be hidden");
     XCTAssertFalse([controller.usernameLabel isHidden], @"The username label shouldn't be hidden");
 }
 
 - (void)testHiddenTextFieldsWhenDeviceIsBookedFromPerson {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+    
     Device *device = [[Device alloc] init];
     device.isBooked = YES;
     Person *person = [[Person alloc] init];
@@ -81,17 +91,19 @@
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeUserDefaults:@"flast" userType:@"person"];
     
-    DeviceViewController *controller = [[DeviceViewController alloc] init];
     controller.deviceObject = device;
+    [controller viewWillAppear:YES];
     [controller showOrHideTextFields];
     
-//    always nil
-//    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_RETURN", nil), @"Book Button should have return title");
+    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_RETURN", nil), @"Book Button should have return title");
     XCTAssertFalse([controller.bookedFromLabel isHidden], @"The booked from label shouldn't be hidden");
     XCTAssertFalse([controller.bookedFromLabelText isHidden], @"The booked from label text shouldn't be hidden");
 }
 
 - (void)testHiddenTextFieldsWhenDeviceIsBookedFromSomeoneElse {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+    
     Device *device = [[Device alloc] init];
     device.isBooked = YES;
     Person *person = [[Person alloc] init];
@@ -102,12 +114,11 @@
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeUserDefaults:@"flast" userType:@"person"];
     
-    DeviceViewController *controller = [[DeviceViewController alloc] init];
     controller.deviceObject = device;
     [controller showOrHideTextFields];
+    [controller viewWillAppear:YES];
     
-//    always nil
-//    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil));
+    XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil));
     XCTAssertFalse([controller.bookedFromLabel isHidden], @"The booked from label shouldn't be hidden");
     XCTAssertFalse([controller.bookedFromLabelText isHidden], @"The booked from label text shouldn't be hidden");
 }
