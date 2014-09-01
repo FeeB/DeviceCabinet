@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import <CloudKit/CloudKit.h>
 #import "CloudKitManager.h"
 
 #define HC_SHORTHAND
@@ -17,6 +18,9 @@
 #import <OCMockito/OCMockito.h>
 
 @interface CloudKitManager (Manager_Test)
+
+@property (nonatomic, strong) CKDatabase *publicDatabase;
+
 - (CKRecord *)recordFromDevice:(Device *)device;
 - (CKRecord *)recordFromPerson:(Person *)person;
 - (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record;
@@ -39,8 +43,18 @@
 }
 
 - (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+//    id databaseMock = MKTMockClass([CKDatabase class]);
+//    CloudKitManager *manager = [[CloudKitManager alloc] init];
+//    manager.publicDatabase = databaseMock;
+//    
+//    MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
+//    [verify(databaseMock) saveRecord:anything() completionHandler:[argument capture]];
+//    void (^completion)(CKRecord *savedPerson, NSError *error) = [argument value];
+//    completion(nil, nil);
+//    
+//    [manager storePerson:nil completionHandler:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)testPerformanceExample {
