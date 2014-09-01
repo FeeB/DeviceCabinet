@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CloudKitManager.h"
 
-@interface OverviewViewController : UITableViewController
+@interface OverviewViewController : UITableViewController <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logOutButton;

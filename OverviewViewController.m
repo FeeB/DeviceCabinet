@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
 @property (nonatomic, strong) Device *device;
+@property (nonatomic, strong) NSMutableData *downloadedData;
 @end
 
 @implementation OverviewViewController
@@ -131,6 +132,12 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 //get all devices for the device overview
 - (void)getAllDevices {
     [self.spinner startAnimating];
+
+//    For replacing cloudkit
+//    NSURL *jsonFileUrl = [NSURL URLWithString:@"http://0.0.0.0:3000/devices/"];
+//    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:jsonFileUrl];
+//    [NSURLConnection connectionWithRequest:urlRequest delegate:self];
+    
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
@@ -192,12 +199,61 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     } else {
         [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
     }
-    
 }
 
 - (void)updateTable {
     [self getAllDevices];
     [self.refreshControl endRefreshing];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    // Initialize the data object
+    self.downloadedData = [[NSMutableData alloc] init];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the newly downloaded data
+    [self.downloadedData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    // Parse the JSON that came in
+    NSError *error;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:_downloadedData options:NSJSONReadingAllowFragments error:&error];
+    
+    // Loop through Json objects, create question objects and add them to our questions array
+    for (int i = 0; i < jsonArray.count; i++) {
+        NSDictionary *jsonElement = jsonArray[i];
+        
+        // Create a new location object and set its props to JsonElement properties
+        Device *device = [[Device alloc] init];
+        device.deviceName = jsonElement[@"deviceName"];
+        device.category = jsonElement[@"category"];
+        device.isBooked = jsonElement[@"isBooked"];
+        device.deviceId = jsonElement[@"deviceId"];
+        device.systemVersion = jsonElement[@"systemVersion"];
+        
+        self.lists = [[NSMutableArray alloc] init];
+        NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
+        NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
+        
+        if (device.isBooked) {
+            [bookedDevices addObject:device];
+        } else {
+            [freeDevices addObject:device];
+        }
+        
+        if (bookedDevices.count > 0) {
+            [self.lists addObject:bookedDevices];
+        }
+        if (freeDevices.count > 0) {
+            [self.lists addObject:freeDevices];
+        }
+        
+        [self.tableView reloadData];
+        [self.spinner stopAnimating];
+    }
 }
 
 
