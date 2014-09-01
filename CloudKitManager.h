@@ -13,6 +13,8 @@
 
 @interface CloudKitManager : NSObject
 
+@property (readonly) CKDatabase *publicDatabase;
+
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
@@ -27,6 +29,5 @@
 - (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler;
 
 - (void)uploadAssetWithURL:(NSURL *)assetURL deviceId:(CKRecordID *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
-
 
 @end

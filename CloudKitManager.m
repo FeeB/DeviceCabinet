@@ -36,7 +36,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 @interface CloudKitManager ()
 
 @property (readonly) CKContainer *container;
-@property (readonly) CKDatabase *publicDatabase;
+@property (nonatomic, strong) CKDatabase *publicDatabase;
 
 @end
 
