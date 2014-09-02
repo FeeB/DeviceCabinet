@@ -16,6 +16,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 @end
 
 @implementation DeviceViewController
@@ -59,6 +60,10 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     } else {
         self.navigationItem.hidesBackButton = NO;
     }
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:self.tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -301,6 +306,16 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.scrollView setContentOffset:CGPointMake(0,100) animated:YES];
+    return YES;
+}
+
+- (void) dismissKeyboard {
+    [self.usernameTextField resignFirstResponder];
+    [self.view removeGestureRecognizer:self.tap];
 }
 
 
