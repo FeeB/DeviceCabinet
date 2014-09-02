@@ -10,7 +10,7 @@
 #import "Device.h"
 #import "Person.h"
 
-@interface DeviceViewController : UIViewController <UITextFieldDelegate>
+@interface DeviceViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceNameLabel;
