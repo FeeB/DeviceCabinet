@@ -16,11 +16,11 @@
 @property NSString *firstName;
 @property NSString *lastName;
 @property BOOL hasBookedDevice;
-@property NSMutableArray *devices;
 @property CKRecordID *recordId;
 @property NSString *userName;
 @property NSString *fullName;
 
 - (void)createFullNameWithFirstName;
+- (NSData *)toJson;
 
 @end

@@ -16,9 +16,11 @@
 NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
 
 @interface CreateDeviceViewController ()
-    @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-    @property (nonatomic, strong) NSArray *pickerData;
-    @property (nonatomic, strong) Device *device;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) NSArray *pickerData;
+@property (nonatomic, strong) Device *device;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+
 @end
 
 @implementation CreateDeviceViewController
@@ -43,6 +45,9 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
     self.devicePicker.delegate = self;
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:self.tap];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,6 +87,8 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
         self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         
+//        [self.device toJson];
+        
         CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
         [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -115,5 +122,13 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
     return YES;
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.scrollView setContentOffset:CGPointMake(0,100) animated:YES];
+    return YES;
+}
+
+- (void) dismissKeyboard {
+    [self.deviceNameTextField resignFirstResponder];
+}
 
 @end

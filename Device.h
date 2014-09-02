@@ -22,4 +22,6 @@
 @property NSString *deviceId;
 @property NSString *systemVersion;
 
+- (NSData *)toJson;
+
 @end

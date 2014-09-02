@@ -20,6 +20,8 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
 @property (readonly) CKContainer *container;
 @property (readonly) CKDatabase *publicDatabase;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UITextField *actualTextField;
 @end
 
 @implementation CreatePersonViewController
@@ -40,6 +42,9 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     [self.view addSubview:self.spinner];
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:self.tap];
     
 }
 
@@ -70,6 +75,8 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         person.firstName = self.firstNameTextField.text;
         person.lastName = self.lastNameTextField.text;
         person.userName = self.userNameTextField.text;
+        
+//        [person toJson];
         
 //        NSURL *url = [NSURL URLWithString:@"http://0.0.0.0:3000/devices"];
 //        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
@@ -108,8 +115,18 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    NSLog(@"%@", textField.text);
     [textField resignFirstResponder];
     return YES;
+}
+
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    self.actualTextField = textField;
+    return YES;
+}
+
+- (void) dismissKeyboard {
+    [self.actualTextField resignFirstResponder];
 }
 
 @end
