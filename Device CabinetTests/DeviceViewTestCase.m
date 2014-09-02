@@ -47,8 +47,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"123" userType:@"person"];
+    [self createUserDefaultsPerson];
     
     [controller viewWillAppear:YES];
     [controller showOrHideTextFields];
@@ -65,8 +64,7 @@
     
     Device *device = [[Device alloc] init];
     device.isBooked = NO;
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"123" userType:@"device"];
+    [self createUserDefaultsDevice];
     
     controller.deviceObject = device;
     
@@ -84,14 +82,10 @@
     
     Device *device = [[Device alloc] init];
     device.isBooked = YES;
-    Person *person = [[Person alloc] init];
-    person.firstName = @"first";
-    person.lastName = @"last";
-    person.userName = @"flast";
+    Person *person = [self createATestPerson];
     device.bookedFromPerson = person;
     
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"flast" userType:@"person"];
+    [self createUserDefaultsPerson];
     
     controller.deviceObject = device;
     [controller viewWillAppear:YES];
@@ -106,15 +100,10 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     
-    Device *device = [[Device alloc] init];
+    Device *device = [self createATestDevice];
     device.isBooked = YES;
-    Person *person = [[Person alloc] init];
-    person.firstName = @"first";
-    person.lastName = @"last";
-    person.userName = @"flast";
     
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"flast" userType:@"person"];
+   [self createUserDefaultsPerson];
     
     controller.deviceObject = device;
     [controller viewWillAppear:YES];
@@ -125,23 +114,33 @@
     XCTAssertFalse([controller.bookedFromLabelText isHidden], @"The booked from label text shouldn't be hidden");
 }
 
-- (CKRecord *)createATestDeviceRecord {
-    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"device"];
-    record[@"devicename"] = @"devicename";
-    record[@"category"] = @"iPhone";
-    record[@"deviceId"] = @"123";
-    record[@"systemVersion"] = @"8.0";
+- (Device *)createATestDevice {
+    Device *device = [[Device alloc] init];
+    device.deviceName = @"devicename";
+    device.category = @"iPhone";
+    device.deviceId = @"123";
+    device.systemVersion = @"8.0";
     
-    return record;
+    return device;
 }
 
-- (CKRecord *)createATestPersonRecord {
-    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"person"];
-    record[@"firstName"] = @"first";
-    record[@"lastName"] = @"last";
-    record[@"userName"] = @"flast";
+- (Person *)createATestPerson {
+    Person *person = [[Person alloc] init];
+    person.firstName = @"first";
+    person.lastName = @"last";
+    person.userName = @"flast";
     
-    return record;
+    return person;
+}
+
+- (void)createUserDefaultsPerson {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    [userDefaults storeUserDefaults:@"flast" userType:@"person"];
+}
+
+- (void)createUserDefaultsDevice {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    [userDefaults storeUserDefaults:@"123" userType:@"device"];
 }
 
 @end
