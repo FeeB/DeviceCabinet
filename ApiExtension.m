@@ -15,11 +15,16 @@
 - (void)fetchAllDevices:(void (^)(NSArray *, NSError *))completionHandler {
     NSError *error1;
     NSArray *array;
+    NSMutableArray *resultObjects;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        for (NSDictionary *dictionary in responseObject) {
+            Device *device = [self getBackDeviceObjectFromJson:dictionary];
+            [resultObjects addObject:device];
+        }
          dispatch_async(dispatch_get_main_queue(), ^(void){
-             completionHandler([self getBackDeviceObjectFromJson:responseObject], error1);
+             completionHandler(resultObjects, error1);
          });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%zd", error.code);
