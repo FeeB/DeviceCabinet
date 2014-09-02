@@ -62,11 +62,11 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     }
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    
     [self.view addGestureRecognizer:self.tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.usernameTextField.text = @"";
     [super viewWillAppear:animated];
     [self showOrHideTextFields];
     
@@ -79,6 +79,9 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     } else {
         self.imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
     }
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:self.tap];
     
     [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
