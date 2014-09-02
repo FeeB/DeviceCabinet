@@ -47,7 +47,12 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
-    self.imageView.image = self.deviceObject.image;
+    if (self.deviceObject.image) {
+        self.imageView.image = self.deviceObject.image;
+    } else {
+        self.imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+    }
+    
     
     if (self.comesFromStartView) {
         self.navigationItem.hidesBackButton = YES;
@@ -64,7 +69,11 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [bookedFrom createFullNameWithFirstName];
     self.bookedFromLabelText.text = bookedFrom.fullName;
     
-    self.imageView.image = self.deviceObject.image;
+    if (self.deviceObject.image) {
+        self.imageView.image = self.deviceObject.image;
+    } else {
+        self.imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
+    }
     
     [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
