@@ -19,9 +19,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
          dispatch_async(dispatch_get_main_queue(), ^(void){
+             [self getBackDeviceObjectFromJson:responseObject];
              completionHandler(responseObject, error1);
          });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%zd", error.code);
         ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
         switch (error.code) {
             case 11 : {
@@ -54,9 +56,10 @@
 }
 
 - (void)getBackDeviceObjectFromJson:(NSData *)json{
-    NSError *error;
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:&error];
-    NSLog(@"%@", dictionary);
+    NSError * error=nil;
+    NSDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:&error];
+    
+    NSLog(@"%@", parsedData);
     
 }
                         
