@@ -28,7 +28,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
     // Do any additional setup after loading the view.
     [TEDLocalization localize:self];
     
-    _pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
+    self.pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
     self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
     self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
@@ -51,13 +51,13 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
 }
 
 // The number of columns of data
-- (int)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
 // The number of rows of data
-- (int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return _pickerData.count;
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerData.count;
 }
 
 // The data to return for the row and component (column) that's being passed in

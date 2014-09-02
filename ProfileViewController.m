@@ -24,7 +24,7 @@ NSString * const FromProfileToDeviceSegue = @"FromProfileToDeviceOverview";
 
 @implementation ProfileViewController
 
-NSString *LogoutButtonSegue = @"FromLogOutButtonToLogIn";
+NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 
 - (void)viewDidLoad {
     [super viewDidLoad];

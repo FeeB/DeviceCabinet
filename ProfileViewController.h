@@ -18,7 +18,7 @@
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 
-extern NSString const *LogoutButtonSegue;
+extern NSString * const LogoutButtonSegue;
 
 
 - (void)getAllBookedDevices;

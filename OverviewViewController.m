@@ -24,7 +24,7 @@
 
 @implementation OverviewViewController
 
-NSString *FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
+NSString * const FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile";
 
 - (void)viewDidLoad {
