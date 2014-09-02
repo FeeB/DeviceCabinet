@@ -19,8 +19,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
          dispatch_async(dispatch_get_main_queue(), ^(void){
-             [self getBackDeviceObjectFromJson:responseObject];
-             completionHandler(responseObject, error1);
+             completionHandler([self getBackDeviceObjectFromJson:responseObject], error1);
          });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%zd", error.code);
@@ -55,12 +54,16 @@
     }];
 }
 
-- (void)getBackDeviceObjectFromJson:(NSData *)json{
-    NSError * error=nil;
-    NSDictionary * parsedData = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:&error];
+- (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
+    Device *device = [[Device alloc] init];
+    device.deviceName = [json valueForKey:@"deviceName"];
+    device.deviceId = [json valueForKey:@"deviceId"];
+    device.category = [json valueForKey:@"category"];
+    device.recordId = [json valueForKey:@"id"];
+    device.isBooked = [json valueForKey:@"isBooked"];
+    device.systemVersion = [json valueForKey:@"systemVersion"];
     
-    NSLog(@"%@", parsedData);
-    
+    return device;
 }
                         
                         
