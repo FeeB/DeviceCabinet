@@ -50,8 +50,10 @@
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeUserDefaults:@"123" userType:@"person"];
     
-    [controller showOrHideTextFields];
     [controller viewWillAppear:YES];
+    [controller showOrHideTextFields];
+    
+    NSLog(@"%@", [controller.usernameTextField isHidden] ? @"YES" : @"NO");
     
     XCTAssertTrue([controller.usernameTextField isHidden], @"The username text field should be hidden");
     XCTAssertTrue([controller.usernameLabel isHidden], @"The username label should be hidden");
@@ -115,12 +117,31 @@
     [userDefaults storeUserDefaults:@"flast" userType:@"person"];
     
     controller.deviceObject = device;
-    [controller showOrHideTextFields];
     [controller viewWillAppear:YES];
+    [controller showOrHideTextFields];
     
     XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil));
     XCTAssertFalse([controller.bookedFromLabel isHidden], @"The booked from label shouldn't be hidden");
     XCTAssertFalse([controller.bookedFromLabelText isHidden], @"The booked from label text shouldn't be hidden");
+}
+
+- (CKRecord *)createATestDeviceRecord {
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"device"];
+    record[@"devicename"] = @"devicename";
+    record[@"category"] = @"iPhone";
+    record[@"deviceId"] = @"123";
+    record[@"systemVersion"] = @"8.0";
+    
+    return record;
+}
+
+- (CKRecord *)createATestPersonRecord {
+    CKRecord *record = [[CKRecord alloc] initWithRecordType:@"person"];
+    record[@"firstName"] = @"first";
+    record[@"lastName"] = @"last";
+    record[@"userName"] = @"flast";
+    
+    return record;
 }
 
 @end
