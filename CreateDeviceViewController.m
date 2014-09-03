@@ -30,7 +30,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
     // Do any additional setup after loading the view.
     [TEDLocalization localize:self];
     
-    self.pickerData = @[@"iPhone", @"Android Phone", @"Ipad", @"Android Tablet"];
+    self.pickerData = @[@"iPhone", @"Android Phone", @"iPad", @"Android Tablet"];
     self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
     self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
