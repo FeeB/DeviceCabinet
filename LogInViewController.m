@@ -14,6 +14,7 @@
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
 #import "OverviewViewController.h"
+#import "ApiExtension.h"
 
 @interface LogInViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -55,6 +56,36 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     if (self.userNameField.text && self.userNameField.text.length > 0) {
+//        ApiExtension *apiExtension = [[ApiExtension alloc] init];
+//        [apiExtension fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
+//            if (error) {
+//                if (error.code == 1) {
+//                    [self.spinner stopAnimating];
+//                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//                    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//                } else {
+//                    [self.spinner stopAnimating];
+//                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+//                                               message:error.localizedRecoverySuggestion
+//                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+//                }
+//            } else {
+//                [self.spinner stopAnimating];
+//                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//                
+//                self.personObject = person;
+//                if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
+//                    UserDefaults *userDefault = [[UserDefaults alloc]init];
+//                    [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+//                    
+//                    [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
+//                } else {
+//                    [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//                }
+//            }
+//        }];
+        
         CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
         [cloudManager fetchPersonWithUsername:[self.userNameField text] completionHandler:^(Person *person, NSError *error) {
             if (error) {
@@ -96,6 +127,32 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     UIdGenerator *uIdGenerator = [[UIdGenerator alloc]init];
     NSString *deviceId = [uIdGenerator getDeviceId];
+    
+//    ApiExtension *apiExtension = [[ApiExtension alloc] init];
+//    [apiExtension fetchDeviceWithDeviceId:deviceId completionHandler:^(Device *device, NSError *error) {
+//        if (error) {
+//            if (error.code == 1) {
+//                [self.spinner stopAnimating];
+//                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//                
+//                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_REGISTER_DEVICE", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_REGISTER_DEVICE", nil)] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//            } else {
+//                [self.spinner stopAnimating];
+//                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//                
+//                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+//                                           message:error.localizedRecoverySuggestion
+//                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+//            }
+//        } else {
+//            [self.spinner stopAnimating];
+//            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//            self.deviceObject = device;
+//            
+//            [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
+//        }
+//
+//    }];
     
     CloudKitManager *cloudManager = [[CloudKitManager alloc]init];
     

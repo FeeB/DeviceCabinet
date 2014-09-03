@@ -19,8 +19,9 @@
 @property CKRecordID *recordId;
 @property NSString *userName;
 @property NSString *fullName;
+@property NSInteger *personRecordId;
 
 - (void)createFullNameWithFirstName;
-- (NSData *)toJson;
+- (NSDictionary *)toJson;
 
 @end

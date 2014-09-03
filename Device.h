@@ -18,10 +18,12 @@
 @property BOOL isBooked;
 @property UIImage *image;
 @property Person *bookedFromPerson;
-@property CKRecordID *recordId;
+@property CKRecord *recordId;
 @property NSString *deviceId;
 @property NSString *systemVersion;
+@property NSString *person_id;
+@property NSInteger *deviceRecordId;
 
-- (NSData *)toJson;
+- (NSDictionary *)toJson;
 
 @end

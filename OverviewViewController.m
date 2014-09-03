@@ -156,7 +156,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 //            NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
 //            
 //            for (Device *device in deviceObjects){
-//                if (device.isBooked =! nil) {
+//                if (device.isBooked) {
 //                    [bookedDevices addObject:device];
 //                } else {
 //                    [freeDevices addObject:device];

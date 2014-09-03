@@ -15,6 +15,7 @@
 - (void)storeDevice:(NSData *)deviceJson completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *parameters = @{@"device": deviceJson};
     NSError *error1;
+    NSLog(@"%@", parameters);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -75,10 +76,10 @@
     }];
 }
 
-- (void)fetchDeviceWithDeviceId:(NSInteger *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
+- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSError *error1;
     Device *device;
-    NSDictionary *parameters = @{@"deviceId": [NSNumber numberWithInteger:*deviceId]};
+    NSDictionary *parameters = @{@"deviceId": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -193,6 +194,7 @@
             completionHandler([self getBackPersonObjectFromJson:responseObject], error1);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", operation.responseString);
         ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
         switch (error.code) {
             case 11 : {
@@ -270,7 +272,7 @@
     
     NSLog(@"%@", [json valueForKey:@"isBooked"]);
     
-    if ([json valueForKey:@"isBooked"] != (id)[NSNull null]) {
+    if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;
     } else {
         device.isBooked = NO;

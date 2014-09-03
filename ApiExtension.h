@@ -12,12 +12,12 @@
 
 @interface ApiExtension : NSObject
 
-- (void)storeDevice:(NSData *)deviceJson completionHandler:(void (^)(NSError *error))completionHandler;
+- (void)storeDevice:(NSDictionary *)deviceJson completionHandler:(void (^)(NSError *error))completionHandler;
 - (void)fetchAllDevices:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
-- (void)fetchDeviceWithDeviceId:(int *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
-- (void)fetchDevicesWithPersonId:(int *)personId completionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
+- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
+- (void)fetchDevicesWithPersonId:(NSInteger *)personRecordId completionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 
-- (void)storePerson:(NSData *)personJson completionHandler:(void (^)(NSError *error))completionHandler;
+- (void)storePerson:(NSDictionary *)personJson completionHandler:(void (^)(NSError *error))completionHandler;
 - (void)fetchPersonWithUsername:(NSString *)username completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
 
 - (void)storeReferenceToBookedDeviceWithDeviceId:(int *)recordDeviceId personId:(int *)recordPersonId completionHandler:(void (^)(NSError *error))completionHandler;
