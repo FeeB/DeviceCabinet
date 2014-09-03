@@ -66,7 +66,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.usernameTextField.text = @"";
     [super viewWillAppear:animated];
     [self showOrHideTextFields];
     
@@ -92,19 +91,18 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 - (void)storeReference {
     [self.spinner startAnimating];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     
     [cloudManager fetchDeviceRecordWithID:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
         if (!device.isBooked) {
             [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
                 if (error) {
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    [self.spinner stopAnimating];
+                    
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                                message:error.localizedRecoverySuggestion
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                    
-                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                    [self.spinner stopAnimating];
                 } else {
                     [self.spinner stopAnimating];
                     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -114,6 +112,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                     self.deviceObject.isBooked = YES;
                     [self.personObject createFullNameWithFirstName];
                     self.deviceObject.bookedFromPerson = self.personObject;
+                    self.usernameTextField.text = @"";
                 }
             }];
         } else {
@@ -134,16 +133,17 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            [self.spinner stopAnimating];
+            
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-            
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            [self.spinner stopAnimating];
         } else {
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            [self.spinner stopAnimating];
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            [self.spinner stopAnimating];
+            
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
             self.deviceObject.isBooked = NO;
 
@@ -161,6 +161,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 //Action when user clicks on button
 - (IBAction)fetchPersonRecordOnClick {
+    [self.spinner startAnimating];
     
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     NSString *username = [userDefaults getUserIdentifier];
