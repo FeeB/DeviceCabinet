@@ -5,11 +5,11 @@
  Created by Braun,Fee on 19.08.14.
  Copyright (c) 2014 Braun,Fee. All rights reserved.
  */
-"LABEL_LOGIN" = "Log in";
-"LABEL_TESTER" = "as tester";
-"LABEL_DEVICE" = "as test device";
+"LABEL_TESTER" = "LogIn as a tester";
+"LABEL_DEVICE" = "LogIn as test a device";
 
-"BUTTON_REGISTER" = "Register";
+"BUTTON_REGISTER_DEVICE" = "Register a new test device now";
+"BUTTON_REGISTER_USER" = "Register as new user now";
 
 "LABEL_FIRSTNAME" = "First name";
 "LABEL_LASTNAME" = "Last name";
@@ -21,7 +21,7 @@
 "LABEL_DEVICENAME" = "Device name:";
 "LABEL_CATEGORY" = "Category:";
 "LABEL_SYSTEM_VERSION" = "System version:";
-"LABEL_BOOKED_FROM" = "Booked from:";
+"LABEL_BOOKED_FROM" = "Booked by:";
 "LABEL_ENTER_USERNAME" = "Enter your username:";
 
 "SECTION_BOOKED_DEVICES" = "Booked devices";

@@ -5,11 +5,11 @@
   Created by Braun,Fee on 14.08.14.
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
-"LABEL_LOGIN" = "Log dich ein";
-"LABEL_TESTER" = "als Tester";
-"LABEL_DEVICE" = "als Testgerät";
+"LABEL_TESTER" = "LogIn als Tester";
+"LABEL_DEVICE" = "logIn als Testgerät";
 
-"BUTTON_REGISTER" = "Registrieren";
+"BUTTON_REGISTER_DEVICE" = "Jetzt ein neues Testgerät registrieren";
+"BUTTON_REGISTER_USER" = "Jetzt als neuer User registrieren";
 
 "LABEL_FIRSTNAME" = "Vorname";
 "LABEL_LASTNAME" = "Nachname";

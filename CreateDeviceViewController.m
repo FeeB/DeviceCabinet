@@ -90,24 +90,11 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
         
 //        [self.device toJson];
         
-        ApiExtension *api = [[ApiExtension alloc] init];
-        [api storeDevice:[self.device toDictionary] completionHandler:^(NSError *error) {
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-            [self.spinner stopAnimating];
-            
-            if (error) {
-                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                           message:error.localizedRecoverySuggestion
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                [self.spinner stopAnimating];
-            } else {
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            }
-        }];
-        
-//        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-//        [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
+//        ApiExtension *api = [[ApiExtension alloc] init];
+//        [api storeDevice:[self.device toDictionary] completionHandler:^(NSError *error) {
 //            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//            [self.spinner stopAnimating];
+//            
 //            if (error) {
 //                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
 //                                           message:error.localizedRecoverySuggestion
@@ -117,6 +104,19 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
 //                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 //            }
 //        }];
+        
+        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
+        [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [self.spinner stopAnimating];
+            } else {
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }];
     } else {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_EMPTY_TEXTFIELD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_EMPTY_TEXTFIELD", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }

@@ -41,8 +41,6 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     self.whoAmILabel.text = NSLocalizedString(@"LABEL_LOGIN", nil);
     self.userLabel.text = NSLocalizedString(@"LABEL_TESTER", nil);
     self.userNameLabel.text = NSLocalizedString(@"LABEL_USERNAME", nil);
-    [self.personRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
-    [self.deviceRegisterButton setTitle:NSLocalizedString(@"BUTTON_REGISTER", nil) forState:UIControlStateNormal];
     self.deviceLabel.text = NSLocalizedString(@"LABEL_DEVICE", nil);
 }
 
