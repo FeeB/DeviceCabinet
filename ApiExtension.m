@@ -119,10 +119,10 @@
     }];
 }
 
-- (void)fetchDevicesWithPersonId:(int *)personId completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
+- (void)fetchDevicesWithPersonId:(NSInteger *)personRecordId completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     NSError *error1;
     NSArray *array;
-    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*personId]};
+    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*personRecordId]};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
