@@ -78,7 +78,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         person.userName = self.userNameTextField.text;
         
         ApiExtension *apiExtension = [[ApiExtension alloc] init];
-        [apiExtension storePerson:[person toJson] completionHandler:^(NSError *error) {
+        [apiExtension storePerson:[person toDictionary] completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

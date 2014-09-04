@@ -91,7 +91,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
 //        [self.device toJson];
         
         ApiExtension *api = [[ApiExtension alloc] init];
-        [api storeDevice:[self.device toJson] completionHandler:^(NSError *error) {
+        [api storeDevice:[self.device toDictionary] completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             

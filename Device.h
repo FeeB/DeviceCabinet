@@ -24,6 +24,6 @@
 @property NSString *person_id;
 @property NSInteger *deviceRecordId;
 
-- (NSDictionary *)toJson;
+- (NSDictionary *)toDictionary;
 
 @end

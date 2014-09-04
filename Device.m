@@ -11,25 +11,9 @@
 
 @implementation Device
 
-- (NSDictionary *)toJson {
-//    NSError *error = nil;
-//    NSData *json;
-//    NSData *personJson = [self.bookedFromPerson toJson];
-    
+- (NSDictionary *)toDictionary {
     NSDictionary *dictionary = @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBooked ? @"YES" : @"NO"};
     
-//    if ([NSJSONSerialization isValidJSONObject:dictionary]) {
-//        // Serialize the dictionary
-//        json = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error];
-//        
-//        // If no errors, let's view the JSON
-//        if (json != nil && error == nil)
-//        {
-//            NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-//            
-//            NSLog(@"JSON: %@", jsonString);
-//        }
-//    }
     return dictionary;
 }
 

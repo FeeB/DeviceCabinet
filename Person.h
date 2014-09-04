@@ -22,6 +22,6 @@
 @property NSInteger *personRecordId;
 
 - (void)createFullNameWithFirstName;
-- (NSDictionary *)toJson;
+- (NSDictionary *)toDictionary;
 
 @end

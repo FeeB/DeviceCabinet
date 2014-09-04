@@ -92,7 +92,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 - (void)storeReference {
     [self.spinner startAnimating];
     CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    
     [cloudManager fetchDeviceRecordWithID:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
         if (!device.isBooked) {
             [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
@@ -146,7 +145,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
             self.deviceObject.isBooked = NO;
-
+            
         }
     }];
 }
