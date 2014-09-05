@@ -156,14 +156,17 @@
 }
 
 - (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"personId": person.personRecordId};
-    
+    NSDictionary *parameters = @{@"person_id": person.personRecordId};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
-        for (NSDictionary *dictionary in responseObject) {
-            Device *device = [self getBackDeviceObjectFromJson:dictionary];
-            [resultObjects addObject:device];
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+           [resultObjects addObject:[self getBackDeviceObjectFromJson:responseObject]];
+        }else if ([responseObject isKindOfClass:[NSArray class]]){
+            for (NSDictionary *dictionary in responseObject) {
+                Device *device = [self getBackDeviceObjectFromJson:dictionary];
+                [resultObjects addObject:device];
+            }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(resultObjects, nil);
