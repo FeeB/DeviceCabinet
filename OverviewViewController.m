@@ -7,14 +7,13 @@
 //
 
 #import "OverviewViewController.h"
-#import "CloudKitManager.h"
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
-#import "apiExtension.h"
+#import "AppDelegate.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -134,48 +133,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 - (void)getAllDevices {
     [self.spinner startAnimating];
 
-//    For replacing cloudkit
-//    ApiExtension *apiExtension = [[ApiExtension alloc] init];
-//    [apiExtension fetchAllDevices:^(NSArray *deviceObjects, NSError *error) {
-//        [self.spinner stopAnimating];
-//        if (error) {
-//            self.lists = [[NSMutableArray alloc] init];
-//            NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
-//            [errorMessage addObject:error.localizedRecoverySuggestion];
-//            [self.lists addObject:errorMessage];
-//            
-//            [self.tableView reloadData];
-//            
-//            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-//                                       message:error.localizedRecoverySuggestion
-//                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-//            
-//        } else {
-//            self.lists = [[NSMutableArray alloc] init];
-//            NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
-//            NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
-//            
-//            for (Device *device in deviceObjects){
-//                if (device.isBooked) {
-//                    [bookedDevices addObject:device];
-//                } else {
-//                    [freeDevices addObject:device];
-//                }
-//            }
-//            
-//            if (bookedDevices.count > 0) {
-//                [self.lists addObject:bookedDevices];
-//            }
-//            if (freeDevices.count > 0) {
-//                [self.lists addObject:freeDevices];
-//            }
-//            
-//            [self.tableView reloadData];
-//        }
-//    }];
-    
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+    [AppDelegate.dao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
         if (error) {
             self.lists = [[NSMutableArray alloc] init];
@@ -188,7 +146,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-
+            
         } else {
             self.lists = [[NSMutableArray alloc] init];
             NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
@@ -211,6 +169,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
             
             [self.tableView reloadData];
         }
+
     }];
 }
 
@@ -241,56 +200,5 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     [self getAllDevices];
     [self.refreshControl endRefreshing];
 }
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // Initialize the data object
-    self.downloadedData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the newly downloaded data
-    [self.downloadedData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    // Parse the JSON that came in
-    NSError *error;
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:_downloadedData options:NSJSONReadingAllowFragments error:&error];
-    
-    // Loop through Json objects, create question objects and add them to our questions array
-    for (int i = 0; i < jsonArray.count; i++) {
-        NSDictionary *jsonElement = jsonArray[i];
-        
-        // Create a new location object and set its props to JsonElement properties
-        Device *device = [[Device alloc] init];
-        device.deviceName = jsonElement[@"deviceName"];
-        device.category = jsonElement[@"category"];
-        device.isBooked = jsonElement[@"isBooked"];
-        device.deviceId = jsonElement[@"deviceId"];
-        device.systemVersion = jsonElement[@"systemVersion"];
-        
-        self.lists = [[NSMutableArray alloc] init];
-        NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
-        NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
-        
-        if (device.isBooked) {
-            [bookedDevices addObject:device];
-        } else {
-            [freeDevices addObject:device];
-        }
-        
-        if (bookedDevices.count > 0) {
-            [self.lists addObject:bookedDevices];
-        }
-        if (freeDevices.count > 0) {
-            [self.lists addObject:freeDevices];
-        }
-        
-        [self.tableView reloadData];
-        [self.spinner stopAnimating];
-    }
-}
-
 
 @end

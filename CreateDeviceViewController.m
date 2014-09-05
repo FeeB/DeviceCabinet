@@ -8,11 +8,10 @@
 
 #import "CreateDeviceViewController.h"
 #import "Device.h"
-#import "CloudKitManager.h"
 #import "UIdGenerator.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "ApiExtension.h"
+#import "AppDelegate.h"
 
 NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
 
@@ -88,25 +87,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
         self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         
-//        [self.device toJson];
-        
-//        ApiExtension *api = [[ApiExtension alloc] init];
-//        [api storeDevice:[self.device toDictionary] completionHandler:^(NSError *error) {
-//            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-//            [self.spinner stopAnimating];
-//            
-//            if (error) {
-//                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-//                                           message:error.localizedRecoverySuggestion
-//                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//                [self.spinner stopAnimating];
-//            } else {
-//                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//            }
-//        }];
-        
-        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-        [cloudManager storeDevice:self.device completionHandler:^(NSError *error) {
+        [AppDelegate.dao storeDevice:self.device completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -116,6 +97,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
+
         }];
     } else {
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_EMPTY_TEXTFIELD", nil) message:[NSString stringWithFormat:NSLocalizedString(@"MESSAGE_EMPTY_TEXTFIELD", nil)] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

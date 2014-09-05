@@ -1,21 +1,17 @@
 //
-//  CloudKitManager.h
+//  DeviceCabinetDAO.h
 //  Device Cabinet
 //
-//  Created by Braun,Fee on 06.08.14.
-//  Copyright (c) 2014 Braun,Fee. All rights reserved.
+//  Created by Fee Kristin Braun on 03.09.14.
+//  Copyright (c) 2014 Fee Kristin Braun. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CloudKit/CloudKit.h>
-#import "Person.h"
 #import "Device.h"
-#import "DeviceCabinetDAO.h"
+#import "Person.h"
 
-@interface CloudKitManager : NSObject <DeviceCabinetDAO>
+@protocol DeviceCabinetDAO <NSObject>
 
-@property (readonly) CKDatabase *publicDatabase;
-
+@required
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;

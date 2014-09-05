@@ -7,12 +7,12 @@
 //
 
 #import "ProfileViewController.h"
-#import "CloudKitManager.h"
 #import "Person.h"
 #import "Device.h"
 #import "DeviceViewController.h"
 #import "UserDefaults.h"
 #import "TEDLocalization.h"
+#import "AppDelegate.h"
 
 NSString * const FromProfileToDeviceSegue = @"FromProfileToDeviceOverview";
 
@@ -66,10 +66,9 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 //fetch person record to know the record ID to get all devices with a reference to this person object
 - (void)getAllBookedDevices {
     [self.spinner startAnimating];
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    
-    [cloudManager fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person, NSError *error) {
+
+    [AppDelegate.dao fetchPersonWithUsername:[userDefaults getUserIdentifier] completionHandler:^(Person *person, NSError *error) {
         if (error) {
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
@@ -79,7 +78,7 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
             [self.personObject createFullNameWithFirstName];
             self.nameLabel.text = self.personObject.fullName;
             
-            [cloudManager fetchDevicesWithPersonID:self.personObject.recordId completionHandler:^(NSArray *devicesArray, NSError *error) {
+            [AppDelegate.dao fetchDevicesWithPerson:self.personObject completionHandler:^(NSArray *devicesArray, NSError *error) {
                 if (error) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                                message:error.localizedRecoverySuggestion
@@ -95,6 +94,7 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
             }];
         }
     }];
+    
 }
 
 //On click on one cell the device view will appear

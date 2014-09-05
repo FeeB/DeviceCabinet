@@ -305,7 +305,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)fetchDeviceRecordWithID:(CKRecordID *)deviceRecordID completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+- (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+    CKRecordID *deviceRecordID = device.recordId;
     [self.publicDatabase fetchRecordWithID:deviceRecordID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
             ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
@@ -414,7 +415,9 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 //fetch device record with record ID, create a reference on this device record with person record ID and store the device record back
 
-- (void)storePersonObjectAsReferenceWithDeviceID:(CKRecordID *)deviceID personID:(CKRecordID *)personID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
+- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
+    CKRecordID *personID = person.recordId;
+    CKRecordID *deviceID = device.recordId;
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
@@ -488,7 +491,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)deleteReferenceInDeviceWithDeviceID:(CKRecordID *)deviceID completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
+- (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
+    CKRecordID *deviceID = device.recordId;
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
@@ -562,7 +566,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 }
 
 //Query all Devices which have a reference from one person record ID
-- (void)fetchDevicesWithPersonID:(CKRecordID *)personID completionHandler:(void (^)(NSArray *devicesArray, NSError *error))completionHandler {
+- (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *devicesArray, NSError *error))completionHandler {
+    CKRecordID *personID = person.recordId;
     //fetch the person record
     [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *personRecord, NSError *error){
         if (error) {
@@ -643,7 +648,8 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)uploadAssetWithURL:(NSURL *)assetURL deviceId:(CKRecordID *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+- (void)uploadAssetWithURL:(NSURL *)assetURL device:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+    CKRecordID *deviceId = device.recordId;
     
     [self.publicDatabase fetchRecordWithID:deviceId completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {

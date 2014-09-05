@@ -151,6 +151,7 @@
 		3AF7C8FE199A2A8A00CF5B16 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInViewController.m; path = ../LogInViewController.m; sourceTree = "<group>"; };
 		7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Device Cabinet.entitlements"; sourceTree = "<group>"; };
 		9562A03B19A3C96800233528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		959A964519B7877F0041FCEE /* DeviceCabinetDAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCabinetDAO.h; sourceTree = "<group>"; };
 		D3A6D4B45940492A9973C4BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -221,8 +222,6 @@
 			children = (
 				3AA2EC7219B5D59D007D1147 /* sql */,
 				3AA2EC7119B5D582007D1147 /* CloudKit */,
-				3A367EBE19921DE2004B6F13 /* CloudKitManager.h */,
-				3A367EBF19921DE2004B6F13 /* CloudKitManager.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -230,6 +229,7 @@
 		3A5E177419654AC700681289 = {
 			isa = PBXGroup;
 			children = (
+				959A964519B7877F0041FCEE /* DeviceCabinetDAO.h */,
 				3A5E17BB19654BBE00681289 /* Main.storyboard */,
 				3A5E17AF19654AED00681289 /* Person.h */,
 				3A5E17B019654AED00681289 /* Person.m */,
@@ -339,6 +339,8 @@
 		3AA2EC7119B5D582007D1147 /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				3A367EBE19921DE2004B6F13 /* CloudKitManager.h */,
+				3A367EBF19921DE2004B6F13 /* CloudKitManager.m */,
 			);
 			name = CloudKit;
 			sourceTree = "<group>";

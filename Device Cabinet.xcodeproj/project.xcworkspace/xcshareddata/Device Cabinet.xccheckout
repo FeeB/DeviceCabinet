@@ -10,29 +10,29 @@
 	<string>Device Cabinet</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F1E349C5-23F7-417E-8A34-67DB0B38F93C</key>
+		<key>5A48F5ACA14E9179A9D7B95E54FF0685D90423F2</key>
 		<string>ssh://github.com/FeeB/TestDeviceCabinet.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Device Cabinet.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F1E349C5-23F7-417E-8A34-67DB0B38F93C</key>
+		<key>5A48F5ACA14E9179A9D7B95E54FF0685D90423F2</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/FeeB/TestDeviceCabinet.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F1E349C5-23F7-417E-8A34-67DB0B38F93C</string>
+	<string>5A48F5ACA14E9179A9D7B95E54FF0685D90423F2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F1E349C5-23F7-417E-8A34-67DB0B38F93C</string>
+			<string>5A48F5ACA14E9179A9D7B95E54FF0685D90423F2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TestDeviceCabinet</string>
 		</dict>

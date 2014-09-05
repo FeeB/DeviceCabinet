@@ -8,12 +8,11 @@
 
 #import "CreatePersonViewController.h"
 #import "Person.h"
-#import "CloudKitManager.h"
 #import "UserDefaults.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
 #import "ErrorMapper.h"
-#import "ApiExtension.h"
+#import "AppDelegate.h"
 
 NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
@@ -77,8 +76,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         person.lastName = self.lastNameTextField.text;
         person.userName = self.userNameTextField.text;
         
-        ApiExtension *apiExtension = [[ApiExtension alloc] init];
-        [apiExtension storePerson:[person toDictionary] completionHandler:^(NSError *error) {
+        [AppDelegate.dao storePerson:person completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
@@ -96,27 +94,8 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
                 
                 [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
             }
+
         }];
-        
-//        CloudKitManager *cloudManager = [[CloudKitManager alloc] init];
-//        [cloudManager storePerson:person completionHandler:^(NSError *error) {
-//            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-//            if (error) {
-//                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-//                                           message:error.localizedRecoverySuggestion
-//                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//                [self.spinner stopAnimating];
-//            } else {
-//                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
-//                                           message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-//                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//                
-//                UserDefaults *userDefaults = [[UserDefaults alloc]init];
-//                [userDefaults storeUserDefaults:person.userName userType:@"person"];
-//                
-//                [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
-//            }
-//        }];
     }
 }
 

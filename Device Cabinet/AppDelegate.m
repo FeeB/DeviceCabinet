@@ -7,11 +7,13 @@
 //
 
 #import "AppDelegate.h"
+#import "CloudKitManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.dao = [[CloudKitManager alloc] init];
     return YES;
 }
 
@@ -40,6 +42,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
++ (NSObject<DeviceCabinetDAO> *)dao
+{
+    return ((AppDelegate *)[[UIApplication sharedApplication] delegate]).dao;
 }
 
 @end

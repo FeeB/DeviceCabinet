@@ -7,10 +7,10 @@
 //
 
 #import "DeviceViewController.h"
-#import "CloudKitManager.h"
 #import "UserDefaults.h"
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
+#import "AppDelegate.h"
 
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
@@ -91,10 +91,10 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 - (void)storeReference {
     [self.spinner startAnimating];
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDeviceRecordWithID:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
+    
+    [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
         if (!device.isBooked) {
-            [cloudManager storePersonObjectAsReferenceWithDeviceID:self.deviceObject.recordId personID:self.personObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
+            [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.deviceObject person:self.personObject completionHandler:^(CKRecord *record, NSError *error) {
                 if (error) {
                     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                     [self.spinner stopAnimating];
@@ -128,9 +128,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    
-    [cloudManager deleteReferenceInDeviceWithDeviceID:self.deviceObject.recordId completionHandler:^(CKRecord *record, NSError *error) {
+    [AppDelegate.dao deleteReferenceInDeviceWithDevice:self.deviceObject completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
@@ -145,7 +143,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
             self.deviceObject.isBooked = NO;
-            
         }
     }];
 }
@@ -181,8 +178,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     if (isStorable) {
         if (!self.deviceObject.isBooked){
             self.deviceObject.isBooked = true;
-            CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-            [cloudManager fetchPersonWithUsername:username completionHandler:^(Person *person, NSError   *error) {
+            
+            [AppDelegate.dao fetchPersonWithUsername:username completionHandler:^(Person *person, NSError *error) {
                 if (error) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                                message:error.localizedRecoverySuggestion
@@ -194,6 +191,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                     self.personObject = person;
                     [self storeReference];
                 }
+
             }];
         } else {
             [self deleteReference];
@@ -287,8 +285,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         [data writeToURL:localURL atomically:YES];
         
         // upload the cache file as a CKAsset
-        CloudKitManager *cloudmanager = [[CloudKitManager alloc] init];
-        [cloudmanager uploadAssetWithURL:localURL deviceId:self.deviceObject.recordId completionHandler:^(Device *device, NSError *error) {
+        [AppDelegate.dao uploadAssetWithURL:localURL device:self.deviceObject completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -302,7 +299,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                 [self viewWillAppear:YES];
             }
         }];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     });
 }

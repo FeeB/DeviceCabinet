@@ -9,11 +9,11 @@
 #import "StartViewController.h"
 #import "ProfileViewController.h"
 #import "UserDefaults.h"
-#import "CloudKitManager.h"
 #import "Device.h"
 #import "DeviceViewController.h"
 #import "UIdGenerator.h"
 #import "OverviewViewController.h"
+#import "AppDelegate.h"
 
 NSString * const FromeStartToOverviewSegue = @"FromStartToOverview";
 NSString * const FromStartToLogInSegue = @"FromStartToLogIn";
@@ -70,8 +70,7 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 }
 
 - (void)handlePersonUserWithIdentifier:(NSString *)currentUserIdentifier {
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person, NSError *error) {
+    [AppDelegate.dao fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person, NSError *error) {
         if (error) {
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
             [userDefaults resetUserDefaults];
@@ -88,17 +87,16 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
 }
 
 - (void)handleDeviceUserWithIdentifier:(NSString *)currentUserIdentifier {
-    CloudKitManager* cloudManager = [[CloudKitManager alloc] init];
-    [cloudManager fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
+    [AppDelegate.dao fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
         if (error) {
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
             [userDefaults resetUserDefaults];
-
+            
             UIdGenerator *generator = [[UIdGenerator alloc] init];
             [generator resetKeyChain];
             
             self.isUserLoggedIn = NO;
-
+            
             [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
         } else {
             self.isUserLoggedIn = YES;
@@ -107,7 +105,6 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
             [self performSegueWithIdentifier:FromStartToDeviceOverviewSegue sender:nil];
         }
     }];
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

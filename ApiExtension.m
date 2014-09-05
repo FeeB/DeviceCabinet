@@ -12,26 +12,24 @@
 
 @implementation ApiExtension
 
-- (void)storeDevice:(NSData *)deviceJson completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *parameters = @{@"device": deviceJson};
-    NSError *error1;
+- (void)storeDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+    NSDictionary *parameters = @{@"device": device.toDictionary};
     NSLog(@"%@", parameters);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error1);
+            completionHandler(nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(error);
         });
     }];
+
 }
 
-- (void)fetchAllDevices:(void (^)(NSArray *, NSError *))completionHandler {
-    NSError *error1;
-    NSArray *array;
+- (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -40,9 +38,9 @@
             Device *device = [self getBackDeviceObjectFromJson:dictionary];
             [resultObjects addObject:device];
         }
-         dispatch_async(dispatch_get_main_queue(), ^(void){
-             completionHandler(resultObjects, error1);
-         });
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(resultObjects, nil);
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%zd", error.code);
         ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
@@ -71,20 +69,18 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(array, error);
+            completionHandler(nil, error);
         });
     }];
 }
 
-- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSError *error1;
-    Device *device;
+- (void) fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"deviceId": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackDeviceObjectFromJson:responseObject], error1);
+            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -114,15 +110,55 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(device, error);
+            completionHandler(nil, error);
         });
     }];
 }
 
-- (void)fetchDevicesWithPersonId:(NSInteger *)personRecordId completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    NSError *error1;
-    NSArray *array;
-    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*personRecordId]};
+- (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"deviceId":[NSNumber numberWithInteger:*device.deviceRecordId]};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+        switch (error.code) {
+            case 11 : {
+                error = [errorMapper itemNotFoundInDatabase];
+                break;
+            }
+                //no connection
+            case 4 : {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+            case 4097: {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+                //user not logged in to cloudKit
+            case 9 : {
+                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                break;
+            }
+            default: {
+                error = [errorMapper somethingWentWrong];
+                break;
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, error);
+        });
+    }];
+
+}
+
+- (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*person.personRecordId]};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -132,7 +168,7 @@
             [resultObjects addObject:device];
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(resultObjects, error1);
+            completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -162,19 +198,65 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(array, error);
+            completionHandler(nil, error);
         });
     }];
 }
 
-- (void)storePerson:(NSData *)personJson completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *parameters = @{@"person": personJson};
-    NSError *error1;
+- (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"deviceId": deviceName};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
+        for (NSDictionary *dictionary in responseObject) {
+            Device *device = [self getBackDeviceObjectFromJson:dictionary];
+            [resultObjects addObject:device];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(resultObjects, nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+        switch (error.code) {
+            case 11 : {
+                error = [errorMapper itemNotFoundInDatabase];
+                break;
+            }
+                //no connection
+            case 4 : {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+            case 4097: {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+                //user not logged in to cloudKit
+            case 9 : {
+                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                break;
+            }
+            default: {
+                error = [errorMapper somethingWentWrong];
+                break;
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, error);
+        });
+    }];
+
+}
+
+- (void)storePerson:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
+    NSDictionary *parameters = @{@"person": person.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error1);
+            completionHandler(nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -183,15 +265,13 @@
     }];
 }
 
-- (void)fetchPersonWithUsername:(NSString *)username completionHandler:(void (^)(Person *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"username": username};
-    NSError *error1;
-    Person *person;
+- (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"username": userName};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackPersonObjectFromJson:responseObject], error1);
+            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", operation.responseString);
@@ -221,45 +301,47 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(person, error);
+            completionHandler(nil, error);
         });
-
     }];
 }
 
-- (void)storeReferenceToBookedDeviceWithDeviceId:(int *)recordDeviceId personId:(int *)personRecordId completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*personRecordId]};
-    NSError *error1;
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *recordDeviceId];
+- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*person.personRecordId]};
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error1);
+            completionHandler(responseObject, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
+   
 }
 
-- (void)deleteReferenceFromBookedDeviceWithDeviceId:(int *)recordDeviceId personId:(int *)recordPersonId completionHandler:(void (^)(NSError *))completionHandler {
+- (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"personId": (id)[NSNull null]};
-    NSError *error1;
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *recordDeviceId];
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error1);
+            completionHandler(responseObject, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
+   
+}
 
+- (void)uploadAssetWithURL:(NSURL *)assetURL device:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler{
+    //toDo
 }
 
 - (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
