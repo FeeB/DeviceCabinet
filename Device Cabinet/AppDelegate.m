@@ -8,12 +8,13 @@
 
 #import "AppDelegate.h"
 #import "CloudKitManager.h"
+#import "ApiExtension.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.dao = [[CloudKitManager alloc] init];
+    self.dao = [[ApiExtension alloc] init];
     return YES;
 }
 
