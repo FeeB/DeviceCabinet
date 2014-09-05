@@ -116,7 +116,7 @@
 }
 
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"deviceId":[NSNumber numberWithInteger:*device.deviceRecordId]};
+    NSDictionary *parameters = @{@"deviceId":device.deviceRecordId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -158,7 +158,7 @@
 }
 
 - (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*person.personRecordId]};
+    NSDictionary *parameters = @{@"personId": person.personRecordId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -305,8 +305,9 @@
 }
 
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"personId": [NSNumber numberWithInteger:*person.personRecordId]};
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *device.deviceRecordId];
+    NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
+    NSDictionary *parameters = @{@"device": storeParameters};
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -322,8 +323,9 @@
 }
 
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"personId": (id)[NSNull null]};
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%d", *device.deviceRecordId];
+    NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"isBooked": @"NO"};
+    NSDictionary *parameters = @{@"device": storeParameters};
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -338,6 +340,47 @@
    
 }
 
+- (void)fetchPersonRecordWithID:(NSString *)personRecordId completionHandler:(void (^)(Person *, NSError *))completionHandler{
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/persons/%@", personRecordId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+        switch (error.code) {
+            case 11 : {
+                error = [errorMapper itemNotFoundInDatabase];
+                break;
+            }
+                //no connection
+            case 4 : {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+            case 4097: {
+                error = [errorMapper noConnectionToCloudKit];
+                break;
+            }
+                //user not logged in to cloudKit
+            case 9 : {
+                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
+                break;
+            }
+            default: {
+                error = [errorMapper somethingWentWrong];
+                break;
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, error);
+        });
+    }];
+
+}
+
 - (void)uploadAssetWithURL:(NSURL *)assetURL device:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler{
     //toDo
 }
@@ -347,11 +390,15 @@
     device.deviceName = [json valueForKey:@"deviceName"];
     device.deviceId = [json valueForKey:@"deviceId"];
     device.category = [json valueForKey:@"category"];
-    device.recordId = [json valueForKey:@"id"];
+    device.deviceRecordId = [json valueForKey:@"id"];
     device.systemVersion = [json valueForKey:@"systemVersion"];
     
     if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;
+        NSLog(@"%@", [json valueForKey:@"person_id"]);
+        [self fetchPersonRecordWithID:[json valueForKey:@"person_id"] completionHandler:^(Person *person, NSError *error) {
+            device.bookedFromPerson = person;
+        }];
     } else {
         device.isBooked = NO;
     }
@@ -364,7 +411,7 @@
     person.firstName = [json valueForKey:@"firstName"];
     person.lastName = [json valueForKey:@"lastName"];
     person.username = [json valueForKey:@"username"];
-    person.recordId = [json valueForKey:@"id"];
+    person.personRecordId = [json valueForKey:@"id"];
     
     if ([json valueForKey:@"hasBookedDevice"] != (id)[NSNull null]) {
         person.hasBookedDevice = YES;

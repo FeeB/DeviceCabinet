@@ -19,7 +19,7 @@
 @property CKRecordID *recordId;
 @property NSString *username;
 @property NSString *fullName;
-@property NSInteger *personRecordId;
+@property NSString *personRecordId;
 
 - (void)createFullNameWithFirstName;
 - (NSDictionary *)toDictionary;

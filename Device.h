@@ -22,7 +22,7 @@
 @property NSString *deviceId;
 @property NSString *systemVersion;
 @property NSString *person_id;
-@property NSInteger *deviceRecordId;
+@property NSString *deviceRecordId;
 
 - (NSDictionary *)toDictionary;
 
