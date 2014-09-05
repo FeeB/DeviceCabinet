@@ -71,9 +71,9 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 
                 self.personObject = person;
-                if ([self.userNameField.text isEqualToString:self.personObject.userName]) {
+                if ([self.userNameField.text isEqualToString:self.personObject.username]) {
                     UserDefaults *userDefault = [[UserDefaults alloc]init];
-                    [userDefault storeUserDefaults:self.personObject.userName userType:@"person"];
+                    [userDefault storeUserDefaults:self.personObject.username userType:@"person"];
                     
                     [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
                 } else {

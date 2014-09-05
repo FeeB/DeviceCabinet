@@ -267,14 +267,12 @@
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"username": userName};
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@", operation.responseString);
         ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
         switch (error.code) {
             case 11 : {
@@ -352,8 +350,6 @@
     device.recordId = [json valueForKey:@"id"];
     device.systemVersion = [json valueForKey:@"systemVersion"];
     
-    NSLog(@"%@", [json valueForKey:@"isBooked"]);
-    
     if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;
     } else {
@@ -367,7 +363,7 @@
     Person *person = [[Person alloc] init];
     person.firstName = [json valueForKey:@"firstName"];
     person.lastName = [json valueForKey:@"lastName"];
-    person.userName = [json valueForKey:@"userName"];
+    person.username = [json valueForKey:@"username"];
     person.recordId = [json valueForKey:@"id"];
     
     if ([json valueForKey:@"hasBookedDevice"] != (id)[NSNull null]) {

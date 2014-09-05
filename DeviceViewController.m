@@ -211,7 +211,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.bookedFromLabelText setHidden:false];
     
     if (self.deviceObject.isBooked) {
-        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.userName] || [currentUserType isEqualToString:@"device"]) {
+        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.username] || [currentUserType isEqualToString:@"device"]) {
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         }else{
             [self.bookDevice setEnabled:false];

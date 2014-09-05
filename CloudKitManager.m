@@ -726,7 +726,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     Person *person = [[Person alloc]init];
     person.firstName = record[RecordTypePersonFirstNameField];
     person.lastName = record[RecordTypePersonLastNameField];
-    person.userName = record[RecordTypePersonUsernameField];
+    person.username = record[RecordTypePersonUsernameField];
     person.recordId = record.recordID;
     
     return person;
@@ -762,7 +762,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:RecordTypePerson];
     personRecord[RecordTypePersonFirstNameField] = person.firstName;
     personRecord[RecordTypePersonLastNameField] = person.lastName;
-    personRecord[RecordTypePersonUsernameField] = person.userName;
+    personRecord[RecordTypePersonUsernameField] = person.username;
     
     return personRecord;
 }

@@ -72,7 +72,7 @@
     
     XCTAssertEqualObjects(record[@"firstName"], person.firstName, @"The first name of the person should be the same in the record");
     XCTAssertEqualObjects(record[@"lastName"], person.lastName, @"The last name of the person should be the same in the record");
-    XCTAssertEqualObjects(record[@"userName"], person.userName, @"The username of the person should be the same in the record");
+    XCTAssertEqualObjects(record[@"userName"], person.username, @"The username of the person should be the same in the record");
 }
 
 - (void)testGetRecordFromDevice {
@@ -107,7 +107,7 @@
     
     XCTAssertEqualObjects(person.firstName, record[@"firstName"], @"The first name in the record should be the same in the person object");
     XCTAssertEqualObjects(person.lastName, record[@"lastName"], @"The last name in the record should be the same in the person object");
-    XCTAssertEqualObjects(person.userName, record[@"userName"], @"The username in the record should be the same in the person object");
+    XCTAssertEqualObjects(person.username, record[@"userName"], @"The username in the record should be the same in the person object");
 }
 
 - (Device *)createATestDevice {
@@ -124,7 +124,7 @@
     Person *person = [[Person alloc] init];
     person.firstName = @"first";
     person.lastName = @"last";
-    person.userName = @"flast";
+    person.username = @"flast";
     
     return person;
 }

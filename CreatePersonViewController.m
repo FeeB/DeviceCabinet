@@ -74,7 +74,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         __block Person *person = [[Person alloc] init];
         person.firstName = self.firstNameTextField.text;
         person.lastName = self.lastNameTextField.text;
-        person.userName = self.userNameTextField.text;
+        person.username = self.userNameTextField.text;
         
         [AppDelegate.dao storePerson:person completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -90,7 +90,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 
                 UserDefaults *userDefaults = [[UserDefaults alloc]init];
-                [userDefaults storeUserDefaults:person.userName userType:@"person"];
+                [userDefaults storeUserDefaults:person.username userType:@"person"];
                 
                 [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
             }

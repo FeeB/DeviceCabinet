@@ -128,7 +128,7 @@
     Person *person = [[Person alloc] init];
     person.firstName = @"first";
     person.lastName = @"last";
-    person.userName = @"flast";
+    person.username = @"flast";
     
     return person;
 }
