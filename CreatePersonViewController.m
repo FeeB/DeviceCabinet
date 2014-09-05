@@ -76,7 +76,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         person.lastName = self.lastNameTextField.text;
         person.username = self.userNameTextField.text;
         
-        [AppDelegate.dao storePerson:person completionHandler:^(NSError *error) {
+        [AppDelegate.dao storePerson:person completionHandler:^(Person *storedPerson, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

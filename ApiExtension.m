@@ -12,18 +12,17 @@
 
 @implementation ApiExtension
 
-- (void)storeDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+- (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device": device.toDictionary};
-    NSLog(@"%@", parameters);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil);
+            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
 
@@ -42,7 +41,6 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%zd", error.code);
         ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
         switch (error.code) {
             case 11 : {
@@ -250,17 +248,17 @@
 
 }
 
-- (void)storePerson:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
+- (void)storePerson:(Person *)person completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"person": person.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil);
+            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
 }
@@ -395,7 +393,6 @@
     
     if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;
-        NSLog(@"%@", [json valueForKey:@"person_id"]);
         [self fetchPersonRecordWithID:[json valueForKey:@"person_id"] completionHandler:^(Person *person, NSError *error) {
             device.bookedFromPerson = person;
         }];

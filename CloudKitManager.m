@@ -341,7 +341,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)storePerson:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler {
+- (void)storePerson:(Person *)person completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
     CKRecord *personRecord = [self recordFromPerson:person];
     [self.publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         if (error) {
@@ -372,14 +372,14 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler([self getBackPersonObjectWithRecord:savedPerson], error);
         });
      }];
 }
 
-- (void)storeDevice:(Device *)device completionHandler:(void (^)(NSError *error))completionHandler {
+- (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
     CKRecord *deviceRecord = [self recordFromDevice:device];
-    [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
+    [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedDevice, NSError *error) {
         if (error) {
             ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
             switch (error.code) {
@@ -408,7 +408,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler([self getBackDeviceObjectWithRecord:savedDevice], error);
         });
     }];
 }

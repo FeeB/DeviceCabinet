@@ -13,7 +13,7 @@
 #import "TEDLocalization.h"
 #import "AppDelegate.h"
 
-NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceView";
+NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
 @interface CreateDeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -87,7 +87,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
         self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         
-        [AppDelegate.dao storeDevice:self.device completionHandler:^(NSError *error) {
+        [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -95,6 +95,7 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 [self.spinner stopAnimating];
             } else {
+                self.device = storedDevice;
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
 
@@ -105,13 +106,14 @@ NSString * const FromCreateDeviceToOverviewSegue = @"FromCreateDeviceToDeviceVie
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [self performSegueWithIdentifier:FromCreateDeviceToOverviewSegue sender:nil];
+    [self performSegueWithIdentifier:FromCreateDeviceToDeviceViewSegue sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromCreateDeviceToOverviewSegue]) {
+    if ([segue.identifier isEqualToString:FromCreateDeviceToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
+        controller.comesFromStartView = YES;
     }
 }
 
