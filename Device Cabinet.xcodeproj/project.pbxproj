@@ -125,8 +125,6 @@
 		3A84063419A1F04D007E3A6B /* UIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdGenerator.h; sourceTree = "<group>"; };
 		3A84063519A1F04D007E3A6B /* UIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGenerator.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3A84064319A208F4007E3A6B /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainItemWrapper.h; path = "../../Downloads/gist1170641-521eec26e5ab95870af6a810665861deec14c5e9/KeychainItemWrapper.h"; sourceTree = "<group>"; };
-		3A84064419A208F4007E3A6B /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainItemWrapper.m; path = "../../Downloads/gist1170641-521eec26e5ab95870af6a810665861deec14c5e9/KeychainItemWrapper.m"; sourceTree = "<group>"; };
 		3A8B67DE19A4C21300740724 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartViewController.h; path = ../StartViewController.h; sourceTree = "<group>"; };
 		3A8B67DF19A4C21300740724 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StartViewController.m; path = ../StartViewController.m; sourceTree = "<group>"; };
 		3AA1C92A1973E15C00695409 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -330,8 +328,6 @@
 		3A84063A19A1F5F4007E3A6B /* DeviceId */ = {
 			isa = PBXGroup;
 			children = (
-				3A84064319A208F4007E3A6B /* KeychainItemWrapper.h */,
-				3A84064419A208F4007E3A6B /* KeychainItemWrapper.m */,
 				3A84063419A1F04D007E3A6B /* UIdGenerator.h */,
 				3A84063519A1F04D007E3A6B /* UIdGenerator.m */,
 			);
