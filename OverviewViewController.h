@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CloudKitManager.h"
+#import "CloudKitDao.h"
 
 @interface OverviewViewController : UITableViewController <NSURLConnectionDataDelegate>
 

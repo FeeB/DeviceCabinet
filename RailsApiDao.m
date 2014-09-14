@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "apiExtension.h"
+#import "RailsApiDao.h"
 #import "AFNetworking.h"
-#import "ErrorMapper.h"
+#import "RailsApiErrorMapper.h"
 
-@implementation ApiExtension
+@implementation RailsApiDao
 
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device": device.toDictionary};
@@ -41,7 +41,7 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -57,7 +57,7 @@
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -73,7 +73,7 @@
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -98,7 +98,7 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -119,7 +119,7 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -150,7 +150,7 @@
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -202,7 +202,7 @@
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });

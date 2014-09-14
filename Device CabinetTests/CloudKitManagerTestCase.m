@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import <CloudKit/CloudKit.h>
-#import "CloudKitManager.h"
+#import "CloudKitDao.h"
 
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
@@ -17,7 +17,7 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-@interface CloudKitManager (Manager_Test)
+@interface CloudKitDao (Manager_Test)
 
 @property (nonatomic, strong) CKDatabase *publicDatabase;
 
@@ -67,7 +67,7 @@
 - (void)testGetRecordFromPerson {
     Person *person = [self createATestPerson];
     
-    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CloudKitDao *manager = [[CloudKitDao alloc] init];
     CKRecord *record = [manager recordFromPerson:person];
     
     XCTAssertEqualObjects(record[@"firstName"], person.firstName, @"The first name of the person should be the same in the record");
@@ -78,7 +78,7 @@
 - (void)testGetRecordFromDevice {
     Device *device = [self createATestDevice];
     
-    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CloudKitDao *manager = [[CloudKitDao alloc] init];
     CKRecord *record = [manager recordFromDevice:device];
     
     XCTAssertEqualObjects(record[@"devicename"], device.deviceName, @"The devicename of the device should be the same in the record");
@@ -90,7 +90,7 @@
 - (void)testGetBackDeviceObjectWithRecord {
     CKRecord *record = [self createATestDeviceRecord];
     
-    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CloudKitDao *manager = [[CloudKitDao alloc] init];
     Device *device = [manager deviceFromRecord:record];
     
     XCTAssertEqualObjects(device.deviceName, record[@"devicename"], @"The devicename in the record should be the same in the device object");
@@ -102,7 +102,7 @@
 - (void)testGetBackPersonObjectWithRecord {
     CKRecord *record = [self createATestPersonRecord];
     
-    CloudKitManager *manager = [[CloudKitManager alloc] init];
+    CloudKitDao *manager = [[CloudKitDao alloc] init];
     Person *person = [manager personFromRecord:record];
     
     XCTAssertEqualObjects(person.firstName, record[@"firstName"], @"The first name in the record should be the same in the person object");

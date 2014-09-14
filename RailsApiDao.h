@@ -8,6 +8,6 @@
 
 #import "DeviceCabinetDAO.h"
 
-@interface ApiExtension : NSObject <DeviceCabinetDAO>
+@interface RailsApiDao : NSObject <DeviceCabinetDao>
 
 @end

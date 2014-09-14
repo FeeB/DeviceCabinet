@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "CloudKitManager.h"
+#import "CloudKitDao.h"
 #import <CloudKit/CloudKit.h>
 #import "Person.h"
 #import "Device.h"
-#import "ErrorMapper.h"
+#import "CloudKitErrorMapper.h"
 
 NSString* const RecordTypeDevice = @"Devices";
 NSString* const RecordTypePerson = @"Persons";
@@ -33,7 +33,7 @@ NSString * const PredicateFormatForPersons = @"userName = %@";
 NSString * const PredicateFormatForBookedDevicesFromPerson = @"booked = %@";
 NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
-@interface CloudKitManager ()
+@interface CloudKitDao ()
 
 @property (readonly) CKContainer *container;
 @property (nonatomic, strong) CKDatabase *publicDatabase;
@@ -41,7 +41,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 @end
 
 
-@implementation CloudKitManager
+@implementation CloudKitDao
 
 - (id)init {
     self = [super init];
@@ -75,7 +75,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     };
     
     queryOperation.queryCompletionBlock = ^(CKQueryCursor *cursor, NSError *error) {
-        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(results, localError);
         });
@@ -100,7 +100,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         
         NSError *localError;
         if (error) {
-             localError = [ErrorMapper localErrorWithRemoteError:error];
+             localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         } else {
             //convert the record objects into device objects
             for (CKRecord *record in results) {
@@ -126,12 +126,12 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         Device *device;
 
         if (error) {
-            localError = [ErrorMapper  localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper  localErrorWithRemoteError:error];
         } else {
             if (results.count > 0) {
                 device = [self deviceFromRecord:results[0]];
             } else {
-                localError = [ErrorMapper itemNotFoundInDatabaseError];
+                localError = [CloudKitErrorMapper itemNotFoundInDatabaseError];
             }
         }
         
@@ -155,12 +155,12 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         Person *person;
 
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:localError];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:localError];
         } else {
             if (results.count > 0) {
                 person = [self personFromRecord:results[0]];
             } else {
-                localError = [ErrorMapper itemNotFoundInDatabaseError];
+                localError = [CloudKitErrorMapper itemNotFoundInDatabaseError];
             }
         }
         
@@ -176,7 +176,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [self.publicDatabase fetchRecordWithID:personRecordID completionHandler:^(CKRecord *record, NSError *error) {
         NSError *localError;
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self personFromRecord:record], localError);
@@ -189,7 +189,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [self.publicDatabase fetchRecordWithID:deviceRecordID completionHandler:^(CKRecord *record, NSError *error) {
         NSError *localError;
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -203,7 +203,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [self.publicDatabase saveRecord:personRecord completionHandler:^(CKRecord *savedPerson, NSError *error) {
         NSError *localError;
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         }
 
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -217,7 +217,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [self.publicDatabase saveRecord:deviceRecord completionHandler:^(CKRecord *savedDevice, NSError *error) {
         NSError *localError;
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -234,7 +234,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     //fetch device record
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
-            NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+            NSError *localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(localError);
             });
@@ -246,7 +246,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
                 NSError *localError;
                 if (error) {
-                    localError = [ErrorMapper localErrorWithRemoteError:error];
+                    localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler(localError);
@@ -263,7 +263,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [self.publicDatabase fetchRecordWithID:deviceID completionHandler:^(CKRecord *record, NSError *error) {
         __block NSError *localError;
         if (error) {
-            localError = [ErrorMapper localErrorWithRemoteError:error];
+            localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(localError);
             });
@@ -273,7 +273,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             //store device record back
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
                 if (error) {
-                    localError = [ErrorMapper localErrorWithRemoteError:error];
+                    localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler(localError);
@@ -290,7 +290,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     //fetch the person record
     [self.publicDatabase fetchRecordWithID:personID completionHandler:^(CKRecord *personRecord, NSError *error){
         if (error) {
-            NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+            NSError *localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(nil, localError);
             });
@@ -305,7 +305,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
                 NSError *localError;
                 if (error) {
-                    localError = [ErrorMapper localErrorWithRemoteError:error];
+                    localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
                 }
                     
                 //store records as device objects
@@ -327,7 +327,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     
     [self.publicDatabase fetchRecordWithID:deviceId completionHandler:^(CKRecord *record, NSError *error) {
         if (error) {
-            NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
+            NSError *localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 completionHandler(nil, localError);
             });
@@ -338,7 +338,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
             [self.publicDatabase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
                 NSError *localError;
                 if (error) {
-                    localError = [ErrorMapper localErrorWithRemoteError:error];
+                    localError = [CloudKitErrorMapper localErrorWithRemoteError:error];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     completionHandler([self deviceFromRecord:record], error);

@@ -11,7 +11,7 @@
 #import "UserDefaults.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
-#import "ErrorMapper.h"
+#import "CloudKitErrorMapper.h"
 #import "AppDelegate.h"
 
 NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";

@@ -7,14 +7,14 @@
 //
 
 #import "AppDelegate.h"
-#import "CloudKitManager.h"
-#import "ApiExtension.h"
+#import "CloudKitDao.h"
+#import "RailsApiDao.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.dao = [[ApiExtension alloc] init];
+    self.dao = [[RailsApiDao alloc] init];
     return YES;
 }
 
@@ -45,7 +45,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-+ (NSObject<DeviceCabinetDAO> *)dao
++ (NSObject<DeviceCabinetDao> *)dao
 {
     return ((AppDelegate *)[[UIApplication sharedApplication] delegate]).dao;
 }

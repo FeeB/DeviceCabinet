@@ -8,6 +8,6 @@
 
 #import "DeviceCabinetDAO.h"
 
-@interface CloudKitManager : NSObject <DeviceCabinetDAO>
+@interface CloudKitDao : NSObject <DeviceCabinetDao>
 
 @end

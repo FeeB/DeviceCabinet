@@ -9,7 +9,7 @@
 #import "Device.h"
 #import "Person.h"
 
-@protocol DeviceCabinetDAO <NSObject>
+@protocol DeviceCabinetDao <NSObject>
 
 @required
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;

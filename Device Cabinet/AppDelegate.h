@@ -12,8 +12,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property NSObject<DeviceCabinetDAO> *dao;
+@property NSObject<DeviceCabinetDao> *dao;
 
-+ (NSObject<DeviceCabinetDAO> *)dao;
++ (NSObject<DeviceCabinetDao> *)dao;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "ErrorMapper.h"
+#import "CloudKitErrorMapper.h"
 
 @interface ErrorMapperTextCase : XCTestCase
 
@@ -39,7 +39,7 @@
 }
 
 - (void)testItemNotFoundInDatabase {
-    ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+    CloudKitErrorMapper *errorMapper = [[CloudKitErrorMapper alloc] init];
     NSError *error = [errorMapper itemNotFoundInDatabase];
     
     XCTAssertEqual(error.code, 1, @"Should be error code 1");
@@ -49,7 +49,7 @@
 }
 
 - (void)testNoConnectionToCloudKit {
-    ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+    CloudKitErrorMapper *errorMapper = [[CloudKitErrorMapper alloc] init];
     NSError *error = [errorMapper noConnectionToCloudKit];
     
     XCTAssertEqual(error.code, 2, @"Should be error code 2");
@@ -58,7 +58,7 @@
 }
 
 - (void)testuserIsNotLoggedInWithiCloudAccount {
-    ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+    CloudKitErrorMapper *errorMapper = [[CloudKitErrorMapper alloc] init];
     NSError *error = [errorMapper userIsNotLoggedInWithiCloudAccount];
     
     XCTAssertEqual(error.code, 3, @"Should be error code 3");
@@ -67,7 +67,7 @@
 }
 
 - (void)testsomethingWentWrong {
-    ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
+    CloudKitErrorMapper *errorMapper = [[CloudKitErrorMapper alloc] init];
     NSError *error = [errorMapper somethingWentWrong];
     
     XCTAssertEqual(error.code, 4, @"Should be error code 4");

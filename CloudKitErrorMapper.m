@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "ErrorMapper.h"
+#import "CloudKitErrorMapper.h"
 
 NSString * const ErrorDomain = @"com.fee.deviceCabinet";
 NSInteger const ItemNotFoundInDatabaseErrorCode = 11;
@@ -14,7 +14,7 @@ NSInteger const NoConnectionToCloudKitErrorCode = 4;
 NSInteger const NoConnectionErrorCode = 4097;
 NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
 
-@implementation ErrorMapper
+@implementation CloudKitErrorMapper
 
 + (NSError *)itemNotFoundInDatabaseError {
     NSDictionary *userInfo = @{
@@ -55,17 +55,17 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
     }
     switch (error.code) {
         case ItemNotFoundInDatabaseErrorCode:
-            return [ErrorMapper itemNotFoundInDatabaseError];
+            return [CloudKitErrorMapper itemNotFoundInDatabaseError];
             
         case NoConnectionToCloudKitErrorCode:
         case NoConnectionErrorCode:
-            return [ErrorMapper noConnectionError];
+            return [CloudKitErrorMapper noConnectionError];
             
         case UserIsNotLoggedInWithiCloudAccountErrorCode:
-            return [ErrorMapper userIsNotLoggedInWithiCloudAccountError];
+            return [CloudKitErrorMapper userIsNotLoggedInWithiCloudAccountError];
             
         default:
-            return [ErrorMapper somethingWentWrongError];
+            return [CloudKitErrorMapper somethingWentWrongError];
             
     }
 }
