@@ -18,10 +18,9 @@
 @property BOOL hasBookedDevice;
 @property CKRecordID *recordId;
 @property NSString *username;
-@property NSString *fullName;
+@property (readonly) NSString *fullName;
 @property NSString *personRecordId;
 
-- (void)createFullNameWithFirstName;
 - (NSDictionary *)toDictionary;
 
 @end

@@ -70,7 +70,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self showOrHideTextFields];
     
     Person *bookedFrom = self.deviceObject.bookedFromPerson;
-    [bookedFrom createFullNameWithFirstName];
     self.bookedFromLabelText.text = bookedFrom.fullName;
     
     if (self.deviceObject.image) {
@@ -109,7 +108,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
                     self.deviceObject.isBooked = YES;
-                    [self.personObject createFullNameWithFirstName];
                     self.deviceObject.bookedFromPerson = self.personObject;
                     self.usernameTextField.text = @"";
                 }
