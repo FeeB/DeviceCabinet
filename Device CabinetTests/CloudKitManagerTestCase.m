@@ -23,8 +23,8 @@
 
 - (CKRecord *)recordFromDevice:(Device *)device;
 - (CKRecord *)recordFromPerson:(Person *)person;
-- (Device *)getBackDeviceObjectWithRecord:(CKRecord *)record;
-- (Person *)getBackPersonObjectWithRecord:(CKRecord *)record;
+- (Device *)deviceFromRecord:(CKRecord *)record;
+- (Person *)personFromRecord:(CKRecord *)record;
 @end
 
 @interface CloudKitManagerTestCase : XCTestCase
@@ -91,7 +91,7 @@
     CKRecord *record = [self createATestDeviceRecord];
     
     CloudKitManager *manager = [[CloudKitManager alloc] init];
-    Device *device = [manager getBackDeviceObjectWithRecord:record];
+    Device *device = [manager deviceFromRecord:record];
     
     XCTAssertEqualObjects(device.deviceName, record[@"devicename"], @"The devicename in the record should be the same in the device object");
     XCTAssertEqualObjects(device.category, record[@"category"], @"The category in the record should be the same in the device object");
@@ -103,7 +103,7 @@
     CKRecord *record = [self createATestPersonRecord];
     
     CloudKitManager *manager = [[CloudKitManager alloc] init];
-    Person *person = [manager getBackPersonObjectWithRecord:record];
+    Person *person = [manager personFromRecord:record];
     
     XCTAssertEqualObjects(person.firstName, record[@"firstName"], @"The first name in the record should be the same in the person object");
     XCTAssertEqualObjects(person.lastName, record[@"lastName"], @"The last name in the record should be the same in the person object");

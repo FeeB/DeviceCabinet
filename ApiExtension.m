@@ -41,33 +41,9 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 }
@@ -81,34 +57,9 @@
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 }
@@ -122,34 +73,9 @@
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 
@@ -172,34 +98,9 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 }
@@ -218,34 +119,9 @@
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 
@@ -274,33 +150,9 @@
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 }
@@ -323,7 +175,7 @@
    
 }
 
-- (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
+- (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"isBooked": @"NO"};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
@@ -331,11 +183,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(responseObject, nil);
+            completionHandler(nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(error);
         });
     }];
    
@@ -350,33 +202,9 @@
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ErrorMapper *errorMapper = [[ErrorMapper alloc] init];
-        switch (error.code) {
-            case 11 : {
-                error = [errorMapper itemNotFoundInDatabase];
-                break;
-            }
-                //no connection
-            case 4 : {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-            case 4097: {
-                error = [errorMapper noConnectionToCloudKit];
-                break;
-            }
-                //user not logged in to cloudKit
-            case 9 : {
-                error = [errorMapper userIsNotLoggedInWithiCloudAccount];
-                break;
-            }
-            default: {
-                error = [errorMapper somethingWentWrong];
-                break;
-            }
-        }
+        NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
 

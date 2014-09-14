@@ -10,9 +10,7 @@
 
 @interface ErrorMapper : NSObject
 
-- (NSError *) itemNotFoundInDatabase;
-- (NSError *) noConnectionToCloudKit;
-- (NSError *) userIsNotLoggedInWithiCloudAccount;
-- (NSError *) somethingWentWrong;
++ (NSError *)itemNotFoundInDatabaseError;
++ (NSError *)localErrorWithRemoteError:(NSError *)error;
 
 @end
