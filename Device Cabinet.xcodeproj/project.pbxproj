@@ -190,7 +190,7 @@
 				3AE15A3F19AB7A390003BF60 /* ErrorMapping */,
 				3A84063A19A1F5F4007E3A6B /* DeviceId */,
 				3AEA37F8199CAC33001AAF71 /* UserDefaults */,
-				3A367EBD19921D9D004B6F13 /* Database */,
+				3A367EBD19921D9D004B6F13 /* Data Access */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -217,19 +217,19 @@
 			name = Profil;
 			sourceTree = "<group>";
 		};
-		3A367EBD19921D9D004B6F13 /* Database */ = {
+		3A367EBD19921D9D004B6F13 /* Data Access */ = {
 			isa = PBXGroup;
 			children = (
-				3AA2EC7219B5D59D007D1147 /* sql */,
+				959A964519B7877F0041FCEE /* DeviceCabinetDAO.h */,
+				3AA2EC7219B5D59D007D1147 /* API */,
 				3AA2EC7119B5D582007D1147 /* CloudKit */,
 			);
-			name = Database;
+			name = "Data Access";
 			sourceTree = "<group>";
 		};
 		3A5E177419654AC700681289 = {
 			isa = PBXGroup;
 			children = (
-				959A964519B7877F0041FCEE /* DeviceCabinetDAO.h */,
 				3A5E17BB19654BBE00681289 /* Main.storyboard */,
 				3A5E17AF19654AED00681289 /* Person.h */,
 				3A5E17B019654AED00681289 /* Person.m */,
@@ -345,13 +345,13 @@
 			name = CloudKit;
 			sourceTree = "<group>";
 		};
-		3AA2EC7219B5D59D007D1147 /* sql */ = {
+		3AA2EC7219B5D59D007D1147 /* API */ = {
 			isa = PBXGroup;
 			children = (
 				3AA2EC7319B5D5BF007D1147 /* ApiExtension.h */,
 				3AA2EC7419B5D5BF007D1147 /* ApiExtension.m */,
 			);
-			name = sql;
+			name = API;
 			sourceTree = "<group>";
 		};
 		3AE15A3F19AB7A390003BF60 /* ErrorMapping */ = {
