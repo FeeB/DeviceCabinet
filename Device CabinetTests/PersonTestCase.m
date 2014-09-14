@@ -42,7 +42,6 @@
     Person *person = [[Person alloc] init];
     person.firstName = @"first";
     person.lastName = @"last";
-    [person createFullNameWithFirstName];
     
     XCTAssertEqualObjects(person.fullName, @"first last", @"Fullname should be first last.");
 }

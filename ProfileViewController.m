@@ -75,7 +75,6 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         } else {
             self.personObject = person;
-            [self.personObject createFullNameWithFirstName];
             self.nameLabel.text = self.personObject.fullName;
             
             [AppDelegate.dao fetchDevicesWithPerson:self.personObject completionHandler:^(NSArray *devicesArray, NSError *error) {
