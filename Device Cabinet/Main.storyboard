@@ -148,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210" y="1416"/>
+            <point key="canvasLocation" x="-83" y="1416"/>
         </scene>
         <!--TITLE_PROFILE-->
         <scene sceneID="0OO-jp-7jb">
@@ -208,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="976" y="-43"/>
+            <point key="canvasLocation" x="379" y="-43"/>
         </scene>
         <!--TITLE_CREATE_DEVICE-->
         <scene sceneID="fBC-mR-p0D">
@@ -286,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-611" y="1416"/>
+            <point key="canvasLocation" x="-553" y="1416"/>
         </scene>
         <!--TITLE_CREATE_PERSON-->
         <scene sceneID="jBN-YA-Wuv">
@@ -438,7 +438,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="478" y="-43"/>
+            <point key="canvasLocation" x="-83" y="-43"/>
         </scene>
         <!--TITLE_LOGIN-->
         <scene sceneID="tbY-Gu-qxZ">
@@ -567,7 +567,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yS-02-psB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-956" y="695"/>
+            <point key="canvasLocation" x="-1037" y="695"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="kYh-Iy-uoh">
@@ -590,25 +590,6 @@
             <point key="canvasLocation" x="-553" y="-43"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="E3v-C9-qxO">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qo8-yT-HJK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="jvn-R8-cvd"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z8g-93-Qjg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iw6-Gk-HuI" kind="relationship" relationship="rootViewController" id="nLM-4G-FEK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h4K-Dm-dpN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-6" y="-43"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="kZy-pQ-Qta">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CuS-ue-Z6R" sceneMemberID="viewController">
@@ -624,7 +605,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-3U-Yq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1085" y="-43"/>
+            <point key="canvasLocation" x="-1037" y="-43"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -636,9 +617,9 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="vhX-Ru-WCX"/>
         <segue reference="m21-Db-JxO"/>
-        <segue reference="ZGk-mU-Eru"/>
-        <segue reference="Phs-EO-HNL"/>
+        <segue reference="QJe-Sr-Flj"/>
         <segue reference="44s-ko-ABX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
