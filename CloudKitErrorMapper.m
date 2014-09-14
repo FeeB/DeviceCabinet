@@ -8,11 +8,11 @@
 
 #import "CloudKitErrorMapper.h"
 
-NSString * const ErrorDomain = @"com.fee.deviceCabinet";
-NSInteger const ItemNotFoundInDatabaseErrorCode = 11;
-NSInteger const NoConnectionToCloudKitErrorCode = 4;
-NSInteger const NoConnectionErrorCode = 4097;
-NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
+NSString * const CloudKitErrorDomain = @"com.fee.deviceCabinet";
+NSInteger const CloudKitItemNotFoundInDatabaseErrorCode = 11;
+NSInteger const CloudKitNoConnectionToCloudKitErrorCode = 4;
+NSInteger const CloudKitNoConnectionErrorCode = 4097;
+NSInteger const CloudKitUserIsNotLoggedInWithiCloudAccountErrorCode = 9;
 
 @implementation CloudKitErrorMapper
 
@@ -21,7 +21,7 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_ITEM_NOT_FOUND", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_ITEM_NOT_FOUND", nil)
                                };
-   return [[NSError alloc] initWithDomain:ErrorDomain code:1 userInfo:userInfo];
+   return [[NSError alloc] initWithDomain:CloudKitErrorDomain code:1 userInfo:userInfo];
 }
 
 + (NSError *)noConnectionError {
@@ -29,7 +29,7 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_NO_CONNECTION", nil)
                                };
-    return [[NSError alloc] initWithDomain:ErrorDomain code:2 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:CloudKitErrorDomain code:2 userInfo:userInfo];
 }
 
 + (NSError *)userIsNotLoggedInWithiCloudAccountError {
@@ -37,7 +37,7 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_NO_ICLOUD", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_NO_ICLOUD", nil)
                                };
-    return [[NSError alloc] initWithDomain:ErrorDomain code:3 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:CloudKitErrorDomain code:3 userInfo:userInfo];
 }
 
 + (NSError *)somethingWentWrongError {
@@ -45,7 +45,7 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_SOMETHING_WENT_WRONG", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_SOMETHING_WENT_WRONG", nil)
                                };
-    return [[NSError alloc] initWithDomain:ErrorDomain code:4 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:CloudKitErrorDomain code:4 userInfo:userInfo];
 }
 
 + (NSError *)localErrorWithRemoteError:(NSError *)error
@@ -54,14 +54,14 @@ NSInteger const UserIsNotLoggedInWithiCloudAccountErrorCode = 9;
         return nil;
     }
     switch (error.code) {
-        case ItemNotFoundInDatabaseErrorCode:
+        case CloudKitItemNotFoundInDatabaseErrorCode:
             return [CloudKitErrorMapper itemNotFoundInDatabaseError];
             
-        case NoConnectionToCloudKitErrorCode:
-        case NoConnectionErrorCode:
+        case CloudKitNoConnectionToCloudKitErrorCode:
+        case CloudKitNoConnectionErrorCode:
             return [CloudKitErrorMapper noConnectionError];
             
-        case UserIsNotLoggedInWithiCloudAccountErrorCode:
+        case CloudKitUserIsNotLoggedInWithiCloudAccountErrorCode:
             return [CloudKitErrorMapper userIsNotLoggedInWithiCloudAccountError];
             
         default:

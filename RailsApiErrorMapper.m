@@ -8,8 +8,8 @@
 
 #import "RailsApiErrorMapper.h"
 
-NSString * const ErrorDomain = @"com.fee.deviceCabinet";
-NSInteger const NoConnectionErrorCode = 4097;
+NSString * const RailsApiErrorDomain = @"com.fee.deviceCabinet";
+NSInteger const RailsApiNoConnectionErrorCode = 4097;
 
 @implementation RailsApiErrorMapper
 
@@ -18,7 +18,7 @@ NSInteger const NoConnectionErrorCode = 4097;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_ITEM_NOT_FOUND", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_ITEM_NOT_FOUND", nil)
                                };
-   return [[NSError alloc] initWithDomain:ErrorDomain code:1 userInfo:userInfo];
+   return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:1 userInfo:userInfo];
 }
 
 + (NSError *)noConnectionError {
@@ -26,7 +26,7 @@ NSInteger const NoConnectionErrorCode = 4097;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_NO_CONNECTION", nil)
                                };
-    return [[NSError alloc] initWithDomain:ErrorDomain code:2 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:2 userInfo:userInfo];
 }
 
 + (NSError *)somethingWentWrongError {
@@ -34,7 +34,7 @@ NSInteger const NoConnectionErrorCode = 4097;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_SOMETHING_WENT_WRONG", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_SOMETHING_WENT_WRONG", nil)
                                };
-    return [[NSError alloc] initWithDomain:ErrorDomain code:4 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:4 userInfo:userInfo];
 }
 
 + (NSError *)localErrorWithRemoteError:(NSError *)error
@@ -43,7 +43,7 @@ NSInteger const NoConnectionErrorCode = 4097;
         return nil;
     }
     switch (error.code) {
-        case NoConnectionErrorCode:
+        case RailsApiNoConnectionErrorCode:
             return [RailsApiErrorMapper noConnectionError];
             
         default:
