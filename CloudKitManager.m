@@ -228,7 +228,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 
 //fetch device record with record ID, create a reference on this device record with person record ID and store the device record back
 
-- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler {
+- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler {
     CKRecordID *personID = person.recordId;
     CKRecordID *deviceID = device.recordId;
     //fetch device record
@@ -236,7 +236,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         if (error) {
             NSError *localError = [ErrorMapper localErrorWithRemoteError:error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(record, localError);
+                completionHandler(localError);
             });
         } else {
             //create reference with person record ID
@@ -249,7 +249,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
                     localError = [ErrorMapper localErrorWithRemoteError:error];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void){
-                    completionHandler(record, localError);
+                    completionHandler(localError);
                 });
             }];
         }

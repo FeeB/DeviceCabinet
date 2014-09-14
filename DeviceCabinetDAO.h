@@ -20,7 +20,7 @@
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
 
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
-- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *record, NSError *error))completionHandler;
+- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler;
 - (void)storePerson:(Person *)person completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
 
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *error))completionHandler;

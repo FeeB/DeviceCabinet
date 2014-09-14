@@ -94,7 +94,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
         if (!device.isBooked) {
-            [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.deviceObject person:self.personObject completionHandler:^(CKRecord *record, NSError *error) {
+            [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.deviceObject person:self.personObject completionHandler:^(NSError *error) {
                 if (error) {
                     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                     [self.spinner stopAnimating];

@@ -157,7 +157,7 @@
     }];
 }
 
-- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(CKRecord *, NSError *))completionHandler {
+- (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
@@ -165,11 +165,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(responseObject, nil);
+            completionHandler(nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(error);
         });
     }];
    
