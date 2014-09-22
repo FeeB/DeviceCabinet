@@ -23,6 +23,7 @@
 @property NSString *systemVersion;
 @property NSString *person_id;
 @property NSString *deviceRecordId;
+@property (readonly) NSData *imageData;
 
 - (NSDictionary *)toDictionary;
 

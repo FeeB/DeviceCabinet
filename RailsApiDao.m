@@ -172,7 +172,6 @@
             completionHandler(error);
         });
     }];
-   
 }
 
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
@@ -210,8 +209,22 @@
 
 }
 
-- (void)uploadAssetWithURL:(NSURL *)assetURL device:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler{
-    //toDo
+- (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler{
+    NSDictionary *storeParameters = @{@"image_data_encoded": device.imageData};
+    NSDictionary *parameters = @{@"device": storeParameters};
+    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, error);
+        });
+    }];
+
 }
 
 - (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
@@ -221,6 +234,17 @@
     device.category = [json valueForKey:@"category"];
     device.deviceRecordId = [json valueForKey:@"id"];
     device.systemVersion = [json valueForKey:@"systemVersion"];
+    
+    NSURL *imageURL = [NSURL URLWithString:[json valueForKey:@"image_url"]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update the UI
+            device.image = [UIImage imageWithData:imageData];
+        });
+    });
     
     if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;

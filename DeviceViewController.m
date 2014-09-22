@@ -11,6 +11,7 @@
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
+#import "RailsApiDao.h"
 
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
@@ -282,8 +283,12 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         NSURL *localURL = [cachesDirectory URLByAppendingPathComponent:temporaryName];
         [data writeToURL:localURL atomically:YES];
         
+        
         // upload the cache file as a CKAsset
-        [AppDelegate.dao uploadAssetWithURL:localURL device:self.deviceObject completionHandler:^(Device *device, NSError *error) {
+        self.deviceObject.image = image;
+
+        RailsApiDao *apiDao = [[RailsApiDao alloc] init];
+        [apiDao uploadImageWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
