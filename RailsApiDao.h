@@ -10,4 +10,6 @@
 
 @interface RailsApiDao : NSObject <DeviceCabinetDao>
 
+- (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler;
+
 @end
