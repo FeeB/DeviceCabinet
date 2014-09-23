@@ -21,6 +21,7 @@
 @property (readonly) NSString *fullName;
 @property NSString *personRecordId;
 
+- (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;
 
 @end

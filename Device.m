@@ -11,20 +11,30 @@
 
 @implementation Device
 
-- (NSString *)imageData {
-    if (self.image) {
-        NSData *imageData = UIImagePNGRepresentation(self.image);
-        return [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    } else {
-        NSData *imageData = UIImagePNGRepresentation([UIImage imageNamed:@"placeholder_image.png"]);
-        return [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    }
+- (NSDictionary *)toDictionary {
+    return @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBookedByPerson ? @"YES" : @"NO"};
 }
 
-- (NSDictionary *)toDictionary {
-    NSDictionary *dictionary = @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBooked ? @"YES" : @"NO", @"image_data_encoded" : self.imageData};
-    
-    return dictionary;
+- (instancetype)initWithJson:(NSDictionary *)json
+{
+    self = [super init];
+    if (self) {
+        self.deviceName = [json valueForKey:@"deviceName"];
+        self.deviceId = [json valueForKey:@"deviceId"];
+        self.category = [json valueForKey:@"category"];
+        self.deviceRecordId = [json valueForKey:@"id"];
+        self.systemVersion = [json valueForKey:@"systemVersion"];
+        self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
+        self.bookedByPerson = [[json valueForKey:@"isBooked"] isEqualToString:@"YES"] ? YES : NO;
+        self.bookedByPersonId = [json valueForKey:@"person_id"];
+        self.bookedByPersonUsername = [json valueForKey:@"person_name"];
+    }
+    return self;
+}
+
+- (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
+    Device *device = [[Device alloc] init];
+    return device;
 }
 
 @end
