@@ -16,6 +16,7 @@
 NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
 @interface CreateDeviceViewController ()
+
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSArray *pickerData;
 @property (nonatomic, strong) Device *device;
@@ -34,6 +35,7 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
     self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
+    self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
