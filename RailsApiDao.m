@@ -10,13 +10,19 @@
 #import "AFNetworking.h"
 #import "RailsApiErrorMapper.h"
 
+NSString* const DefaultURL = @"http://cryptic-journey-8537.herokuapp.com";
+NSString* const DefaultDeviceURL = @"http://cryptic-journey-8537.herokuapp.com/devices";
+NSString* const DefaultPersonURL = @"http://cryptic-journey-8537.herokuapp.com/persons";
+NSString* const DefaultDeviceURLWithId = @"http://cryptic-journey-8537.herokuapp.com/persons/%@";
+NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp.com/persons/%@";
+
 @implementation RailsApiDao
 
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device": device.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
@@ -31,7 +37,7 @@
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://0.0.0.0:3000/devices/" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DefaultDeviceURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
             Device *device = [self getBackDeviceObjectFromJson:dictionary];
@@ -52,7 +58,7 @@
     NSDictionary *parameters = @{@"deviceId": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
         });
@@ -65,7 +71,7 @@
 }
 
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -84,7 +90,7 @@
 - (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"person_id": person.personRecordId};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
            [resultObjects addObject:[self getBackDeviceObjectFromJson:responseObject]];
@@ -109,7 +115,7 @@
     NSDictionary *parameters = @{@"deviceName": deviceName};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://0.0.0.0:3000/devices" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
             Device *device = [self getBackDeviceObjectFromJson:dictionary];
@@ -131,7 +137,7 @@
     NSDictionary *parameters = @{@"person": person.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:DefaultPersonURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
@@ -145,7 +151,7 @@
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"username": userName};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:@"http://0.0.0.0:3000/persons" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DefaultPersonURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
         });
@@ -160,7 +166,7 @@
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultPersonURLWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -177,7 +183,7 @@
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"isBooked": @"NO"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -193,7 +199,7 @@
 }
 
 - (void)fetchPersonRecordWithID:(NSString *)personRecordId completionHandler:(void (^)(Person *, NSError *))completionHandler{
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/persons/%@", personRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultPersonURLWithId, personRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -212,7 +218,7 @@
 - (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler{
     NSDictionary *storeParameters = @{@"image_data_encoded": device.imageData};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
