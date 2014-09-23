@@ -12,6 +12,7 @@
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "RailsApiDao.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
@@ -45,12 +46,9 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
     
-    self.personObject = [[Person alloc] init];
+    [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
-    
-    self.imageView.image = self.deviceObject.image;
-    
     
     if (self.comesFromStartView) {
         self.navigationItem.hidesBackButton = YES;
@@ -65,15 +63,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showOrHideTextFields];
-    
-    Person *bookedFrom = self.deviceObject.bookedFromPerson;
-    self.bookedFromLabelText.text = bookedFrom.fullName;
-    
-    if (self.deviceObject.image) {
-        self.imageView.image = self.deviceObject.image;
-    } else {
-        self.imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-    }
+
+    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonUsername;
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
@@ -89,7 +80,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.spinner startAnimating];
     
     [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
-        if (!device.isBooked) {
+        if (!device.isBookedByPerson) {
             [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.deviceObject person:self.personObject completionHandler:^(NSError *error) {
                 if (error) {
                     [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -104,8 +95,9 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                     
                     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_BOOK_SUCCESS", nil) message:NSLocalizedString(@"MESSAGE_BOOK_SUCCESS", nil) delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
-                    self.deviceObject.isBooked = YES;
-                    self.deviceObject.bookedFromPerson = self.personObject;
+                    self.deviceObject.bookedByPerson = YES;
+                    self.deviceObject.bookedByPersonId = self.personObject.personRecordId;
+                    self.deviceObject.bookedByPersonUsername = self.personObject.username;
                     self.usernameTextField.text = @"";
                 }
             }];
@@ -137,7 +129,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
             
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
-            self.deviceObject.isBooked = NO;
+            self.deviceObject.bookedByPersonId = NO;
         }
     }];
 }
@@ -160,7 +152,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     BOOL isStorable = YES;
     
-    if ([userType isEqualToString:@"device"] && !self.deviceObject.isBooked){
+    if ([userType isEqualToString:@"device"] && !self.deviceObject.isBookedByPerson){
         if (self.usernameTextField && self.usernameTextField.text.length > 0) {
             username = self.usernameTextField.text;
         } else {
@@ -171,8 +163,8 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     }
     
     if (isStorable) {
-        if (!self.deviceObject.isBooked){
-            self.deviceObject.isBooked = true;
+        if (!self.deviceObject.bookedByPerson){
+            self.deviceObject.bookedByPerson = true;
             
             [AppDelegate.dao fetchPersonWithUsername:username completionHandler:^(Person *person, NSError *error) {
                 if (error) {
@@ -196,30 +188,30 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 }
 
 - (void)showOrHideTextFields {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    UserDefaults *userDefaults = [[UserDefaults alloc] init];
     NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
     NSString *currentUserType = [userDefaults getUserType];
     
-    [self.usernameTextField setHidden:true];
-    [self.usernameLabel setHidden:true];
-    [self.bookedFromLabel setHidden:false];
-    [self.bookedFromLabelText setHidden:false];
+    self.usernameTextField.hidden = YES;
+    self.usernameLabel.hidden = YES;
+    self.bookedFromLabel.hidden = NO;
+    self.bookedFromLabelText.hidden = NO;
     
-    if (self.deviceObject.isBooked) {
-        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedFromPerson.username] || [currentUserType isEqualToString:@"device"]) {
+    if (self.deviceObject.isBookedByPerson) {
+        if ([currentUserIdentifier isEqualToString:self.personObject.username] || [currentUserType isEqualToString:@"device"]) {
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         }else{
             [self.bookDevice setEnabled:false];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil) forState:UIControlStateNormal];
         }
     }else{
-        [self.bookedFromLabel setHidden:true];
-        [self.bookedFromLabelText setHidden:true];
+        self.bookedFromLabel.hidden = YES;
+        self.bookedFromLabelText.hidden = YES;
         
         if ([[userDefaults getUserType] isEqualToString:@"device"]){
             self.navigationItem.hidesBackButton = YES;
-            [self.usernameTextField setHidden:false];
-            [self.usernameLabel setHidden:false];
+            self.usernameTextField.hidden = NO;
+            self.usernameLabel.hidden = NO;
         }
     }
 }
@@ -256,22 +248,9 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-        
-        // retrieve the image and resize it down
-        UIImage *image = info[UIImagePickerControllerOriginalImage];
-        
-        CGSize newSize = CGSizeMake(512, 512);
-        
-        if (image.size.width > image.size.height) {
-            newSize.height = round(newSize.width * image.size.height / image.size.width);
-        } else {
-            newSize.width = round(newSize.height * image.size.width / image.size.height);
-        }
-        
-        self.deviceObject.image = image;
 
         RailsApiDao *apiDao = [[RailsApiDao alloc] init];
-        [apiDao uploadImageWithDevice:self.deviceObject completionHandler:^(NSError *error) {
+        [apiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.deviceObject completionHandler:^(NSError *error) {
             if (error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];

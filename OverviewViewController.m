@@ -14,6 +14,7 @@
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -77,8 +78,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         cellLabel.text = cellDevice.deviceName;
         
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-        imageView.image = cellDevice.image;
-         
+        [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
     } else {
         cellLabel.text = array[0];
         cell.userInteractionEnabled = NO;
@@ -112,7 +112,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         NSArray *array = self.lists[0];
         if ([array[0] isKindOfClass:[Device class]]) {
             NSArray *devices = self.lists[0];
-            if (devices.count > 0 && ((Device *)devices[0]).isBooked) {
+            if (devices.count > 0 && ((Device *)devices[0]).isBookedByPerson) {
                 return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
             } else {
                 return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
@@ -147,7 +147,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
             NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
             
             for (Device *device in deviceObjects){
-                if (device.isBooked) {
+                if (device.isBookedByPerson) {
                     [bookedDevices addObject:device];
                 } else {
                     [freeDevices addObject:device];

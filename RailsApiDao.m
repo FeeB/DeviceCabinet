@@ -10,16 +10,12 @@
 #import "AFNetworking.h"
 #import "RailsApiErrorMapper.h"
 
-NSString* const DefaultURL = @"http://cryptic-journey-8537.herokuapp.com";
-NSString* const DefaultDeviceURL = @"http://cryptic-journey-8537.herokuapp.com/devices";
-NSString* const DefaultPersonURL = @"http://cryptic-journey-8537.herokuapp.com/persons";
-NSString* const DefaultDeviceURLWithId = @"http://cryptic-journey-8537.herokuapp.com/devices/%@";
-NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp.com/persons/%@";
+#define ROOT_URL @"http://cryptic-journey-8537.herokuapp.com/"
 
-//NSString* const DefaultDeviceURL = @"http://localhost:3000/devices";
-//NSString* const DefaultPersonURL = @"http://localhost:3000/persons";
-//NSString* const DefaultDeviceURLWithId = @"http://localhost:3000/devices/%@";
-//NSString* const DefaultPersonURLWithId = @"http://localhost:3000/persons/%@";
+NSString* const DevicePath = ROOT_URL @"devices";
+NSString* const DevicePathWithId = ROOT_URL @"devices/%@";
+NSString* const PersonPath = ROOT_URL @"persons";
+NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 @implementation RailsApiDao
 
@@ -27,9 +23,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
     NSDictionary *parameters = @{@"device": device.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+            Device *device = [[Device alloc] initWithJson:responseObject];
+            completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -42,10 +39,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DefaultDeviceURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DevicePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
-            Device *device = [self getBackDeviceObjectFromJson:dictionary];
+            Device *device = [[Device alloc] initWithJson:dictionary];
             [resultObjects addObject:device];
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -63,9 +60,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
     NSDictionary *parameters = @{@"deviceId": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+            Device *device = [[Device alloc] initWithJson:responseObject];
+            completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
@@ -76,12 +74,13 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 }
 
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+            Device *device = [[Device alloc] initWithJson:responseObject];
+            completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
@@ -95,13 +94,14 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"person_id": person.personRecordId};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-           [resultObjects addObject:[self getBackDeviceObjectFromJson:responseObject]];
-        }else if ([responseObject isKindOfClass:[NSArray class]]){
+            Device *device = [[Device alloc] initWithJson:responseObject];
+           [resultObjects addObject:device];
+        } else if ([responseObject isKindOfClass:[NSArray class]]) {
             for (NSDictionary *dictionary in responseObject) {
-                Device *device = [self getBackDeviceObjectFromJson:dictionary];
+                Device *device = [[Device alloc] initWithJson:dictionary];
                 [resultObjects addObject:device];
             }
         }
@@ -120,10 +120,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
     NSDictionary *parameters = @{@"deviceName": deviceName};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DefaultDeviceURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
-            Device *device = [self getBackDeviceObjectFromJson:dictionary];
+            Device *device = [[Device alloc] initWithJson:dictionary];
             [resultObjects addObject:device];
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -142,9 +142,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
     NSDictionary *parameters = @{@"person": person.toDictionary};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:DefaultPersonURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
+            Person *person = [[Person alloc] initWithJson:responseObject];
+            completionHandler(person, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -156,9 +157,10 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"username": userName};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DefaultPersonURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
+            Person *person = [[Person alloc] initWithJson:responseObject];
+            completionHandler(person, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
@@ -171,7 +173,7 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
+    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -188,7 +190,7 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"isBooked": @"NO"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
+    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -204,12 +206,13 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 }
 
 - (void)fetchPersonRecordWithID:(NSString *)personRecordId completionHandler:(void (^)(Person *, NSError *))completionHandler{
-    NSString *url = [[NSString alloc] initWithFormat:DefaultPersonURLWithId, personRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, personRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackPersonObjectFromJson:responseObject], nil);
+            Person *person = [[Person alloc] initWithJson:responseObject];
+            completionHandler(person, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
@@ -220,10 +223,29 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 
 }
 
-- (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler{
-    NSDictionary *storeParameters = @{@"image_data_encoded": device.imageData};
+- (NSData *)resizedJpegDataForImage:(UIImage *)image {
+    CGSize newSize = CGSizeMake(512, 512);
+    
+    if (image.size.width > image.size.height) {
+        newSize.height = round(newSize.width * image.size.height / image.size.width);
+    } else {
+        newSize.width = round(newSize.height * image.size.width / image.size.height);
+    }
+    
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    NSData *data = UIImageJPEGRepresentation(UIGraphicsGetImageFromCurrentImageContext(), 0.75);
+    UIGraphicsEndImageContext();
+    
+    return data;
+}
+
+- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+    NSData *imageAsResizedJpegData = [self resizedJpegDataForImage:image];
+    NSString *imageBase64Encoded = [imageAsResizedJpegData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSDictionary *storeParameters = @{@"image_data_encoded": imageBase64Encoded};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -236,48 +258,6 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
         });
     }];
 
-}
-
-- (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
-    Device *device = [[Device alloc] init];
-    device.deviceName = [json valueForKey:@"deviceName"];
-    device.deviceId = [json valueForKey:@"deviceId"];
-    device.category = [json valueForKey:@"category"];
-    device.deviceRecordId = [json valueForKey:@"id"];
-    device.systemVersion = [json valueForKey:@"systemVersion"];
-    
-    
-    if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
-        device.isBooked = YES;
-        [self fetchPersonRecordWithID:[json valueForKey:@"person_id"] completionHandler:^(Person *person, NSError *error) {
-            device.bookedFromPerson = person;
-        }];
-    } else {
-        device.isBooked = NO;
-    }
-    
-    NSURL *imageURL = [NSURL URLWithString:[json valueForKey:@"image_url"]];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    device.image = [UIImage imageWithData:imageData];
-    
-    return device;
-}
-
-- (Person *)getBackPersonObjectFromJson:(NSDictionary *)json{
-    Person *person = [[Person alloc] init];
-    person.firstName = [json valueForKey:@"firstName"];
-    person.lastName = [json valueForKey:@"lastName"];
-    person.username = [json valueForKey:@"username"];
-    person.personRecordId = [json valueForKey:@"id"];
-    
-    if ([json valueForKey:@"hasBookedDevice"] != (id)[NSNull null]) {
-        person.hasBookedDevice = YES;
-    } else {
-        person.hasBookedDevice = NO;
-    }
-    
-    return person;
-}
-                        
+}            
                         
 @end
