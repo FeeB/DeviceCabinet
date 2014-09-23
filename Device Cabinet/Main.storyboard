@@ -226,20 +226,8 @@
                                         <rect key="frame" x="0.0" y="1" width="321" height="504"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wGe-vD-vOB">
-                                                <rect key="frame" x="20" y="265" width="258" height="33"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.91372555489999996" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <state key="normal" title="BUTTON_SAVE">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="storeDevice" destination="fWZ-Ut-nkS" eventType="touchUpInside" id="AEj-oK-UbM"/>
-                                                </connections>
-                                            </button>
                                             <pickerView contentMode="scaleToFill" id="tEp-tq-fpi">
-                                                <rect key="frame" x="20" y="97" width="258" height="162"/>
+                                                <rect key="frame" x="67" y="88" width="164" height="103"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </pickerView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kategorie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aJC-HS-wBm">
@@ -264,6 +252,18 @@
                                                     <action selector="textFieldReturn:" destination="fWZ-Ut-nkS" eventType="editingDidEndOnExit" id="p2D-3E-JlT"/>
                                                 </connections>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wGe-vD-vOB">
+                                                <rect key="frame" x="20" y="199" width="258" height="33"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.91372555489999996" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="BUTTON_SAVE">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="storeDevice" destination="fWZ-Ut-nkS" eventType="touchUpInside" id="AEj-oK-UbM"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </scrollView>
                                 </subviews>
@@ -616,7 +616,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="QJe-Sr-Flj"/>
         <segue reference="nLc-J1-fvm"/>
-        <segue reference="47g-C0-1IY"/>
+        <segue reference="Phs-EO-HNL"/>
         <segue reference="m21-Db-JxO"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
