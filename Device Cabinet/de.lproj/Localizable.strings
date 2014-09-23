@@ -6,9 +6,9 @@
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
 "LABEL_TESTER" = "LogIn als Tester";
-"LABEL_DEVICE" = "logIn als Testgerät";
+"LABEL_DEVICE" = "LogIn als Testgerät";
 
-"BUTTON_REGISTER_DEVICE" = "Jetzt ein neues Testgerät registrieren";
+"BUTTON_REGISTER_DEVICE" = "Jetzt neues Testgerät registrieren";
 "BUTTON_REGISTER_USER" = "Jetzt als neuer User registrieren";
 
 "LABEL_FIRSTNAME" = "Vorname";
