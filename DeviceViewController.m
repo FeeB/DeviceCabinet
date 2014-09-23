@@ -49,11 +49,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
-    if (self.deviceObject.image) {
-        self.imageView.image = self.deviceObject.image;
-    } else {
-        self.imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-    }
+    self.imageView.image = self.deviceObject.image;
     
     
     if (self.comesFromStartView) {
@@ -283,12 +279,10 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
         NSURL *localURL = [cachesDirectory URLByAppendingPathComponent:temporaryName];
         [data writeToURL:localURL atomically:YES];
         
-        
-        // upload the cache file as a CKAsset
         self.deviceObject.image = image;
 
         RailsApiDao *apiDao = [[RailsApiDao alloc] init];
-        [apiDao uploadImageWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
+        [apiDao uploadImageWithDevice:self.deviceObject completionHandler:^(NSError *error) {
             if (error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -296,7 +290,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             } else {
-                self.deviceObject = device;
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 [self viewWillAppear:YES];

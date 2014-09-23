@@ -209,7 +209,7 @@
 
 }
 
-- (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler{
+- (void)uploadImageWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler{
     NSDictionary *storeParameters = @{@"image_data_encoded": device.imageData};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:@"http://0.0.0.0:3000/devices/%@", device.deviceRecordId];
@@ -217,11 +217,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler([self getBackDeviceObjectFromJson:responseObject], nil);
+            completionHandler(nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(error);
         });
     }];
 
@@ -235,16 +235,6 @@
     device.deviceRecordId = [json valueForKey:@"id"];
     device.systemVersion = [json valueForKey:@"systemVersion"];
     
-    NSURL *imageURL = [NSURL URLWithString:[json valueForKey:@"image_url"]];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update the UI
-            device.image = [UIImage imageWithData:imageData];
-        });
-    });
     
     if ([[json valueForKey:@"isBooked"] isEqualToString:@"YES"]) {
         device.isBooked = YES;
@@ -254,6 +244,10 @@
     } else {
         device.isBooked = NO;
     }
+    
+    NSURL *imageURL = [NSURL URLWithString:[json valueForKey:@"image_url"]];
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    device.image = [UIImage imageWithData:imageData];
     
     return device;
 }

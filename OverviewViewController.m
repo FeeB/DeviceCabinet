@@ -77,18 +77,12 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         cellLabel.text = cellDevice.deviceName;
         
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-        
-        if (cellDevice.image) {
-            imageView.image = cellDevice.image;
-        } else {
-            imageView.image = [UIImage imageNamed:@"placeholder_image.png"];
-        }
+        imageView.image = cellDevice.image;
          
     } else {
         cellLabel.text = array[0];
         cell.userInteractionEnabled = NO;
     }
-    
     
     return cell;
 }
