@@ -15,16 +15,16 @@
 
 @property NSString *deviceName;
 @property NSString *category;
-@property BOOL isBooked;
-@property UIImage *image;
-@property Person *bookedFromPerson;
+@property (getter=isBookedByPerson) BOOL bookedByPerson;
+@property NSString *bookedByPersonUsername;
+@property NSString *bookedByPersonId;
 @property CKRecordID *recordId;
 @property NSString *deviceId;
 @property NSString *systemVersion;
-@property NSString *person_id;
 @property NSString *deviceRecordId;
-@property (readonly) NSData *imageData;
+@property NSURL *imageUrl;
 
+- (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;
 
 @end
