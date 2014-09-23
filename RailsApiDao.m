@@ -13,8 +13,13 @@
 NSString* const DefaultURL = @"http://cryptic-journey-8537.herokuapp.com";
 NSString* const DefaultDeviceURL = @"http://cryptic-journey-8537.herokuapp.com/devices";
 NSString* const DefaultPersonURL = @"http://cryptic-journey-8537.herokuapp.com/persons";
-NSString* const DefaultDeviceURLWithId = @"http://cryptic-journey-8537.herokuapp.com/persons/%@";
+NSString* const DefaultDeviceURLWithId = @"http://cryptic-journey-8537.herokuapp.com/devices/%@";
 NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp.com/persons/%@";
+
+//NSString* const DefaultDeviceURL = @"http://localhost:3000/devices";
+//NSString* const DefaultPersonURL = @"http://localhost:3000/persons";
+//NSString* const DefaultDeviceURLWithId = @"http://localhost:3000/devices/%@";
+//NSString* const DefaultPersonURLWithId = @"http://localhost:3000/persons/%@";
 
 @implementation RailsApiDao
 
@@ -166,7 +171,7 @@ NSString* const DefaultPersonURLWithId = @"http://cryptic-journey-8537.herokuapp
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DefaultPersonURLWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DefaultDeviceURLWithId, device.deviceRecordId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
