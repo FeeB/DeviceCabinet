@@ -268,17 +268,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
             newSize.width = round(newSize.height * image.size.width / image.size.height);
         }
         
-        UIGraphicsBeginImageContext(newSize);
-        [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-        NSData *data = UIImageJPEGRepresentation(UIGraphicsGetImageFromCurrentImageContext(), 0.75);
-        UIGraphicsEndImageContext();
-        
-        // write the image out to a cache file
-        NSURL *cachesDirectory = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
-        NSString *temporaryName = [[NSUUID UUID].UUIDString stringByAppendingPathExtension:@"jpeg"];
-        NSURL *localURL = [cachesDirectory URLByAppendingPathComponent:temporaryName];
-        [data writeToURL:localURL atomically:YES];
-        
         self.deviceObject.image = image;
 
         RailsApiDao *apiDao = [[RailsApiDao alloc] init];
