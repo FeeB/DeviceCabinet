@@ -27,7 +27,9 @@
         self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
         self.bookedByPerson = [[json valueForKey:@"isBooked"] isEqualToString:@"YES"] ? YES : NO;
         self.bookedByPersonId = [json valueForKey:@"person_id"];
-        self.bookedByPersonUsername = [json valueForKey:@"person_name"];
+        
+        NSDictionary *personDictionary = [json valueForKey:@"person"];
+        self.bookedByPersonUsername = [personDictionary valueForKey:@"fullName"];
     }
     return self;
 }
