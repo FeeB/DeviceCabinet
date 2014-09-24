@@ -72,10 +72,12 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
+    UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
     if ([array[0] isKindOfClass:[Device class]]) {
         
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         cellLabel.text = cellDevice.deviceName;
+        cellLabelDeviceType.text = cellDevice.deviceType;
         
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
         [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
@@ -87,9 +89,9 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     return cell;
 }
 
-- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     //this is the space
-    return 40;
+    return 40.0f;
 }
 
 //On click on one cell the device view will appear

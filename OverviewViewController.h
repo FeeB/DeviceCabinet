@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) IBOutlet UINavigationItem *profileItem;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logOutButton;
+@property (nonatomic, strong) IBOutlet UILabel *cellLabelType;
 @property (nonatomic, assign) BOOL userIsLoggedIn;
 
 - (void)getAllDevices;
