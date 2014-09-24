@@ -21,6 +21,7 @@
 "LABEL_DEVICENAME" = "Gerätename:";
 "LABEL_CATEGORY" = "Kategorie:";
 "LABEL_SYSTEM_VERSION" = "Betriebssystem:";
+"LABEL_DEVICE_TYPE" = "Gerätetyp:";
 "LABEL_BOOKED_FROM" = "Ausgeliehen von:";
 "LABEL_ENTER_USERNAME" = "Gib deinen Usernamen ein:";
 

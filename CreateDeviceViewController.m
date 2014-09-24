@@ -12,6 +12,7 @@
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
 #import "AppDelegate.h"
+#import "UIDevice-Hardware.h"
 
 NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
@@ -36,6 +37,8 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
+    self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
+
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
@@ -88,6 +91,7 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         self.device.category = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
         self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
+        self.device.deviceType = self.deviceTypeTextField.text;
         
         [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];

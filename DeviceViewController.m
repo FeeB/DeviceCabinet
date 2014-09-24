@@ -45,6 +45,9 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
+    NSLog(@"%@", self.deviceObject.deviceType);
+    self.individualDeviceTypeLabel.text = self.deviceObject.deviceType;
+    self.deviceTypeLabel.text = NSLocalizedString(@"LABEL_DEVICE_TYPE", nil);
     
     [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
     

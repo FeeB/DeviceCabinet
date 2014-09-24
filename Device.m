@@ -12,7 +12,7 @@
 @implementation Device
 
 - (NSDictionary *)toDictionary {
-    return @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBookedByPerson ? @"YES" : @"NO"};
+    return @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBookedByPerson ? @"YES" : @"NO", @"deviceType" : self.deviceType};
 }
 
 - (instancetype)initWithJson:(NSDictionary *)json
@@ -27,6 +27,7 @@
         self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
         self.bookedByPerson = [[json valueForKey:@"isBooked"] isEqualToString:@"YES"] ? YES : NO;
         self.bookedByPersonId = [json valueForKey:@"person_id"];
+        self.deviceType = [json valueForKey:@"deviceType"];
         
         NSDictionary *personDictionary = [json valueForKey:@"person"];
         self.bookedByPersonUsername = [personDictionary valueForKey:@"username"];

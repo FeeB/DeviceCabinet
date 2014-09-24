@@ -24,6 +24,7 @@
 @property NSString *systemVersion;
 @property NSString *deviceRecordId;
 @property NSURL *imageUrl;
+@property NSString *deviceType;
 
 @property CKRecordID *bookedByPersonIdCloudKit;
 
