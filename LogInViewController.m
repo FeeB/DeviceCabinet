@@ -121,6 +121,10 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 
 }
 
+- (IBAction)backOnClick {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromLogInToDeviceViewSegue]){
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;

@@ -26,6 +26,7 @@
 
 - (IBAction)personLogInOnClick;
 - (IBAction)deviceLogInOnClick;
+- (IBAction)backOnClick;
 - (void)viewWillDisappear:(BOOL)animated;
 
 @end
