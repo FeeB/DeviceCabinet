@@ -371,18 +371,18 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     device.systemVersion = record[RecordTypeDeviceSystemVersionField];
     
     CKAsset *photoAsset = record[RecordTypeDeviceImageField];
-    UIImage *image = [UIImage imageWithContentsOfFile:photoAsset.fileURL.path];
-    device.image = image;
+    device.imageUrl = [NSURL URLWithString:photoAsset.fileURL.path];
     
     //if device record has a reference to a person record
     if (record[RecordTypeDeviceIsBookedField] != nil) {
-        device.isBooked = true;
         CKReference *reference = record[RecordTypeDeviceIsBookedField];
         [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person, NSError *error) {
-            device.bookedFromPerson = person;
+            device.bookedByPerson = YES;
+            device.bookedByPersonIdCloudKit = person.recordId;
+            device.bookedByPersonUsername = person.username;
         }];
     }else{
-        device.isBooked = false;
+        device.bookedByPerson = false;
     }
     return device;
 }
