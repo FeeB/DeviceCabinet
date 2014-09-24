@@ -24,6 +24,8 @@
 @property NSString *deviceRecordId;
 @property NSURL *imageUrl;
 
+@property CKRecordID *bookedByPersonIdCloudKit;
+
 - (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;
 
