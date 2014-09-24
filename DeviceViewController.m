@@ -69,6 +69,25 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
     self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
     
+    if (self.deviceObject.imageUrl) {
+        [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    } else {
+        [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
+            if (error) {
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                [self.spinner stopAnimating];
+                
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            } else {
+                self.deviceObject.imageUrl = device.imageUrl;
+                [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+            }
+        }];
+    };
+    
+    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
     
@@ -261,6 +280,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             } else {
+                self.deviceObject.imageUrl = nil;
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 [self viewWillAppear:YES];
