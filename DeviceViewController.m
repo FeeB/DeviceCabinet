@@ -64,7 +64,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [super viewWillAppear:animated];
     [self showOrHideTextFields];
 
-    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonUsername;
+    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
@@ -198,7 +198,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     self.bookedFromLabelText.hidden = NO;
     
     if (self.deviceObject.isBookedByPerson) {
-        if ([currentUserIdentifier isEqualToString:self.personObject.username] || [currentUserType isEqualToString:@"device"]) {
+        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedByPersonUsername] || [currentUserType isEqualToString:@"device"]) {
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
         }else{
             [self.bookDevice setEnabled:false];

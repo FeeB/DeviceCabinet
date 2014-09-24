@@ -29,7 +29,8 @@
         self.bookedByPersonId = [json valueForKey:@"person_id"];
         
         NSDictionary *personDictionary = [json valueForKey:@"person"];
-        self.bookedByPersonUsername = [personDictionary valueForKey:@"fullName"];
+        self.bookedByPersonUsername = [personDictionary valueForKey:@"username"];
+        self.bookedByPersonFullName = [personDictionary valueForKey:@"fullName"];
     }
     return self;
 }

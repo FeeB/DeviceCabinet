@@ -18,6 +18,7 @@
 @property (getter=isBookedByPerson) BOOL bookedByPerson;
 @property NSString *bookedByPersonUsername;
 @property NSString *bookedByPersonId;
+@property NSString *bookedByPersonFullName;
 @property CKRecordID *recordId;
 @property NSString *deviceId;
 @property NSString *systemVersion;
