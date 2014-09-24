@@ -87,6 +87,11 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     return cell;
 }
 
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    //this is the space
+    return 40;
+}
+
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.userIsLoggedIn) {
