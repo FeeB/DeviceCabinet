@@ -52,8 +52,6 @@
     [controller viewWillAppear:YES];
     [controller showOrHideTextFields];
     
-    NSLog(@"%@", [controller.usernameTextField isHidden] ? @"YES" : @"NO");
-    
     XCTAssertTrue([controller.usernameTextField isHidden], @"The username text field should be hidden");
     XCTAssertTrue([controller.usernameLabel isHidden], @"The username label should be hidden");
 }
@@ -63,7 +61,7 @@
     DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     
     Device *device = [[Device alloc] init];
-    device.isBooked = NO;
+    device.bookedByPerson = NO;
     [self createUserDefaultsDevice];
     
     controller.deviceObject = device;
@@ -81,9 +79,11 @@
     DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     
     Device *device = [[Device alloc] init];
-    device.isBooked = YES;
+    device.bookedByPerson = YES;
     Person *person = [self createATestPerson];
-    device.bookedFromPerson = person;
+    device.bookedByPersonFullName = person.fullName;
+    device.bookedByPersonId = person.personRecordId;
+    device.bookedByPersonUsername = person.username;
     
     [self createUserDefaultsPerson];
     
@@ -101,7 +101,7 @@
     DeviceViewController *controller = (DeviceViewController *)[mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
     
     Device *device = [self createATestDevice];
-    device.isBooked = YES;
+    device.bookedByPerson = YES;
     
    [self createUserDefaultsPerson];
     
