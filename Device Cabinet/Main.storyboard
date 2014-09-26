@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="CuS-ue-Z6R">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -172,6 +171,7 @@
                         <outlet property="usernameLabel" destination="eDc-bw-kti" id="Zfn-7W-vhU"/>
                         <outlet property="usernameTextField" destination="2Ju-Nq-2aM" id="4Dx-gf-UxZ"/>
                         <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="nLc-J1-fvm"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDeviceViewToOverview" id="yN8-7Y-DVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,7 +437,7 @@
         <!--TITLE_OVERVIEW-->
         <scene sceneID="uZb-EK-JUo">
             <objects>
-                <tableViewController id="iw6-Gk-HuI" customClass="OverviewViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OverviewViewController" id="iw6-Gk-HuI" customClass="OverviewViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="nxl-BI-0JB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -459,7 +459,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DeviceType" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OFN-Hn-FIS">
-                                            <rect key="frame" x="85" y="41" width="88" height="21"/>
+                                            <rect key="frame" x="85" y="41" width="199" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
@@ -697,10 +697,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QJe-Sr-Flj"/>
-        <segue reference="O9K-3h-XkW"/>
-        <segue reference="TDX-HC-rRw"/>
+        <segue reference="yN8-7Y-DVa"/>
         <segue reference="Xju-vS-6Xe"/>
+        <segue reference="nLc-J1-fvm"/>
+        <segue reference="QJe-Sr-Flj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.60000002384185791" green="0.80000007152557373" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
 </document>

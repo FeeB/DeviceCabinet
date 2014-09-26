@@ -64,7 +64,7 @@
 "BUTTON_PROFILE" = "Profile";
 "BUTTON_LOGOUT" = "LogOut";
 "BUTTON_LOGIN" = "LogIn";
-"BUTTON_BACK" = "Back";
+"BUTTON_BACK" = "Cancel";
 "BUTTON_TAKE_A_PICTURE" = "Take a picture of this device";
 
 "ERROR_HEADLINE_NO_CONNECTION" = "A network error occured";
