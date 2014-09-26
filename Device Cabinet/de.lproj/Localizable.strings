@@ -68,14 +68,11 @@
 "BUTTON_TAKE_A_PICTURE" = "Mache ein Foto von diesem Gerät";
 
 "ERROR_HEADLINE_NO_CONNECTION" = "Ein Netzwerkfehler ist aufgetreten";
-"ERROR_MESSAGE_NO_CONNECTION" = "CloudKit hat ein Problem mit dem Netzwerk. Bitte versuche es später noch einmal.";
+"ERROR_MESSAGE_NO_CONNECTION_CLOUDKIT" = "CloudKit hat ein Problem mit dem Netzwerk. Bitte versuche es später noch einmal.";
+"ERROR_MESSAGE_NO_CONNECTION" = "Es konnte keine Verbindung zum Server hergestellt werden. Bitte versuche es später noch einmal.";
 "ERROR_HEADLINE_NO_ICLOUD" = "iCloud Account";
 "ERROR_MESSAGE_NO_ICLOUD" = "Bitte logge dich mit deinem iCloud Account auf deinem Handy ein um diese Aktion durchzuführen";
 "ERROR_HEADLINE_SOMETHING_WENT_WRONG" = "Etwas ist schiefgelaufen";
 "ERROR_MESSAGE_SOMETHING_WENT_WRONG" = "Entschuldigung es ist etwas schief gelaufen, bitte versuche es noch einmal";
 "ERROR_HEADLINE_ITEM_NOT_FOUND" = "Das gesuchte Item wurde nicht gefunden";
 "ERROR_MESSAGE_ITEM_NOT_FOUND" = "In der Datenbank gibt es das gesucht Item nicht";
-
-
-
-

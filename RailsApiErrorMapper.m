@@ -10,6 +10,11 @@
 
 NSString * const RailsApiErrorDomain = @"com.fee.deviceCabinet";
 NSInteger const RailsApiNoConnectionErrorCode = 4097;
+NSInteger const RailsApiNoConnectionToServerRESTErrorCode = 500;
+NSInteger const RailsApiNoConnectionToServerErrorCode = -1004;
+NSInteger const RailsApiitemNotFoundInDatabaseRESTErroCode = 404;
+NSInteger const RailsApiitemNotFoundInDatabaseCocoaErroCode = 3840;
+
 
 @implementation RailsApiErrorMapper
 
@@ -34,7 +39,7 @@ NSInteger const RailsApiNoConnectionErrorCode = 4097;
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_SOMETHING_WENT_WRONG", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_SOMETHING_WENT_WRONG", nil)
                                };
-    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:4 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:3 userInfo:userInfo];
 }
 
 + (NSError *)localErrorWithRemoteError:(NSError *)error
@@ -44,11 +49,14 @@ NSInteger const RailsApiNoConnectionErrorCode = 4097;
     }
     switch (error.code) {
         case RailsApiNoConnectionErrorCode:
+        case RailsApiNoConnectionToServerRESTErrorCode:
+        case RailsApiNoConnectionToServerErrorCode:
             return [RailsApiErrorMapper noConnectionError];
-            
+        case RailsApiitemNotFoundInDatabaseRESTErroCode:
+        case RailsApiitemNotFoundInDatabaseCocoaErroCode:
+            return [RailsApiErrorMapper itemNotFoundInDatabaseError];
         default:
             return [RailsApiErrorMapper somethingWentWrongError];
-            
     }
 }
 

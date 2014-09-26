@@ -26,7 +26,7 @@ NSInteger const CloudKitUserIsNotLoggedInWithiCloudAccountErrorCode = 9;
 
 + (NSError *)noConnectionError {
     NSDictionary *userInfo = @{
-                               NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION", nil),
+                               NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION_CLOUDKIT", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_NO_CONNECTION", nil)
                                };
     return [[NSError alloc] initWithDomain:CloudKitErrorDomain code:2 userInfo:userInfo];
