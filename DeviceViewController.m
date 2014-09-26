@@ -13,8 +13,11 @@
 #import "AppDelegate.h"
 #import "RailsApiDao.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "OverviewViewController.h"
+#import "LogInViewController.h"
 
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
+NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
 
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -25,8 +28,7 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+
     [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -45,7 +47,6 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
     self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
     self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
-    NSLog(@"%@", self.deviceObject.deviceType);
     self.individualDeviceTypeLabel.text = self.deviceObject.deviceType;
     self.deviceTypeLabel.text = NSLocalizedString(@"LABEL_DEVICE_TYPE", nil);
     
@@ -304,5 +305,23 @@ NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
     [self.view removeGestureRecognizer:self.tap];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:FromDeviceOverviewToOverview]){
+        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
+        controller.userIsLoggedIn = YES;
+    } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
+        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+        LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
+        
+        controller.onCompletion = ^(id result, LogInType logInType) {
+            if (logInType ==  LogInTypeDevice) {
+                self.deviceObject = result;
+                [self dismissViewControllerAnimated:YES completion:nil];
+            } else {
+                [self performSegueWithIdentifier:FromDeviceOverviewToOverview sender:nil];
+            }
+        };
+    }
+}
 
 @end

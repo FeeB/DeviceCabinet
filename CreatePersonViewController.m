@@ -107,7 +107,6 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"%@", textField.text);
     [textField resignFirstResponder];
     return YES;
 }

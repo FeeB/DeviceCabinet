@@ -21,6 +21,13 @@
 @property (nonatomic, weak) IBOutlet UIButton *personRegisterButton;
 @property (nonatomic, weak) IBOutlet UIButton *deviceRegisterButton;
 
+typedef enum {
+    LogInTypeDevice,
+    LogInTypeUser
+}LogInType;
+
+@property (nonatomic, strong) void (^onCompletion)(id result, LogInType);
+
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 

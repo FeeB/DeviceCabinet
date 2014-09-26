@@ -101,15 +101,6 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     } else {
         [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
     }
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
-        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
-        controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -200,6 +191,27 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 - (void)updateTable {
     [self getAllDevices];
     [self.refreshControl endRefreshing];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
+        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
+        controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        
+    } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
+        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+        LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
+
+        controller.onCompletion = ^(id result, LogInType logInType) {
+            if (logInType == LogInTypeUser) {
+                self.userIsLoggedIn = YES;
+            } else {
+                [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
+            }
+        };
+    }
 }
 
 @end

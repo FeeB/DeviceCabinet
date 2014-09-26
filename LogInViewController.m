@@ -15,6 +15,8 @@
 #import "OverviewViewController.h"
 #import "AppDelegate.h"
 
+@protocol LoginViewControllerDelegate;
+
 @interface LogInViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @end
@@ -24,10 +26,11 @@
 NSString *FromLogInToOverviewSegue = @"FromLogInToOverview";
 NSString *FromLogInToDeviceViewSegue = @"FromLoginToDeviceView";
 NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
+NSString *FromOverviewToDeviceViewSegue = @"FromOverviewToDeviceView";
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = self.view.center;
@@ -45,7 +48,6 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)personLogInOnClick{
@@ -75,7 +77,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
                     UserDefaults *userDefault = [[UserDefaults alloc]init];
                     [userDefault storeUserDefaults:self.personObject.username userType:@"person"];
                     
-                    [self performSegueWithIdentifier:FromLogInToOverviewSegue sender:nil];
+                    [self dissmissLogInViewToOverview];
                 } else {
                     [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_NOT_FOUND", nil) message:NSLocalizedString(@"MESSAGE_USERNAME_NOT_FOUND", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 }
@@ -115,7 +117,7 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             self.deviceObject = device;
             
-            [self performSegueWithIdentifier:FromLogInToDeviceViewSegue sender:self];
+            [self dissmissLogInViewToDeviceView];
         }
     }];
 
@@ -125,15 +127,19 @@ NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromLogInToDeviceViewSegue]){
-        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        controller.comesFromStartView = YES;
-        controller.deviceObject = self.deviceObject;
-    } else if ([segue.identifier isEqualToString:FromLogInToOverviewSegue]) {
-        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
-        controller.userIsLoggedIn = YES;
+-(void)dissmissLogInViewToDeviceView{
+    if (self.onCompletion) {
+        self.onCompletion(self.deviceObject, LogInTypeDevice);
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)dissmissLogInViewToOverview{
+    if (self.onCompletion) {
+        self.onCompletion(nil, LogInTypeUser);
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
