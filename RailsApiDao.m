@@ -10,8 +10,8 @@
 #import "AFNetworking.h"
 #import "RailsApiErrorMapper.h"
 
-//#define ROOT_URL @"http://cryptic-journey-8537.herokuapp.com/"
-#define ROOT_URL @"http://localhost:3000/"
+#define ROOT_URL @"http://cryptic-journey-8537.herokuapp.com/"
+//#define ROOT_URL @"http://localhost:3000/"
 
 NSString* const DevicePath = ROOT_URL @"devices";
 NSString* const DevicePathWithId = ROOT_URL @"devices/%@";
