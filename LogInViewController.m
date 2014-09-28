@@ -14,6 +14,8 @@
 #import "TEDLocalization.h"
 #import "OverviewViewController.h"
 #import "AppDelegate.h"
+#import "CreateDeviceViewController.h"
+#import "CreatePersonViewController.h"
 
 @protocol LoginViewControllerDelegate;
 
@@ -23,10 +25,8 @@
 
 @implementation LogInViewController
 
-NSString *FromLogInToOverviewSegue = @"FromLogInToOverview";
-NSString *FromLogInToDeviceViewSegue = @"FromLoginToDeviceView";
 NSString *FromLogInToCreateDeviceSegue = @"FromLogInToCreateDevice";
-NSString *FromOverviewToDeviceViewSegue = @"FromOverviewToDeviceView";
+NSString *FromLogInToCreatePersonSegue = @"FromLogInToCreatePerson";
 
 
 - (void)viewDidLoad {
@@ -154,6 +154,25 @@ NSString *FromOverviewToDeviceViewSegue = @"FromOverviewToDeviceView";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.parentViewController viewDidLoad];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+    if ([segue.identifier isEqualToString:FromLogInToCreateDeviceSegue]) {
+        CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
+        
+        controller.onCompletion = ^(id result) {
+            self.deviceObject = result;
+            [self dissmissLogInViewToDeviceView];
+        };
+    } else if ([segue.identifier isEqualToString:FromLogInToCreatePersonSegue]) {
+        CreatePersonViewController *controller = (CreatePersonViewController *)segue.destinationViewController;
+        
+        controller.onCompletion = ^(void) {
+            [self dissmissLogInViewToOverview];
+        };
+    }
+    
 }
 
 @end
