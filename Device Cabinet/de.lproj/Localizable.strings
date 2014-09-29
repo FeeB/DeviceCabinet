@@ -15,7 +15,7 @@
 "LABEL_LASTNAME" = "Nachname";
 "LABEL_USERNAME" = "Username";
 
-"LABEL_OVERVIEW" = "Übersicht";
+"LABEL_OVERVIEW" = "Geräte Übersicht";
 "LABEL_PROFILE" = "Profil";
 
 "LABEL_DEVICENAME" = "Gerätename:";
@@ -55,9 +55,9 @@
 "MESSAGE_ALREADY_BOOKED" = "Entschuldige, das Gerät wurde in der Zwischenzeit ausgeliehen";
 
 "TITLE_PROFILE" = "Profil";
-"TITLE_OVERVIEW" = "Übersicht";
+"TITLE_OVERVIEW" = "Geräte Übersicht";
 "TITLE_CREATE_DEVICE" = "Gerät registrieren";
-"TITLE_DEVICE_OVERVIEW" = "Gerätübersicht";
+"TITLE_DEVICE_OVERVIEW" = "Gerät Details";
 "TITLE_CREATE_PERSON" = "Person registrieren";
 "TITLE_LOGIN" = "LogIn";
 

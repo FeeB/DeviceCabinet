@@ -6,7 +6,7 @@
  Copyright (c) 2014 Braun,Fee. All rights reserved.
  */
 "LABEL_TESTER" = "LogIn as a tester";
-"LABEL_DEVICE" = "LogIn as test a device";
+"LABEL_DEVICE" = "LogIn a test device";
 
 "BUTTON_REGISTER_DEVICE" = "Register a new test device now";
 "BUTTON_REGISTER_USER" = "Register as new user now";
@@ -15,7 +15,7 @@
 "LABEL_LASTNAME" = "Last name";
 "LABEL_USERNAME" = "Username";
 
-"LABEL_OVERVIEW" = "Overview";
+"LABEL_OVERVIEW" = "Devices Overview";
 "LABEL_PROFILE" = "Profile";
 
 "LABEL_DEVICENAME" = "Device name:";
@@ -55,9 +55,9 @@
 "MESSAGE_ALREADY_BOOKED" = "Sorry, somebody booked the device in the meantime";
 
 "TITLE_PROFILE" = "Profile";
-"TITLE_OVERVIEW" = "Overview";
+"TITLE_OVERVIEW" = "Devices Overview";
 "TITLE_CREATE_DEVICE" = "Register Device";
-"TITLE_DEVICE_OVERVIEW" = "Device Overview";
+"TITLE_DEVICE_OVERVIEW" = "Device Details";
 "TITLE_CREATE_PERSON" = "Register Person";
 "TITLE_LOGIN" = "LogIn";
 
