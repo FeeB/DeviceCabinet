@@ -40,10 +40,13 @@ NSString *FromLogInToCreatePersonSegue = @"FromLogInToCreatePerson";
     
     [TEDLocalization localize:self];
     
-    self.whoAmILabel.text = NSLocalizedString(@"LABEL_LOGIN", nil);
     self.userLabel.text = NSLocalizedString(@"LABEL_TESTER", nil);
     self.userNameLabel.text = NSLocalizedString(@"LABEL_USERNAME", nil);
     self.deviceLabel.text = NSLocalizedString(@"LABEL_DEVICE", nil);
+    
+    if (self.comesFromDeviceOverview) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

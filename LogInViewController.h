@@ -11,7 +11,6 @@
 
 @interface LogInViewController : UIViewController <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet UILabel *whoAmILabel;
 @property (nonatomic, weak) IBOutlet UILabel *userLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
@@ -20,6 +19,9 @@
 @property (nonatomic, weak) IBOutlet UIButton *deviceLogInButton;
 @property (nonatomic, weak) IBOutlet UIButton *personRegisterButton;
 @property (nonatomic, weak) IBOutlet UIButton *deviceRegisterButton;
+@property (nonatomic, weak) IBOutlet UINavigationItem *cancelButton;
+
+@property (nonatomic, assign) BOOL comesFromDeviceOverview;
 
 typedef enum {
     LogInTypeDevice,

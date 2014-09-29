@@ -312,6 +312,7 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
     } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
+        controller.comesFromDeviceOverview = YES;
         
         controller.onCompletion = ^(id result, LogInType logInType) {
             if (logInType ==  LogInTypeDevice) {
