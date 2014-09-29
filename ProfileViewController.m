@@ -105,6 +105,13 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     if ([segue.identifier isEqualToString:FromProfileToDeviceSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = [self.list objectAtIndex:self.customTableView.indexPathForSelectedRow.row];
+        controller.onCompletion = ^(BOOL isLoggedIn) {
+            self.userIsLoggedIn = NO;
+            if (self.onCompletion) {
+                self.onCompletion(self.userIsLoggedIn);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        };
     }
 }
 
