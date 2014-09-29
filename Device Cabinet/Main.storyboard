@@ -230,6 +230,7 @@
                     <connections>
                         <outlet property="bookedDevicesLabel" destination="faI-UR-3EN" id="Tcj-Ta-LSF"/>
                         <outlet property="customTableView" destination="Mnw-y9-jr8" id="Yjm-uw-3hr"/>
+                        <outlet property="logOutButton" destination="pdn-5l-g7b" id="HJg-EI-4IS"/>
                         <outlet property="nameLabel" destination="hIt-0c-Dy1" id="e6m-aB-pJp"/>
                         <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="44s-ko-ABX"/>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="FromProfileToDeviceOverview" id="vhX-Ru-WCX"/>
@@ -704,8 +705,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="HeV-BO-8ND"/>
         <segue reference="QJe-Sr-Flj"/>
-        <segue reference="nLc-J1-fvm"/>
-        <segue reference="47g-C0-1IY"/>
+        <segue reference="44s-ko-ABX"/>
+        <segue reference="vhX-Ru-WCX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.60000002384185791" green="0.80000007152557373" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
 </document>

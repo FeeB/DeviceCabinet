@@ -30,7 +30,7 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.bookedDevicesLabel.text = NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
-
+    
     [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -111,7 +111,12 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+    
+    self.userIsLoggedIn = NO;
+    if (self.onCompletion) {
+        self.onCompletion(self.userIsLoggedIn);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

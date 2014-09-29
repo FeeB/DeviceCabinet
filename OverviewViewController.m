@@ -174,7 +174,6 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     }
 }
 
-
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
@@ -222,6 +221,12 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
                 self.forwardToDeviceView = YES;
                 [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
             }
+        };
+    } else if([segue.identifier isEqualToString:FromProfileButtonToProfileSegue]) {
+        ProfileViewController *controller = (ProfileViewController *)segue.destinationViewController;
+        controller.userIsLoggedIn = self.userIsLoggedIn;
+        controller.onCompletion = ^(BOOL isLoggedIn) {
+            self.userIsLoggedIn = isLoggedIn;
         };
     }
 }

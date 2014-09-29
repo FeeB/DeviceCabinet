@@ -15,11 +15,15 @@
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UITableView *customTableView;
 @property (nonatomic, weak) IBOutlet UILabel *bookedDevicesLabel;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *logOutButton;
 @property (nonatomic, weak) Person *personObject;
 @property (nonatomic, weak) Device *deviceObject;
 
-extern NSString * const LogoutButtonSegue;
+@property (nonatomic, assign) BOOL userIsLoggedIn;
 
+@property (nonatomic, strong) void (^onCompletion)(BOOL isLoggedIn);
+
+extern NSString * const LogoutButtonSegue;
 
 - (void)getAllBookedDevices;
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
