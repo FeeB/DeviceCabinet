@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *logOutButton;
 @property (nonatomic, strong) IBOutlet UILabel *cellLabelType;
 @property (nonatomic, assign) BOOL userIsLoggedIn;
+@property (nonatomic, assign) BOOL forwardToDeviceView;
 
 - (void)getAllDevices;
 - (IBAction)logOut;

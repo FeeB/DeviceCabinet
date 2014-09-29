@@ -28,10 +28,14 @@
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;
 
+@property (nonatomic, assign) BOOL userIsLoggedIn;
+
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 
 @property (nonatomic, assign) BOOL comesFromStartView;
+
+@property (nonatomic, strong) void (^onCompletion)(BOOL isLoggedIn);
 
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;

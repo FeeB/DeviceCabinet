@@ -160,7 +160,6 @@ NSString *FromLogInToCreatePersonSegue = @"FromLogInToCreatePerson";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
     if ([segue.identifier isEqualToString:FromLogInToCreateDeviceSegue]) {
         CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
         

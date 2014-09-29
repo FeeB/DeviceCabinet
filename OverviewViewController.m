@@ -206,6 +206,10 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
         controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        controller.comesFromStartView = self.forwardToDeviceView;
+        controller.onCompletion = ^(BOOL isLoggedIn) {
+            self.userIsLoggedIn = isLoggedIn;
+        };
         
     } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
@@ -215,6 +219,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
             if (logInType == LogInTypeUser) {
                 self.userIsLoggedIn = YES;
             } else {
+                self.forwardToDeviceView = YES;
                 [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
             }
         };

@@ -240,9 +240,20 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
 }
 
 - (IBAction)logOut {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:LogoutButtonSegue sender:nil];
+    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+    NSString *currentUserType = [userDefaults getUserType];
+    
+    if ([currentUserType isEqualToString:@"person"]) {
+        self.userIsLoggedIn = NO;
+        if (self.onCompletion) {
+            self.onCompletion(self.userIsLoggedIn);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        UserDefaults *userDefaults = [[UserDefaults alloc]init];
+        [userDefaults resetUserDefaults];
+        [self performSegueWithIdentifier:LogoutButtonSegue sender:nil];
+    }
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
@@ -308,7 +319,7 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromDeviceOverviewToOverview]){
         OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
-        controller.userIsLoggedIn = YES;
+        controller.userIsLoggedIn = self.userIsLoggedIn;
     } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
@@ -319,6 +330,7 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
                 self.deviceObject = result;
                 [self dismissViewControllerAnimated:YES completion:nil];
             } else {
+                self.userIsLoggedIn = YES;
                 [self performSegueWithIdentifier:FromDeviceOverviewToOverview sender:nil];
             }
         };
