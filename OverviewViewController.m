@@ -48,6 +48,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self showTitelForLogOutButton];
     [self getAllDevices];
 }
 
@@ -177,7 +178,13 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults resetUserDefaults];
-    [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+    
+    if (self.userIsLoggedIn) {
+        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGIN", nil)];
+        self.userIsLoggedIn = NO;
+    } else {
+       [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
+    }
 }
 
 - (IBAction)profileButton {
