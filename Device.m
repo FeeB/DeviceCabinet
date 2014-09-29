@@ -24,7 +24,9 @@
         self.category = [json valueForKey:@"category"];
         self.deviceRecordId = [json valueForKey:@"id"];
         self.systemVersion = [json valueForKey:@"systemVersion"];
-        self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
+        if ([json valueForKey:@"image_url"] != [NSNull null]) {
+            self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
+        }
         self.bookedByPerson = [[json valueForKey:@"isBooked"] isEqualToString:@"YES"] ? YES : NO;
         self.bookedByPersonId = [json valueForKey:@"person_id"];
         self.deviceType = [json valueForKey:@"deviceType"];
