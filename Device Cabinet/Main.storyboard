@@ -697,10 +697,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yN8-7Y-DVa"/>
-        <segue reference="Xju-vS-6Xe"/>
-        <segue reference="nLc-J1-fvm"/>
+        <segue reference="47g-C0-1IY"/>
         <segue reference="QJe-Sr-Flj"/>
+        <segue reference="nLc-J1-fvm"/>
+        <segue reference="HeV-BO-8ND"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.60000002384185791" green="0.80000007152557373" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
 </document>

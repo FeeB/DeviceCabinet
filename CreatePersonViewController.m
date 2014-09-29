@@ -87,16 +87,32 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), person.firstName, person.lastName]
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                                          delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                 
                 UserDefaults *userDefaults = [[UserDefaults alloc]init];
                 [userDefaults storeUserDefaults:person.username userType:@"person"];
                 
-                [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
+//                [self dismissView];
+//                [self performSegueWithIdentifier:FromCreatePersonToOverviewSegue sender:self];
             }
 
         }];
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    //    [self performSegueWithIdentifier:FromCreateDeviceToDeviceViewSegue sender:nil];
+    if (self.onCompletion) {
+        self.onCompletion();
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)dismissView {
+    if (self.onCompletion) {
+        self.onCompletion();
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
