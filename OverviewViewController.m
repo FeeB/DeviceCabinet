@@ -203,8 +203,12 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
-        controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        if (self.forwardToDeviceView) {
+            controller.deviceObject = self.device;
+        } else {
+            NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
+            controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        }
         controller.comesFromStartView = self.forwardToDeviceView;
         controller.onCompletion = ^(BOOL isLoggedIn) {
             self.userIsLoggedIn = isLoggedIn;
@@ -219,6 +223,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
                 self.userIsLoggedIn = YES;
             } else {
                 self.forwardToDeviceView = YES;
+                self.device = result;
                 [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
             }
         };
