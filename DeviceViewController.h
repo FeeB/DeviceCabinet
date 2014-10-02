@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Device.h"
 #import "Person.h"
+#import "UserNamePickerViewController.h"
 
 @interface DeviceViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -28,6 +29,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;
 
+@property (nonatomic, weak) IBOutlet UIButton *testButton;
+
 @property (nonatomic, assign) BOOL userIsLoggedIn;
 
 @property (nonatomic, strong) Device *deviceObject;
@@ -37,11 +40,13 @@
 
 @property (nonatomic, strong) void (^onCompletion)(BOOL isLoggedIn);
 
+@property (nonatomic, strong) UserNamePickerViewController *userNamePicker;
+@property (nonatomic, strong) UIPopoverController *userNamePickerPopover;
+
 - (IBAction)fetchPersonRecordOnClick;
+- (IBAction)enterUserName:(id)sender;
 - (void)storeReference;
 - (void)deleteReference;
-- (void)showOrHideTextFields;
-- (IBAction)logOut;
 
 
 @end

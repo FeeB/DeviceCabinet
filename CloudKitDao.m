@@ -355,7 +355,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     Person *person = [[Person alloc]init];
     person.firstName = record[RecordTypePersonFirstNameField];
     person.lastName = record[RecordTypePersonLastNameField];
-    person.username = record[RecordTypePersonUsernameField];
     person.recordId = record.recordID;
     
     return person;
@@ -379,7 +378,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
         [self fetchPersonRecordWithID:reference.recordID completionHandler:^(Person *person, NSError *error) {
             device.bookedByPerson = YES;
             device.bookedByPersonIdCloudKit = person.recordId;
-            device.bookedByPersonUsername = person.username;
         }];
     }else{
         device.bookedByPerson = false;
@@ -391,7 +389,6 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKRecord *personRecord = [[CKRecord alloc] initWithRecordType:RecordTypePerson];
     personRecord[RecordTypePersonFirstNameField] = person.firstName;
     personRecord[RecordTypePersonLastNameField] = person.lastName;
-    personRecord[RecordTypePersonUsernameField] = person.username;
     
     return personRecord;
 }

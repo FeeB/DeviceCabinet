@@ -21,7 +21,6 @@
     if (self) {
         self.firstName = [json valueForKey:@"firstName"];
         self.lastName = [json valueForKey:@"lastName"];
-        self.username = [json valueForKey:@"username"];
         self.personRecordId = [json valueForKey:@"id"];
         
         if ([json valueForKey:@"hasBookedDevice"] != (id)[NSNull null]) {
@@ -35,7 +34,7 @@
 }
 
 - (NSDictionary *)toDictionary {
-    NSDictionary *dictionary = @{@"firstName" : self.firstName, @"lastName" : self.lastName, @"username" : self.username, @"fullName" : self.fullName, @"hasBookedDevice" : self.hasBookedDevice ? @"Yes" : @"No"};
+    NSDictionary *dictionary = @{@"firstName" : self.firstName, @"lastName" : self.lastName, @"fullName" : self.fullName, @"hasBookedDevice" : self.hasBookedDevice ? @"Yes" : @"No"};
   
     return dictionary;
 }

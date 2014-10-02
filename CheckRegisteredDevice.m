@@ -1,49 +1,30 @@
 //
-//  StartViewController.m
+//  CheckRegisteredDevice.m
 //  Device Cabinet
 //
-//  Created by Braun,Fee on 20.08.14.
+//  Created by Braun,Fee on 02.10.14.
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "StartViewController.h"
-#import "ProfileViewController.h"
+#import "CheckRegisteredDevice.h"
 #import "UserDefaults.h"
-#import "Device.h"
-#import "DeviceViewController.h"
-#import "UIdGenerator.h"
-#import "OverviewViewController.h"
-#import "AppDelegate.h"
 
-NSString * const FromeStartToOverviewSegue = @"FromStartToOverview";
-NSString * const FromStartToLogInSegue = @"FromStartToLogIn";
-NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
+@implementation CheckRegisteredDevice
 
-@interface StartViewController ()
-@property (nonatomic, strong) Device *device;
-@end
-
-@implementation StartViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
-    [self checkCurrentUserIsLoggedIn];
+- (void)checkDeviceIsRegistered {
+    if ([self firstLaunch]) {
+        //Register Modal
+    }
 }
 
-- (void)checkCurrentUserIsLoggedIn {
-    if ([self currentUserHasStoredIdentifier]) {
-        
-        NSString *currentUserIdentifier = [self currentUserHasStoredIdentifier];
-        
-        if ([self userIsPerson]) {
-            [self handlePersonUserWithIdentifier:currentUserIdentifier];
-        } else {
-            [self handleDeviceUserWithIdentifier:currentUserIdentifier];        }
-        
+- (BOOL)firstLaunch {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *userType = [userDefaults getUserType];
+    
+    if (userType) {
+        return YES;
     } else {
-        self.isUserLoggedIn = NO;
-        [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
+        return NO;
     }
 }
 
@@ -69,28 +50,12 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
     }
 }
 
-- (void)handlePersonUserWithIdentifier:(NSString *)currentUserIdentifier {
-    [AppDelegate.dao fetchPersonWithUsername:currentUserIdentifier completionHandler:^(Person *person, NSError *error) {
-        if (error) {
-            UserDefaults *userDefaults = [[UserDefaults alloc]init];
-//            [userDefaults resetUserDefaults];
-            
-            self.isUserLoggedIn = NO;
-            
-            [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
-        } else {
-            self.isUserLoggedIn = YES;
-            
-            [self performSegueWithIdentifier:FromeStartToOverviewSegue sender:self];
-        }
-    }];
-}
 
 - (void)handleDeviceUserWithIdentifier:(NSString *)currentUserIdentifier {
     [AppDelegate.dao fetchDeviceWithDeviceId:currentUserIdentifier completionHandler:^(Device *device, NSError *error) {
         if (error) {
             UserDefaults *userDefaults = [[UserDefaults alloc]init];
-//            [userDefaults resetUserDefaults];
+            [userDefaults resetUserDefaults];
             
             UIdGenerator *generator = [[UIdGenerator alloc] init];
             [generator resetKeyChain];
@@ -117,5 +82,6 @@ NSString * const FromStartToDeviceOverviewSegue = @"FromStartToDeviceOverview";
         overviewController.userIsLoggedIn = self.isUserLoggedIn;
     }
 }
+
 
 @end

@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		22BB0258F7FF4740B82A5881 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		3A1BB836199BB94B00888298 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1BB835199BB94B00888298 /* MessageUI.framework */; };
-		3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBB19921CB1004B6F13 /* ProfileViewController.m */; };
 		3A367EC019921DE2004B6F13 /* CloudKitDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EBF19921DE2004B6F13 /* CloudKitDao.m */; };
 		3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A367EC21992233E004B6F13 /* DeviceViewController.m */; };
+		3A51A8EE19DD625F003626CE /* DecisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8ED19DD625F003626CE /* DecisionViewController.m */; };
+		3A51A8F119DD77EF003626CE /* UserNamePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8F019DD77EF003626CE /* UserNamePickerViewController.m */; };
+		3A51A8F419DD8A07003626CE /* CreatePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */; };
 		3A5E178119654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E178319654AC700681289 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178219654AC700681289 /* CoreGraphics.framework */; };
 		3A5E178519654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
@@ -26,12 +28,10 @@
 		3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17A519654AC700681289 /* Device_CabinetTests.m */; };
 		3A5E17B119654AED00681289 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B019654AED00681289 /* Person.m */; };
 		3A5E17B419654AF900681289 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B319654AF900681289 /* Device.m */; };
-		3A5E17BA19654B2300681289 /* CreatePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B919654B2300681289 /* CreatePersonViewController.m */; };
 		3A5E17BC19654BBE00681289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17BB19654BBE00681289 /* Main.storyboard */; };
 		3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */; };
 		3A84063619A1F04D007E3A6B /* UIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A84063519A1F04D007E3A6B /* UIdGenerator.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3A8B67E019A4C21300740724 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B67DF19A4C21300740724 /* StartViewController.m */; };
 		3AA2EC7019B5ACE5007D1147 /* placeholder_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */; };
 		3AA2EC7519B5D5BF007D1147 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */; };
 		3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */; };
@@ -44,7 +44,6 @@
 		3AE45F1419A73D3700FFCB3E /* CloudKitErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE45F1319A73D3700FFCB3E /* CloudKitErrorMapper.m */; };
 		3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA37F6199CA763001AAF71 /* UserDefaults.m */; };
 		3AEA37FD199CBD76001AAF71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AEA37FF199CBD76001AAF71 /* Localizable.strings */; };
-		3AF7C8FF199A2A8A00CF5B16 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7C8FE199A2A8A00CF5B16 /* LogInViewController.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		95AFE3BD19C62E9700CF1217 /* RailsApiErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AFE3BC19C62E9700CF1217 /* RailsApiErrorMapper.m */; };
 /* End PBXBuildFile section */
@@ -90,12 +89,16 @@
 /* Begin PBXFileReference section */
 		19E8A0D3227D45BBA4DD749B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3A1BB835199BB94B00888298 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		3A367EBA19921CB1004B6F13 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
-		3A367EBB19921CB1004B6F13 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
 		3A367EBE19921DE2004B6F13 /* CloudKitDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitDao.h; sourceTree = "<group>"; };
 		3A367EBF19921DE2004B6F13 /* CloudKitDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitDao.m; sourceTree = "<group>"; };
 		3A367EC11992233E004B6F13 /* DeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceViewController.h; path = ../DeviceViewController.h; sourceTree = "<group>"; };
 		3A367EC21992233E004B6F13 /* DeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceViewController.m; path = ../DeviceViewController.m; sourceTree = "<group>"; };
+		3A51A8EC19DD625F003626CE /* DecisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecisionViewController.h; sourceTree = "<group>"; };
+		3A51A8ED19DD625F003626CE /* DecisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecisionViewController.m; sourceTree = "<group>"; };
+		3A51A8EF19DD77EF003626CE /* UserNamePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNamePickerViewController.h; sourceTree = "<group>"; };
+		3A51A8F019DD77EF003626CE /* UserNamePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNamePickerViewController.m; sourceTree = "<group>"; };
+		3A51A8F219DD8A07003626CE /* CreatePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePersonViewController.h; sourceTree = "<group>"; };
+		3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePersonViewController.m; sourceTree = "<group>"; };
 		3A5E177D19654AC700681289 /* Device Cabinet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Device Cabinet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5E178019654AC700681289 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A5E178219654AC700681289 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -116,16 +119,12 @@
 		3A5E17B019654AED00681289 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3A5E17B219654AF900681289 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
 		3A5E17B319654AF900681289 /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
-		3A5E17B819654B2300681289 /* CreatePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePersonViewController.h; path = ../CreatePersonViewController.h; sourceTree = "<group>"; };
-		3A5E17B919654B2300681289 /* CreatePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePersonViewController.m; path = ../CreatePersonViewController.m; sourceTree = "<group>"; };
 		3A5E17BB19654BBE00681289 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "Device Cabinet/Main.storyboard"; sourceTree = "<group>"; };
 		3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDeviceViewController.h; sourceTree = SOURCE_ROOT; };
 		3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDeviceViewController.m; sourceTree = SOURCE_ROOT; };
 		3A84063419A1F04D007E3A6B /* UIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdGenerator.h; sourceTree = "<group>"; };
 		3A84063519A1F04D007E3A6B /* UIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGenerator.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3A8B67DE19A4C21300740724 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartViewController.h; path = ../StartViewController.h; sourceTree = "<group>"; };
-		3A8B67DF19A4C21300740724 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StartViewController.m; path = ../StartViewController.m; sourceTree = "<group>"; };
 		3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder_image.png; sourceTree = SOURCE_ROOT; };
 		3AA2EC7319B5D5BF007D1147 /* RailsApiDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiDao.h; sourceTree = "<group>"; };
 		3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiDao.m; sourceTree = "<group>"; };
@@ -144,8 +143,6 @@
 		3AEA37F6199CA763001AAF71 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		3AEA37FB199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3AF7C8FD199A2A8A00CF5B16 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInViewController.h; path = ../LogInViewController.h; sourceTree = "<group>"; };
-		3AF7C8FE199A2A8A00CF5B16 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInViewController.m; path = ../LogInViewController.m; sourceTree = "<group>"; };
 		7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Device Cabinet.entitlements"; sourceTree = "<group>"; };
 		9562A03B19A3C96800233528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		959A964519B7877F0041FCEE /* DeviceCabinetDAO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceCabinetDAO.h; sourceTree = "<group>"; };
@@ -190,28 +187,6 @@
 				3A367EBD19921D9D004B6F13 /* Data Access */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		3A1BB829199BA54D00888298 /* LogIn/Register */ = {
-			isa = PBXGroup;
-			children = (
-				3A5E17B819654B2300681289 /* CreatePersonViewController.h */,
-				3A5E17B919654B2300681289 /* CreatePersonViewController.m */,
-				3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */,
-				3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */,
-				3AF7C8FD199A2A8A00CF5B16 /* LogInViewController.h */,
-				3AF7C8FE199A2A8A00CF5B16 /* LogInViewController.m */,
-			);
-			name = LogIn/Register;
-			sourceTree = "<group>";
-		};
-		3A1BB82A199BA5F600888298 /* Profil */ = {
-			isa = PBXGroup;
-			children = (
-				3A367EBA19921CB1004B6F13 /* ProfileViewController.h */,
-				3A367EBB19921CB1004B6F13 /* ProfileViewController.m */,
-			);
-			name = Profil;
 			sourceTree = "<group>";
 		};
 		3A367EBD19921D9D004B6F13 /* Data Access */ = {
@@ -267,15 +242,19 @@
 		3A5E178619654AC700681289 /* Device Cabinet */ = {
 			isa = PBXGroup;
 			children = (
+				3A51A8F219DD8A07003626CE /* CreatePersonViewController.h */,
+				3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */,
 				3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */,
-				3A8B67DE19A4C21300740724 /* StartViewController.h */,
-				3A8B67DF19A4C21300740724 /* StartViewController.m */,
-				3A1BB82A199BA5F600888298 /* Profil */,
-				3A1BB829199BA54D00888298 /* LogIn/Register */,
+				3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */,
+				3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */,
 				3A367EC11992233E004B6F13 /* DeviceViewController.h */,
 				3A367EC21992233E004B6F13 /* DeviceViewController.m */,
 				3AC5A811198FB19C00576854 /* OverviewViewController.h */,
 				3AC5A812198FB19C00576854 /* OverviewViewController.m */,
+				3A51A8EC19DD625F003626CE /* DecisionViewController.h */,
+				3A51A8ED19DD625F003626CE /* DecisionViewController.m */,
+				3A51A8EF19DD77EF003626CE /* UserNamePickerViewController.h */,
+				3A51A8F019DD77EF003626CE /* UserNamePickerViewController.m */,
 				3AEA37FF199CBD76001AAF71 /* Localizable.strings */,
 				7D02BFC51973DE7F00E16DE8 /* Device Cabinet.entitlements */,
 				3A5E178F19654AC700681289 /* AppDelegate.h */,
@@ -540,9 +519,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA2EC7519B5D5BF007D1147 /* RailsApiDao.m in Sources */,
+				3A51A8F419DD8A07003626CE /* CreatePersonViewController.m in Sources */,
 				95AFE3BD19C62E9700CF1217 /* RailsApiErrorMapper.m in Sources */,
 				3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */,
-				3A367EBC19921CB1004B6F13 /* ProfileViewController.m in Sources */,
+				3A51A8F119DD77EF003626CE /* UserNamePickerViewController.m in Sources */,
 				3A84063619A1F04D007E3A6B /* UIdGenerator.m in Sources */,
 				3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */,
 				3A5E17B119654AED00681289 /* Person.m in Sources */,
@@ -551,11 +531,9 @@
 				3AE45F1419A73D3700FFCB3E /* CloudKitErrorMapper.m in Sources */,
 				3A5E179119654AC700681289 /* AppDelegate.m in Sources */,
 				3A5E178D19654AC700681289 /* main.m in Sources */,
-				3AF7C8FF199A2A8A00CF5B16 /* LogInViewController.m in Sources */,
 				3A367EC31992233E004B6F13 /* DeviceViewController.m in Sources */,
+				3A51A8EE19DD625F003626CE /* DecisionViewController.m in Sources */,
 				3A5E17B419654AF900681289 /* Device.m in Sources */,
-				3A8B67E019A4C21300740724 /* StartViewController.m in Sources */,
-				3A5E17BA19654B2300681289 /* CreatePersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

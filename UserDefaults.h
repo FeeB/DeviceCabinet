@@ -12,6 +12,5 @@
 - (NSString *)getUserIdentifier;
 - (NSString *)getUserType;
 - (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType;
-- (void)resetUserDefaults;
 
 @end

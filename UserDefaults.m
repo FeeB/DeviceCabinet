@@ -34,9 +34,4 @@ NSString * const KeyForUserType = @"type";
     [self.userDefaults synchronize];
 }
 
-- (void)resetUserDefaults {
-    NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
-}
-
 @end

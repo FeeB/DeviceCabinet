@@ -15,9 +15,11 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "OverviewViewController.h"
 #import "LogInViewController.h"
+#import "UserNamePickerViewController.h"
 
 NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
 NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
+NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -54,18 +56,14 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
-    if (self.comesFromStartView) {
-        self.navigationItem.hidesBackButton = YES;
-    } else {
-        self.navigationItem.hidesBackButton = NO;
-    }
-    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
+    [self showOrHideTextFields];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self showOrHideTextFields];
 
     self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
@@ -120,7 +118,6 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
                     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
                     self.deviceObject.bookedByPerson = YES;
                     self.deviceObject.bookedByPersonId = self.personObject.personRecordId;
-                    self.deviceObject.bookedByPersonUsername = self.personObject.username;
                     self.usernameTextField.text = @"";
                 }
             }];
@@ -215,10 +212,11 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
     NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
     NSString *currentUserType = [userDefaults getUserType];
     
-    self.usernameTextField.hidden = YES;
-    self.usernameLabel.hidden = YES;
     self.bookedFromLabel.hidden = NO;
     self.bookedFromLabelText.hidden = NO;
+    self.usernameTextField.hidden = YES;
+    self.usernameLabel.hidden = YES;
+
     
     if (self.deviceObject.isBookedByPerson) {
         if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedByPersonUsername] || [currentUserType isEqualToString:@"device"]) {
@@ -230,29 +228,9 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
     }else{
         self.bookedFromLabel.hidden = YES;
         self.bookedFromLabelText.hidden = YES;
-        
-        if ([[userDefaults getUserType] isEqualToString:@"device"]){
-            self.navigationItem.hidesBackButton = YES;
-            self.usernameTextField.hidden = NO;
-            self.usernameLabel.hidden = NO;
-        }
-    }
-}
+        self.usernameTextField.hidden = NO;
+        self.usernameLabel.hidden = NO;
 
-- (IBAction)logOut {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    NSString *currentUserType = [userDefaults getUserType];
-    
-    if ([currentUserType isEqualToString:@"person"]) {
-        self.userIsLoggedIn = NO;
-        if (self.onCompletion) {
-            self.onCompletion(self.userIsLoggedIn);
-        }
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        UserDefaults *userDefaults = [[UserDefaults alloc]init];
-        [userDefaults resetUserDefaults];
-        [self performSegueWithIdentifier:LogoutButtonSegue sender:nil];
     }
 }
 
@@ -307,8 +285,17 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0,100) animated:YES];
+    [self performSegueWithIdentifier:FromDeviceOverviewToNameListSegue sender:nil];
     return YES;
+}
+
+- (void)selectedUser:(NSString *)fullUserName {
+    self.usernameTextField.text = fullUserName;
+    
+    if (self.userNamePickerPopover) {
+        [self.userNamePickerPopover dismissPopoverAnimated:YES];
+        self.userNamePickerPopover = nil;
+    }
 }
 
 - (void) dismissKeyboard {
@@ -320,19 +307,11 @@ NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
     if ([segue.identifier isEqualToString:FromDeviceOverviewToOverview]){
         OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
         controller.userIsLoggedIn = self.userIsLoggedIn;
-    } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
+    } else if([segue.identifier isEqualToString:FromDeviceOverviewToNameListSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
-        LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
-        controller.comesFromDeviceOverview = YES;
-        
-        controller.onCompletion = ^(id result, LogInType logInType) {
-            if (logInType ==  LogInTypeDevice) {
-                self.deviceObject = result;
-                [self dismissViewControllerAnimated:YES completion:nil];
-            } else {
-                self.userIsLoggedIn = YES;
-                [self performSegueWithIdentifier:FromDeviceOverviewToOverview sender:nil];
-            }
+        UserNamePickerViewController *controller = (UserNamePickerViewController *)navigationController.topViewController;
+        controller.onCompletion = ^(Person *person) {
+            self.usernameTextField.text = person.fullName;
         };
     }
 }

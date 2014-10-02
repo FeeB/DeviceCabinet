@@ -155,6 +155,26 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
+- (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:PersonPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
+        for (NSDictionary *dictionary in responseObject) {
+            Person *person = [[Person alloc] initWithJson:dictionary];
+            [resultObjects addObject:person];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(resultObjects, nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, localError);
+        });
+    }];
+
+}
+
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"username": userName};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

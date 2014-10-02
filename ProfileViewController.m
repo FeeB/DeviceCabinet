@@ -117,7 +117,7 @@ NSString * const LogoutButtonSegue = @"FromLogOutButtonToLogIn";
 
 - (IBAction)logOut {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults resetUserDefaults];
+//    [userDefaults resetUserDefaults];
     
     self.userIsLoggedIn = NO;
     if (self.onCompletion) {

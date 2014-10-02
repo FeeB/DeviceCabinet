@@ -17,7 +17,6 @@
 @property NSString *lastName;
 @property BOOL hasBookedDevice;
 @property CKRecordID *recordId;
-@property NSString *username;
 @property (readonly) NSString *fullName;
 @property NSString *personRecordId;
 

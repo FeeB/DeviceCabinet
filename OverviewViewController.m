@@ -15,6 +15,8 @@
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "DecisionViewController.h"
+#import "CreateDeviceViewController.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -27,11 +29,12 @@
 
 NSString * const FromOverViewToDeviceViewSegue = @"FromOverviewToDeviceView";
 NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile";
+NSString * const FromOverViewToRegisterSegue = @"FromOverViewToRegister";
+NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self showTitelForLogOutButton];
     
     [TEDLocalization localize:self];
     
@@ -44,12 +47,32 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    
+    [self performSelector:@selector(checkDeviceIsRegistered)
+               withObject:nil
+               afterDelay:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self showTitelForLogOutButton];
     [self getAllDevices];
+}
+
+- (void)checkDeviceIsRegistered {
+    if ([self firstLaunch]) {
+        [self performSegueWithIdentifier:FromOverViewToRegisterSegue sender:nil];
+    }
+}
+
+- (BOOL)firstLaunch {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *userType = [userDefaults getUserType];
+    
+    if (userType) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -97,11 +120,7 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.userIsLoggedIn) {
-        [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
-    } else {
-        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-    }
+    [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -166,39 +185,10 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
     }];
 }
 
-- (void)showTitelForLogOutButton {
-    if (self.userIsLoggedIn) {
-        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGOUT", nil)];
-    } else {
-        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGIN", nil)];
-    }
-}
-
-- (IBAction)logOut {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults resetUserDefaults];
-    
-    if (self.userIsLoggedIn) {
-        [self.logOutButton setTitle:NSLocalizedString(@"BUTTON_LOGIN", nil)];
-        self.userIsLoggedIn = NO;
-    } else {
-       [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-    }
-}
-
-- (IBAction)profileButton {
-    if (self.userIsLoggedIn) {
-        [self performSegueWithIdentifier:FromProfileButtonToProfileSegue sender:self];
-    } else {
-        [self performSegueWithIdentifier:LogoutButtonSegue sender:self];
-    }
-}
-
 - (void)updateTable {
     [self getAllDevices];
     [self.refreshControl endRefreshing];
 }
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
@@ -213,25 +203,21 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
         controller.onCompletion = ^(BOOL isLoggedIn) {
             self.userIsLoggedIn = isLoggedIn;
         };
-        
-    } else if([segue.identifier isEqualToString:LogoutButtonSegue]) {
+    } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
-        LogInViewController *controller = (LogInViewController *)navigationController.topViewController;
-
-        controller.onCompletion = ^(id result, LogInType logInType) {
-            if (logInType == LogInTypeUser) {
-                self.userIsLoggedIn = YES;
-            } else {
-                self.forwardToDeviceView = YES;
-                self.device = result;
-                [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
-            }
+        DecisionViewController *controller = (DecisionViewController *)navigationController.topViewController;
+        
+        controller.onCompletion = ^(id result) {
+            self.forwardToDeviceView = YES;
+            self.device = result;
+            [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
-    } else if([segue.identifier isEqualToString:FromProfileButtonToProfileSegue]) {
-        ProfileViewController *controller = (ProfileViewController *)segue.destinationViewController;
-        controller.userIsLoggedIn = self.userIsLoggedIn;
-        controller.onCompletion = ^(BOOL isLoggedIn) {
-            self.userIsLoggedIn = isLoggedIn;
+    } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
+        CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
+        controller.onCompletion = ^(id result) {
+            self.forwardToDeviceView = YES;
+            self.device = result;
+            [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     }
 }

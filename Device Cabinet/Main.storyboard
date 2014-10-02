@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="CuS-ue-Z6R">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="uBd-XC-bjg">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -148,13 +147,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TITLE_DEVICE_OVERVIEW" id="DUk-k6-lFr">
-                        <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="BXd-2g-g9H">
-                            <connections>
-                                <action selector="logOut" destination="Eqs-YC-kYu" id="mGC-hR-Vec"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="TITLE_DEVICE_OVERVIEW" id="qd7-wM-dfG"/>
                     <connections>
                         <outlet property="bookDevice" destination="0bC-hI-2bB" id="dTW-Dv-3ld"/>
                         <outlet property="bookedFromLabel" destination="OC0-rJ-B2E" id="2CS-1m-nma"/>
@@ -171,74 +164,125 @@
                         <outlet property="systemVersionLabel" destination="ROy-P1-DvV" id="3Z4-h3-CwZ"/>
                         <outlet property="usernameLabel" destination="eDc-bw-kti" id="Zfn-7W-vhU"/>
                         <outlet property="usernameTextField" destination="2Ju-Nq-2aM" id="4Dx-gf-UxZ"/>
-                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="nLc-J1-fvm"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDeviceViewToOverview" id="yN8-7Y-DVa"/>
+                        <segue destination="uBd-XC-bjg" kind="push" identifier="FromDeviceViewToOverview" id="yN8-7Y-DVa"/>
+                        <segue destination="M2X-00-A9n" kind="modal" identifier="FromDeviceOverviewToNameList" id="hBc-0W-yvM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-83" y="1416"/>
+            <point key="canvasLocation" x="189" y="-17"/>
         </scene>
-        <!--TITLE_PROFILE-->
-        <scene sceneID="0OO-jp-7jb">
+        <!--USERNAME_PICKER-->
+        <scene sceneID="XAN-cB-SnS">
             <objects>
-                <viewController id="aFT-S4-a1D" customClass="ProfileViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="L75-7O-CQm">
+                <tableViewController title="USERNAME_PICKER" id="giR-oJ-gnk" customClass="UserNamePickerViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="psU-Ku-DHt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MQc-Yx-9Wf">
-                                <rect key="frame" x="16" y="106" width="46" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hIt-0c-Dy1">
-                                <rect key="frame" x="103" y="106" width="210" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECTION_BOOKED_DEVICES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="faI-UR-3EN">
-                                <rect key="frame" x="16" y="159" width="234" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mnw-y9-jr8">
-                                <rect key="frame" x="16" y="188" width="273" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="aFT-S4-a1D" id="FBK-j5-ySX"/>
-                                    <outlet property="delegate" destination="aFT-S4-a1D" id="FCr-hD-hCf"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="TITLE_PROFILE" id="dGw-sR-8UW">
-                        <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="pdn-5l-g7b">
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="hZg-pc-fHh">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hZg-pc-fHh" id="PRp-TH-4RX">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="giR-oJ-gnk" id="MC0-lP-P3K"/>
+                            <outlet property="delegate" destination="giR-oJ-gnk" id="Kmr-wl-fci"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="TITLE_USERNAME_PICKER" id="TkO-6N-Koi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="1UN-3r-Uae">
                             <connections>
-                                <action selector="logOut" destination="aFT-S4-a1D" id="rNz-pD-teR"/>
+                                <action selector="addPerson" destination="giR-oJ-gnk" id="g5U-00-ASI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="bookedDevicesLabel" destination="faI-UR-3EN" id="Tcj-Ta-LSF"/>
-                        <outlet property="customTableView" destination="Mnw-y9-jr8" id="Yjm-uw-3hr"/>
-                        <outlet property="logOutButton" destination="pdn-5l-g7b" id="HJg-EI-4IS"/>
-                        <outlet property="nameLabel" destination="hIt-0c-Dy1" id="e6m-aB-pJp"/>
-                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="44s-ko-ABX"/>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromProfileToDeviceOverview" id="vhX-Ru-WCX"/>
+                        <segue destination="pnJ-Ah-xaZ" kind="push" identifier="FromNameListToCreatePerson" id="02x-D1-kFN"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7wr-zF-zzp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1145" y="-17"/>
+        </scene>
+        <!--TITLE_CREATE_PERSON-->
+        <scene sceneID="LlY-R0-IyL">
+            <objects>
+                <viewController id="pnJ-Ah-xaZ" customClass="CreatePersonViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z9E-Ar-Iaf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sRw-9H-dgS">
+                                <rect key="frame" x="19" y="173" width="285" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="BUTTON_SAVE">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="storePerson" destination="pnJ-Ah-xaZ" eventType="touchUpInside" id="71j-Mj-ch0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_FIRSTNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0vM-Pv-1JT">
+                                <rect key="frame" x="19" y="84" width="157" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="n7y-UO-d9y">
+                                <rect key="frame" x="162" y="80" width="142" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldReturn:" destination="fWZ-Ut-nkS" eventType="editingDidEndOnExit" id="14K-7f-Z2K"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_LASTNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vey-Qr-VGb">
+                                <rect key="frame" x="19" y="122" width="152" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="RoH-5f-XAV">
+                                <rect key="frame" x="162" y="118" width="142" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldReturn:" destination="fWZ-Ut-nkS" eventType="editingDidEndOnExit" id="s75-we-eSc"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="TITLE_CREATE_PERSON" id="CKY-Kt-MAK"/>
+                    <connections>
+                        <outlet property="firstNameLabel" destination="0vM-Pv-1JT" id="MTh-dX-7sa"/>
+                        <outlet property="firstNameTextField" destination="n7y-UO-d9y" id="0e2-MM-et6"/>
+                        <outlet property="lastNameLabel" destination="vey-Qr-VGb" id="gcE-hg-UYD"/>
+                        <outlet property="lastNameTextField" destination="RoH-5f-XAV" id="bUA-Ix-hM5"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hdG-Fq-pXv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zWJ-oL-87p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379" y="-43"/>
+            <point key="canvasLocation" x="1553" y="-17"/>
         </scene>
         <!--TITLE_CREATE_DEVICE-->
         <scene sceneID="fBC-mR-p0D">
@@ -319,7 +363,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="fNh-xU-8ft"/>
+                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="of4-Te-NYC">
+                        <barButtonItem key="leftBarButtonItem" title="CANCEL_BUTTON" id="0tX-fN-DQy"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="deviceCategoryLabel" destination="aJC-HS-wBm" id="k5O-Rf-yB6"/>
@@ -335,106 +381,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-553" y="1416"/>
+            <point key="canvasLocation" x="189" y="-730"/>
         </scene>
-        <!--TITLE_CREATE_PERSON-->
-        <scene sceneID="jBN-YA-Wuv">
+        <!--Decision View Controller-->
+        <scene sceneID="hWT-GU-h8D">
             <objects>
-                <viewController id="t2O-cR-IAe" customClass="CreatePersonViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gOm-QN-ldn">
+                <viewController id="sQN-jd-qJM" customClass="DecisionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bfe-Sp-sJt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="98N-4Z-I0t">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="6Er-lw-yyn">
-                                        <rect key="frame" x="162" y="45" width="142" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="t2O-cR-IAe" id="9Wp-8e-2wK"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_LASTNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4QQ-Qj-PlD">
-                                        <rect key="frame" x="19" y="49" width="141" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_USERNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FTc-YH-fv7">
-                                        <rect key="frame" x="19" y="84" width="141" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_FIRSTNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4F2-YN-zu3">
-                                        <rect key="frame" x="19" y="15" width="141" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ccC-39-AvV">
-                                        <rect key="frame" x="19" y="135" width="285" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="BUTTON_SAVE">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="storePerson" destination="t2O-cR-IAe" eventType="touchUpInside" id="4r8-fg-x7u"/>
-                                        </connections>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="tnG-Qr-O7i">
-                                        <rect key="frame" x="162" y="80" width="142" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="t2O-cR-IAe" id="Jvx-QR-KVh"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="jrG-Rb-Kdi">
-                                        <rect key="frame" x="162" y="11" width="142" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="t2O-cR-IAe" id="pni-pL-NyC"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Testdevice?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fge-CH-QR1">
+                                <rect key="frame" x="16" y="96" width="91" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b7e-0S-i59">
+                                <rect key="frame" x="46" y="171" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Yes">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onRegisterClick" destination="sQN-jd-qJM" eventType="touchUpInside" id="wOa-gW-vwZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TC5-KL-d5h">
+                                <rect key="frame" x="182" y="171" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="No">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onNoRegisterClick" destination="sQN-jd-qJM" eventType="touchUpInside" id="SYW-4j-DAm"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TITLE_CREATE_PERSON" id="5eO-7n-i8e"/>
+                    <navigationItem key="navigationItem" id="fRH-fc-Swc"/>
                     <connections>
-                        <outlet property="firstNameLabel" destination="4F2-YN-zu3" id="WYc-d6-Uuf"/>
-                        <outlet property="firstNameTextField" destination="jrG-Rb-Kdi" id="9Ka-nf-seZ"/>
-                        <outlet property="lastNameLabel" destination="4QQ-Qj-PlD" id="ZFK-DY-Fun"/>
-                        <outlet property="lastNameTextField" destination="6Er-lw-yyn" id="8sn-st-BvD"/>
-                        <outlet property="scrollView" destination="98N-4Z-I0t" id="bbZ-Pu-RRa"/>
-                        <outlet property="userNameLabel" destination="FTc-YH-fv7" id="9hy-h9-Ofi"/>
-                        <outlet property="userNameTextField" destination="tnG-Qr-O7i" id="kXk-zB-I8A"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromCreatePersonToOverview" id="TDX-HC-rRw"/>
+                        <outlet property="noRegisterButton" destination="TC5-KL-d5h" id="eS4-ZK-UBy"/>
+                        <outlet property="registerDeviceButton" destination="b7e-0S-i59" id="ImH-mh-b5S"/>
+                        <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromDecisionToRegisterDevice" id="UHy-7x-y44"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDecisionToOverview" id="Mdk-TY-iFG"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mX3-3h-urF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uR1-Cy-su3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-83" y="695"/>
+            <point key="canvasLocation" x="-299" y="-730"/>
         </scene>
         <!--TITLE_OVERVIEW-->
         <scene sceneID="uZb-EK-JUo">
@@ -488,213 +485,76 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="TITLE_OVERVIEW" id="Kby-7z-Zbi">
-                        <barButtonItem key="leftBarButtonItem" title="BUTTON_PROFILE" id="P40-Xb-dNi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e0K-ni-OhH">
                             <connections>
-                                <action selector="profileButton" destination="iw6-Gk-HuI" id="iyj-CV-TEC"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="BUTTON_LOGOUT" id="ew1-BH-cUs">
-                            <connections>
-                                <action selector="logOut" destination="iw6-Gk-HuI" id="PnH-XD-Ezu"/>
+                                <segue destination="fWZ-Ut-nkS" kind="modal" identifier="FromOverViewToCreateDevice" id="rse-gm-2P8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="logOutButton" destination="ew1-BH-cUs" id="HBx-9Y-TjK"/>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="FromOverviewToDeviceView" id="Xju-vS-6Xe"/>
-                        <segue destination="ht1-Gt-e4Z" kind="modal" identifier="FromLogOutButtonToLogIn" id="O9K-3h-XkW"/>
-                        <segue destination="aFT-S4-a1D" kind="push" identifier="FromProfileButtonToProfile" id="C2L-jQ-I4q"/>
+                        <segue destination="v8Q-hM-rh8" kind="modal" identifier="FromOverViewToRegister" id="vcN-3W-agm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-83" y="-43"/>
-        </scene>
-        <!--TITLE_LOGIN-->
-        <scene sceneID="tbY-Gu-qxZ">
-            <objects>
-                <viewController storyboardIdentifier="LogInController" id="1U2-KN-iqp" customClass="LogInViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2rZ-hN-wcX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_USERNAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B4y-LC-Whv">
-                                <rect key="frame" x="16" y="123" width="104" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sk8-P6-Hdr">
-                                <rect key="frame" x="139" y="164" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="BUTTON_LOGIN">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="personLogInOnClick" destination="1U2-KN-iqp" eventType="touchUpInside" id="9CH-SD-SGP"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ASd-ub-gSQ">
-                                <rect key="frame" x="139" y="119" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="1U2-KN-iqp" id="YfY-9v-N7I"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lrH-3e-DBH">
-                                <rect key="frame" x="16" y="263" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6GL-VL-qrP">
-                                <rect key="frame" x="139" y="302" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="BUTTON_LOGIN">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="4"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="deviceLogInOnClick" destination="1U2-KN-iqp" eventType="touchUpInside" id="IVy-s7-OsY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qEc-v8-efB">
-                                <rect key="frame" x="19" y="340" width="285" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="BUTTON_REGISTER_DEVICE">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromLogInToCreateDevice" id="ZsE-3P-J6e"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_TESTER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="761-XB-2jU">
-                                <rect key="frame" x="16" y="83" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jYM-Ut-DEP">
-                                <rect key="frame" x="19" y="202" width="285" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="BUTTON_REGISTER_USER">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="t2O-cR-IAe" kind="push" identifier="FromLogInToCreatePerson" id="ohD-AW-NKB"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="TITLE_LOGIN" id="DQN-cH-jNJ">
-                        <barButtonItem key="leftBarButtonItem" title="BUTTON_BACK" id="1ig-uL-dqj">
-                            <connections>
-                                <action selector="backOnClick" destination="1U2-KN-iqp" id="Udd-tM-9B5"/>
-                            </connections>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="1ig-uL-dqj" id="Oga-bv-n0o"/>
-                        </connections>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="cancelButton" destination="DQN-cH-jNJ" id="JBO-Lc-sNB"/>
-                        <outlet property="deviceLabel" destination="lrH-3e-DBH" id="QLe-mu-1Wd"/>
-                        <outlet property="deviceLogInButton" destination="6GL-VL-qrP" id="pGa-lh-eI4"/>
-                        <outlet property="deviceRegisterButton" destination="qEc-v8-efB" id="w7N-xR-5gW"/>
-                        <outlet property="personLogInButton" destination="Sk8-P6-Hdr" id="xew-b9-DbT"/>
-                        <outlet property="personRegisterButton" destination="jYM-Ut-DEP" id="adc-C4-zdm"/>
-                        <outlet property="userLabel" destination="761-XB-2jU" id="any-mH-l81"/>
-                        <outlet property="userNameField" destination="ASd-ub-gSQ" id="qWf-Ky-Kho"/>
-                        <outlet property="userNameLabel" destination="B4y-LC-Whv" id="vbs-Tp-xMX"/>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromLoginToDeviceView" id="47g-C0-1IY"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromLogInToOverview" id="HeV-BO-8ND"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yAi-el-de0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-553" y="695"/>
+            <point key="canvasLocation" x="-299" y="-17"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Oem-0N-Ju5">
+        <scene sceneID="OCa-kg-jUf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ht1-Gt-e4Z" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uBd-XC-bjg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FfV-pC-lnJ">
+                    <navigationItem key="navigationItem" id="sUs-J8-gcZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xcK-ek-RWE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1U2-KN-iqp" kind="relationship" relationship="rootViewController" id="QJe-Sr-Flj"/>
+                        <segue destination="iw6-Gk-HuI" kind="relationship" relationship="rootViewController" id="NAW-W4-UFt"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3yS-02-psB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zyx-a8-xV8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1037" y="695"/>
-        </scene>
-        <!--Start View Controller-->
-        <scene sceneID="kYh-Iy-uoh">
-            <objects>
-                <viewController id="sft-wa-3Sq" customClass="StartViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QdT-fk-l0V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="IRv-Ka-4qH"/>
-                    <connections>
-                        <segue destination="1U2-KN-iqp" kind="push" identifier="FromStartToLogIn" id="ZGk-mU-Eru"/>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromStartToDeviceOverview" id="x8v-0s-i3Z"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromStartToOverview" id="JWu-wD-7dv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6QH-aF-R1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-553" y="-43"/>
+            <point key="canvasLocation" x="-753" y="-17"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="kZy-pQ-Qta">
+        <scene sceneID="bOX-1f-gYc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CuS-ue-Z6R" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v8Q-hM-rh8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3ki-SP-5W1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="78f-Rq-ula">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="sft-wa-3Sq" kind="relationship" relationship="rootViewController" id="zLV-Tz-Yfx"/>
+                        <segue destination="sQN-jd-qJM" kind="relationship" relationship="rootViewController" id="Fem-tN-tMm"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-3U-Yq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZU1-ZO-5Ra" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1037" y="-43"/>
+            <point key="canvasLocation" x="-753" y="-730"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XIf-ox-Y9j">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M2X-00-A9n" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XOa-zm-KA1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="giR-oJ-gnk" kind="relationship" relationship="rootViewController" id="dob-Ia-khb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kIt-V5-9TG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="613" y="-17"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -703,10 +563,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yN8-7Y-DVa"/>
-        <segue reference="vhX-Ru-WCX"/>
-        <segue reference="nLc-J1-fvm"/>
-        <segue reference="QJe-Sr-Flj"/>
+        <segue reference="Phs-EO-HNL"/>
+        <segue reference="rse-gm-2P8"/>
+        <segue reference="Mdk-TY-iFG"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.60000002384185791" green="0.80000007152557373" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
 </document>

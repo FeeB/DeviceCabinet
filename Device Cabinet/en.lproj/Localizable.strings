@@ -60,6 +60,7 @@
 "TITLE_DEVICE_OVERVIEW" = "Device Details";
 "TITLE_CREATE_PERSON" = "Register Person";
 "TITLE_LOGIN" = "LogIn";
+"TITLE_USERNAME_PICKER" = "Pick your name";
 
 "BUTTON_PROFILE" = "Profile";
 "BUTTON_LOGOUT" = "LogOut";
