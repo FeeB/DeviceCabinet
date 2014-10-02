@@ -191,6 +191,22 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
+- (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"fullName": fullName};
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            Person *person = [[Person alloc] initWithJson:responseObject];
+            completionHandler(person, nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, localError);
+        });
+    }];
+}
+
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};

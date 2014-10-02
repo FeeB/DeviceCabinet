@@ -149,7 +149,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.deviceObject.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
-            self.deviceObject.bookedByPersonId = NO;
         }
     }];
 }
@@ -166,52 +165,45 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 - (IBAction)fetchPersonRecordOnClick {
     [self.spinner startAnimating];
     
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *username = [userDefaults getUserIdentifier];
-    NSString *userType = [userDefaults getUserType];
-    
     BOOL isStorable = YES;
+    NSString *fullName = [[NSString alloc]init];
     
-    if ([userType isEqualToString:@"device"] && !self.deviceObject.isBookedByPerson){
+    if (!self.deviceObject.isBookedByPerson) {
         if (self.usernameTextField && self.usernameTextField.text.length > 0) {
-            username = self.usernameTextField.text;
+            fullName = self.usernameTextField.text;
         } else {
             isStorable = NO;
-           [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
-        
+    } else {
+        isStorable = NO;
     }
     
     if (isStorable) {
-        if (!self.deviceObject.bookedByPerson){
-            self.deviceObject.bookedByPerson = true;
-            
-            [AppDelegate.dao fetchPersonWithUsername:username completionHandler:^(Person *person, NSError *error) {
-                if (error) {
-                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                               message:error.localizedRecoverySuggestion
-                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                    
-                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                    [self.spinner stopAnimating];
-                } else {
-                    self.personObject = person;
-                    [self storeReference];
-                }
-
-            }];
-        } else {
-            [self deleteReference];
-        }
-
+        self.deviceObject.bookedByPerson = true;
+        
+        [AppDelegate.dao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                [self.spinner stopAnimating];
+            } else {
+                self.personObject = person;
+                [self storeReference];
+            }
+        }];
+    } else {
+        [self deleteReference];
     }
 }
 
+
+
 - (void)showOrHideTextFields {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    NSString *currentUserIdentifier = [userDefaults getUserIdentifier];
-    NSString *currentUserType = [userDefaults getUserType];
-    
+   
     self.bookedFromLabel.hidden = NO;
     self.bookedFromLabelText.hidden = NO;
     self.usernameTextField.hidden = YES;
@@ -219,12 +211,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 
     
     if (self.deviceObject.isBookedByPerson) {
-        if ([currentUserIdentifier isEqualToString:self.deviceObject.bookedByPersonUsername] || [currentUserType isEqualToString:@"device"]) {
-            [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
-        }else{
-            [self.bookDevice setEnabled:false];
-            [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_ALREADY_BOOKED", nil) forState:UIControlStateNormal];
-        }
+        [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
     }else{
         self.bookedFromLabel.hidden = YES;
         self.bookedFromLabelText.hidden = YES;

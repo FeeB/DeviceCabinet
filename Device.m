@@ -32,7 +32,6 @@
         self.deviceType = [json valueForKey:@"deviceType"];
         
         NSDictionary *personDictionary = [json valueForKey:@"person"];
-        self.bookedByPersonUsername = [personDictionary valueForKey:@"username"];
         self.bookedByPersonFullName = [personDictionary valueForKey:@"fullName"];
     }
     return self;

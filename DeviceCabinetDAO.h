@@ -21,6 +21,7 @@
 
 - (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *personObjects, NSError *error))completionHandler;
 - (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
+- (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler;
 - (void)storePerson:(Person *)person completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
 
