@@ -1,5 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/KeychainItemWrapper" "${PODS_ROOT}/Headers/OCHamcrest" "${PODS_ROOT}/Headers/OCMockito" "${PODS_ROOT}/Headers/TEDLocalization" "${PODS_ROOT}/Headers/TPWeakProxy" "${PODS_ROOT}/Headers/uidevice-extension"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/KeychainItemWrapper" -isystem "${PODS_ROOT}/Headers/OCHamcrest" -isystem "${PODS_ROOT}/Headers/OCMockito" -isystem "${PODS_ROOT}/Headers/TEDLocalization" -isystem "${PODS_ROOT}/Headers/TPWeakProxy" -isystem "${PODS_ROOT}/Headers/uidevice-extension"
-OTHER_LDFLAGS = -ObjC -framework CoreGraphics -framework MobileCoreServices -framework Security -framework SystemConfiguration
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/BEACONinsideSDK" "${PODS_ROOT}/Headers/KeychainItemWrapper" "${PODS_ROOT}/Headers/OCHamcrest" "${PODS_ROOT}/Headers/OCMockito" "${PODS_ROOT}/Headers/TEDLocalization" "${PODS_ROOT}/Headers/TPWeakProxy" "${PODS_ROOT}/Headers/uidevice-extension"
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/BEACONinsideSDK/BEACONinsideSDK"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/BEACONinsideSDK" -isystem "${PODS_ROOT}/Headers/KeychainItemWrapper" -isystem "${PODS_ROOT}/Headers/OCHamcrest" -isystem "${PODS_ROOT}/Headers/OCMockito" -isystem "${PODS_ROOT}/Headers/TEDLocalization" -isystem "${PODS_ROOT}/Headers/TPWeakProxy" -isystem "${PODS_ROOT}/Headers/uidevice-extension"
+OTHER_LDFLAGS = -ObjC -lBEACONinsideSDK -framework CoreBluetooth -framework CoreGraphics -framework CoreLocation -framework Foundation -framework MobileCoreServices -framework Security -framework SystemConfiguration
 PODS_ROOT = ${SRCROOT}/Pods

@@ -18,6 +18,8 @@
 #import "DecisionViewController.h"
 #import "CreateDeviceViewController.h"
 
+#import "HandleBeacon.h"
+
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
@@ -34,6 +36,9 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    HandleBeacon *handleBeacon = [[HandleBeacon alloc] init];
+    [handleBeacon registerNotification];
     
     [TEDLocalization localize:self];
     

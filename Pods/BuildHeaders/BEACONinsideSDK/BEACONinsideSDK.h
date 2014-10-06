@@ -1,0 +1,1 @@
+../../BEACONinsideSDK/BEACONinsideSDK/Headers/BEACONinsideSDK/BEACONinsideSDK.h

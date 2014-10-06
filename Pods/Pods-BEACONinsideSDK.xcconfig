@@ -1,0 +1,2 @@
+PODS_BEACONINSIDESDK_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/BEACONinsideSDK/BEACONinsideSDK"
+PODS_BEACONINSIDESDK_OTHER_LDFLAGS = -lBEACONinsideSDK -framework CoreBluetooth -framework CoreLocation -framework Foundation
