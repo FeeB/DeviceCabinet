@@ -18,13 +18,14 @@
 @property (getter=isBookedByPerson) BOOL bookedByPerson;
 @property NSString *bookedByPersonId;
 @property NSString *bookedByPersonFullName;
-@property CKRecordID *recordId;
 @property NSString *deviceId;
 @property NSString *systemVersion;
 @property NSString *deviceRecordId;
 @property NSURL *imageUrl;
 @property NSString *deviceType;
 
+//Only for CloudKit
+@property CKRecordID *recordId;
 @property CKRecordID *bookedByPersonIdCloudKit;
 
 - (instancetype)initWithJson:(NSDictionary *)json;

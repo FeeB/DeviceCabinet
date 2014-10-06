@@ -182,7 +182,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     if (isStorable) {
         self.deviceObject.bookedByPerson = true;
         
-        [AppDelegate.dao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
+        RailsApiDao *apiDao = [[RailsApiDao alloc]init];
+        [apiDao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion

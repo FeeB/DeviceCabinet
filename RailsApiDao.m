@@ -57,23 +57,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
-- (void) fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"deviceId": deviceId};
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            Device *device = [[Device alloc] initWithJson:responseObject];
-            completionHandler(device, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-}
-
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
     
@@ -82,53 +65,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Device *device = [[Device alloc] initWithJson:responseObject];
             completionHandler(device, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-
-}
-
-- (void)fetchDevicesWithPerson:(Person *)person completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"person_id": person.personRecordId};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            Device *device = [[Device alloc] initWithJson:responseObject];
-           [resultObjects addObject:device];
-        } else if ([responseObject isKindOfClass:[NSArray class]]) {
-            for (NSDictionary *dictionary in responseObject) {
-                Device *device = [[Device alloc] initWithJson:dictionary];
-                [resultObjects addObject:device];
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(resultObjects, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-}
-
-- (void)fetchDevicesWithDeviceName:(NSString *)deviceName completionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"deviceName": deviceName};
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
-        for (NSDictionary *dictionary in responseObject) {
-            Device *device = [[Device alloc] initWithJson:dictionary];
-            [resultObjects addObject:device];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
@@ -174,23 +110,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 
 }
-
-- (void)fetchPersonWithUsername:(NSString *)userName completionHandler:(void (^)(Person *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"username": userName};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            Person *person = [[Person alloc] initWithJson:responseObject];
-            completionHandler(person, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-}
-
 - (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"fullName": fullName};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -240,24 +159,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
         });
     }];
    
-}
-
-- (void)fetchPersonRecordWithID:(NSString *)personRecordId completionHandler:(void (^)(Person *, NSError *))completionHandler{
-    NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, personRecordId];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            Person *person = [[Person alloc] initWithJson:responseObject];
-            completionHandler(person, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-
 }
 
 - (NSData *)resizedJpegDataForImage:(UIImage *)image {

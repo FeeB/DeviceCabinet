@@ -15,8 +15,7 @@
     return @{@"deviceName" : self.deviceName, @"deviceId" : self.deviceId, @"category" : self.category, @"deviceId" : self.deviceId, @"systemVersion" : self.systemVersion, @"isBooked" : self.isBookedByPerson ? @"YES" : @"NO", @"deviceType" : self.deviceType};
 }
 
-- (instancetype)initWithJson:(NSDictionary *)json
-{
+- (instancetype)initWithJson:(NSDictionary *)json {
     self = [super init];
     if (self) {
         self.deviceName = [json valueForKey:@"deviceName"];

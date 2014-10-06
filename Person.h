@@ -16,9 +16,11 @@
 @property NSString *firstName;
 @property NSString *lastName;
 @property BOOL hasBookedDevice;
-@property CKRecordID *recordId;
 @property (readonly) NSString *fullName;
 @property NSString *personRecordId;
+
+//Only for CloudKit
+@property CKRecordID *recordId;
 
 - (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;
