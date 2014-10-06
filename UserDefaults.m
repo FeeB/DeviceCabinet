@@ -7,6 +7,7 @@
 //
 
 #import "UserDefaults.h"
+#import "UIdGenerator.h"
 
 NSString * const KeyForUserDefaults = @"identifier";
 NSString * const KeyForUserType = @"type";
@@ -19,12 +20,39 @@ NSString * const KeyForUserType = @"type";
 
 - (NSString *)getUserIdentifier {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    return [self.userDefaults objectForKey:KeyForUserDefaults];
+    NSString *identifier = [self.userDefaults objectForKey:KeyForUserDefaults];
+    
+    if (identifier) {
+        return identifier;
+    } else {
+        UIdGenerator *uidGenerator = [[UIdGenerator alloc]init];
+        if ([uidGenerator hasDeviceIdInKeyChain]) {
+            NSString *newIdentifier = [uidGenerator getIdfromKeychain];
+            [self storeUserDefaults:newIdentifier userType:@"device"];
+            return newIdentifier;
+        } else {
+            return nil;
+        }
+    }
 }
 
 - (NSString *)getUserType {
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    return [self.userDefaults objectForKey:KeyForUserType];
+    NSString *userType = [self.userDefaults objectForKey:KeyForUserType];
+    
+    if (userType) {
+        return userType;
+    } else {
+        UIdGenerator *uidGenerator = [[UIdGenerator alloc]init];
+        if ([uidGenerator hasDeviceIdInKeyChain]) {
+            NSString *newIdentifier = [uidGenerator getIdfromKeychain];
+            NSString *newUserType = @"device";
+            [self storeUserDefaults:newIdentifier userType:newUserType];
+            return newUserType;
+        } else {
+            return nil;
+        }
+    }
 }
 
 - (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType {

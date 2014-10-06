@@ -14,5 +14,6 @@
 - (void)setDeviceId:(NSString *)deviceId;
 - (NSString *)getIdfromKeychain;
 - (void)resetKeyChain;
+- (BOOL)hasDeviceIdInKeyChain;
 
 @end

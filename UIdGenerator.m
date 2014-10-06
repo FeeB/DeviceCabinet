@@ -47,4 +47,12 @@ NSString * const KeyForKeychain = @"deviceId";
     [keychain resetKeychainItem];
 }
 
+- (BOOL)hasDeviceIdInKeyChain {
+    if ([self getIdfromKeychain] != nil) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
