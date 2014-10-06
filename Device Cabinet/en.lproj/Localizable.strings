@@ -77,3 +77,5 @@
 "ERROR_MESSAGE_SOMETHING_WENT_WRONG" = "Sorry something went wrong, please try again.";
 "ERROR_HEADLINE_ITEM_NOT_FOUND" = "Item was not found";
 "ERROR_MESSAGE_ITEM_NOT_FOUND" = "This item was not found in the database";
+"ERROR_HEADLINE_DUPLICATE_DEVICE" = "Device already exists";
+"ERROR_MESSAGE_DUPLICATE_DEVICE" = "A device with the entered name already exists!";

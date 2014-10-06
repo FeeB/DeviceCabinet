@@ -14,5 +14,4 @@
 - (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *personObjects, NSError *error))completionHandler;
 - (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
 
-
 @end

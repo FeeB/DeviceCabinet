@@ -77,3 +77,5 @@
 "ERROR_MESSAGE_SOMETHING_WENT_WRONG" = "Entschuldigung es ist etwas schief gelaufen, bitte versuche es noch einmal";
 "ERROR_HEADLINE_ITEM_NOT_FOUND" = "Das gesuchte Item wurde nicht gefunden";
 "ERROR_MESSAGE_ITEM_NOT_FOUND" = "In der Datenbank gibt es das gesucht Item nicht";
+"ERROR_HEADLINE_DUPLICATE_DEVICE" = "Gerät existiert bereits";
+"ERROR_MESSAGE_DUPLICATE_DEVICE" = "Ein Gerät mit diesem Namen wurde bereits registriert!";

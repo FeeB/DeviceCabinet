@@ -12,5 +12,6 @@
 
 + (NSError *)itemNotFoundInDatabaseError;
 + (NSError *)localErrorWithRemoteError:(NSError *)error;
++ (NSError *)duplicateDeviceError;
 
 @end

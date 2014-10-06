@@ -1,4 +1,3 @@
-//
 //  ErrorMapper.m
 //  Device Cabinet
 //
@@ -34,12 +33,20 @@ NSInteger const RailsApiitemNotFoundInDatabaseCocoaErroCode = 3840;
     return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:2 userInfo:userInfo];
 }
 
++ (NSError *)duplicateDeviceError {
+    NSDictionary *userInfo = @{
+                               NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_DUPLICATE_DEVICE", nil),
+                               NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_DUPLICATE_DEVICE", nil)
+                               };
+    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:3 userInfo:userInfo];
+}
+
 + (NSError *)somethingWentWrongError {
     NSDictionary *userInfo = @{
                                NSLocalizedDescriptionKey: NSLocalizedString(@"ERROR_HEADLINE_SOMETHING_WENT_WRONG", nil),
                                NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"ERROR_MESSAGE_SOMETHING_WENT_WRONG", nil)
                                };
-    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:3 userInfo:userInfo];
+    return [[NSError alloc] initWithDomain:RailsApiErrorDomain code:4 userInfo:userInfo];
 }
 
 + (NSError *)localErrorWithRemoteError:(NSError *)error

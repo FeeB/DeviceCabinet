@@ -21,20 +21,45 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 @implementation RailsApiDao
 
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"device": device.toDictionary};
+    
+    [self checkIfDeviceIsAlreadyExistingWithDeviceName:device.deviceName completionHandler:^(Device *databaseDevice, NSError *error) {
+        if (error) {
+            NSDictionary *parameters = @{@"device": device.toDictionary};
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            [manager POST:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    Device *device = [[Device alloc] initWithJson:responseObject];
+                    completionHandler(device, nil);
+                });
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    completionHandler(nil, error);
+                });
+            }];
+        } else {
+            NSError *error = [RailsApiErrorMapper duplicateDeviceError];
+            completionHandler(nil, error);
+        }
+    }];
+}
+
+- (void)checkIfDeviceIsAlreadyExistingWithDeviceName:(NSString *)deviceName completionHandler:(void (^) (Device *, NSError *))completionHandler {
+    
+    NSDictionary *parameters = @{@"deviceName": deviceName};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Device *device = [[Device alloc] initWithJson:responseObject];
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, error);
+            completionHandler(nil, localError);
         });
     }];
-
 }
 
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
@@ -72,7 +97,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(nil, localError);
         });
     }];
-
 }
 
 - (void)storePerson:(Person *)person completionHandler:(void (^)(Person *, NSError *))completionHandler {
