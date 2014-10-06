@@ -9,6 +9,7 @@
 @interface UserDefaults : NSObject
 
 @property (nonatomic, weak) NSUserDefaults *userDefaults;
+
 - (NSString *)getUserIdentifier;
 - (NSString *)getUserType;
 - (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType;

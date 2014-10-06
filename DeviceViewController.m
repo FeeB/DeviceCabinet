@@ -17,8 +17,6 @@
 #import "LogInViewController.h"
 #import "UserNamePickerViewController.h"
 
-NSString * const FromDeviceOverviewToStartSegue = @"FromDeviceOverviewToStart";
-NSString * const FromDeviceOverviewToOverview = @"FromDeviceViewToOverview";
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 
 @interface DeviceViewController ()
@@ -56,8 +54,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:self.tap];
     [self showOrHideTextFields];
 }
 
@@ -85,11 +81,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             }
         }];
     };
-    
-    
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:self.tap];
-    
+        
     [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
                                    selector:@selector(viewWillAppear:)
@@ -154,62 +146,58 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (!self.comesFromStartView) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self viewWillAppear:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //Action when user clicks on button
 - (IBAction)fetchPersonRecordOnClick {
     [self.spinner startAnimating];
     
-    BOOL isStorable = YES;
     NSString *fullName = [[NSString alloc]init];
-    
-    if (!self.deviceObject.isBookedByPerson) {
-        if (self.usernameTextField && self.usernameTextField.text.length > 0) {
-            fullName = self.usernameTextField.text;
-        } else {
-            isStorable = NO;
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    } else {
-        isStorable = NO;
-    }
+    BOOL isStorable = [self isStorable];
     
     if (isStorable) {
-        self.deviceObject.bookedByPerson = true;
-        
-        RailsApiDao *apiDao = [[RailsApiDao alloc]init];
-        [apiDao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
-            if (error) {
-                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                           message:error.localizedRecoverySuggestion
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                
-                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                [self.spinner stopAnimating];
-            } else {
-                self.personObject = person;
-                [self storeReference];
-            }
-        }];
+        if (self.usernameTextField && self.usernameTextField.text.length > 0) {
+            fullName = self.usernameTextField.text;
+            self.deviceObject.bookedByPerson = true;
+            
+            RailsApiDao *apiDao = [[RailsApiDao alloc]init];
+            [apiDao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
+                if (error) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                    
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    [self.spinner stopAnimating];
+                } else {
+                    self.personObject = person;
+                    [self storeReference];
+                }
+            }];
+        } else {
+            [self.spinner stopAnimating];
+            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
     } else {
         [self deleteReference];
     }
 }
 
-
+- (BOOL)isStorable {
+    
+    if (!self.deviceObject.isBookedByPerson) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 - (void)showOrHideTextFields {
-   
     self.bookedFromLabel.hidden = NO;
     self.bookedFromLabelText.hidden = NO;
     self.usernameTextField.hidden = YES;
     self.usernameLabel.hidden = YES;
-
     
     if (self.deviceObject.isBookedByPerson) {
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
@@ -218,7 +206,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         self.bookedFromLabelText.hidden = YES;
         self.usernameTextField.hidden = NO;
         self.usernameLabel.hidden = NO;
-
     }
 }
 
@@ -273,17 +260,13 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self dismissKeyboard];
     [self performSegueWithIdentifier:FromDeviceOverviewToNameListSegue sender:nil];
     return YES;
 }
 
 - (void)selectedUser:(NSString *)fullUserName {
     self.usernameTextField.text = fullUserName;
-    
-    if (self.userNamePickerPopover) {
-        [self.userNamePickerPopover dismissPopoverAnimated:YES];
-        self.userNamePickerPopover = nil;
-    }
 }
 
 - (void) dismissKeyboard {
@@ -292,10 +275,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromDeviceOverviewToOverview]){
-        OverviewViewController *controller = (OverviewViewController *)segue.destinationViewController;
-        controller.userIsLoggedIn = self.userIsLoggedIn;
-    } else if([segue.identifier isEqualToString:FromDeviceOverviewToNameListSegue]) {
+   if([segue.identifier isEqualToString:FromDeviceOverviewToNameListSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         UserNamePickerViewController *controller = (UserNamePickerViewController *)navigationController.topViewController;
         controller.onCompletion = ^(Person *person) {

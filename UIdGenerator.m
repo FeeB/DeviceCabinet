@@ -30,19 +30,19 @@ NSString * const KeyForKeychain = @"deviceId";
     return udidString;
 }
 
-- (void) setDeviceId:(NSString *)deviceId {
+- (void)setDeviceId:(NSString *)deviceId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
     [keychain setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
 }
 
-- (NSString *) getIdfromKeychain {
+- (NSString *)getIdfromKeychain {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
     return object;
 }
 
-- (void) resetKeyChain {
+- (void)resetKeyChain {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain resetKeychainItem];
 }

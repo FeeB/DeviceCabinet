@@ -35,7 +35,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -89,7 +88,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -98,7 +96,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
     if ([array[0] isKindOfClass:[Device class]]) {
-        
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         cellLabel.text = cellDevice.deviceName;
         cellLabelDeviceType.text = cellDevice.deviceType;
@@ -114,7 +111,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    //this is the space
     return 40.0f;
 }
 
@@ -158,7 +154,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-            
         } else {
             self.lists = [[NSMutableArray alloc] init];
             NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
@@ -178,10 +173,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             if (freeDevices.count > 0) {
                 [self.lists addObject:freeDevices];
             }
-            
             [self.tableView reloadData];
         }
-
     }];
 }
 
@@ -199,10 +192,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         }
-        controller.comesFromStartView = self.forwardToDeviceView;
-        controller.onCompletion = ^(BOOL isLoggedIn) {
-            self.userIsLoggedIn = isLoggedIn;
-        };
     } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         DecisionViewController *controller = (DecisionViewController *)navigationController.topViewController;

@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-
 @property (nonatomic, strong) void (^onCompletion)(id result);
 
 - (IBAction) storeDevice;

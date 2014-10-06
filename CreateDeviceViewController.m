@@ -29,7 +29,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [TEDLocalization localize:self];
     
     self.pickerData = @[@"iPhone", @"Android Phone", @"iPad", @"Android Tablet"];
@@ -45,7 +44,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     
-    // Connect data
     self.devicePicker.dataSource = self;
     self.devicePicker.delegate = self;
     
@@ -57,20 +55,16 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-// The number of columns of data
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-// The number of rows of data
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return self.pickerData.count;
 }
 
-// The data to return for the row and component (column) that's being passed in
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return _pickerData[row];
 }
@@ -111,7 +105,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-//    [self performSegueWithIdentifier:FromCreateDeviceToDeviceViewSegue sender:nil];
     if (self.onCompletion) {
         self.onCompletion(self.device);
     }
@@ -122,7 +115,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     if ([segue.identifier isEqualToString:FromCreateDeviceToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         controller.deviceObject = self.device;
-        controller.comesFromStartView = YES;
     }
 }
 

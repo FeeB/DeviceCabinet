@@ -42,16 +42,12 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
-    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)storePerson {

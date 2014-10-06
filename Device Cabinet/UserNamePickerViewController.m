@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "CreatePersonViewController.h"
 #import "TEDLocalization.h"
+#import "RailsApiDao.h"
 
 @interface UserNamePickerViewController ()
 
@@ -41,7 +42,8 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 //get all people for the device overview
 - (void)getAllPeople {
     
-    [AppDelegate.dao fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
+    RailsApiDao *apiDao = [[RailsApiDao alloc]init];
+    [apiDao fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
         if (error) {
             self.userNames = [[NSMutableArray alloc] init];
             NSMutableArray *errorMessage = [[NSMutableArray alloc] init];

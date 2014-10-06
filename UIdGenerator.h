@@ -11,8 +11,8 @@
 @interface UIdGenerator : NSObject
 
 - (NSString *)getDeviceId;
-- (void) setDeviceId:(NSString *)deviceId;
-- (NSString *) getIdfromKeychain;
-- (void) resetKeyChain;
+- (void)setDeviceId:(NSString *)deviceId;
+- (NSString *)getIdfromKeychain;
+- (void)resetKeyChain;
 
 @end
