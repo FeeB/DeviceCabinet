@@ -24,6 +24,9 @@
 "LABEL_DEVICE_TYPE" = "Gerätetyp:";
 "LABEL_BOOKED_FROM" = "Ausgeliehen von:";
 "LABEL_ENTER_USERNAME" = "Gib deinen Usernamen ein:";
+"LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
+"BUTTON_YES" = "Ja";
+"BUTTON_NO" = "Nein";
 
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";

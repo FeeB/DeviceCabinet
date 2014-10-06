@@ -9,6 +9,7 @@
 #import "DecisionViewController.h"
 #import "UserDefaults.h"
 #import "CreateDeviceViewController.h"
+#import "TEDLocalization.h"
 
 @interface DecisionViewController ()
 
@@ -21,7 +22,7 @@ NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [TEDLocalization localize:self];
 }
 
 - (void)didReceiveMemoryWarning {

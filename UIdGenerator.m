@@ -48,10 +48,10 @@ NSString * const KeyForKeychain = @"deviceId";
 }
 
 - (BOOL)hasDeviceIdInKeyChain {
-    if ([self getIdfromKeychain] != nil) {
-        return YES;
-    } else {
+    if ([[self getIdfromKeychain] isEqualToString:@""]) {
         return NO;
+    } else {
+        return YES;
     }
 }
 
