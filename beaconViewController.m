@@ -1,32 +1,42 @@
 //
-//  HandleBeacon.m
+//  beaconViewController.m
 //  Device Cabinet
 //
-//  Created by Braun,Fee on 06.10.14.
+//  Created by Braun,Fee on 07.10.14.
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "HandleBeacon.h"
-#import <BEACONinsideSDK/BEACONinsideSDK.h>
-#import "BeaconNotificationRegion.h"
-#import "BeaconDemoAppDelegate.h"
+#import "beaconViewController.h"
 
-@implementation HandleBeacon
+@interface beaconViewController ()
 
-- (void)registerNotification {
-    
+@end
+
+@implementation beaconViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
     // Initialize location manager and set ourselves as the delegate
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     
     // Create a NSUUID with the same UUID as the broadcasting beacon
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"F001A0A0-7509-4C31-A905-1A27D39C003C"];
-    
     // Setup a new region with that UUID and same identifier as the broadcasting beacon
     self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:nil];
     
     // Tell location manager to start monitoring for the beacon region
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)pressButton {
+    
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLRegion*)region
@@ -37,15 +47,15 @@
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLRegion*)region
 {
     [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
-    NSLog(@"No");
+    self.statusLabel.text = @"No";
 }
 
 - (void)locationManager:(CLLocationManager*)manager
-       didRangeBeacons:(NSArray*)beacons
-              inRegion:(CLBeaconRegion*)region
+        didRangeBeacons:(NSArray*)beacons
+               inRegion:(CLBeaconRegion*)region
 {
     // Beacon found!
-    NSLog(@"Beacon found!");
+    self.statusLabel.text = @"Beacon found!";
     
     CLBeacon *foundBeacon = [beacons firstObject];
     
@@ -55,5 +65,6 @@
     NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
     NSLog(@"Beacon uuid: %@ major: %@ minor: %@", uuid, major, minor);
 }
+
 
 @end
