@@ -123,6 +123,9 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
     }
 }
 
+- (IBAction)backButton {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 @end

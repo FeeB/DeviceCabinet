@@ -16,6 +16,6 @@
 @property (nonatomic, strong) Person *personObject;
 
 - (IBAction)addPerson;
-
+- (IBAction)backButton;
 
 @end

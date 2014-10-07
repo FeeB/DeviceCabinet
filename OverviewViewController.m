@@ -202,7 +202,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
-        CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
+        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
+        CreateDeviceViewController *controller = (CreateDeviceViewController *)navigationController.topViewController;
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
             self.device = result;

@@ -178,7 +178,7 @@
             <objects>
                 <tableViewController title="USERNAME_PICKER" id="giR-oJ-gnk" customClass="UserNamePickerViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="psU-Ku-DHt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -196,12 +196,18 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="TITLE_USERNAME_PICKER" id="TkO-6N-Koi">
+                        <barButtonItem key="leftBarButtonItem" title="BUTTON_BACK" id="CiS-JR-uQE">
+                            <connections>
+                                <action selector="backButton" destination="giR-oJ-gnk" id="Def-Xm-2Zd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1UN-3r-Uae">
                             <connections>
                                 <action selector="addPerson" destination="giR-oJ-gnk" id="g5U-00-ASI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="pnJ-Ah-xaZ" kind="push" identifier="FromNameListToCreatePerson" id="02x-D1-kFN"/>
@@ -290,28 +296,28 @@
             <objects>
                 <viewController id="fWZ-Ut-nkS" customClass="CreateDeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hUi-XZ-OJq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Tsu-Mn-eTc">
-                                <rect key="frame" x="-1" y="0.0" width="321" height="568"/>
+                                <rect key="frame" x="-1" y="0.0" width="321" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_CATEGORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aJC-HS-wBm">
-                                        <rect key="frame" x="19" y="106" width="222" height="21"/>
+                                        <rect key="frame" x="18" y="103" width="222" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICENAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qhy-HR-mCf">
-                                        <rect key="frame" x="19" y="29" width="137" height="21"/>
+                                        <rect key="frame" x="18" y="26" width="137" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="mGa-u4-eqF">
-                                        <rect key="frame" x="162" y="25" width="142" height="30"/>
+                                        <rect key="frame" x="161" y="22" width="142" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -320,14 +326,14 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICE_TYPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wl5-ok-Oa3">
-                                        <rect key="frame" x="19" y="67" width="173" height="21"/>
+                                        <rect key="frame" x="18" y="65" width="172" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0JO-CZ-SGX">
-                                        <rect key="frame" x="162" y="63" width="142" height="30"/>
+                                        <rect key="frame" x="161" y="60" width="142" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -336,7 +342,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wGe-vD-vOB">
-                                        <rect key="frame" x="19" y="265" width="285" height="33"/>
+                                        <rect key="frame" x="18" y="262" width="285" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="BUTTON_SAVE">
@@ -355,7 +361,7 @@
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" id="tEp-tq-fpi">
-                                        <rect key="frame" x="77" y="106" width="164" height="103"/>
+                                        <rect key="frame" x="76" y="103" width="164" height="103"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </pickerView>
                                 </subviews>
@@ -364,9 +370,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="of4-Te-NYC">
-                        <barButtonItem key="leftBarButtonItem" title="CANCEL_BUTTON" id="0tX-fN-DQy"/>
+                    <navigationItem key="navigationItem" title="TITLE_CREATE_DEVICE" id="g4w-WS-JDh">
+                        <barButtonItem key="leftBarButtonItem" title="BUTTON_BACK" id="xiQ-Ak-4uN">
+                            <connections>
+                                <action selector="backButton" destination="fWZ-Ut-nkS" id="0i6-Gc-esn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="deviceCategoryLabel" destination="aJC-HS-wBm" id="k5O-Rf-yB6"/>
@@ -382,7 +393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="189" y="-730"/>
+            <point key="canvasLocation" x="721" y="-730"/>
         </scene>
         <!--Decision View Controller-->
         <scene sceneID="hWT-GU-h8D">
@@ -426,7 +437,7 @@
                     <connections>
                         <outlet property="noRegisterButton" destination="TC5-KL-d5h" id="eS4-ZK-UBy"/>
                         <outlet property="registerDeviceButton" destination="b7e-0S-i59" id="ImH-mh-b5S"/>
-                        <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromDecisionToRegisterDevice" id="UHy-7x-y44"/>
+                        <segue destination="vy3-iX-27N" kind="push" identifier="FromDecisionToRegisterDevice" id="UHy-7x-y44"/>
                         <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDecisionToOverview" id="Mdk-TY-iFG"/>
                     </connections>
                 </viewController>
@@ -488,7 +499,7 @@
                     <navigationItem key="navigationItem" title="TITLE_OVERVIEW" id="Kby-7z-Zbi">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="e0K-ni-OhH">
                             <connections>
-                                <segue destination="fWZ-Ut-nkS" kind="modal" identifier="FromOverViewToCreateDevice" id="rse-gm-2P8"/>
+                                <segue destination="vy3-iX-27N" kind="modal" identifier="FromOverViewToCreateDevice" id="rse-gm-2P8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -557,6 +568,25 @@
             </objects>
             <point key="canvasLocation" x="613" y="-17"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZPp-9o-0RY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vy3-iX-27N" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="yph-tJ-3vQ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YnP-jK-rMD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fWZ-Ut-nkS" kind="relationship" relationship="rootViewController" id="VeD-io-uAb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gJ7-mr-2av" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="189" y="-730"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -564,9 +594,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Mdk-TY-iFG"/>
-        <segue reference="UHy-7x-y44"/>
         <segue reference="Phs-EO-HNL"/>
+        <segue reference="rse-gm-2P8"/>
+        <segue reference="Mdk-TY-iFG"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.60000002384185791" green="0.80000007152557373" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
 </document>

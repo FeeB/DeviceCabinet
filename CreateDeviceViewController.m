@@ -118,7 +118,7 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
@@ -130,6 +130,10 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
 
 - (void) dismissKeyboard {
     [self.deviceNameTextField resignFirstResponder];
+}
+
+- (IBAction)backButton {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
