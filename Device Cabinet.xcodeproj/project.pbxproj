@@ -416,6 +416,9 @@
 					3A5E177C19654AC700681289 = {
 						DevelopmentTeam = LPDJDFJM54;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 0;
 							};
