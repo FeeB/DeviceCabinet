@@ -22,33 +22,39 @@
     self.locationManager.delegate = self;
     
     // Create a NSUUID with the same UUID as the broadcasting beacon
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"F001A0A0-7509-4C31-A905-1A27D39C003C"];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"f0018b9b-7509-4c31-a905-1a27d39c003c"];
+    
     // Setup a new region with that UUID and same identifier as the broadcasting beacon
     self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"identifier"];
+    self.myBeaconRegion.notifyOnEntry = YES;
+    self.myBeaconRegion.notifyOnExit = YES;
+    self.myBeaconRegion.notifyEntryStateOnDisplay = YES;
+    self.myBeaconRegion = [self.locationManager.monitoredRegions member:self.myBeaconRegion];
     
     // Tell location manager to start monitoring for the beacon region
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
     [self.locationManager requestStateForRegion:self.myBeaconRegion];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)pressButton {
-    
-}
-
-- (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLRegion*)region
+- (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region
 {
-    [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
+    if ([region.identifier isEqualToString:@"identifier"]) {
+        NSLog(@"Yes");
+        self.statusLabel.text = @"Yes";
+        [self viewWillAppear:YES];
+    }
+//    [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
 }
 
-- (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLRegion*)region
+- (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region
 {
-    [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
-    self.statusLabel.text = @"No";
+    if ([region.identifier isEqualToString:@"identifier"]) {
+        NSLog(@"No");
+        self.statusLabel.text = @"No";
+        [self viewWillAppear:YES];
+    }
+//    [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
+//    self.statusLabel.text = @"No";
 }
 
 - (void)locationManager:(CLLocationManager*)manager
@@ -65,6 +71,10 @@
     NSString *major = [NSString stringWithFormat:@"%@", foundBeacon.major];
     NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
     NSLog(@"Beacon uuid: %@ major: %@ minor: %@", uuid, major, minor);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    NSLog(@"%d", state);
 }
 
 
