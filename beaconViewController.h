@@ -11,8 +11,8 @@
 
 @interface beaconViewController : UIViewController<CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLBeaconRegion *myBeaconRegion;
-@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLBeaconRegion *myBeaconRegion;
+@property (nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end
