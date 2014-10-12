@@ -33,6 +33,7 @@
     
     // Tell location manager to start monitoring for the beacon region
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
+    [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
@@ -47,9 +48,43 @@
     }
 }
 
+- (void)locationManager:(CLLocationManager*)manager
+        didRangeBeacons:(NSArray*)beacons
+               inRegion:(CLBeaconRegion*)region {
+    // Beacon found!
+    self.statusLabel.text = @"Beacon found!";
+    
+    CLBeacon *foundBeacon = [beacons firstObject];
+    
+    // You can retrieve the beacon data from its properties
+    NSString *uuid = foundBeacon.proximityUUID.UUIDString;
+    NSString *major = [NSString stringWithFormat:@"%@", foundBeacon.major];
+    NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
+    NSString *proximity;
+    switch (foundBeacon.proximity) {
+        case CLProximityUnknown:
+            proximity = @"Unknown";
+            break;
+        case CLProximityImmediate:
+            proximity = @"Immediate";
+            break;
+        case CLProximityNear:
+            proximity = @"Near";
+        [[[UIAlertView alloc] initWithTitle:@"Gerät ausgeliehen" message:@"Gerät ist nicht mehr im Schrank" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            break;
+        case CLProximityFar:
+            proximity = @"Far";
+            break;
+    }
+    NSLog(@"Beacon uuid: %@ major: %@ minor: %@, proximity: %@", uuid, major, minor, proximity);
+    
+}
+
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    
     if (state == CLRegionStateInside) {
         NSLog(@"CLRegionStateInside");
+        
     } else if (state == CLRegionStateOutside) {
         NSLog(@"CLRegionStateOutside");
     } else {
