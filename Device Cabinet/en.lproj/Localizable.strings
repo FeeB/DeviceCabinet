@@ -46,7 +46,7 @@
 "MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
 "MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 
-"HEADLINE_USERNAME_EMPTY" = "Enter your username";
+"HEADLINE_USERNAME_EMPTY" = "Choose your username";
 "MESSAGE_USERNAME_EMPTY" = "The textfield for the username can't be empty";
 "HEADLINE_USERNAME_NOT_FOUND" = "Username not found";
 "MESSAGE_USERNAME_NOT_FOUND" = "Please try again to enter you username or register as a new user";
