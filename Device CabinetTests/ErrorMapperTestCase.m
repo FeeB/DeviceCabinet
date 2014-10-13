@@ -52,7 +52,7 @@
     NSError *error = [CloudKitErrorMapper localErrorWithRemoteError:testError];
     
     XCTAssertEqual(error.code, 2, @"Should be error code 2");
-    XCTAssertEqualObjects(error.localizedDescription, NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION", nil), @"Should be localized Description");
+    XCTAssertEqualObjects(error.localizedDescription, NSLocalizedString(@"ERROR_HEADLINE_NO_CONNECTION_CLOUDKIT", nil), @"Should be localized Description");
     XCTAssertEqual(error.localizedRecoverySuggestion, NSLocalizedString(@"ERROR_MESSAGE_NO_CONNECTION", nil), @"Should be localized Description");
 }
 

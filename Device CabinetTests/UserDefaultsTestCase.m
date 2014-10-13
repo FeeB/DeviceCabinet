@@ -59,12 +59,4 @@ NSString * const KeyForUserType = @"type";
     XCTAssertEqualObjects(returnedType, @"type", @"returned user type should be th same like the stored one");
 }
 
-- (void)testResetUserDefaults {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults resetUserDefaults];
-    
-    XCTAssertNil([userDefaults getUserIdentifier], @"User identifier should be nil");
-    XCTAssertNil([userDefaults getUserType], @"User type should be nil");
-}
-
 @end
