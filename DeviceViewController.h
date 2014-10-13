@@ -36,5 +36,6 @@
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;
 - (void)deleteReference;
+- (void)updateView;
 
 @end

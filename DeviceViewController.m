@@ -60,8 +60,12 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self showOrHideTextFields];
+    [self updateView];
+}
 
+- (void)updateView {
+    [self showOrHideTextFields];
+    
     self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
     
     if (self.deviceObject.imageUrl) {
@@ -81,12 +85,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             }
         }];
     };
-        
-    [NSTimer scheduledTimerWithTimeInterval:5.0
-                                     target:self
-                                   selector:@selector(viewWillAppear:)
-                                   userInfo:nil
-                                    repeats:NO];
 }
 
 - (void)storeReference {
@@ -118,7 +116,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_ALREADY_BOOKED", nil) message:NSLocalizedString(@"MESSAGE_ALREADY_BOOKED", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            [self viewWillAppear:YES];
+            [self updateView];
         }
     }];
 }
@@ -248,7 +246,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                 self.deviceObject.imageUrl = nil;
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                [self viewWillAppear:YES];
+                [self updateView];
             }
         }];
         [self dismissViewControllerAnimated:YES completion:nil];
