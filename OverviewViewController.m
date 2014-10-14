@@ -38,7 +38,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     [super viewDidLoad];
     
     HandleBeacon *handleBeacon = [[HandleBeacon alloc] init];
-    [handleBeacon registerNotification];
+    [handleBeacon searchForBeacon];
     
     [TEDLocalization localize:self];
     

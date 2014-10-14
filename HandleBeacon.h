@@ -10,11 +10,12 @@
 #import "BeaconNotificationRegion.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface HandleBeacon : NSObject<CLLocationManagerDelegate>
+@interface HandleBeacon : NSObject <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLBeaconRegion *myBeaconRegion;
-@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLBeaconRegion *myBeaconRegion;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+@property CLProximity lastProximity;
 
-- (void)registerNotification;
+- (void)searchForBeacon;
 
 @end

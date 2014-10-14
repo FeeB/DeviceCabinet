@@ -81,25 +81,27 @@
     if(beacons.count > 0) {
         CLBeacon *nearestBeacon = beacons.firstObject;
         if(nearestBeacon.proximity == self.lastProximity ||
-           nearestBeacon.proximity == CLProximityUnknown) {
+           nearestBeacon.proximity == CLProximityUnknown ||
+           (self.lastProximity == CLProximityFar && nearestBeacon.proximity == CLProximityNear) ||
+           (self.lastProximity == CLProximityNear && nearestBeacon.proximity == CLProximityFar)) {
             return;
         }
         self.lastProximity = nearestBeacon.proximity;
         switch(nearestBeacon.proximity) {
             case CLProximityFar:
-                message = @"You are far away from the beacon";
+//                message = @"Gerät ausgeliehen";
                 break;
             case CLProximityNear:
-                message = @"You are near the beacon";
+                message = @"Gerät ausgeliehen";
                 break;
             case CLProximityImmediate:
-                message = @"You are in the immediate proximity of the beacon";
+                message = @"Gerät zurückgegeben";
                 break;
             case CLProximityUnknown:
                 return;
         }
     } else {
-        message = @"No beacons are nearby";
+        NSLog(@"No beacons are nearby");
     }
     
     NSLog(@"%@", message);

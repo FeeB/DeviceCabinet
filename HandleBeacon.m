@@ -7,53 +7,110 @@
 //
 
 #import "HandleBeacon.h"
-#import <BEACONinsideSDK/BEACONinsideSDK.h>
-#import "BeaconNotificationRegion.h"
-#import "BeaconDemoAppDelegate.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation HandleBeacon
 
-- (void)registerNotification {
-    
-    // Initialize location manager and set ourselves as the delegate
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    
+
+@synthesize locationManager;
+
+- (void)searchForBeacon {
     // Create a NSUUID with the same UUID as the broadcasting beacon
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"F001A0A0-7509-4C31-A905-1A27D39C003C"];
+    NSUUID *beaconUuid = [[NSUUID alloc] initWithUUIDString:@"f0018b9b-7509-4c31-a905-1a27d39c003c"];
+    NSString *beaconIdentifier = @"deviceCabinetBeacon";
     
     // Setup a new region with that UUID and same identifier as the broadcasting beacon
-    self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:nil];
+    self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconUuid identifier:beaconIdentifier];
+    self.myBeaconRegion.notifyOnEntry = YES;
+    self.myBeaconRegion.notifyOnExit = YES;
+    self.myBeaconRegion.notifyEntryStateOnDisplay = YES;
     
-    // Tell location manager to start monitoring for the beacon region
+    // New iOS 8 request for Always Authorization, required for iBeacons to work!
+    self.locationManager = [[CLLocationManager alloc] init];
+    if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    
+    self.locationManager.delegate = self;
+    self.locationManager.pausesLocationUpdatesAutomatically = NO;
+    
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
-}
-
-- (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLRegion*)region
-{
     [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
+    [self.locationManager startUpdatingLocation];
 }
 
-- (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLRegion*)region
-{
-    [self.locationManager stopRangingBeaconsInRegion:self.myBeaconRegion];
-    NSLog(@"No");
+-(void)sendLocalNotificationWithMessage:(NSString*)message {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = message;
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
-- (void)locationManager:(CLLocationManager*)manager
-       didRangeBeacons:(NSArray*)beacons
-              inRegion:(CLBeaconRegion*)region
-{
+- (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
+    [manager startRangingBeaconsInRegion:(CLBeaconRegion*)region];
+    [self.locationManager startUpdatingLocation];
+    
+    NSLog(@"You entered the region.");
+    [self sendLocalNotificationWithMessage:@"You entered the region."];
+}
+
+- (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
+    [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
+    [self.locationManager stopUpdatingLocation];
+    
+    NSLog(@"You exited the region.");
+    [self sendLocalNotificationWithMessage:@"You exited the region."];
+}
+
+- (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     // Beacon found!
-    NSLog(@"Beacon found!");
+    NSString *message = @"";
     
-    CLBeacon *foundBeacon = [beacons firstObject];
+    if(beacons.count > 0) {
+        CLBeacon *nearestBeacon = beacons.firstObject;
+        if(nearestBeacon.proximity == self.lastProximity ||
+           nearestBeacon.proximity == CLProximityUnknown ||
+           (self.lastProximity == CLProximityFar && nearestBeacon.proximity == CLProximityNear) ||
+           (self.lastProximity == CLProximityNear && nearestBeacon.proximity == CLProximityFar)) {
+            return;
+        }
+        self.lastProximity = nearestBeacon.proximity;
+        switch(nearestBeacon.proximity) {
+            case CLProximityFar:
+//                message = @"You are far away from the beacon";
+                break;
+            case CLProximityNear:
+//                message = @"You are near the beacon";
+                break;
+            case CLProximityImmediate:
+                message = @"Gerät zurückgegeben";
+                break;
+            case CLProximityUnknown:
+                return;
+        }
+    } else {
+        message = @"No beacons are nearby";
+    }
     
-    // You can retrieve the beacon data from its properties
-    NSString *uuid = foundBeacon.proximityUUID.UUIDString;
-    NSString *major = [NSString stringWithFormat:@"%@", foundBeacon.major];
-    NSString *minor = [NSString stringWithFormat:@"%@", foundBeacon.minor];
-    NSLog(@"Beacon uuid: %@ major: %@ minor: %@", uuid, major, minor);
+    NSLog(@"%@", message);
+    [self sendLocalNotificationWithMessage:message];
+    
 }
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
+    
+    if (state == CLRegionStateInside) {
+        NSLog(@"CLRegionStateInside");
+        
+    } else if (state == CLRegionStateOutside) {
+        NSLog(@"CLRegionStateOutside");
+    } else {
+        NSLog(@"CLRegionStateUnknown");
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    NSLog(@"%@", error);
+}
+
 
 @end
