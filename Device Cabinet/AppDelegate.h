@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "DeviceCabinetDAO.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property NSObject<DeviceCabinetDao> *dao;
+@property (nonatomic) CLBeaconRegion *myBeaconRegion;
+@property (nonatomic) CLLocationManager *locationManager;
+@property CLProximity lastProximity;
 
 + (NSObject<DeviceCabinetDao> *)dao;
 

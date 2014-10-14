@@ -14,5 +14,6 @@
 @property (nonatomic) CLBeaconRegion *myBeaconRegion;
 @property (nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property CLProximity lastProximity;
 
 @end
