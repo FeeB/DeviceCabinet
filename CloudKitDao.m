@@ -86,6 +86,31 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [publicDatabase addOperation:queryOperation];
 }
 
+- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+    
+    //query with specific user name
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForDeviceId, deviceId];
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:RecordTypeDevice predicate:predicate];
+    
+    [self.publicDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        NSError *localError;
+        Device *device;
+
+        if (error) {
+            localError = [CloudKitErrorMapper  localErrorWithRemoteError:error];
+        } else {
+            if (results.count > 0) {
+                device = [self deviceFromRecord:results[0]];
+            } else {
+                localError = [CloudKitErrorMapper itemNotFoundInDatabaseError];
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(device, localError);
+        });
+    }];
+}
 //fetch person record with record ID
 
 - (void)fetchPersonRecordWithID:(CKRecordID *)personRecordID completionHandler:(void (^)(Person *person, NSError *error))completionHandler {
