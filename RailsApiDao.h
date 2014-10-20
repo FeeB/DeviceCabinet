@@ -13,5 +13,7 @@
 - (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler;
 - (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *personObjects, NSError *error))completionHandler;
 - (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *person, NSError *error))completionHandler;
+- (void)updateSystemVersion:(Device *)device completionHandler:(void (^)(NSError *))completionHandler;
+- (void)deleteDevice:(Device *)device completionHandler:(void (^)( NSError *))completionHandler;
 
 @end

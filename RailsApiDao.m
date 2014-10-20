@@ -44,6 +44,21 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
+- (void)deleteDevice:(Device *)device completionHandler:(void (^)( NSError *))completionHandler {
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(error);
+        });
+    }];
+}
+
 - (void)checkIfDeviceIsAlreadyExistingWithDeviceName:(NSString *)deviceName completionHandler:(void (^) (Device *, NSError *))completionHandler {
     
     NSDictionary *parameters = @{@"deviceName": deviceName};
@@ -82,6 +97,22 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
+- (void) fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
+    NSDictionary *parameters = @{@"deviceId": deviceId};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            Device *device = [[Device alloc] initWithJson:responseObject];
+            completionHandler(device, nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil, localError);
+        });
+    }];
+}
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
     
@@ -219,7 +250,24 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(error);
         });
     }];
+}
 
-}            
+- (void)updateSystemVersion:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+    NSDictionary *storeParameters = @{@"systemVersion": device.systemVersion};
+    NSDictionary *parameters = @{@"device": storeParameters};
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(error);
+        });
+    }];
+
+}
                         
 @end
