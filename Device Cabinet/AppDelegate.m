@@ -10,6 +10,8 @@
 #import "CloudKitDao.h"
 #import "RailsApiDao.h"
 #import "HandleBeacon.h"
+#import "DeviceViewController.h"
+#import "UIdGenerator.h"
 
 @implementation AppDelegate
 
@@ -17,6 +19,9 @@
 {
     self.dao = [[RailsApiDao alloc] init];
     
+    self.handleBeacon = [[HandleBeacon alloc] init];
+    [self.handleBeacon searchForBeacon];
+
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
@@ -25,8 +30,6 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
-//    HandleBeacon *handleBeacon = [[HandleBeacon alloc] init];
-//    [handleBeacon searchForBeacon];
     return YES;
 }
 
@@ -55,6 +58,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    NSLog(@"OK pressed");
+//    DeviceViewController *deviceViewController = [[DeviceViewController alloc]init];
+//    UIdGenerator *generator = [[UIdGenerator alloc]init];
+//    NSString *uid = [generator getDeviceId];
+//    [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
+//        deviceViewController.deviceObject = device;
+//        [(UINavigationController *)self.window.rootViewController pushViewController:deviceViewController animated:NO];
+//    }];
 }
 
 + (NSObject<DeviceCabinetDao> *)dao

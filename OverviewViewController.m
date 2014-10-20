@@ -37,9 +37,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    HandleBeacon *handleBeacon = [[HandleBeacon alloc] init];
-    [handleBeacon searchForBeacon];
-    
     [TEDLocalization localize:self];
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
