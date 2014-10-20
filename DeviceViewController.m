@@ -89,12 +89,12 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 
 - (void)storeReference {
     [self.spinner startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
         if (!device.isBookedByPerson) {
             [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.deviceObject person:self.personObject completionHandler:^(NSError *error) {
                 if (error) {
-                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                     [self.spinner stopAnimating];
                     
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -166,7 +166,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                                                message:error.localizedRecoverySuggestion
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                     
-                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                     [self.spinner stopAnimating];
                 } else {
                     self.personObject = person;

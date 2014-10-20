@@ -20,6 +20,7 @@
 #import "RailsApiDao.h"
 #import "RailsApiErrorMapper.h"
 #import "UIDevice-Hardware.h"
+#import "UserDefaults.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -208,6 +209,9 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             }
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults resetUserDefaults];
+            self.deviceObject = nil;
             [self updateTable];
         }];
         
