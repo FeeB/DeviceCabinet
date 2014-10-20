@@ -14,7 +14,8 @@
 
 @synthesize locationManager;
 
-- (void)searchForBeacon {
+- (void)searchForBeacon
+{
     // Create a NSUUID with the same UUID as the broadcasting beacon
     NSUUID *beaconUuid = [[NSUUID alloc] initWithUUIDString:@"f0018b9b-7509-4c31-a905-1a27d39c003c"];
     NSString *beaconIdentifier = @"deviceCabinetBeacon";
@@ -36,10 +37,11 @@
     
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
     [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
-    [self.locationManager startUpdatingLocation];
+//    [self.locationManager startUpdatingLocation];
 }
 
--(void)sendLocalNotificationWithMessage:(NSString*)message {
+- (void)sendLocalNotificationWithMessage:(NSString*)message
+{
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
@@ -49,16 +51,16 @@
     [manager startRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager startUpdatingLocation];
     
-    NSLog(@"You entered the region.");
-    [self sendLocalNotificationWithMessage:@"You entered the region."];
+//    NSLog(@"You entered the region.");
+//    [self sendLocalNotificationWithMessage:@"You entered the region."];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager stopUpdatingLocation];
     
-    NSLog(@"You exited the region.");
-    [self sendLocalNotificationWithMessage:@"You exited the region."];
+//    NSLog(@"You exited the region.");
+//    [self sendLocalNotificationWithMessage:@"You exited the region."];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
@@ -79,6 +81,7 @@
 //                message = @"You are far away from the beacon";
                 break;
             case CLProximityNear:
+                message = @"Gerät ausgeliehen";
 //                message = @"You are near the beacon";
                 break;
             case CLProximityImmediate:
