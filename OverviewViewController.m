@@ -17,6 +17,9 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DecisionViewController.h"
 #import "CreateDeviceViewController.h"
+#import "RailsApiDao.h"
+#import "RailsApiErrorMapper.h"
+#import "UIDevice-Hardware.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
@@ -60,6 +63,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)checkDeviceIsRegistered {
     if ([self firstLaunch]) {
         [self performSegueWithIdentifier:FromOverViewToRegisterSegue sender:nil];
+    } else {
+        [self checkForUpdates];
     }
 }
 
@@ -71,6 +76,38 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         return NO;
     } else {
         return YES;
+    }
+}
+
+- (void)checkForUpdates {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *userType = [userDefaults getUserType];
+    
+    if ([userType isEqualToString:@"device"]) {
+        [AppDelegate.dao fetchDeviceWithDeviceId:userDefaults.getUserIdentifier completionHandler:^(Device *device, NSError *error) {
+            if (error) {
+                if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                }
+            } else {
+                if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
+                    device.systemVersion = [[UIDevice currentDevice] systemVersion];
+                    RailsApiDao *railsApi = [[RailsApiDao alloc]init];
+                    [railsApi updateSystemVersion:device completionHandler:^(NSError *error) {
+                        if (error) {
+                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                            [self.spinner stopAnimating];
+                            
+                            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                                       message:error.localizedRecoverySuggestion
+                                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                        }
+                    }];
+                }
+            }
+        }];
     }
 }
 
@@ -137,6 +174,23 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     }
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSArray *array = [self.lists objectAtIndex:indexPath.section];
+        Device *device = [array objectAtIndex:indexPath.row];
+        RailsApiDao *railsApi = [[RailsApiDao alloc]init];
+        [railsApi deleteDevice:device completionHandler:^(NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            }
+            [self updateTable];
+        }];
+        
+    }
+}
+
 //get all devices for the device overview
 - (void)getAllDevices {
     [self.spinner startAnimating];
@@ -191,6 +245,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         } else {
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+            NSLog(@"%d", self.tableView.indexPathForSelectedRow.row);
         }
     } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
