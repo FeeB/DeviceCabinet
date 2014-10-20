@@ -101,6 +101,22 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
     [self dissmissController];
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Person *person = [self.userNames objectAtIndex:indexPath.row];
+        RailsApiDao *railsApi = [[RailsApiDao alloc]init];
+        [railsApi deletePerson:person completionHandler:^(NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            }
+            [self updateTable];
+        }];
+        
+    }
+}
+
 - (IBAction)addPerson {
     [self performSegueWithIdentifier:FromNameListToCreatePersonSegue sender:nil];
 }
@@ -126,6 +142,12 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 - (IBAction)backButton {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)updateTable {
+    [self getAllPeople];
+    [self.refreshControl endRefreshing];
+}
+
 
 
 @end

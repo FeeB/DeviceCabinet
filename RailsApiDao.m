@@ -146,6 +146,21 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
+- (void)deletePerson:(Person *)person completionHandler:(void (^)( NSError *))completionHandler {
+    NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, person.personRecordId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(nil);
+        });
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            completionHandler(error);
+        });
+    }];
+}
+
 - (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:PersonPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
