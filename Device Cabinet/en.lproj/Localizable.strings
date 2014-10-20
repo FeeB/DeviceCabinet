@@ -23,7 +23,7 @@
 "LABEL_SYSTEM_VERSION" = "System version:";
 "LABEL_DEVICE_TYPE" = "Device model:";
 "LABEL_BOOKED_FROM" = "Booked by:";
-"LABEL_ENTER_USERNAME" = "Enter your username:";
+"LABEL_ENTER_USERNAME" = "Choose your username:";
 "LABEL_TEST_DEVICE_DECISION" = "Should this device be registered as a test device?";
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";

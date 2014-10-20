@@ -23,7 +23,7 @@
 "LABEL_SYSTEM_VERSION" = "Betriebssystem:";
 "LABEL_DEVICE_TYPE" = "Gerätetyp:";
 "LABEL_BOOKED_FROM" = "Ausgeliehen von:";
-"LABEL_ENTER_USERNAME" = "Gib deinen Usernamen ein:";
+"LABEL_ENTER_USERNAME" = "Wähle deinen Usernamen aus:";
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
