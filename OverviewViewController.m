@@ -24,7 +24,6 @@
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
-@property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) NSMutableData *downloadedData;
 @end
 
@@ -50,14 +49,14 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     [refreshControl addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
-    [self performSelector:@selector(checkDeviceIsRegistered)
-               withObject:nil
-               afterDelay:1.0];
+    [self checkDeviceIsRegistered];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getAllDevices];
+    [self checkForUpdates];
 }
 
 - (void)checkDeviceIsRegistered {
@@ -92,10 +91,13 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                 }
             } else {
+                self.deviceObject = [[Device alloc]init];
+                self.deviceObject = device;
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
-                    device.systemVersion = [[UIDevice currentDevice] systemVersion];
+                    self.deviceObject.systemVersion = [[UIDevice currentDevice] systemVersion];
                     RailsApiDao *railsApi = [[RailsApiDao alloc]init];
-                    [railsApi updateSystemVersion:device completionHandler:^(NSError *error) {
+                    [self updateTable];
+                    [railsApi updateSystemVersion:self.deviceObject completionHandler:^(NSError *error) {
                         if (error) {
                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                             [self.spinner stopAnimating];
@@ -106,6 +108,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                         }
                     }];
                 }
+                [self updateTable];
             }
         }];
     }
@@ -157,7 +160,27 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.lists.count == 2) {
+    if (self.deviceObject) {
+        if (self.lists.count == 2) {
+            return section == 0 ? NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
+        } else {
+            switch (section) {
+                case 0:
+                    return NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil);
+                    break;
+                case 1:
+                    return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
+                    break;
+                case 2:
+                    return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
+                    break;
+                    
+                default:
+                    return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
+                    break;
+            }
+        }
+    }else if (self.lists.count == 2) {
         return section == 0 ? NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
     } else {
         NSArray *array = self.lists[0];
@@ -210,6 +233,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
         } else {
             self.lists = [[NSMutableArray alloc] init];
+            NSMutableArray *actualDevice = [[NSMutableArray alloc]init];
             NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
             NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
             
@@ -220,7 +244,10 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                     [freeDevices addObject:device];
                 }
             }
-            
+            if (self.deviceObject) {
+                [actualDevice addObject:self.deviceObject];
+                [self.lists addObject:actualDevice];
+            }
             if (bookedDevices.count > 0) {
                 [self.lists addObject:bookedDevices];
             }
@@ -241,7 +268,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
-            controller.deviceObject = self.device;
+            controller.deviceObject = self.deviceObject;
         } else {
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
@@ -252,7 +279,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
-            self.device = result;
+            self.deviceObject = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
@@ -260,7 +287,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         CreateDeviceViewController *controller = (CreateDeviceViewController *)navigationController.topViewController;
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
-            self.device = result;
+            self.deviceObject = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     }

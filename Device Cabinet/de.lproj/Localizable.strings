@@ -28,6 +28,7 @@
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
 
+"SECTION_ACTUAL_DEVICE" = "Aktuelles Gerät";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";
 "SECTION_ERROR" = "Fehlermeldung";

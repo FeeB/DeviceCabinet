@@ -28,6 +28,7 @@
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";
 
+"SECTION_ACTUAL_DEVICE" = "Actual device";
 "SECTION_BOOKED_DEVICES" = "Booked devices";
 "SECTION_FREE_DEVICES" = "Available devices";
 "SECTION_ERROR" = "Error message";
