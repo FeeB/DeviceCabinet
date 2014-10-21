@@ -8,6 +8,10 @@
 
 #import "HandleBeacon.h"
 #import <CoreLocation/CoreLocation.h>
+#import "UserDefaults.h"
+#import "AppDelegate.h"
+#import "RailsApiErrorMapper.h"
+#import "Device.h"
 
 @implementation HandleBeacon
 
@@ -37,11 +41,11 @@
     
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
     [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
-//    [self.locationManager startUpdatingLocation];
+    
+    [self checkCurrentDevice];
 }
 
-- (void)sendLocalNotificationWithMessage:(NSString*)message
-{
+- (void)sendLocalNotificationWithMessage:(NSString*)message {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
@@ -50,64 +54,40 @@
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
     [manager startRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager startUpdatingLocation];
-    
-//    NSLog(@"You entered the region.");
-//    [self sendLocalNotificationWithMessage:@"You entered the region."];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager stopUpdatingLocation];
-    
-//    NSLog(@"You exited the region.");
-//    [self sendLocalNotificationWithMessage:@"You exited the region."];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
-    // Beacon found!
-    NSString *message = @"";
+    
+    NSString *deviceMessage = @"";
     
     if(beacons.count > 0) {
         CLBeacon *nearestBeacon = beacons.firstObject;
+        
         if(nearestBeacon.proximity == self.lastProximity ||
-           nearestBeacon.proximity == CLProximityUnknown ||
-           (self.lastProximity == CLProximityFar && nearestBeacon.proximity == CLProximityNear) ||
-           (self.lastProximity == CLProximityNear && nearestBeacon.proximity == CLProximityFar)) {
+           nearestBeacon.proximity == CLProximityUnknown) {
             return;
         }
-        self.lastProximity = nearestBeacon.proximity;
-        switch(nearestBeacon.proximity) {
-            case CLProximityFar:
-//                message = @"You are far away from the beacon";
-                break;
-            case CLProximityNear:
-                message = @"Gerät ausgeliehen";
-//                message = @"You are near the beacon";
-                break;
-            case CLProximityImmediate:
-                message = @"Gerät zurückgegeben";
-                break;
-            case CLProximityUnknown:
-                return;
-        }
-    } else {
-        message = @"No beacons are nearby";
-    }
-    
-    NSLog(@"%@", message);
-    [self sendLocalNotificationWithMessage:message];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    
-    if (state == CLRegionStateInside) {
-        NSLog(@"CLRegionStateInside");
         
-    } else if (state == CLRegionStateOutside) {
-        NSLog(@"CLRegionStateOutside");
-    } else {
-        NSLog(@"CLRegionStateUnknown");
+        if (nearestBeacon.proximity == CLProximityFar) {
+            if (!self.deviceObject.isBookedByPerson) {
+                deviceMessage = @"Bitte leihe das Gerät aus!";
+            }
+        } else if (nearestBeacon.proximity == CLProximityImmediate ) {
+            if (self.deviceObject.isBookedByPerson) {
+                deviceMessage = @"Willst du das Gerät zurückgeben?";
+            }
+        }
+        
+        [self sendLocalNotificationWithMessage:deviceMessage];
+        
+        self.beforeLastProximity = self.lastProximity;
+        self.lastProximity = nearestBeacon.proximity;
+        
     }
 }
 
@@ -115,5 +95,23 @@
     NSLog(@"%@", error);
 }
 
+- (void)checkCurrentDevice {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *userType = [userDefaults getUserType];
+    if ([userType isEqualToString:@"device"]) {
+        [AppDelegate.dao fetchDeviceWithDeviceId:userDefaults.getUserIdentifier completionHandler:^(Device *device, NSError *error) {
+            if (error) {
+                if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                }
+            } else {
+                self.deviceObject = [[Device alloc]init];
+                self.deviceObject = device;
+            }
+        }];
+    }
+}
 
 @end

@@ -60,17 +60,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-    NSLog(@"OK pressed");
-//    DeviceViewController *deviceViewController = [[DeviceViewController alloc]init];
-//    UIdGenerator *generator = [[UIdGenerator alloc]init];
-//    NSString *uid = [generator getDeviceId];
-//    [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
-//        deviceViewController.deviceObject = device;
-//        [(UINavigationController *)self.window.rootViewController pushViewController:deviceViewController animated:NO];
-//    }];
-}
+//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+//{
+//    NSLog(@"OK pressed");
+////    DeviceViewController *deviceViewController = [[DeviceViewController alloc]init];
+////    UIdGenerator *generator = [[UIdGenerator alloc]init];
+////    NSString *uid = [generator getDeviceId];
+////    [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
+////        deviceViewController.deviceObject = device;
+////        [(UINavigationController *)self.window.rootViewController pushViewController:deviceViewController animated:NO];
+////    }];
+//}
 
 + (NSObject<DeviceCabinetDao> *)dao
 {
