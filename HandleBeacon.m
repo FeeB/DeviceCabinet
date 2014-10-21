@@ -58,6 +58,10 @@
 
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
+    if (!self.deviceObject.isBookedByPerson) {
+        [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
+    }
+    
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -83,12 +87,19 @@
             }
         }
         
-        [self sendLocalNotificationWithMessage:deviceMessage];
         
         self.beforeLastProximity = self.lastProximity;
         self.lastProximity = nearestBeacon.proximity;
         
+    } else {
+        if (!self.deviceObject.isBookedByPerson) {
+            deviceMessage = @"Bitte leihe das Gerät aus!";
+        }
+        
+        [self sendLocalNotificationWithMessage:deviceMessage];
     }
+    
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
