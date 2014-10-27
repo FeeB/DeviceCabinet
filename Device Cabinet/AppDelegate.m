@@ -12,6 +12,7 @@
 #import "HandleBeacon.h"
 #import "DeviceViewController.h"
 #import "UIdGenerator.h"
+#import "OverviewViewController.h"
 
 @implementation AppDelegate
 
@@ -22,13 +23,13 @@
     self.handleBeacon = [[HandleBeacon alloc] init];
     [self.handleBeacon searchForBeacon];
 
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    } else {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
+//    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+//        [[UIApplication sharedApplication] registerForRemoteNotifications];
+//    } else {
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    }
     
     return YES;
 }
@@ -60,17 +61,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-//{
-//    NSLog(@"OK pressed");
-////    DeviceViewController *deviceViewController = [[DeviceViewController alloc]init];
-////    UIdGenerator *generator = [[UIdGenerator alloc]init];
-////    NSString *uid = [generator getDeviceId];
-////    [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
-////        deviceViewController.deviceObject = device;
-////        [(UINavigationController *)self.window.rootViewController pushViewController:deviceViewController animated:NO];
-////    }];
-//}
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if (application.applicationState != UIApplicationStateActive) {
+        UIdGenerator *generator = [[UIdGenerator alloc]init];
+        NSString *uid = [generator getDeviceId];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        DeviceViewController *deviceViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+        [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
+            deviceViewController.deviceObject = device;
+//            deviceViewController.view.backgroundColor = [UIColor redColor];
+            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:deviceViewController animated:YES completion:nil];
+//            [self.window.rootViewController presentViewController:deviceViewController animated:YES completion:nil];
+        }];
+        
+        
+    }
+}
 
 + (NSObject<DeviceCabinetDao> *)dao
 {

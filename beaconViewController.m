@@ -44,12 +44,6 @@
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
     [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
     [self.locationManager startUpdatingLocation];
-    
-//    if([CLLocationManager isMonitoringAvailableForClass:(Class)self.myBeaconRegion]) {
-//        [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
-//    }
-//    
-//    [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
 }
 
 -(void)sendLocalNotificationWithMessage:(NSString*)message {

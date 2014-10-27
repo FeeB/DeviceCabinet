@@ -48,7 +48,7 @@
 - (void)sendLocalNotificationWithMessage:(NSString*)message {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
@@ -77,7 +77,7 @@
             return;
         }
         
-        if (nearestBeacon.proximity == CLProximityFar) {
+        if (nearestBeacon.proximity == CLProximityNear) {
             if (!self.deviceObject.isBookedByPerson) {
                 deviceMessage = @"Bitte leihe das Gerät aus!";
             }
@@ -87,7 +87,6 @@
             }
         }
         
-        
         self.beforeLastProximity = self.lastProximity;
         self.lastProximity = nearestBeacon.proximity;
         
@@ -95,11 +94,9 @@
         if (!self.deviceObject.isBookedByPerson) {
             deviceMessage = @"Bitte leihe das Gerät aus!";
         }
-        
-        [self sendLocalNotificationWithMessage:deviceMessage];
     }
     
-    
+    [self sendLocalNotificationWithMessage:deviceMessage];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
