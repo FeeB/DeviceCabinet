@@ -137,10 +137,16 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
+    UILabel *cellLabelBookedByPerson = (UILabel *)[cell viewWithTag:300];
     if ([array[0] isKindOfClass:[Device class]]) {
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         cellLabel.text = cellDevice.deviceName;
         cellLabelDeviceType.text = cellDevice.deviceType;
+        if (cellDevice.bookedByPerson) {
+            cellLabelBookedByPerson.text = [NSString stringWithFormat: NSLocalizedString(@"LABEL_BOOKED_FROM_WITH_NAME", nil), cellDevice.bookedByPersonFullName];
+        } else {
+            cellLabelBookedByPerson.text = @"";
+        }
         
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
         [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];

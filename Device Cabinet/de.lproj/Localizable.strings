@@ -22,7 +22,7 @@
 "LABEL_CATEGORY" = "Kategorie:";
 "LABEL_SYSTEM_VERSION" = "Betriebssystem:";
 "LABEL_DEVICE_TYPE" = "Gerätetyp:";
-"LABEL_BOOKED_FROM" = "Ausgeliehen von:";
+"LABEL_BOOKED_FROM" = "Gebucht von:";
 "LABEL_ENTER_USERNAME" = "Wähle deinen Namen";
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
@@ -35,6 +35,7 @@
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";
 "SECTION_ERROR" = "Fehlermeldung";
+"LABEL_BOOKED_FROM_WITH_NAME" = "Gebucht von: %@";
 
 "BUTTON_SAVE" = "speichern";
 

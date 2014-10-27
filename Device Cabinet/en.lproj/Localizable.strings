@@ -35,6 +35,7 @@
 "SECTION_BOOKED_DEVICES" = "Booked devices";
 "SECTION_FREE_DEVICES" = "Available devices";
 "SECTION_ERROR" = "Error message";
+"LABEL_BOOKED_FROM_WITH_NAME" = "Booked from: %@";
 
 "BUTTON_SAVE" = "Save";
 
