@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
 @property (nonatomic, strong) NSMutableData *downloadedData;
+@property (nonatomic, strong) NSIndexPath *indexPathToBeDeleted;
 @end
 
 @implementation OverviewViewController
@@ -200,22 +201,36 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSArray *array = [self.lists objectAtIndex:indexPath.section];
-        Device *device = [array objectAtIndex:indexPath.row];
-        RailsApiDao *railsApi = [[RailsApiDao alloc]init];
-        [railsApi deleteDevice:device completionHandler:^(NSError *error) {
-            if (error) {
-                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                           message:error.localizedRecoverySuggestion
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-            }
-            UserDefaults *userDefaults = [[UserDefaults alloc]init];
-            [userDefaults resetUserDefaults];
-            self.deviceObject = nil;
-            [self updateTable];
-        }];
+        self.indexPathToBeDeleted = indexPath;
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_DELETE_DEVICE", nil)
+                                   message:NSLocalizedString(@"MESSAGE_DELETE_DEVICE", nil)
+                                  delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_BACK", nil) otherButtonTitles:@"OK", nil] show];
         
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"OK"]) {
+        [self deleteRowAtIndexPath];
+    }
+}
+
+- (void)deleteRowAtIndexPath {
+    NSArray *array = [self.lists objectAtIndex:self.indexPathToBeDeleted.section];
+    Device *device = [array objectAtIndex:self.indexPathToBeDeleted.row];
+    RailsApiDao *railsApi = [[RailsApiDao alloc]init];
+    [railsApi deleteDevice:device completionHandler:^(NSError *error) {
+        if (error) {
+            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                       message:error.localizedRecoverySuggestion
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        }
+        UserDefaults *userDefaults = [[UserDefaults alloc]init];
+        [userDefaults resetUserDefaults];
+        self.deviceObject = nil;
+        [self updateTable];
+    }];
 }
 
 //get all devices for the device overview
@@ -280,6 +295,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
             controller.deviceObject = self.deviceObject;
+            self.forwardToDeviceView = NO;
         } else {
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];

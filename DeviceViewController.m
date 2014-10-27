@@ -206,11 +206,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
 - (IBAction)takePhoto {
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];

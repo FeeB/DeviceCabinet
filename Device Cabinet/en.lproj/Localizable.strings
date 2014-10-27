@@ -59,6 +59,10 @@
 "MESSAGE_EMPTY_TEXTFIELD" = "The textfield %@ can't be empty";
 "HEADLINE_ALREADY_BOOKED" = "Device is already booked";
 "MESSAGE_ALREADY_BOOKED" = "Sorry, somebody booked the device in the meantime";
+"HEADLINE_DELETE_DEVICE" = "Do you really want to delete this device?";
+"MESSAGE_DELETE_DEVICE" = "The device will be deleted completly from the database!";
+"HEADLINE_DELETE_PERSON" = "Do you really want to delete this person?";
+"MESSAGE_DELETE_PERSON" = "The person will be deleted completly from the database!";
 
 "TITLE_PROFILE" = "Profile";
 "TITLE_OVERVIEW" = "Devices Overview";

@@ -59,6 +59,10 @@
 "MESSAGE_EMPTY_TEXTFIELD" = "Das Textfeld %@ darf nicht leer sein";
 "HEADLINE_ALREADY_BOOKED" = "Gerät wurde ausgeliehen";
 "MESSAGE_ALREADY_BOOKED" = "Entschuldige, das Gerät wurde in der Zwischenzeit ausgeliehen";
+"HEADLINE_DELETE_DEVICE" = "Möchtest du das Gerät wirklich löschen?";
+"MESSAGE_DELETE_DEVICE" = "Das Gerät wird vollständig aus der Datenbank gelöscht!";
+"HEADLINE_DELETE_PERSON" = "Möchtest du die Person wirklich löschen?";
+"MESSAGE_DELETE_PERSON" = "Die Person wird vollständig aus der Datenbank gelöscht!";
 
 "TITLE_PROFILE" = "Profil";
 "TITLE_OVERVIEW" = "Geräte Übersicht";
