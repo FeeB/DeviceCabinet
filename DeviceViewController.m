@@ -56,12 +56,26 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
     [self showOrHideTextFields];
+    [self handleUserDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self updateView];
+}
+
+- (void)handleUserDefault {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    NSString *currentUser = [userDefaults getCurrentUser];
+    if (currentUser) {
+        RailsApiDao *dao = [[RailsApiDao alloc]init];
+        [dao fetchPersonWithFullName:currentUser completionHandler:^(Person *person, NSError *error) {
+            self.personObject = person;
+        }];
+        [self.usernamePickerButton setTitle:[NSString stringWithFormat: NSLocalizedString(@"BUTTON_LAST_USERNAME", nil), currentUser] forState:UIControlStateNormal];
+        self.username = currentUser;
+    }
 }
 
 - (void)updateView {

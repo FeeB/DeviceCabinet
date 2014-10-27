@@ -29,6 +29,7 @@
 "BUTTON_NO" = "No";
 "BUTTON_USERNAME_PCIKER" = "Choose your name";
 "BUTTON_USERNAME" = "Selected Namen: %@";
+"BUTTON_LAST_USERNAME" = "Last name chosen: %@";
 
 "SECTION_ACTUAL_DEVICE" = "Actual device";
 "SECTION_BOOKED_DEVICES" = "Booked devices";
