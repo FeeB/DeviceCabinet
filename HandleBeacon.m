@@ -86,8 +86,6 @@
                 deviceMessage = @"Willst du das Gerät zurückgeben?";
             }
         }
-        
-        self.beforeLastProximity = self.lastProximity;
         self.lastProximity = nearestBeacon.proximity;
         
     } else {
