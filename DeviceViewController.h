@@ -22,7 +22,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
 @property (nonatomic, weak) IBOutlet UILabel *individualSystemVersionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
-@property (nonatomic, weak) IBOutlet UITextField *usernameTextField;
+@property (nonatomic, weak) IBOutlet UIButton *usernamePickerButton;
 @property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;

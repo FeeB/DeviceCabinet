@@ -23,10 +23,12 @@
 "LABEL_SYSTEM_VERSION" = "Betriebssystem:";
 "LABEL_DEVICE_TYPE" = "Gerätetyp:";
 "LABEL_BOOKED_FROM" = "Ausgeliehen von:";
-"LABEL_ENTER_USERNAME" = "Wähle deinen Usernamen aus:";
+"LABEL_ENTER_USERNAME" = "Wähle deinen Namen";
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
+"BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen:";
+"BUTTON_USERNAME" = "Gewählter Namen: %@";
 
 "SECTION_ACTUAL_DEVICE" = "Aktuelles Gerät";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
@@ -47,8 +49,8 @@
 "MESSAGE_SAVED_DEVICE" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
 "MESSAGE_SAVED_PERSON" = "Person %@ %@ wurde registriert";
 
-"HEADLINE_USERNAME_EMPTY" = "Wähle deinen Usernamen!";
-"MESSAGE_USERNAME_EMPTY" = "Das Textfeld für den Usernamen darf nicht leer sein";
+"HEADLINE_USERNAME_EMPTY" = "Wähle erst deinen Namen!";
+"MESSAGE_USERNAME_EMPTY" = "Wähle deinene Namen aus der Liste";
 "HEADLINE_USERNAME_NOT_FOUND" = "Username nicht gefunden";
 "MESSAGE_USERNAME_NOT_FOUND" = "Bitte gebe deinen Usernamen erneut ein oder registriere dich";
 "HEADLINE_REGISTER_DEVICE" = "Gerät registrieren";

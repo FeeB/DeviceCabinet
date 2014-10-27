@@ -23,10 +23,12 @@
 "LABEL_SYSTEM_VERSION" = "System version:";
 "LABEL_DEVICE_TYPE" = "Device model:";
 "LABEL_BOOKED_FROM" = "Booked by:";
-"LABEL_ENTER_USERNAME" = "Choose your username:";
+"LABEL_ENTER_USERNAME" = "Choose your name";
 "LABEL_TEST_DEVICE_DECISION" = "Should this device be registered as a test device?";
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";
+"BUTTON_USERNAME_PCIKER" = "Choose your name";
+"BUTTON_USERNAME" = "Selected Namen: %@";
 
 "SECTION_ACTUAL_DEVICE" = "Actual device";
 "SECTION_BOOKED_DEVICES" = "Booked devices";
@@ -47,8 +49,8 @@
 "MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
 "MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 
-"HEADLINE_USERNAME_EMPTY" = "Choose your username";
-"MESSAGE_USERNAME_EMPTY" = "The textfield for the username can't be empty";
+"HEADLINE_USERNAME_EMPTY" = "Choose your name first!";
+"MESSAGE_USERNAME_EMPTY" = "Choose your name from the list";
 "HEADLINE_USERNAME_NOT_FOUND" = "Username not found";
 "MESSAGE_USERNAME_NOT_FOUND" = "Please try again to enter you username or register as a new user";
 "HEADLINE_REGISTER_DEVICE" = "Register the device";

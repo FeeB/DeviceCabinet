@@ -22,6 +22,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic) NSString *username;
 @end
 
 @implementation DeviceViewController
@@ -108,7 +109,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
                     self.deviceObject.bookedByPerson = YES;
                     self.deviceObject.bookedByPersonId = self.personObject.personRecordId;
-                    self.usernameTextField.text = @"";
                 }
             }];
         } else {
@@ -155,8 +155,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     BOOL isStorable = [self isStorable];
     
     if (isStorable) {
-        if (self.usernameTextField && self.usernameTextField.text.length > 0) {
-            fullName = self.usernameTextField.text;
+        if (self.username.length > 0) {
+            fullName = self.username;
             self.deviceObject.bookedByPerson = true;
             
             RailsApiDao *apiDao = [[RailsApiDao alloc]init];
@@ -193,15 +193,15 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 - (void)showOrHideTextFields {
     self.bookedFromLabel.hidden = NO;
     self.bookedFromLabelText.hidden = NO;
-    self.usernameTextField.hidden = YES;
     self.usernameLabel.hidden = YES;
+    [self.usernamePickerButton setHidden:YES];
     
     if (self.deviceObject.isBookedByPerson) {
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
     }else{
         self.bookedFromLabel.hidden = YES;
         self.bookedFromLabelText.hidden = YES;
-        self.usernameTextField.hidden = NO;
+        [self.usernamePickerButton setHidden:NO];
         self.usernameLabel.hidden = NO;
     }
 }
@@ -256,19 +256,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self dismissKeyboard];
+- (IBAction)userNamePickerButtonOnClick {
     [self performSegueWithIdentifier:FromDeviceOverviewToNameListSegue sender:nil];
-    return YES;
-}
-
-- (void)selectedUser:(NSString *)fullUserName {
-    self.usernameTextField.text = fullUserName;
-}
-
-- (void) dismissKeyboard {
-    [self.usernameTextField resignFirstResponder];
-    [self.view removeGestureRecognizer:self.tap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -276,7 +265,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         UserNamePickerViewController *controller = (UserNamePickerViewController *)navigationController.topViewController;
         controller.onCompletion = ^(Person *person) {
-            self.usernameTextField.text = person.fullName;
+            self.username = person.fullName;
+            [self.usernamePickerButton setTitle:[NSString stringWithFormat: NSLocalizedString(@"BUTTON_USERNAME", nil), person.fullName] forState:UIControlStateNormal];
         };
     }
 }
