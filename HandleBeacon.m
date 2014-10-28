@@ -26,9 +26,6 @@
     
     // Setup a new region with that UUID and same identifier as the broadcasting beacon
     self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:beaconUuid identifier:beaconIdentifier];
-    self.myBeaconRegion.notifyOnEntry = YES;
-    self.myBeaconRegion.notifyOnExit = YES;
-    self.myBeaconRegion.notifyEntryStateOnDisplay = YES;
     
     // New iOS 8 request for Always Authorization, required for iBeacons to work!
     self.locationManager = [[CLLocationManager alloc] init];
@@ -46,9 +43,11 @@
 }
 
 - (void)sendLocalNotificationWithMessage:(NSString*)message {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = message;
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive){
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.alertBody = message;
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }   
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
@@ -67,8 +66,6 @@
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     
-    NSString *deviceMessage = @"";
-    
     if(beacons.count > 0) {
         CLBeacon *nearestBeacon = beacons.firstObject;
         
@@ -76,25 +73,23 @@
            nearestBeacon.proximity == CLProximityUnknown) {
             return;
         }
-        
-        if (nearestBeacon.proximity == CLProximityNear) {
-            if (!self.deviceObject.isBookedByPerson) {
-                deviceMessage = @"Bitte leihe das Gerät aus!";
+        if (self.deviceObject.isBookedByPerson) {
+            if (nearestBeacon.proximity == CLProximityImmediate ) {
+                [self sendLocalNotificationWithMessage:@"Willst du das Gerät zurückgeben?"];
             }
-        } else if (nearestBeacon.proximity == CLProximityImmediate ) {
-            if (self.deviceObject.isBookedByPerson) {
-                deviceMessage = @"Willst du das Gerät zurückgeben?";
+        } else {
+            if (nearestBeacon.proximity == CLProximityNear) {
+                [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
             }
         }
+        
         self.lastProximity = nearestBeacon.proximity;
         
     } else {
         if (!self.deviceObject.isBookedByPerson) {
-            deviceMessage = @"Bitte leihe das Gerät aus!";
+            [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
         }
     }
-    
-    [self sendLocalNotificationWithMessage:deviceMessage];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
