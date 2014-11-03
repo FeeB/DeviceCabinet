@@ -61,7 +61,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 - (void)checkIfDeviceIsAlreadyExistingWithDeviceName:(NSString *)deviceName completionHandler:(void (^) (Device *, NSError *))completionHandler {
     
-    NSDictionary *parameters = @{@"deviceName": deviceName};
+    NSDictionary *parameters = @{@"device_name": deviceName};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -98,7 +98,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void) fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"deviceId": deviceId};
+    NSDictionary *parameters = @{@"device_id": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -181,7 +181,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 }
 - (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"fullName": fullName};
+    NSDictionary *parameters = @{@"full_name": fullName};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -197,7 +197,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"isBooked": @"YES"};
+    NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"is_booked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
     
@@ -214,7 +214,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"isBooked": @"NO"};
+    NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"is_booked": @"NO"};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
     
@@ -268,7 +268,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)updateSystemVersion:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *storeParameters = @{@"systemVersion": device.systemVersion};
+    NSDictionary *storeParameters = @{@"system_version": device.systemVersion};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
     
