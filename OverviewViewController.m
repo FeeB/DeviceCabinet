@@ -271,24 +271,17 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             }
             if (self.deviceObject) {
                 [actualDevice addObject:self.deviceObject];
-                [self.lists addObject:[self sortArray:actualDevice]];
+                [self.lists addObject:actualDevice];
             }
             if (bookedDevices.count > 0) {
-                [self.lists addObject:[self sortArray:bookedDevices]];
+                [self.lists addObject:bookedDevices];
             }
             if (freeDevices.count > 0) {
-                [self.lists addObject:[self sortArray:freeDevices]];
+                [self.lists addObject:freeDevices];
             }
             [self.tableView reloadData];
         }
     }];
-}
-
-- (NSArray *)sortArray:(NSMutableArray *)array {
-    NSArray *sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(Device *d1, Device *d2){
-        return [d1.deviceName compare:d2.deviceName];
-    }];
-    return sortedArray;
 }
 
 - (void)updateTable {

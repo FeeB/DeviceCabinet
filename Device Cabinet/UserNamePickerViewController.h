@@ -12,7 +12,6 @@
 @interface UserNamePickerViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *userNames;
-@property (nonatomic, strong) NSArray *sortedArray;
 @property (nonatomic, strong) void (^onCompletion)(Person *person);
 @property (nonatomic, strong) Person *personObject;
 

@@ -63,9 +63,6 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
             for (Person *person in peopleObjects){
                 [self.userNames addObject:person];
             }
-            self.sortedArray = [self.userNames sortedArrayUsingComparator:^NSComparisonResult(Person *p1, Person *p2){
-                return [p1.lastName compare:p2.lastName];
-            }];
             [self.tableView reloadData];
         }
     }];
@@ -74,7 +71,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 
 //standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.sortedArray.count;
+    return self.userNames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -86,13 +83,13 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    if ([self.sortedArray[0] isKindOfClass:[Person class]]) {
+    if ([self.userNames[0] isKindOfClass:[Person class]]) {
         
-        Person *cellPerson = [self.sortedArray objectAtIndex:indexPath.row];
+        Person *cellPerson = [self.userNames objectAtIndex:indexPath.row];
         cell.textLabel.text = cellPerson.fullName;
 
     } else {
-        cell.textLabel.text = self.sortedArray[0];
+        cell.textLabel.text = self.userNames[0];
         cell.userInteractionEnabled = NO;
     }
     
@@ -101,7 +98,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.personObject =[self.sortedArray objectAtIndex:indexPath.row];
+    self.personObject =[self.userNames objectAtIndex:indexPath.row];
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     [userDefaults storeCurrentUserWithIdentifier:self.personObject.fullName];
     [self dissmissController];
@@ -109,7 +106,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Person *person = [self.sortedArray objectAtIndex:indexPath.row];
+        Person *person = [self.userNames objectAtIndex:indexPath.row];
         RailsApiDao *railsApi = [[RailsApiDao alloc]init];
         [railsApi deletePerson:person completionHandler:^(NSError *error) {
             if (error) {
