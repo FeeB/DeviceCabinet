@@ -34,9 +34,7 @@
 }
 
 - (NSDictionary *)toDictionary {
-    NSDictionary *dictionary = @{@"first_name" : self.firstName, @"last_name" : self.lastName, @"full_name" : self.fullName, @"has_booked_device" : self.hasBookedDevice ? @"Yes" : @"No"};
-  
-    return dictionary;
+    return @{@"first_name" : self.firstName, @"last_name" : self.lastName, @"full_name" : self.fullName, @"has_booked_device" : self.hasBookedDevice ? @"Yes" : @"No"};
 }
 
 @end

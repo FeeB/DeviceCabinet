@@ -36,9 +36,4 @@
     return self;
 }
 
-- (Device *)getBackDeviceObjectFromJson:(NSDictionary *)json{
-    Device *device = [[Device alloc] init];
-    return device;
-}
-
 @end
