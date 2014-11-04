@@ -38,29 +38,29 @@
     }];
 }
 
-- (void)testDeviceIdIsEmpty {
-    UIdGenerator *generator = [[UIdGenerator alloc] init];
-    [generator resetKeyChain];
-    NSString *udidString = [generator getIdfromKeychain];
-    
-    XCTAssertEqualObjects(udidString, @"", @"UdId should be empty");
-}
-
-- (void)testDeviceIdIsNotEmptyWithGetDeviceId {
-    UIdGenerator *generator = [[UIdGenerator alloc] init];
-    [generator resetKeyChain];
-    NSString *udidString = [generator getDeviceId];
-    
-    XCTAssertNotEqual(udidString, @"", @"UdId shouldn't be empty");
-}
-
-- (void)testSetDeviceId {
-    UIdGenerator *generator = [[UIdGenerator alloc] init];
-    NSString *udidString = @"123";
-    
-    [generator setDeviceId:udidString];
-    
-    XCTAssertEqualObjects([generator getDeviceId], udidString, @"UdId should be same Id");
-}
+//- (void)testDeviceIdIsEmpty {
+//    UIdGenerator *generator = [[UIdGenerator alloc] init];
+//    [generator resetKeyChain];
+//    NSString *udidString = [generator getIdfromKeychain];
+//    
+//    XCTAssertEqualObjects(udidString, @"", @"UdId should be empty");
+//}
+//
+//- (void)testDeviceIdIsNotEmptyWithGetDeviceId {
+//    UIdGenerator *generator = [[UIdGenerator alloc] init];
+//    [generator resetKeyChain];
+//    NSString *udidString = [generator getDeviceId];
+//    
+//    XCTAssertNotEqual(udidString, @"", @"UdId shouldn't be empty");
+//}
+//
+//- (void)testSetDeviceId {
+//    UIdGenerator *generator = [[UIdGenerator alloc] init];
+//    NSString *udidString = @"123";
+//    
+//    [generator setDeviceId:udidString];
+//    
+//    XCTAssertEqualObjects([generator getDeviceId], udidString, @"UdId should be same Id");
+//}
 
 @end

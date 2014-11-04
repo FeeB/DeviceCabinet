@@ -39,7 +39,6 @@
 		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
 		3ACD51F519E3DBCD0094EDB5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACD51F419E3DBCD0094EDB5 /* CoreBluetooth.framework */; };
 		3ACD51F719E3DD920094EDB5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACD51F619E3DD920094EDB5 /* CoreLocation.framework */; };
-		3ACD51FA19E3E15F0094EDB5 /* beaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACD51F919E3E15F0094EDB5 /* beaconViewController.m */; };
 		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
 		3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */; };
 		3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */; };
@@ -140,8 +139,6 @@
 		3AC5A812198FB19C00576854 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverviewViewController.m; path = ../OverviewViewController.m; sourceTree = "<group>"; };
 		3ACD51F419E3DBCD0094EDB5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		3ACD51F619E3DD920094EDB5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		3ACD51F819E3E15F0094EDB5 /* beaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beaconViewController.h; sourceTree = "<group>"; };
-		3ACD51F919E3E15F0094EDB5 /* beaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beaconViewController.m; sourceTree = "<group>"; };
 		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
 		3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperTestCase.m; sourceTree = "<group>"; };
 		3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
@@ -198,8 +195,6 @@
 				3AEA37F8199CAC33001AAF71 /* UserDefaults */,
 				3A367EBD19921D9D004B6F13 /* Data Access */,
 				3A7F0BE419E2DDCE000F3DF2 /* HandleBeacon.h */,
-				3ACD51F819E3E15F0094EDB5 /* beaconViewController.h */,
-				3ACD51F919E3E15F0094EDB5 /* beaconViewController.m */,
 				3A7F0BE519E2DDCE000F3DF2 /* HandleBeacon.m */,
 			);
 			name = Extensions;
@@ -545,7 +540,6 @@
 				3A7F0BE619E2DDCE000F3DF2 /* HandleBeacon.m in Sources */,
 				3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */,
 				3A51A8F119DD77EF003626CE /* UserNamePickerViewController.m in Sources */,
-				3ACD51FA19E3E15F0094EDB5 /* beaconViewController.m in Sources */,
 				3A84063619A1F04D007E3A6B /* UIdGenerator.m in Sources */,
 				3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */,
 				3A5E17B119654AED00681289 /* Person.m in Sources */,

@@ -10,6 +10,7 @@
 #import "BeaconNotificationRegion.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Device.h"
+#import "UserDefaults.h"
 
 @interface HandleBeacon : NSObject <CLLocationManagerDelegate>
 
@@ -17,6 +18,8 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property CLProximity lastProximity;
 @property CLProximity beforeLastProximity;
+@property (nonatomic) NSString *userIdentifier;
+@property (nonatomic) NSString *userType;
 @property (nonatomic) Device *deviceObject;
 
 - (void)searchForBeacon;

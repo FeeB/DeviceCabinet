@@ -41,30 +41,30 @@ NSString * const KeyForUserType = @"type";
     }];
 }
 
-- (void)testStoreUserAndGetUserIdentifier {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
-    
-    NSString *returnedIdentifier = [userDefaults getUserIdentifier];
-    
-    XCTAssertEqualObjects(returnedIdentifier, @"identifier", @"returned Identifier should be the same like the stored identifier");
-}
-
-- (void)testStoreUserAndGetUserType {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
-    
-    NSString *returnedType = [userDefaults getUserType];
-    
-    XCTAssertEqualObjects(returnedType, @"type", @"returned user type should be th same like the stored one");
-}
-
-- (void)testResetUserDefaults {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults resetUserDefaults];
-    
-    XCTAssertNil([userDefaults getUserIdentifier], @"User identifier should be nil");
-    XCTAssertNil([userDefaults getUserType], @"User type should be nil");
-}
-
+//- (void)testStoreUserAndGetUserIdentifier {
+//    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+//    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
+//    
+//    NSString *returnedIdentifier = [userDefaults getUserIdentifier];
+//    
+//    XCTAssertEqualObjects(returnedIdentifier, @"identifier", @"returned Identifier should be the same like the stored identifier");
+//}
+//
+//- (void)testStoreUserAndGetUserType {
+//    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+//    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
+//    
+//    NSString *returnedType = [userDefaults getUserType];
+//    
+//    XCTAssertEqualObjects(returnedType, @"type", @"returned user type should be th same like the stored one");
+//}
+//
+//- (void)testResetUserDefaults {
+//    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+//    [userDefaults resetUserDefaults];
+//    
+//    XCTAssertNil([userDefaults getUserIdentifier], @"User identifier should be nil");
+//    XCTAssertNil([userDefaults getUserType], @"User type should be nil");
+//}
+//
 @end

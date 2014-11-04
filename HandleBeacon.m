@@ -35,11 +35,14 @@
     
     self.locationManager.delegate = self;
     self.locationManager.pausesLocationUpdatesAutomatically = NO;
+    self.locationManager.activityType = CLActivityTypeFitness;
     
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
     [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
-    
-    [self checkCurrentDevice];
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    self.userIdentifier = [userDefaults getUserIdentifier];
+    self.userType = [userDefaults getUserType];
+
 }
 
 - (void)sendLocalNotificationWithMessage:(NSString*)message {
@@ -73,21 +76,26 @@
            nearestBeacon.proximity == CLProximityUnknown) {
             return;
         }
-        if (self.deviceObject.isBookedByPerson) {
-            if (nearestBeacon.proximity == CLProximityImmediate ) {
-                [self sendLocalNotificationWithMessage:@"Willst du das Gerät zurückgeben?"];
-            }
+        
+        if ([self.userType isEqualToString:@"device"]) {
+            [self checkCurrentDeviceWithCompletionHandler:^(Device *device, NSError *error) {
+                self.deviceObject = device;
+                
+                if (device.isBookedByPerson) {
+                    if (nearestBeacon.proximity == CLProximityImmediate ) {
+                        [self sendLocalNotificationWithMessage:@"Willst du das Gerät zurückgeben?"];
+                    }
+                } else {
+                    if (nearestBeacon.proximity == CLProximityNear) {
+                        [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
+                    }
+                }
+                self.lastProximity = nearestBeacon.proximity;
+            }];
         } else {
-            if (nearestBeacon.proximity == CLProximityNear) {
+            if (!self.deviceObject.isBookedByPerson) {
                 [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
             }
-        }
-        
-        self.lastProximity = nearestBeacon.proximity;
-        
-    } else {
-        if (!self.deviceObject.isBookedByPerson) {
-            [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
         }
     }
 }
@@ -96,23 +104,20 @@
     NSLog(@"%@", error);
 }
 
-- (void)checkCurrentDevice {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *userType = [userDefaults getUserType];
-    if ([userType isEqualToString:@"device"]) {
-        [AppDelegate.dao fetchDeviceWithDeviceId:userDefaults.getUserIdentifier completionHandler:^(Device *device, NSError *error) {
-            if (error) {
-                if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
-                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                               message:error.localizedRecoverySuggestion
-                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                }
-            } else {
-                self.deviceObject = [[Device alloc]init];
-                self.deviceObject = device;
+- (void)checkCurrentDeviceWithCompletionHandler:(void (^)(Device *, NSError *))completionHandler  {
+    [AppDelegate.dao fetchDeviceWithDeviceId:self.userIdentifier completionHandler:^(Device *device, NSError *error) {
+        if (error) {
+            if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             }
-        }];
-    }
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                completionHandler(device, nil);
+            });
+        }
+    }];
 }
 
 @end
