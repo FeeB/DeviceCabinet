@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "RailsApiErrorMapper.h"
 #import "Device.h"
+@import AudioToolbox;
 
 @implementation HandleBeacon
 
@@ -46,11 +47,13 @@
 }
 
 - (void)sendLocalNotificationWithMessage:(NSString*)message {
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive){
+    if ([[UIApplication sharedApplication] applicationState] !=  UIApplicationStateInactive && [[UIApplication sharedApplication] applicationState] !=  UIApplicationStateActive){
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.alertBody = message;
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }   
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    } else {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
@@ -86,7 +89,7 @@
                         [self sendLocalNotificationWithMessage:@"Willst du das Gerät zurückgeben?"];
                     }
                 } else {
-                    if (nearestBeacon.proximity == CLProximityNear) {
+                    if (nearestBeacon.proximity == CLProximityNear || nearestBeacon.proximity == CLProximityFar) {
                         [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
                     }
                 }

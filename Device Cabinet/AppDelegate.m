@@ -66,10 +66,11 @@
         UIdGenerator *generator = [[UIdGenerator alloc]init];
         NSString *uid = [generator getDeviceId];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        DeviceViewController *deviceViewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceControllerID"];
+        UINavigationController *navigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceNavigation"];
+        DeviceViewController *deviceViewController = (DeviceViewController *)navigationController.topViewController;
         [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
             deviceViewController.deviceObject = device;
-            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:deviceViewController animated:YES completion:nil];
+            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:navigationController animated:YES completion:nil];
 //            [self.window.rootViewController presentViewController:deviceViewController animated:YES completion:nil];
         }];
         
