@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
 @property (nonatomic, strong) NSMutableData *downloadedData;
+@property (nonatomic, strong) NSIndexPath *indexPathToBeDeleted;
 @end
 
 @implementation OverviewViewController
@@ -136,10 +137,16 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     NSArray *array = [self.lists objectAtIndex:indexPath.section];
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
+    UILabel *cellLabelBookedByPerson = (UILabel *)[cell viewWithTag:300];
     if ([array[0] isKindOfClass:[Device class]]) {
         Device *cellDevice = [array objectAtIndex:indexPath.row];
         cellLabel.text = cellDevice.deviceName;
         cellLabelDeviceType.text = cellDevice.deviceType;
+        if (cellDevice.bookedByPerson) {
+            cellLabelBookedByPerson.text = [NSString stringWithFormat: NSLocalizedString(@"LABEL_BOOKED_FROM_WITH_NAME", nil), cellDevice.bookedByPersonFullName];
+        } else {
+            cellLabelBookedByPerson.text = @"";
+        }
         
         UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
         [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
@@ -200,22 +207,36 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSArray *array = [self.lists objectAtIndex:indexPath.section];
-        Device *device = [array objectAtIndex:indexPath.row];
-        RailsApiDao *railsApi = [[RailsApiDao alloc]init];
-        [railsApi deleteDevice:device completionHandler:^(NSError *error) {
-            if (error) {
-                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                           message:error.localizedRecoverySuggestion
-                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-            }
-            UserDefaults *userDefaults = [[UserDefaults alloc]init];
-            [userDefaults resetUserDefaults];
-            self.deviceObject = nil;
-            [self updateTable];
-        }];
+        self.indexPathToBeDeleted = indexPath;
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_DELETE_DEVICE", nil)
+                                   message:NSLocalizedString(@"MESSAGE_DELETE_DEVICE", nil)
+                                  delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_BACK", nil) otherButtonTitles:@"OK", nil] show];
         
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"OK"]) {
+        [self deleteRowAtIndexPath];
+    }
+}
+
+- (void)deleteRowAtIndexPath {
+    NSArray *array = [self.lists objectAtIndex:self.indexPathToBeDeleted.section];
+    Device *device = [array objectAtIndex:self.indexPathToBeDeleted.row];
+    RailsApiDao *railsApi = [[RailsApiDao alloc]init];
+    [railsApi deleteDevice:device completionHandler:^(NSError *error) {
+        if (error) {
+            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                       message:error.localizedRecoverySuggestion
+                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+        }
+        UserDefaults *userDefaults = [[UserDefaults alloc]init];
+        [userDefaults resetUserDefaults];
+        self.deviceObject = nil;
+        [self updateTable];
+    }];
 }
 
 //get all devices for the device overview
@@ -250,24 +271,17 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             }
             if (self.deviceObject) {
                 [actualDevice addObject:self.deviceObject];
-                [self.lists addObject:[self sortArray:actualDevice]];
+                [self.lists addObject:actualDevice];
             }
             if (bookedDevices.count > 0) {
-                [self.lists addObject:[self sortArray:bookedDevices]];
+                [self.lists addObject:bookedDevices];
             }
             if (freeDevices.count > 0) {
-                [self.lists addObject:[self sortArray:freeDevices]];
+                [self.lists addObject:freeDevices];
             }
             [self.tableView reloadData];
         }
     }];
-}
-
-- (NSArray *)sortArray:(NSMutableArray *)array {
-    NSArray *sortedArray = [array sortedArrayUsingComparator:^NSComparisonResult(Device *d1, Device *d2){
-        return [d1.deviceName compare:d2.deviceName];
-    }];
-    return sortedArray;
 }
 
 - (void)updateTable {
@@ -280,6 +294,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
             controller.deviceObject = self.deviceObject;
+            self.forwardToDeviceView = NO;
         } else {
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];

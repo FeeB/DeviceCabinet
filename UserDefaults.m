@@ -11,6 +11,7 @@
 
 NSString * const KeyForUserDefaults = @"identifier";
 NSString * const KeyForUserType = @"type";
+NSString * const KeyForCurrentUser = @"currentUser";
 
 @interface UserDefaults ()
 
@@ -66,4 +67,15 @@ NSString * const KeyForUserType = @"type";
     NSString *domainName = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
 }
+
+- (void)storeCurrentUserWithIdentifier:(NSString *)identifier {
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+    [self.userDefaults setObject:identifier forKey:KeyForCurrentUser];
+}
+
+- (NSString *)getCurrentUser {
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+    return [self.userDefaults objectForKey:KeyForCurrentUser];
+}
+
 @end

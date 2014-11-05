@@ -23,15 +23,19 @@
 "LABEL_SYSTEM_VERSION" = "System version:";
 "LABEL_DEVICE_TYPE" = "Device model:";
 "LABEL_BOOKED_FROM" = "Booked by:";
-"LABEL_ENTER_USERNAME" = "Choose your username:";
+"LABEL_ENTER_USERNAME" = "Choose your name";
 "LABEL_TEST_DEVICE_DECISION" = "Should this device be registered as a test device?";
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";
+"BUTTON_USERNAME_PCIKER" = "Choose your name";
+"BUTTON_USERNAME" = "Selected Namen: %@";
+"BUTTON_LAST_USERNAME" = "Last name chosen: %@";
 
 "SECTION_ACTUAL_DEVICE" = "Actual device";
 "SECTION_BOOKED_DEVICES" = "Booked devices";
 "SECTION_FREE_DEVICES" = "Available devices";
 "SECTION_ERROR" = "Error message";
+"LABEL_BOOKED_FROM_WITH_NAME" = "Booked from: %@";
 
 "BUTTON_SAVE" = "Save";
 
@@ -47,8 +51,8 @@
 "MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
 "MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 
-"HEADLINE_USERNAME_EMPTY" = "Choose your username";
-"MESSAGE_USERNAME_EMPTY" = "The textfield for the username can't be empty";
+"HEADLINE_USERNAME_EMPTY" = "Choose your name first!";
+"MESSAGE_USERNAME_EMPTY" = "Choose your name from the list";
 "HEADLINE_USERNAME_NOT_FOUND" = "Username not found";
 "MESSAGE_USERNAME_NOT_FOUND" = "Please try again to enter you username or register as a new user";
 "HEADLINE_REGISTER_DEVICE" = "Register the device";
@@ -57,6 +61,10 @@
 "MESSAGE_EMPTY_TEXTFIELD" = "The textfield %@ can't be empty";
 "HEADLINE_ALREADY_BOOKED" = "Device is already booked";
 "MESSAGE_ALREADY_BOOKED" = "Sorry, somebody booked the device in the meantime";
+"HEADLINE_DELETE_DEVICE" = "Do you really want to delete this device?";
+"MESSAGE_DELETE_DEVICE" = "The device will be deleted completly from the database!";
+"HEADLINE_DELETE_PERSON" = "Do you really want to delete this person?";
+"MESSAGE_DELETE_PERSON" = "The person will be deleted completly from the database!";
 
 "TITLE_PROFILE" = "Profile";
 "TITLE_OVERVIEW" = "Devices Overview";

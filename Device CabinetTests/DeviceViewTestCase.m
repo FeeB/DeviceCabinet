@@ -57,8 +57,7 @@
     [controller viewDidLoad];
 
     XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_BOOK", nil), @"Book Button should have book now title");
-    XCTAssertFalse([controller.usernameTextField isHidden], @"The username text field shouldn't be hidden");
-    XCTAssertFalse([controller.usernameLabel isHidden], @"The username label shouldn't be hidden");
+    XCTAssertFalse([controller.usernamePickerButton isHidden], @"The username text field shouldn't be hidden");
 }
 
 - (void)testHiddenTextFieldsWhenDeviceIsBookedFromPerson {

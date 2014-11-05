@@ -22,16 +22,20 @@
 "LABEL_CATEGORY" = "Kategorie:";
 "LABEL_SYSTEM_VERSION" = "Betriebssystem:";
 "LABEL_DEVICE_TYPE" = "Gerätetyp:";
-"LABEL_BOOKED_FROM" = "Ausgeliehen von:";
-"LABEL_ENTER_USERNAME" = "Wähle deinen Usernamen aus:";
+"LABEL_BOOKED_FROM" = "Gebucht von:";
+"LABEL_ENTER_USERNAME" = "Wähle deinen Namen";
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
+"BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen:";
+"BUTTON_USERNAME" = "Gewählter Namen: %@";
+"BUTTON_LAST_USERNAME" = "Zuletzt gewählter Name: %@";
 
 "SECTION_ACTUAL_DEVICE" = "Aktuelles Gerät";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";
 "SECTION_ERROR" = "Fehlermeldung";
+"LABEL_BOOKED_FROM_WITH_NAME" = "Gebucht von: %@";
 
 "BUTTON_SAVE" = "speichern";
 
@@ -47,8 +51,8 @@
 "MESSAGE_SAVED_DEVICE" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
 "MESSAGE_SAVED_PERSON" = "Person %@ %@ wurde registriert";
 
-"HEADLINE_USERNAME_EMPTY" = "Wähle deinen Usernamen!";
-"MESSAGE_USERNAME_EMPTY" = "Das Textfeld für den Usernamen darf nicht leer sein";
+"HEADLINE_USERNAME_EMPTY" = "Wähle erst deinen Namen!";
+"MESSAGE_USERNAME_EMPTY" = "Wähle deinene Namen aus der Liste";
 "HEADLINE_USERNAME_NOT_FOUND" = "Username nicht gefunden";
 "MESSAGE_USERNAME_NOT_FOUND" = "Bitte gebe deinen Usernamen erneut ein oder registriere dich";
 "HEADLINE_REGISTER_DEVICE" = "Gerät registrieren";
@@ -57,6 +61,10 @@
 "MESSAGE_EMPTY_TEXTFIELD" = "Das Textfeld %@ darf nicht leer sein";
 "HEADLINE_ALREADY_BOOKED" = "Gerät wurde ausgeliehen";
 "MESSAGE_ALREADY_BOOKED" = "Entschuldige, das Gerät wurde in der Zwischenzeit ausgeliehen";
+"HEADLINE_DELETE_DEVICE" = "Möchtest du das Gerät wirklich löschen?";
+"MESSAGE_DELETE_DEVICE" = "Das Gerät wird vollständig aus der Datenbank gelöscht!";
+"HEADLINE_DELETE_PERSON" = "Möchtest du die Person wirklich löschen?";
+"MESSAGE_DELETE_PERSON" = "Die Person wird vollständig aus der Datenbank gelöscht!";
 
 "TITLE_PROFILE" = "Profil";
 "TITLE_OVERVIEW" = "Geräte Übersicht";

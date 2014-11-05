@@ -26,24 +26,43 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
-
 - (void)testCreatedFullName {
     Person *person = [[Person alloc] init];
     person.firstName = @"first";
     person.lastName = @"last";
     
     XCTAssertEqualObjects(person.fullName, @"first last", @"Fullname should be first last.");
+}
+
+- (void)testInitWithJson {
+    Person *storedPerson = [self createATestPerson];
+    NSDictionary *json = @{@"first_name" :storedPerson.firstName, @"last_name" : storedPerson.lastName, @"full_name" : storedPerson.fullName, @"has_booked_device" : storedPerson.hasBookedDevice ? @"Yes" : @"No", @"id" :storedPerson.personRecordId};
+    
+    Person *person = [[Person alloc] initWithJson:json];
+    
+    XCTAssertEqualObjects(person.fullName, storedPerson.fullName, @"Fullname from person initialized with json should be same like storedPerson");
+    XCTAssert(person.hasBookedDevice, @"hasBookedDevice from initialized with json should be true");
+    XCTAssertEqualObjects(person.personRecordId, storedPerson.personRecordId, @"RecordId from person initialized with json should be same like storedPerson");
+}
+
+- (void)testToDictionary {
+    Person *person = [self createATestPerson];
+    NSDictionary *json = person.toDictionary;
+    
+   XCTAssertEqualObjects(person.fullName, [json valueForKey:@"full_name"], @"Fullname should be same in json");
+   XCTAssertEqualObjects(person.firstName, [json valueForKey:@"first_name"], @"firstname should be same in json");
+   XCTAssertEqualObjects(person.lastName, [json valueForKey:@"last_name"], @"lastname should be same in json");
+   XCTAssertTrue([json valueForKey:@"has_booked_device"], @"hasBookedDevice should be same in json");
+}
+
+- (Person *)createATestPerson {
+    Person *person = [[Person alloc] init];
+    person.firstName = @"first";
+    person.lastName = @"last";
+    person.hasBookedDevice = YES;
+    person.personRecordId = @"1";
+    
+    return person;
 }
 
 @end

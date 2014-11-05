@@ -19,11 +19,11 @@
 {
     self = [super init];
     if (self) {
-        self.firstName = [json valueForKey:@"firstName"];
-        self.lastName = [json valueForKey:@"lastName"];
+        self.firstName = [json valueForKey:@"first_name"];
+        self.lastName = [json valueForKey:@"last_name"];
         self.personRecordId = [json valueForKey:@"id"];
         
-        if ([json valueForKey:@"hasBookedDevice"] != (id)[NSNull null]) {
+        if ([json valueForKey:@"has_booked_device"] != (id)[NSNull null]) {
             self.hasBookedDevice = YES;
         } else {
             self.hasBookedDevice = NO;
@@ -34,9 +34,7 @@
 }
 
 - (NSDictionary *)toDictionary {
-    NSDictionary *dictionary = @{@"firstName" : self.firstName, @"lastName" : self.lastName, @"fullName" : self.fullName, @"hasBookedDevice" : self.hasBookedDevice ? @"Yes" : @"No"};
-  
-    return dictionary;
+    return @{@"first_name" : self.firstName, @"last_name" : self.lastName, @"full_name" : self.fullName, @"has_booked_device" : self.hasBookedDevice ? @"Yes" : @"No"};
 }
 
 @end

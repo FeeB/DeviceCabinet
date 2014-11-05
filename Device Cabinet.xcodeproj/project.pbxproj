@@ -14,6 +14,8 @@
 		3A51A8EE19DD625F003626CE /* DecisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8ED19DD625F003626CE /* DecisionViewController.m */; };
 		3A51A8F119DD77EF003626CE /* UserNamePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8F019DD77EF003626CE /* UserNamePickerViewController.m */; };
 		3A51A8F419DD8A07003626CE /* CreatePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */; };
+		3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */; };
+		3A58C9011A07AC6300F1A3A3 /* MockingKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */; };
 		3A5E178119654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E178319654AC700681289 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178219654AC700681289 /* CoreGraphics.framework */; };
 		3A5E178519654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
@@ -30,6 +32,7 @@
 		3A5E17B419654AF900681289 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17B319654AF900681289 /* Device.m */; };
 		3A5E17BC19654BBE00681289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17BB19654BBE00681289 /* Main.storyboard */; };
 		3A5E21AF196E86E20021CB13 /* CreateDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */; };
+		3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */; };
 		3A84063619A1F04D007E3A6B /* UIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A84063519A1F04D007E3A6B /* UIdGenerator.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
 		3AA2EC7019B5ACE5007D1147 /* placeholder_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */; };
@@ -99,6 +102,8 @@
 		3A51A8F019DD77EF003626CE /* UserNamePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNamePickerViewController.m; sourceTree = "<group>"; };
 		3A51A8F219DD8A07003626CE /* CreatePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePersonViewController.h; sourceTree = "<group>"; };
 		3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePersonViewController.m; sourceTree = "<group>"; };
+		3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTestCase.m; sourceTree = "<group>"; };
+		3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockingKeyChain.m; sourceTree = "<group>"; };
 		3A5E177D19654AC700681289 /* Device Cabinet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Device Cabinet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5E178019654AC700681289 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A5E178219654AC700681289 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,6 +127,7 @@
 		3A5E17BB19654BBE00681289 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "Device Cabinet/Main.storyboard"; sourceTree = "<group>"; };
 		3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateDeviceViewController.h; sourceTree = SOURCE_ROOT; };
 		3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateDeviceViewController.m; sourceTree = SOURCE_ROOT; };
+		3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
 		3A84063419A1F04D007E3A6B /* UIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdGenerator.h; sourceTree = "<group>"; };
 		3A84063519A1F04D007E3A6B /* UIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGenerator.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -280,11 +286,14 @@
 			isa = PBXGroup;
 			children = (
 				3A5E17A519654AC700681289 /* Device_CabinetTests.m */,
+				3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
 				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
 				3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */,
 				3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */,
+				3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */,
 				3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */,
+				3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */,
 				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
 				3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */,
 			);
@@ -543,11 +552,14 @@
 			files = (
 				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */,
+				3A58C9011A07AC6300F1A3A3 /* MockingKeyChain.m in Sources */,
 				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
+				3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */,
 				3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */,
 				3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */,
 				3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */,
 				3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */,
+				3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
