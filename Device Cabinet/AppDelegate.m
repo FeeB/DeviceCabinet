@@ -62,18 +62,24 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
     if (application.applicationState != UIApplicationStateActive) {
         UIdGenerator *generator = [[UIdGenerator alloc]init];
         NSString *uid = [generator getDeviceId];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *navigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"DeviceNavigation"];
-        DeviceViewController *deviceViewController = (DeviceViewController *)navigationController.topViewController;
-        [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
-            deviceViewController.deviceObject = device;
-            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:navigationController animated:YES completion:nil];
-//            [self.window.rootViewController presentViewController:deviceViewController animated:YES completion:nil];
-        }];
+        UINavigationController *initialnavigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"InitialNavigation"];
+        OverviewViewController *overviewController = (OverviewViewController *)initialnavigationController.topViewController;
         
+        [AppDelegate.dao fetchDeviceWithDeviceId:uid completionHandler:^(Device *device, NSError *error) {
+            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:initialnavigationController animated:YES completion:nil];
+            overviewController.device = device;
+            overviewController.forwardToDeviceView = YES;
+            if ([notification.alertBody isEqualToString:@"Willst du das Gerät zurückgeben?"]) {
+                overviewController.automaticReturn = YES;
+            }
+            [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
+            
+        }];
         
     }
 }
