@@ -50,6 +50,7 @@
     if ([[UIApplication sharedApplication] applicationState] !=  UIApplicationStateInactive && [[UIApplication sharedApplication] applicationState] !=  UIApplicationStateActive){
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.alertBody = message;
+        notification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
     } else {
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
