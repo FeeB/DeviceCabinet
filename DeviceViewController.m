@@ -55,6 +55,10 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
     [self showOrHideTextFields];
+    
+    if (self.automaticReturn) {
+        [self deleteReference];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

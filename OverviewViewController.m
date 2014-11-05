@@ -23,7 +23,6 @@
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) NSMutableArray *lists;
-@property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) NSMutableData *downloadedData;
 @end
 
@@ -190,9 +189,11 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
             controller.deviceObject = self.device;
+            controller.automaticReturn = self.automaticReturn;
         } else {
             NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
             controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+            controller.automaticReturn = NO;
         }
     } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;

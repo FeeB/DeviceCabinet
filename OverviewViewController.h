@@ -12,6 +12,9 @@
 @interface OverviewViewController : UITableViewController <NSURLConnectionDataDelegate>
 
 @property (nonatomic, assign) BOOL forwardToDeviceView;
+@property (nonatomic) Device *device;
+@property (nonatomic, assign) BOOL automaticReturn;
+
 
 - (void)getAllDevices;
 

@@ -32,6 +32,7 @@
 @property (nonatomic, strong) Device *deviceObject;
 @property (nonatomic, strong) Person *personObject;
 @property (nonatomic, strong) UserNamePickerViewController *userNamePicker;
+@property (nonatomic, assign) BOOL automaticReturn;
 
 - (IBAction)fetchPersonRecordOnClick;
 - (void)storeReference;
