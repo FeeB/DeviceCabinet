@@ -11,11 +11,8 @@
 @interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *devicePicker;
-@property (weak, nonatomic) IBOutlet UILabel *deviceCategoryLabel;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
-@property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *deviceTypeTextField;
-@property (weak, nonatomic) IBOutlet UILabel *deviceTypeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;

@@ -33,10 +33,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     // Do any additional setup after loading the view.
     
     [TEDLocalization localize:self];
-    
-    self.lastNameLabel.text = NSLocalizedString(@"LABEL_LASTNAME", nil);
-    self.firstNameLabel.text = NSLocalizedString(@"LABEL_FIRSTNAME", nil);
-    
+        
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
     self.spinner.hidesWhenStopped = YES;

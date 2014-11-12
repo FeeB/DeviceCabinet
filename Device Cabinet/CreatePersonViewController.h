@@ -12,9 +12,7 @@
 @interface CreatePersonViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
-@property (weak, nonatomic) IBOutlet UILabel *firstNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
-@property (weak, nonatomic) IBOutlet UILabel *lastNameLabel;
 
 @property (nonatomic, strong) void (^onCompletion)(Person *person);
 

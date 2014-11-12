@@ -32,9 +32,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
     [TEDLocalization localize:self];
     
     self.pickerData = @[@"iPhone", @"Android Phone", @"iPad", @"Android Tablet"];
-    self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
-    self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
-    [self.saveButton setTitle:NSLocalizedString(@"BUTTON_SAVE", nil) forState:UIControlStateNormal];
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
 

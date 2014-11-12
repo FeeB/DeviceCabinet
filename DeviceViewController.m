@@ -40,16 +40,9 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     //set label text
     self.individualDeviceCategoryLabel.text = self.deviceObject.category;
-    self.deviceCategoryLabel.text = NSLocalizedString(@"LABEL_CATEGORY", nil);
     self.individualDeviceNameLabel.text = self.deviceObject.deviceName;
-    self.deviceNameLabel.text = NSLocalizedString(@"LABEL_DEVICENAME", nil);
     self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
-    self.systemVersionLabel.text = NSLocalizedString(@"LABEL_SYSTEM_VERSION", nil);
-    [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
-    self.usernameLabel.text = NSLocalizedString(@"LABEL_ENTER_USERNAME", nil);
-    self.bookedFromLabel.text = NSLocalizedString(@"LABEL_BOOKED_FROM", nil);
     self.individualDeviceTypeLabel.text = self.deviceObject.deviceType;
-    self.deviceTypeLabel.text = NSLocalizedString(@"LABEL_DEVICE_TYPE", nil);
     
     [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
     
@@ -81,7 +74,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 - (void)updateView {
     [self showOrHideTextFields];
     
-    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
+//    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
+    self.bookedFromLabelText.text = @"Parastoo Zeraat Poponase";
     
     if (self.deviceObject.imageUrl) {
         [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
