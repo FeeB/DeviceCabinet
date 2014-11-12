@@ -35,7 +35,6 @@
 		3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */; };
 		3A84063619A1F04D007E3A6B /* UIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A84063519A1F04D007E3A6B /* UIdGenerator.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3AA2EC7019B5ACE5007D1147 /* placeholder_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */; };
 		3AA2EC7519B5D5BF007D1147 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */; };
 		3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */; };
 		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
@@ -131,7 +130,6 @@
 		3A84063419A1F04D007E3A6B /* UIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdGenerator.h; sourceTree = "<group>"; };
 		3A84063519A1F04D007E3A6B /* UIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGenerator.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder_image.png; sourceTree = SOURCE_ROOT; };
 		3AA2EC7319B5D5BF007D1147 /* RailsApiDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiDao.h; sourceTree = "<group>"; };
 		3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiDao.m; sourceTree = "<group>"; };
 		3AB5D5DE19A3484200D71CD2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 			children = (
 				3A51A8F219DD8A07003626CE /* CreatePersonViewController.h */,
 				3A51A8F319DD8A07003626CE /* CreatePersonViewController.m */,
-				3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */,
 				3A5E21AD196E86E20021CB13 /* CreateDeviceViewController.h */,
 				3A5E21AE196E86E20021CB13 /* CreateDeviceViewController.m */,
 				3A367EC11992233E004B6F13 /* DeviceViewController.h */,
@@ -443,7 +440,6 @@
 			files = (
 				3A5E178B19654AC700681289 /* InfoPlist.strings in Resources */,
 				3AEA37FD199CBD76001AAF71 /* Localizable.strings in Resources */,
-				3AA2EC7019B5ACE5007D1147 /* placeholder_image.png in Resources */,
 				3A5E179319654AC700681289 /* Images.xcassets in Resources */,
 				3A5E17BC19654BBE00681289 /* Main.storyboard in Resources */,
 			);
