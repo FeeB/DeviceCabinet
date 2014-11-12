@@ -13,6 +13,7 @@
 #import "TEDLocalization.h"
 #import "AppDelegate.h"
 #import "UIDevice-Hardware.h"
+#import "UserDefaults.h"
 
 NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
@@ -76,6 +77,7 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc] init];
+        uIdGenerator.isCurrentDevice = self.isCurrentDevice;
         
         self.device = [[Device alloc] init];
         self.device.deviceName = self.deviceNameTextField.text;
@@ -83,6 +85,11 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         self.device.deviceType = self.deviceTypeTextField.text;
+        
+        if (self.isCurrentDevice) {
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults storeDeviceWithDevice:self.device];
+        }
         
         [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];

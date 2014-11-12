@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
+#import "Device.h"
+
 @interface UserDefaults : NSObject
 
-@property (nonatomic, weak) NSUserDefaults *userDefaults;
+@property (nonatomic, assign) BOOL isFirstLaunch;
 
-- (NSString *)getUserIdentifier;
-- (NSString *)getUserType;
-- (void)storeUserDefaults:(NSString *)uniqueIdentifier userType:(NSString *)userType;
+- (BOOL)firstLaunch;
+- (Device *)getDevice;
+- (void)storeDeviceWithDevice:(Device *)device;
 - (void)resetUserDefaults;
-- (void)storeCurrentUserWithIdentifier:(NSString *)identifier;
-- (NSString *)getCurrentUser;
+
 
 @end

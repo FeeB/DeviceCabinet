@@ -7,7 +7,6 @@
 //
 
 #import "DecisionViewController.h"
-#import "UserDefaults.h"
 #import "CreateDeviceViewController.h"
 #import "TEDLocalization.h"
 
@@ -35,8 +34,6 @@ NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
 - (IBAction)onNoRegisterClick {
     [self performSegueWithIdentifier:FromDecisionToOverviewSegue sender:nil];
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults storeUserDefaults:nil userType:@"person"];
 }
 
 -(void)dissmissLogInViewDeviceView{
@@ -49,8 +46,8 @@ NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromDecisionToRegisterDeviceSegue]) {
-//        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
+        controller.isCurrentDevice = YES;
         
         controller.onCompletion = ^(id result) {
             self.deviceObject = result;

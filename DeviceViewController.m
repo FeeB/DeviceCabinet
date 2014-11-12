@@ -7,7 +7,6 @@
 //
 
 #import "DeviceViewController.h"
-#import "UserDefaults.h"
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
 #import "AppDelegate.h"
@@ -49,7 +48,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
     [self showOrHideTextFields];
-    [self handleUserDefault];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,24 +56,11 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self updateView];
 }
 
-- (void)handleUserDefault {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *currentUser = [userDefaults getCurrentUser];
-    if (currentUser) {
-        RailsApiDao *dao = [[RailsApiDao alloc]init];
-        [dao fetchPersonWithFullName:currentUser completionHandler:^(Person *person, NSError *error) {
-            self.personObject = person;
-        }];
-        [self.usernamePickerButton setTitle:[NSString stringWithFormat: NSLocalizedString(@"BUTTON_LAST_USERNAME", nil), currentUser] forState:UIControlStateNormal];
-        self.username = currentUser;
-    }
-}
-
 - (void)updateView {
     [self showOrHideTextFields];
     
 //    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
-    self.bookedFromLabelText.text = @"Parastoo Zeraat Poponase";
+    self.bookedFromLabelText.text = @"Parastoo Zeraat";
     
     if (self.deviceObject.imageUrl) {
         [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];

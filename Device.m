@@ -36,4 +36,34 @@
     return self;
 }
 
+
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.deviceId forKey:@"deviceId"];
+    [encoder encodeObject:self.deviceName forKey:@"deviceName"];
+    [encoder encodeObject:self.deviceType forKey:@"deviceType"];
+    [encoder encodeObject:self.deviceRecordId forKey:@"deviceRecordId"];
+    [encoder encodeBool:self.bookedByPerson forKey:@"bookedByPerson"];
+    [encoder encodeObject:self.bookedByPersonFullName forKey:@"bookedByPersonFullName"];
+    [encoder encodeObject:self.bookedByPersonId forKey:@"bookedByPersonId"];
+    [encoder encodeObject:self.imageUrl forKey:@"imageUrl"];
+    [encoder encodeObject:self.category forKey:@"category"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.deviceId = [decoder decodeObjectForKey:@"deviceId"];
+        self.deviceName = [decoder decodeObjectForKey:@"deviceName"];
+        self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
+        self.deviceRecordId = [decoder decodeObjectForKey:@"deviceRecordId"];
+        self.bookedByPerson = [decoder decodeBoolForKey:@"bookedByPerson"];
+        self.bookedByPersonFullName = [decoder decodeObjectForKey:@"bookedByPersonFullName"];
+        self.bookedByPersonId = [decoder decodeObjectForKey:@"bookedByPersonId"];
+        self.imageUrl = [decoder decodeObjectForKey:@"imageUrl"];
+        self.category = [decoder decodeObjectForKey:@"category"];
+    }
+    return self;
+}
+
 @end

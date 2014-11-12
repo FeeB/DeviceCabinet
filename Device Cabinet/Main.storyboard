@@ -472,8 +472,8 @@
                             <rect key="frame" x="57" y="8" width="206" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Available"/>
-                                <segment title="Booked"/>
+                                <segment title=""/>
+                                <segment title=""/>
                             </segments>
                             <color key="tintColor" red="0.9929371843" green="0.9929371843" blue="0.9929371843" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>

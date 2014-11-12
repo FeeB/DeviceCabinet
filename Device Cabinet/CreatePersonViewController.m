@@ -8,7 +8,6 @@
 
 #import "CreatePersonViewController.h"
 #import "Person.h"
-#import "UserDefaults.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
 #import "CloudKitErrorMapper.h"

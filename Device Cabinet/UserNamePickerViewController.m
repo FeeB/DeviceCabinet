@@ -11,7 +11,6 @@
 #import "CreatePersonViewController.h"
 #import "TEDLocalization.h"
 #import "RailsApiDao.h"
-#import "UserDefaults.h"
 
 @interface UserNamePickerViewController ()
 
@@ -99,8 +98,6 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.personObject =[self.userNames objectAtIndex:indexPath.row];
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeCurrentUserWithIdentifier:self.personObject.fullName];
     [self dissmissController];
 }
 

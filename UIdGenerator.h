@@ -10,6 +10,8 @@
 
 @interface UIdGenerator : NSObject
 
+@property (nonatomic, assign) BOOL isCurrentDevice;
+
 - (NSString *)getDeviceId;
 - (void)setDeviceId:(NSString *)deviceId;
 - (NSString *)getIdfromKeychain;

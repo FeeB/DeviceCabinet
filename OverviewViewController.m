@@ -9,7 +9,6 @@
 #import "OverviewViewController.h"
 #import "DeviceViewController.h"
 #import "LogInViewController.h"
-#import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "TEDLocalization.h"
 #import "ProfileViewController.h"
@@ -24,8 +23,15 @@
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) NSMutableArray *lists;
-@property (nonatomic, strong) NSMutableData *downloadedData;
+
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
+
+@property (nonatomic, strong) NSMutableArray *currentDevice;
+@property (nonatomic, strong) NSMutableArray *bookedDevices;
+@property (nonatomic, strong) NSMutableArray *availableDevices;
+
+@property (nonatomic, strong) NSArray *currentList;
+
 @property (nonatomic, strong) NSIndexPath *indexPathToBeDeleted;
 @end
 
@@ -47,45 +53,69 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     
+    if (self.segmentedControl.numberOfSegments == 2) {
+        [self.segmentedControl setTitle:NSLocalizedString(@"SECTION_FREE_DEVICES", nil) forSegmentAtIndex:0];
+        [self.segmentedControl setTitle:NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) forSegmentAtIndex:1];
+    } else {
+        [self.segmentedControl setTitle:NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) forSegmentAtIndex:0];
+        [self.segmentedControl setTitle:NSLocalizedString(@"SECTION_FREE_DEVICES", nil) forSegmentAtIndex:1];
+        [self.segmentedControl setTitle:NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) forSegmentAtIndex:2];
+    }
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
     
     [self checkDeviceIsRegistered];
-
+    [self handleIfAppRunsOnTestDevice];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getAllDevices];
     [self checkForUpdates];
+    [self handleIfAppRunsOnTestDevice];
+}
+
+- (void)handleIfAppRunsOnTestDevice {
+    if (self.device) {
+        self.currentDevice = [[NSMutableArray alloc]init];
+        [self.currentDevice addObject:self.device];
+        if (self.segmentedControl.numberOfSegments == 2) {
+            [self.segmentedControl insertSegmentWithTitle:NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) atIndex:0 animated:NO];
+            self.currentList = self.currentDevice;
+            self.segmentedControl.selectedSegmentIndex = 0;
+        }
+    }
 }
 
 - (void)checkDeviceIsRegistered {
-    if ([self firstLaunch]) {
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    
+    if ([userDefaults firstLaunch]) {
         [self performSegueWithIdentifier:FromOverViewToRegisterSegue sender:nil];
     } else {
+        self.device = [userDefaults getDevice];
         [self checkForUpdates];
     }
 }
 
-- (BOOL)firstLaunch {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *userType = [userDefaults getUserType];
-    
-    if (userType) {
-        return NO;
+- (IBAction)sectionDidChange:(UISegmentedControl *)segmentedControl {
+    if (segmentedControl.selectedSegmentIndex == 0 + (self.device ? 1 : 0)) {
+        self.currentList = self.availableDevices;
+    } else if (segmentedControl.selectedSegmentIndex == 1 + (self.device ? 1 : 0)) {
+        self.currentList = self.bookedDevices;
     } else {
-        return YES;
+        self.currentList = self.currentDevice;
     }
+    [self.tableView reloadData];
 }
 
 - (void)checkForUpdates {
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    NSString *userType = [userDefaults getUserType];
     
-    if ([userType isEqualToString:@"device"]) {
-        [AppDelegate.dao fetchDeviceWithDeviceId:userDefaults.getUserIdentifier completionHandler:^(Device *device, NSError *error) {
+    if ([userDefaults getDevice]) {
+        [AppDelegate.dao fetchDeviceWithDeviceId:self.device.deviceId completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -93,13 +123,12 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                 }
             } else {
-                self.deviceObject = [[Device alloc]init];
-                self.deviceObject = device;
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
-                    self.deviceObject.systemVersion = [[UIDevice currentDevice] systemVersion];
+                    self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
+                    [userDefaults storeDeviceWithDevice:device];
                     RailsApiDao *railsApi = [[RailsApiDao alloc]init];
                     [self updateTable];
-                    [railsApi updateSystemVersion:self.deviceObject completionHandler:^(NSError *error) {
+                    [railsApi updateSystemVersion:self.device completionHandler:^(NSError *error) {
                         if (error) {
                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                             [self.spinner stopAnimating];
@@ -109,21 +138,20 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
                         }
                     }];
+                    [self updateTable];
                 }
-                [self updateTable];
             }
         }];
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.lists.count;
+    return 1;
 }
 
 //standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *array = [self.lists objectAtIndex:section];
-    return array.count;
+    return self.currentList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,75 +162,28 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
         
-    NSArray *array = [self.lists objectAtIndex:indexPath.section];
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
     UILabel *cellLabelBookedByPerson = (UILabel *)[cell viewWithTag:300];
-    if ([array[0] isKindOfClass:[Device class]]) {
-        Device *cellDevice = [array objectAtIndex:indexPath.row];
-        cellLabel.text = cellDevice.deviceName;
-        cellLabelDeviceType.text = cellDevice.deviceType;
-        if (cellDevice.bookedByPerson) {
-            cellLabelBookedByPerson.text = [NSString stringWithFormat: NSLocalizedString(@"LABEL_BOOKED_FROM_WITH_NAME", nil), cellDevice.bookedByPersonFullName];
-        } else {
-            cellLabelBookedByPerson.text = @"";
-        }
-        
-        UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-        [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    
+    Device *cellDevice = [self.currentList objectAtIndex:indexPath.row];
+    cellLabel.text = cellDevice.deviceName;
+    cellLabelDeviceType.text = cellDevice.deviceType;
+    if (cellDevice.bookedByPerson) {
+        cellLabelBookedByPerson.text = [NSString stringWithFormat: NSLocalizedString(@"LABEL_BOOKED_FROM_WITH_NAME", nil), cellDevice.bookedByPersonFullName];
     } else {
-        cellLabel.text = array[0];
-        cell.userInteractionEnabled = NO;
+        cellLabelBookedByPerson.text = @"";
     }
     
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
+    [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40.0f;
 }
 
 //On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.deviceObject) {
-        if (self.lists.count == 2) {
-            return section == 0 ? NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
-        } else {
-            switch (section) {
-                case 0:
-                    return NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil);
-                    break;
-                case 1:
-                    return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
-                    break;
-                case 2:
-                    return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
-                    break;
-                    
-                default:
-                    return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
-                    break;
-            }
-        }
-    }else if (self.lists.count == 2) {
-        return section == 0 ? NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil) : NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
-    } else {
-        NSArray *array = self.lists[0];
-        if ([array[0] isKindOfClass:[Device class]]) {
-            NSArray *devices = self.lists[0];
-            if (devices.count > 0 && ((Device *)devices[0]).isBookedByPerson) {
-                return NSLocalizedString(@"SECTION_BOOKED_DEVICES", nil);
-            } else {
-                return NSLocalizedString(@"SECTION_FREE_DEVICES", nil);
-            }
-        } else {
-            return NSLocalizedString(@"SECTION_ERROR", nil);
-        }
-    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -223,8 +204,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 }
 
 - (void)deleteRowAtIndexPath {
-    NSArray *array = [self.lists objectAtIndex:self.indexPathToBeDeleted.section];
-    Device *device = [array objectAtIndex:self.indexPathToBeDeleted.row];
+    Device *device = [self.currentList objectAtIndex:self.indexPathToBeDeleted.row];
     RailsApiDao *railsApi = [[RailsApiDao alloc]init];
     [railsApi deleteDevice:device completionHandler:^(NSError *error) {
         if (error) {
@@ -232,9 +212,18 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
         }
-        UserDefaults *userDefaults = [[UserDefaults alloc]init];
-        [userDefaults resetUserDefaults];
-        self.deviceObject = nil;
+        
+        if ([device.deviceId isEqualToString:self.device.deviceId]) {
+            UserDefaults *userDefaults = [[UserDefaults alloc]init];
+            [userDefaults resetUserDefaults];
+            self.device = nil;
+            
+            if (self.currentList == self.currentDevice) {
+                self.currentList = self.availableDevices;
+                [self.segmentedControl updateConstraints];
+            }
+            [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
+        }
         [self updateTable];
     }];
 }
@@ -246,39 +235,25 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     [AppDelegate.dao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
         if (error) {
-            self.lists = [[NSMutableArray alloc] init];
-            NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
-            [errorMessage addObject:error.localizedRecoverySuggestion];
-            [self.lists addObject:errorMessage];
-            
-            [self.tableView reloadData];
-            
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
         } else {
-            self.lists = [[NSMutableArray alloc] init];
-            NSMutableArray *actualDevice = [[NSMutableArray alloc]init];
-            NSMutableArray *bookedDevices = [[NSMutableArray alloc] init];
-            NSMutableArray *freeDevices = [[NSMutableArray alloc] init];
+            self.bookedDevices = [[NSMutableArray alloc] init];
+            self.availableDevices = [[NSMutableArray alloc] init];
             
             for (Device *device in deviceObjects){
                 if (device.isBookedByPerson) {
-                    [bookedDevices addObject:device];
+                    [self.bookedDevices addObject:device];
                 } else {
-                    [freeDevices addObject:device];
+                    [self.availableDevices addObject:device];
                 }
             }
-            if (self.deviceObject) {
-                [actualDevice addObject:self.deviceObject];
-                [self.lists addObject:actualDevice];
+            
+            if (self.segmentedControl.numberOfSegments == 2 && self.segmentedControl.selectedSegmentIndex == 0) {
+                self.currentList = self.availableDevices;
             }
-            if (bookedDevices.count > 0) {
-                [self.lists addObject:bookedDevices];
-            }
-            if (freeDevices.count > 0) {
-                [self.lists addObject:freeDevices];
-            }
+            
             [self.tableView reloadData];
         }
     }];
@@ -293,11 +268,10 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
-            controller.deviceObject = self.deviceObject;
+            controller.deviceObject = self.device;
             self.forwardToDeviceView = NO;
         } else {
-            NSArray *array = [self.lists objectAtIndex:self.tableView.indexPathForSelectedRow.section];
-            controller.deviceObject = [array objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+            controller.deviceObject = [self.currentList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         }
     } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
@@ -305,15 +279,15 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
-            self.deviceObject = result;
+            self.device = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         CreateDeviceViewController *controller = (CreateDeviceViewController *)navigationController.topViewController;
+        controller.isCurrentDevice = NO;
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
-            self.deviceObject = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Device.h"
 
 @interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIAlertViewDelegate>
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) void (^onCompletion)(id result);
+@property (nonatomic, assign) BOOL isCurrentDevice;
 
 - (IBAction)storeDevice;
 - (IBAction)backButton;

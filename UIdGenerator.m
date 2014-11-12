@@ -8,25 +8,30 @@
 
 #import "UIdGenerator.h"
 #import "KeychainItemWrapper.h"
-#import "UserDefaults.h"
 
 NSString * const KeyForKeychain = @"deviceId";
 
 @implementation UIdGenerator
 
+
 - (NSString *)getDeviceId {
-    NSString *udidString = [self getIdfromKeychain];
-    if([udidString isEqualToString:@""])
-    {
-        CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
-        udidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, cfuuid));
-        CFRelease(cfuuid);
-        UserDefaults *userDefaults = [[UserDefaults alloc]init];
-        [userDefaults storeUserDefaults:udidString userType:@"device"];
-        [self setDeviceId:udidString];
+    
+    if (self.isCurrentDevice) {
+        NSString *udidString = [self getIdfromKeychain];
+        if([udidString isEqualToString:@""]) {
+            udidString = [self generateUID];
+            [self setDeviceId:udidString];
+        }
+        return udidString;
+    } else {
+        return [self generateUID];
     }
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:udidString userType:@"device"];
+}
+
+- (NSString *)generateUID {
+    CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *udidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, cfuuid));
+    CFRelease(cfuuid);
     return udidString;
 }
 

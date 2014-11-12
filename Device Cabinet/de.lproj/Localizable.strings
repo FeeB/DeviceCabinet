@@ -31,9 +31,9 @@
 "BUTTON_USERNAME" = "Gewählter Namen: %@";
 "BUTTON_LAST_USERNAME" = "Zuletzt gewählter Name: %@";
 
-"SECTION_ACTUAL_DEVICE" = "Aktuelles Gerät";
-"SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
-"SECTION_FREE_DEVICES" = "Verfügbare Geräte";
+"SECTION_ACTUAL_DEVICE" = "Aktuell";
+"SECTION_BOOKED_DEVICES" = "Ausgeliehen";
+"SECTION_FREE_DEVICES" = "Verfügbar";
 "SECTION_ERROR" = "Fehlermeldung";
 "LABEL_BOOKED_FROM_WITH_NAME" = "Gebucht von: %@";
 
