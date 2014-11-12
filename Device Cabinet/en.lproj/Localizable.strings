@@ -19,10 +19,10 @@
 "LABEL_PROFILE" = "Profile";
 
 "LABEL_DEVICENAME" = "Device name:";
-"LABEL_CATEGORY" = "Category:";
-"LABEL_SYSTEM_VERSION" = "System version:";
-"LABEL_DEVICE_TYPE" = "Device model:";
-"LABEL_BOOKED_FROM" = "Booked by:";
+"LABEL_CATEGORY" = "Type";
+"LABEL_SYSTEM_VERSION" = "System Version";
+"LABEL_DEVICE_TYPE" = "Device Model";
+"LABEL_BOOKED_FROM" = "Booked by";
 "LABEL_ENTER_USERNAME" = "Choose your name";
 "LABEL_TEST_DEVICE_DECISION" = "Should this device be registered as a test device?";
 "BUTTON_YES" = "Yes";
@@ -40,7 +40,7 @@
 "BUTTON_SAVE" = "Save";
 
 "BUTTON_BOOK" = "Book Now!";
-"BUTTON_RETURN" = "Return device";
+"BUTTON_RETURN" = "Return";
 "HEADLINE_RETURN_SUCCESS" = "Return success!";
 "MESSAGE_RETURN_SUCCESS" = "You have returned the device successfully";
 "HEADLINE_BOOK_SUCCESS" = "Book success!";
