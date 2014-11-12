@@ -72,6 +72,9 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+    self.device = [userDefaults getDevice];
     [self getAllDevices];
     [self checkForUpdates];
     [self handleIfAppRunsOnTestDevice];
@@ -83,8 +86,10 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         [self.currentDevice addObject:self.device];
         if (self.segmentedControl.numberOfSegments == 2) {
             [self.segmentedControl insertSegmentWithTitle:NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) atIndex:0 animated:NO];
-            self.currentList = self.currentDevice;
             self.segmentedControl.selectedSegmentIndex = 0;
+            self.currentList = self.currentDevice;
+        } else {
+            self.currentList = self.currentDevice;
         }
     }
 }
@@ -268,7 +273,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDeviceView) {
-            controller.deviceObject = self.device;
+            controller.deviceObject = self.forwardedDevice;
             self.forwardToDeviceView = NO;
         } else {
             controller.deviceObject = [self.currentList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
@@ -288,6 +293,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         controller.isCurrentDevice = NO;
         controller.onCompletion = ^(id result) {
             self.forwardToDeviceView = YES;
+            self.forwardedDevice = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     }

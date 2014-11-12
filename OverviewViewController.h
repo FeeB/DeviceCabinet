@@ -13,6 +13,7 @@
 
 @property (nonatomic, assign) BOOL forwardToDeviceView;
 @property (nonatomic, strong) Device *device;
+@property (nonatomic, strong) Device *forwardedDevice;
 
 - (void)getAllDevices;
 

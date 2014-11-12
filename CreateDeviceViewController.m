@@ -76,6 +76,10 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
+        if (self.switchCurrentDevice.isEnabled) {
+            self.isCurrentDevice = YES;
+        }
+        
         UIdGenerator *uIdGenerator = [[UIdGenerator alloc] init];
         uIdGenerator.isCurrentDevice = self.isCurrentDevice;
         
@@ -113,13 +117,6 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         self.onCompletion(self.device);
     }
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:FromCreateDeviceToDeviceViewSegue]) {
-        DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        controller.deviceObject = self.device;
-    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

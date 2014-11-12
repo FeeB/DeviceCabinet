@@ -294,7 +294,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICE_TYPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wl5-ok-Oa3">
-                                        <rect key="frame" x="18" y="65" width="172" height="20"/>
+                                        <rect key="frame" x="18" y="65" width="137" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -329,9 +329,20 @@
                                         </connections>
                                     </button>
                                     <pickerView contentMode="scaleToFill" id="tEp-tq-fpi">
-                                        <rect key="frame" x="76" y="103" width="164" height="103"/>
+                                        <rect key="frame" x="76" y="103" width="150" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_CURRENT_DEVICE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eMB-No-XfF">
+                                        <rect key="frame" x="18" y="214" width="137" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="QVr-47-i5H">
+                                        <rect key="frame" x="161" y="209" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </switch>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -351,6 +362,7 @@
                         <outlet property="deviceTypeTextField" destination="0JO-CZ-SGX" id="swU-6o-yG3"/>
                         <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
                         <outlet property="scrollView" destination="Tsu-Mn-eTc" id="ZZK-Po-LPn"/>
+                        <outlet property="switchCurrentDevice" destination="QVr-47-i5H" id="4zP-gT-Ez9"/>
                         <segue destination="Eqs-YC-kYu" kind="push" identifier="FromCreateDeviceToDeviceView" id="Phs-EO-HNL"/>
                     </connections>
                 </viewController>
@@ -531,6 +543,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="78f-Rq-ula">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.9929371843" green="0.9929371843" blue="0.9929371843" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -588,9 +604,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xju-vS-6Xe"/>
-        <segue reference="NAW-W4-UFt"/>
+        <segue reference="Phs-EO-HNL"/>
         <segue reference="VeD-io-uAb"/>
+        <segue reference="NAW-W4-UFt"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>
