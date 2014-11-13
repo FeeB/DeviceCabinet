@@ -16,13 +16,9 @@ NSString * const KeyForDevice = @"currentDevice";
 NSString * const KeyForBooleanFirstLaunch = @"isFirstLaunch";
 NSString * const KeyForFirstLaunch = @"firstLaunch";
 
-@interface UserDefaultsWrapper ()
-
-@end
-
 @implementation UserDefaultsWrapper
 
-- (BOOL)isFirstLaunch {
++ (BOOL)isFirstLaunch {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults objectForKey:KeyForFirstLaunch] == nil) {
         [userDefaults setObject:@"value" forKey:KeyForFirstLaunch];
@@ -32,7 +28,7 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
     return NO;
 }
 
-- (Device *)getDevice {
++ (Device *)getDevice {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *encodedObject = [userDefaults valueForKey:KeyForDevice];
     if (encodedObject) {
@@ -41,18 +37,15 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
     return nil;
 }
 
-- (void)setDevice:(Device *)device {
++ (void)setDevice:(Device *)device {
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:device];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:self.isFirstLaunch forKey:KeyForFirstLaunch];
     [userDefaults setObject:encodedObject forKey:KeyForDevice];
 }
 
-- (void)resetUserDefaults {
++ (void)reset {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:KeyForDevice];
-    KeyChainWrapper *generator = [[KeyChainWrapper alloc]init];
-    [generator resetKeyChain];
 }
 
 @end

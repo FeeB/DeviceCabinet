@@ -10,10 +10,9 @@
 
 @interface UserDefaultsWrapper : NSObject
 
-- (BOOL)isFirstLaunch;
-- (Device *)getDevice;
-- (void)setDevice:(Device *)device;
-
-- (void)resetUserDefaults;
++ (BOOL)isFirstLaunch;
++ (Device *)getDevice;
++ (void)setDevice:(Device *)device;
++ (void)reset;
 
 @end

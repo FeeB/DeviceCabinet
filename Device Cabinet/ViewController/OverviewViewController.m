@@ -68,8 +68,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    UserDefaultsWrapper *userDefaults = [[UserDefaultsWrapper alloc] init];
-    self.device = [userDefaults getDevice];
+    self.device = [UserDefaultsWrapper getDevice];
     
     [self getAllDevices];
     [self checkForUpdates];
@@ -113,7 +112,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             } else {
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
-                    [[[UserDefaultsWrapper alloc] init] setDevice:device];
+                    [UserDefaultsWrapper setDevice:device];
                     RailsApiDao *railsApi = [[RailsApiDao alloc]init];
                     [self updateTable];
                     [railsApi updateSystemVersion:self.device completionHandler:^(NSError *error) {
@@ -206,8 +205,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         }
         
         if ([device.deviceUdId isEqualToString:self.device.deviceUdId]) {
-            UserDefaultsWrapper *userDefaults = [[UserDefaultsWrapper alloc]init];
-            [userDefaults resetUserDefaults];
+            [UserDefaultsWrapper reset];
+            [KeyChainWrapper reset];
             self.device = nil;
             
             if (self.currentList == self.currentDevice) {

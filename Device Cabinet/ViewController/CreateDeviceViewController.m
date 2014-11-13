@@ -89,12 +89,8 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
    
         if (self.shouldRegisterCurrentDevice) {
             self.device.deviceUdId = [UdIdGenerator generateUID];
-
-            KeyChainWrapper *keyChainWrapper = [[KeyChainWrapper alloc] init];
-            [keyChainWrapper setDeviceUdId:self.device.deviceUdId];
-
-            UserDefaultsWrapper *userDefaults = [[UserDefaultsWrapper alloc] init];
-            [userDefaults setDevice:self.device];
+            [KeyChainWrapper setDeviceUdId:self.device.deviceUdId];
+            [UserDefaultsWrapper setDevice:self.device];
         }
         
         [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {

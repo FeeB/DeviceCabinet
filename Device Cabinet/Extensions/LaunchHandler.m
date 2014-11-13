@@ -15,15 +15,13 @@
 @implementation LaunchHandler
 
 + (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler {
-    UserDefaultsWrapper *userDefaultsWrapper = [[UserDefaultsWrapper alloc] init];
-    KeyChainWrapper *keyChainWrapper = [[KeyChainWrapper alloc] init];
     
-    if ([userDefaultsWrapper isFirstLaunch]) {
-        if ([keyChainWrapper hasDeviceUdId]) {
-            NSString *deviceUdId = [keyChainWrapper getDeviceUdId];
+    if ([UserDefaultsWrapper isFirstLaunch]) {
+        if ([KeyChainWrapper hasDeviceUdId]) {
+            NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
             [AppDelegate.dao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
-                    [userDefaultsWrapper setDevice:device];
+                    [UserDefaultsWrapper setDevice:device];
                     [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];
                 } else {
                     [LaunchHandler shouldShowDecision:YES completionHandler:completionHandler];

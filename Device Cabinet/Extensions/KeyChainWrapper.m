@@ -14,25 +14,25 @@ NSString * const KeyForKeychain = @"deviceId";
 
 @implementation KeyChainWrapper
 
-- (void)setDeviceUdId:(NSString *)deviceId {
++ (void)setDeviceUdId:(NSString *)deviceId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
     [keychain setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
 }
 
-- (NSString *)getDeviceUdId {
++ (NSString *)getDeviceUdId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
     return object;
 }
 
-- (void)resetKeyChain {
++ (void)reset {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain resetKeychainItem];
 }
 
-- (BOOL)hasDeviceUdId {
-    if ([[self getDeviceUdId] isEqualToString:@""]) {
++ (BOOL)hasDeviceUdId {
+    if ([[KeyChainWrapper getDeviceUdId] isEqualToString:@""]) {
         return NO;
     } else {
         return YES;

@@ -10,10 +10,10 @@
 
 @interface KeyChainWrapper : NSObject
 
-- (void)setDeviceUdId:(NSString *)deviceId;
-- (NSString *)getDeviceUdId;
-- (BOOL)hasDeviceUdId;
++ (void)setDeviceUdId:(NSString *)deviceId;
++ (NSString *)getDeviceUdId;
++ (BOOL)hasDeviceUdId;
 
-- (void)resetKeyChain;
++ (void)reset;
 
 @end
