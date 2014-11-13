@@ -125,7 +125,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     }];
 }
 
-- (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+- (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
     CKRecordID *deviceRecordID = device.recordId;
     [self.publicDatabase fetchRecordWithID:deviceRecordID completionHandler:^(CKRecord *record, NSError *error) {
         NSError *localError;

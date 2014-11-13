@@ -113,7 +113,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
         });
     }];
 }
-- (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
+- (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -147,7 +147,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)deletePerson:(Person *)person completionHandler:(void (^)( NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, person.personRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, person.personId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -180,24 +180,9 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 
 }
-- (void)fetchPersonWithFullName:(NSString *)fullName completionHandler:(void (^)(Person *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"full_name": fullName};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            Person *person = [[Person alloc] initWithJson:responseObject];
-            completionHandler(person, nil);
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil, localError);
-        });
-    }];
-}
 
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
-    NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"is_booked": @"YES"};
+    NSDictionary *storeParameters = @{@"person_id": person.personId, @"is_booked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceId];
     
