@@ -75,6 +75,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     self.device = [userDefaults getDevice];
+//    [userDefaults getRightBooleanValueForLaunch];
     [self getAllDevices];
     [self checkForUpdates];
     [self handleIfAppRunsOnTestDevice];
@@ -170,18 +171,22 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
     UILabel *cellLabelBookedByPerson = (UILabel *)[cell viewWithTag:300];
+    UIImageView *cellUserPhoto = (UIImageView *) [cell viewWithTag:400];
     
     Device *cellDevice = [self.currentList objectAtIndex:indexPath.row];
     cellLabel.text = cellDevice.deviceName;
     cellLabelDeviceType.text = cellDevice.deviceType;
     if (cellDevice.bookedByPerson) {
-        cellLabelBookedByPerson.text = [NSString stringWithFormat: NSLocalizedString(@"LABEL_BOOKED_FROM_WITH_NAME", nil), cellDevice.bookedByPersonFullName];
+//        cellLabelBookedByPerson.text = cellDevice.bookedByPersonFullName;
+        cellLabelBookedByPerson.text = @"Test Name";
+        cellUserPhoto.hidden = NO;
     } else {
         cellLabelBookedByPerson.text = @"";
+        cellUserPhoto.hidden = YES;
     }
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-    [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
     return cell;
 }
@@ -267,6 +272,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)updateTable {
     [self getAllDevices];
     [self.refreshControl endRefreshing];
+//    UserDefaults *userDefaults = [[UserDefaults alloc]init];
+//    self.device = [userDefaults getDevice];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
