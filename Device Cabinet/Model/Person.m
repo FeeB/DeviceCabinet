@@ -21,7 +21,7 @@
     if (self) {
         self.firstName = [json valueForKey:@"first_name"];
         self.lastName = [json valueForKey:@"last_name"];
-        self.personRecordId = [json valueForKey:@"id"];
+        self.personId = [json valueForKey:@"id"];
         
         if ([json valueForKey:@"has_booked_device"] != (id)[NSNull null]) {
             self.hasBookedDevice = YES;

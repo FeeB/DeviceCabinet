@@ -17,7 +17,7 @@
 @property NSString *lastName;
 @property BOOL hasBookedDevice;
 @property (readonly) NSString *fullName;
-@property NSString *personRecordId;
+@property NSString *personId;
 
 //Only for CloudKit
 @property CKRecordID *recordId;
