@@ -16,7 +16,6 @@
 #import "UserDefaultsWrapper.h"
 #import "UdIdGenerator.h"
 
-NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
 @interface CreateDeviceViewController ()
 
