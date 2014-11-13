@@ -102,7 +102,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)checkForSystemVersionUpdate {
     if (self.device) {
-        [AppDelegate.dao fetchDeviceWithDeviceUdId:self.device.deviceUdId completionHandler:^(Device *device, NSError *error) {
+        [AppDelegate.dao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -158,8 +158,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     cellLabel.text = cellDevice.deviceName;
     cellLabelDeviceType.text = cellDevice.deviceType;
     if (cellDevice.bookedByPerson) {
-//        cellLabelBookedByPerson.text = cellDevice.bookedByPersonFullName;
-        cellLabelBookedByPerson.text = @"Test Name";
+        cellLabelBookedByPerson.text = cellDevice.bookedByPersonFullName;
         cellUserPhoto.hidden = NO;
     } else {
         cellLabelBookedByPerson.text = @"";
@@ -204,7 +203,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
         }
         
-        if ([device.deviceUdId isEqualToString:self.device.deviceUdId]) {
+        if (device.deviceUdId && [device.deviceUdId isEqualToString:self.device.deviceUdId]) {
             [UserDefaultsWrapper reset];
             [KeyChainWrapper reset];
             self.device = nil;
