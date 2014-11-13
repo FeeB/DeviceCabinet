@@ -25,10 +25,13 @@
     self = [super init];
     if (self) {
         self.deviceName = [json valueForKey:@"device_name"];
-        self.deviceUdId = [json valueForKey:@"device_id"];
+        if ([json valueForKey:@"device_id"] != [NSNull null]) {
+            self.deviceUdId = [json valueForKey:@"device_id"];
+        }
         self.category = [json valueForKey:@"category"];
         self.deviceId = [json valueForKey:@"id"];
         self.systemVersion = [json valueForKey:@"system_version"];
+        
         if ([json valueForKey:@"image_url"] != [NSNull null]) {
             self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
         }
