@@ -113,6 +113,7 @@
                     <navigationItem key="navigationItem" title="TITLE_DEVICE_OVERVIEW" id="qd7-wM-dfG"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="bookDevice" destination="0bC-hI-2bB" id="aSj-Ru-iej"/>
                         <outlet property="bookedFromLabelText" destination="hGm-MM-eEt" id="LyB-9s-EG2"/>
                         <outlet property="deviceCategoryLabel" destination="OC0-rJ-B2E" id="mjD-IH-K5m"/>
                         <outlet property="deviceTypeLabel" destination="Jhm-MV-Mia" id="Arp-fr-xT6"/>
