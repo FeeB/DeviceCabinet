@@ -69,10 +69,10 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     [super viewWillAppear:animated];
 
     self.device = [UserDefaultsWrapper getDevice];
+    [self checkForSystemVersionUpdate];
+    [self handleIfAppRunsOnTestDevice];
     
     [self getAllDevices];
-    [self checkForUpdates];
-    [self handleIfAppRunsOnTestDevice];
 }
 
 - (void)handleIfAppRunsOnTestDevice {
@@ -100,7 +100,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     [self.tableView reloadData];
 }
 
-- (void)checkForUpdates {
+- (void)checkForSystemVersionUpdate {
     if (self.device) {
         [AppDelegate.dao fetchDeviceWithDeviceUdId:self.device.deviceUdId completionHandler:^(Device *device, NSError *error) {
             if (error) {
@@ -253,35 +253,23 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)updateTable {
     [self getAllDevices];
     [self.refreshControl endRefreshing];
-//    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-//    self.device = [userDefaults getDevice];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
-        if (self.forwardToDeviceView) {
-            controller.deviceObject = self.forwardedDevice;
-            self.forwardToDeviceView = NO;
+        if (self.forwardToDevice) {
+            controller.deviceObject = self.forwardToDevice;
+            self.forwardToDevice = nil;
         } else {
             controller.deviceObject = [self.currentList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         }
-//    } else if([segue.identifier isEqualToString:FromOverViewToRegisterSegue]) {
-//        UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
-//        DecisionViewController *controller = (DecisionViewController *)navigationController.topViewController;
-//        
-//        controller.onCompletion = ^(id result) {
-//            self.forwardToDeviceView = YES;
-//            self.device = result;
-//            [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
-//        };
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         CreateDeviceViewController *controller = (CreateDeviceViewController *)navigationController.topViewController;
         controller.shouldRegisterCurrentDevice = NO;
         controller.onCompletion = ^(id result) {
-            self.forwardToDeviceView = YES;
-            self.forwardedDevice = result;
+            self.forwardToDevice = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
         };
     }

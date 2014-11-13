@@ -11,9 +11,8 @@
 
 @interface OverviewViewController : UITableViewController <NSURLConnectionDataDelegate>
 
-@property (nonatomic, assign) BOOL forwardToDeviceView;
 @property (nonatomic, strong) Device *device;
-@property (nonatomic, strong) Device *forwardedDevice;
+@property (nonatomic, strong) Device *forwardToDevice;
 @property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
 
 
