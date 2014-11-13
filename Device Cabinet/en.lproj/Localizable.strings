@@ -5,23 +5,16 @@
  Created by Braun,Fee on 19.08.14.
  Copyright (c) 2014 Braun,Fee. All rights reserved.
  */
-"LABEL_TESTER" = "LogIn as a tester";
-"LABEL_DEVICE" = "LogIn a test device";
-
-"BUTTON_REGISTER_DEVICE" = "Register a new test device now";
-"BUTTON_REGISTER_USER" = "Register as new user now";
 
 "LABEL_FIRSTNAME" = "First name";
 "LABEL_LASTNAME" = "Last name";
-"LABEL_USERNAME" = "Username";
 
 "LABEL_OVERVIEW" = "Devices Overview";
-"LABEL_PROFILE" = "Profile";
 
-"LABEL_DEVICENAME" = "Device name:";
+"LABEL_DEVICENAME" = "Device name";
 "LABEL_CATEGORY" = "Type";
-"LABEL_SYSTEM_VERSION" = "System Version";
-"LABEL_DEVICE_TYPE" = "Device Model";
+"LABEL_SYSTEM_VERSION" = "Version";
+"LABEL_DEVICE_TYPE" = "Model";
 "LABEL_BOOKED_FROM" = "Booked by";
 "LABEL_ENTER_USERNAME" = "Choose your name";
 "LABEL_TEST_DEVICE_DECISION" = "Should this device be registered as a test device?";
@@ -30,12 +23,12 @@
 "BUTTON_USERNAME_PCIKER" = "Choose your name";
 "BUTTON_USERNAME" = "Selected Namen: %@";
 "BUTTON_LAST_USERNAME" = "Last name chosen: %@";
+"LABEL_CURRENT_DEVICE" = "Current test device?";
 
 "SECTION_ACTUAL_DEVICE" = "Current";
 "SECTION_BOOKED_DEVICES" = "Booked";
 "SECTION_FREE_DEVICES" = "Available";
 "SECTION_ERROR" = "Error message";
-"LABEL_BOOKED_FROM_WITH_NAME" = "Booked from: %@";
 
 "BUTTON_SAVE" = "Save";
 

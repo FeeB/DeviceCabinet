@@ -21,7 +21,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic) NSString *username;
+@property (nonatomic) NSString *fullName;
 @end
 
 @implementation DeviceViewController
@@ -43,9 +43,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
     self.individualDeviceTypeLabel.text = self.deviceObject.deviceType;
     
-    [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
     [self showOrHideTextFields];
 }
@@ -62,8 +61,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 //    self.bookedFromLabelText.text = self.deviceObject.bookedByPersonFullName;
     self.bookedFromLabelText.text = @"Parastoo Zeraat";
     
-    if (self.deviceObject.imageUrl) {
-        [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+    if (!self.deviceObject.imageUrl) {
+        [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     } else {
         [AppDelegate.dao fetchDeviceRecordWithDevice:self.deviceObject completionHandler:^(Device *device, NSError *error) {
             if (error) {
@@ -75,7 +74,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             } else {
                 self.deviceObject.imageUrl = device.imageUrl;
-                [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder_image.png"]];
+                [self.imageView setImageWithURL:self.deviceObject.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             }
         }];
     };
@@ -141,36 +140,31 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 //Action when user clicks on button
-- (IBAction)fetchPersonRecordOnClick {
+- (IBAction)fetchPersonRecord {
     [self.spinner startAnimating];
     
     NSString *fullName = [[NSString alloc]init];
-    BOOL isStorable = [self isStorable];
     
-    if (isStorable) {
-        if (self.username.length > 0) {
-            fullName = self.username;
-            self.deviceObject.bookedByPerson = true;
-            
-            RailsApiDao *apiDao = [[RailsApiDao alloc]init];
-            [apiDao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
-                if (error) {
-                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                               message:error.localizedRecoverySuggestion
-                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                    
-                    [self.spinner stopAnimating];
-                } else {
-                    self.personObject = person;
-                    [self storeReference];
-                }
-            }];
-        } else {
-            [self.spinner stopAnimating];
-            [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
+    if (self.fullName.length > 0) {
+        fullName = self.fullName;
+        self.deviceObject.bookedByPerson = true;
+        
+        RailsApiDao *apiDao = [[RailsApiDao alloc]init];
+        [apiDao fetchPersonWithFullName:fullName completionHandler:^(Person *person, NSError *error) {
+            if (error) {
+                [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                           message:error.localizedRecoverySuggestion
+                                          delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                
+                [self.spinner stopAnimating];
+            } else {
+                self.personObject = person;
+                [self storeReference];
+            }
+        }];
     } else {
-        [self deleteReference];
+        [self.spinner stopAnimating];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_USERNAME_EMPTY", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_USERNAME_EMPTY", nil), self.deviceObject.deviceName] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 
@@ -184,18 +178,14 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 - (void)showOrHideTextFields {
-    self.bookedFromLabel.hidden = NO;
     self.bookedFromLabelText.hidden = NO;
-    self.usernameLabel.hidden = YES;
-    [self.usernamePickerButton setHidden:YES];
+    self.userPhoto.hidden = NO;
     
     if (self.deviceObject.isBookedByPerson) {
         [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
     }else{
-        self.bookedFromLabel.hidden = YES;
         self.bookedFromLabelText.hidden = YES;
-        [self.usernamePickerButton setHidden:NO];
-        self.usernameLabel.hidden = NO;
+        self.userPhoto.hidden = YES;
     }
 }
 
@@ -244,8 +234,12 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)userNamePickerButtonOnClick {
-    [self performSegueWithIdentifier:FromDeviceOverviewToNameListSegue sender:nil];
+- (IBAction)clickOnBookButton {
+    if ([self isStorable]) {
+        [self performSegueWithIdentifier:FromDeviceOverviewToNameListSegue sender:nil];
+    } else {
+        [self deleteReference];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -253,8 +247,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         UserNamePickerViewController *controller = (UserNamePickerViewController *)navigationController.topViewController;
         controller.onCompletion = ^(Person *person) {
-            self.username = person.fullName;
-            [self.usernamePickerButton setTitle:[NSString stringWithFormat: NSLocalizedString(@"BUTTON_USERNAME", nil), person.fullName] forState:UIControlStateNormal];
+            self.fullName = person.fullName;
+            [self fetchPersonRecord];
         };
     }
 }

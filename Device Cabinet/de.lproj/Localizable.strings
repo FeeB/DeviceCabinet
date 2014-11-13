@@ -5,37 +5,29 @@
   Created by Braun,Fee on 14.08.14.
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
-"LABEL_TESTER" = "LogIn als Tester";
-"LABEL_DEVICE" = "LogIn als Testgerät";
 
-"BUTTON_REGISTER_DEVICE" = "Jetzt neues Testgerät registrieren";
-"BUTTON_REGISTER_USER" = "Jetzt als neuer User registrieren";
 
 "LABEL_FIRSTNAME" = "Vorname";
 "LABEL_LASTNAME" = "Nachname";
 "LABEL_USERNAME" = "Username";
 
 "LABEL_OVERVIEW" = "Geräte Übersicht";
-"LABEL_PROFILE" = "Profil";
 
-"LABEL_DEVICENAME" = "Gerätename:";
-"LABEL_CATEGORY" = "Kategorie:";
-"LABEL_SYSTEM_VERSION" = "Betriebssystem:";
-"LABEL_DEVICE_TYPE" = "Gerätetyp:";
-"LABEL_BOOKED_FROM" = "Gebucht von:";
+"LABEL_DEVICENAME" = "Gerätename";
+"LABEL_CATEGORY" = "Typ";
+"LABEL_SYSTEM_VERSION" = "Version";
+"LABEL_DEVICE_TYPE" = "Model";
+"LABEL_BOOKED_FROM" = "Gebucht von";
 "LABEL_ENTER_USERNAME" = "Wähle deinen Namen";
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
-"BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen:";
-"BUTTON_USERNAME" = "Gewählter Namen: %@";
-"BUTTON_LAST_USERNAME" = "Zuletzt gewählter Name: %@";
+"BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen";
+"LABEL_CURRENT_DEVICE" = "Aktuelles Testgerät?";
 
 "SECTION_ACTUAL_DEVICE" = "Aktuell";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehen";
 "SECTION_FREE_DEVICES" = "Verfügbar";
-"SECTION_ERROR" = "Fehlermeldung";
-"LABEL_BOOKED_FROM_WITH_NAME" = "Gebucht von: %@";
 
 "BUTTON_SAVE" = "speichern";
 
@@ -74,9 +66,6 @@
 "TITLE_LOGIN" = "LogIn";
 "TITLE_USERNAME_PICKER" = "Wähle deinen Namen";
 
-"BUTTON_PROFILE" = "Profil";
-"BUTTON_LOGOUT" = "LogOut";
-"BUTTON_LOGIN" = "LogIn";
 "BUTTON_BACK" = "Abbrechen";
 "BUTTON_TAKE_A_PICTURE" = "Mache ein Foto von diesem Gerät";
 
