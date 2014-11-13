@@ -41,22 +41,22 @@ NSString * const KeyForUserType = @"type";
     }];
 }
 
-- (void)testStoreUserAndGetUserIdentifier {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
-    
-    NSString *returnedIdentifier = [userDefaults getUserIdentifier];
-    
-    XCTAssertEqualObjects(returnedIdentifier, @"identifier", @"returned Identifier should be the same like the stored identifier");
-}
-
-- (void)testStoreUserAndGetUserType {
-    UserDefaults *userDefaults = [[UserDefaults alloc] init];
-    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
-    
-    NSString *returnedType = [userDefaults getUserType];
-    
-    XCTAssertEqualObjects(returnedType, @"type", @"returned user type should be th same like the stored one");
-}
+//- (void)testStoreUserAndGetUserIdentifier {
+//    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+//    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
+//    
+//    NSString *returnedIdentifier = [userDefaults getUserIdentifier];
+//    
+//    XCTAssertEqualObjects(returnedIdentifier, @"identifier", @"returned Identifier should be the same like the stored identifier");
+//}
+//
+//- (void)testStoreUserAndGetUserType {
+//    UserDefaults *userDefaults = [[UserDefaults alloc] init];
+//    [userDefaults storeUserDefaults:@"identifier" userType:@"type"];
+//    
+//    NSString *returnedType = [userDefaults getUserType];
+//    
+//    XCTAssertEqualObjects(returnedType, @"type", @"returned user type should be th same like the stored one");
+//}
 
 @end

@@ -16,6 +16,6 @@
 - (Device *)getDevice;
 - (void)storeDeviceWithDevice:(Device *)device;
 - (void)resetUserDefaults;
-
+- (void)getRightBooleanValueForLaunch;
 
 @end

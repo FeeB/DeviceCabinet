@@ -8,12 +8,10 @@
 
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import "RailsApiDao.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "OverviewViewController.h"
-#import "LogInViewController.h"
 #import "UserNamePickerViewController.h"
 
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";

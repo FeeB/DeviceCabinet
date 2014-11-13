@@ -9,6 +9,8 @@
 #import "UserDefaults.h"
 #import "UIdGenerator.h"
 #import "Device.h"
+#import "AppDelegate.h"
+#import "RailsApiErrorMapper.h"
 
 NSString * const KeyForDevice = @"currentDevice";
 NSString * const KeyForBooleanFirstLaunch = @"isFirstLaunch";
@@ -20,25 +22,46 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
 
 @implementation UserDefaults
 
-- (BOOL)firstLaunch {
+- (void)getRightBooleanValueForLaunch {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    __block BOOL isFirstLaunch;
     if ([userDefaults objectForKey:KeyForFirstLaunch] == nil) {
-        self.isFirstLaunch = NO;
         [userDefaults setObject:@"value" forKey:KeyForFirstLaunch];
-        [userDefaults setBool:self.isFirstLaunch forKey:KeyForFirstLaunch];
-        return YES;
+        [userDefaults setBool:isFirstLaunch forKey:KeyForFirstLaunch];
+        isFirstLaunch = YES;
     } else if (self.isFirstLaunch) {
+        [userDefaults setBool:isFirstLaunch forKey:KeyForFirstLaunch];
+        isFirstLaunch = YES;
+    }
+    
+    if (isFirstLaunch) {
+        [self storeDeviceFromKeychainWithCompletionHandler:^(BOOL returnValue) {
+            self.isFirstLaunch = returnValue;
+        }];
+    } else {
         self.isFirstLaunch = NO;
         [userDefaults setBool:self.isFirstLaunch forKey:KeyForFirstLaunch];
-        return YES;
     }
-    return NO;
+}
+
+
+
+- (BOOL)firstLaunch {
+    if (self.isFirstLaunch) {
+        self.isFirstLaunch = NO;
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (Device *)getDevice {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *encodedObject = [userDefaults objectForKey:KeyForDevice];
-    return [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+    NSData *encodedObject = [userDefaults valueForKey:KeyForDevice];
+    if (encodedObject) {
+        return [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+    }
+    return nil;
 }
 
 - (void)storeDeviceWithDevice:(Device *)device {
@@ -52,6 +75,8 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
 - (void)resetUserDefaults {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:KeyForDevice];
+    UIdGenerator *generator = [[UIdGenerator alloc]init];
+    [generator resetKeyChain];
 }
 
 @end

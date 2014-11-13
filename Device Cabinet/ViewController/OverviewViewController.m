@@ -8,10 +8,8 @@
 
 #import "OverviewViewController.h"
 #import "DeviceViewController.h"
-#import "LogInViewController.h"
 #import "UIdGenerator.h"
 #import "TEDLocalization.h"
-#import "ProfileViewController.h"
 #import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DecisionViewController.h"
@@ -75,7 +73,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
     UserDefaults *userDefaults = [[UserDefaults alloc]init];
     self.device = [userDefaults getDevice];
-//    [userDefaults getRightBooleanValueForLaunch];
+    [userDefaults getRightBooleanValueForLaunch];
     [self getAllDevices];
     [self checkForUpdates];
     [self handleIfAppRunsOnTestDevice];

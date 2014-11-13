@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "DeviceViewController.h"
-#import "UserDefaults.h"
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 #define HC_SHORTHAND
@@ -49,7 +48,6 @@
     
     Device *device = [[Device alloc] init];
     device.bookedByPerson = NO;
-    [self createUserDefaultsDevice];
     
     controller.deviceObject = device;
     
@@ -69,8 +67,6 @@
     Person *person = [self createATestPerson];
     device.bookedByPersonFullName = person.fullName;
     device.bookedByPersonId = person.personRecordId;
-    
-    [self createUserDefaultsPerson];
     
     controller.deviceObject = device;
     [controller updateView];
@@ -97,16 +93,6 @@
     person.lastName = @"last";
     
     return person;
-}
-
-- (void)createUserDefaultsPerson {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"flast" userType:@"person"];
-}
-
-- (void)createUserDefaultsDevice {
-    UserDefaults *userDefaults = [[UserDefaults alloc]init];
-    [userDefaults storeUserDefaults:@"123" userType:@"device"];
 }
 
 @end
