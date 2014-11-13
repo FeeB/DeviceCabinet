@@ -12,7 +12,13 @@
 @implementation Device
 
 - (NSDictionary *)toDictionary {
-    return @{@"device_name" : self.deviceName, @"device_id" : self.deviceUdId, @"category" : self.category, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType};
+    NSMutableDictionary *deviceDictionary = @{@"device_name" : self.deviceName, @"category" : self.category, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType}.mutableCopy;
+    
+    if (self.deviceUdId) {
+        [deviceDictionary setValue:self.deviceUdId forKey:@"device_id"];
+    }
+    
+    return deviceDictionary;
 }
 
 - (instancetype)initWithJson:(NSDictionary *)json {

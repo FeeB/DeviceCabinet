@@ -596,8 +596,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Osa-rt-PcE"/>
         <segue reference="Xju-vS-6Xe"/>
+        <segue reference="Osa-rt-PcE"/>
         <segue reference="VeD-io-uAb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
