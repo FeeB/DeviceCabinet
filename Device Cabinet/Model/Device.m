@@ -12,16 +12,16 @@
 @implementation Device
 
 - (NSDictionary *)toDictionary {
-    return @{@"device_name" : self.deviceName, @"device_id" : self.deviceId, @"category" : self.category, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType};
+    return @{@"device_name" : self.deviceName, @"device_id" : self.deviceUdId, @"category" : self.category, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType};
 }
 
 - (instancetype)initWithJson:(NSDictionary *)json {
     self = [super init];
     if (self) {
         self.deviceName = [json valueForKey:@"device_name"];
-        self.deviceId = [json valueForKey:@"device_id"];
+        self.deviceUdId = [json valueForKey:@"device_id"];
         self.category = [json valueForKey:@"category"];
-        self.deviceRecordId = [json valueForKey:@"id"];
+        self.deviceId = [json valueForKey:@"id"];
         self.systemVersion = [json valueForKey:@"system_version"];
         if ([json valueForKey:@"image_url"] != [NSNull null]) {
             self.imageUrl = [NSURL URLWithString:[json valueForKey:@"image_url"]];
@@ -39,10 +39,10 @@
 
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:self.deviceId forKey:@"deviceId"];
+    [encoder encodeObject:self.deviceUdId forKey:@"deviceId"];
     [encoder encodeObject:self.deviceName forKey:@"deviceName"];
     [encoder encodeObject:self.deviceType forKey:@"deviceType"];
-    [encoder encodeObject:self.deviceRecordId forKey:@"deviceRecordId"];
+    [encoder encodeObject:self.deviceId forKey:@"deviceRecordId"];
     [encoder encodeBool:self.bookedByPerson forKey:@"bookedByPerson"];
     [encoder encodeObject:self.bookedByPersonFullName forKey:@"bookedByPersonFullName"];
     [encoder encodeObject:self.bookedByPersonId forKey:@"bookedByPersonId"];
@@ -53,10 +53,10 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if((self = [super init])) {
         //decode properties, other class vars
-        self.deviceId = [decoder decodeObjectForKey:@"deviceId"];
+        self.deviceUdId = [decoder decodeObjectForKey:@"deviceId"];
         self.deviceName = [decoder decodeObjectForKey:@"deviceName"];
         self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
-        self.deviceRecordId = [decoder decodeObjectForKey:@"deviceRecordId"];
+        self.deviceId = [decoder decodeObjectForKey:@"deviceRecordId"];
         self.bookedByPerson = [decoder decodeBoolForKey:@"bookedByPerson"];
         self.bookedByPersonFullName = [decoder decodeObjectForKey:@"bookedByPersonFullName"];
         self.bookedByPersonId = [decoder decodeObjectForKey:@"bookedByPersonId"];

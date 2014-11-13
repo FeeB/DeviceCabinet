@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FirstLaunchHandler : NSObject
+@interface LaunchHandler : NSObject
+
++ (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler;
 
 @end

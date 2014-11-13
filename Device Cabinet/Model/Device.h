@@ -18,9 +18,9 @@
 @property (getter=isBookedByPerson) BOOL bookedByPerson;
 @property NSString *bookedByPersonId;
 @property NSString *bookedByPersonFullName;
-@property NSString *deviceId;
+@property NSString *deviceUdId;
 @property NSString *systemVersion;
-@property NSString *deviceRecordId;
+@property NSString *deviceId;
 @property NSURL *imageUrl;
 @property NSString *deviceType;
 

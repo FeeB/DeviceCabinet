@@ -34,8 +34,8 @@
 		95F84B651A153AF100F28EF3 /* CloudKitErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B401A153AF100F28EF3 /* CloudKitErrorMapper.m */; };
 		95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B431A153AF100F28EF3 /* RailsApiDao.m */; };
 		95F84B671A153AF100F28EF3 /* RailsApiErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B451A153AF100F28EF3 /* RailsApiErrorMapper.m */; };
-		95F84B681A153AF100F28EF3 /* UIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B471A153AF100F28EF3 /* UIdGenerator.m */; };
-		95F84B691A153AF100F28EF3 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B491A153AF100F28EF3 /* UserDefaults.m */; };
+		95F84B681A153AF100F28EF3 /* KeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */; };
+		95F84B691A153AF100F28EF3 /* UserDefaultsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */; };
 		95F84B6A1A153AF100F28EF3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B4A1A153AF100F28EF3 /* Images.xcassets */; };
 		95F84B6B1A153AF100F28EF3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B4B1A153AF100F28EF3 /* main.m */; };
 		95F84B6C1A153AF100F28EF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B4C1A153AF100F28EF3 /* Main.storyboard */; };
@@ -47,7 +47,9 @@
 		95F84B721A153AF100F28EF3 /* DeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B5A1A153AF100F28EF3 /* DeviceViewController.m */; };
 		95F84B731A153AF100F28EF3 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B5C1A153AF100F28EF3 /* OverviewViewController.m */; };
 		95F84B741A153AF100F28EF3 /* UserNamePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B5E1A153AF100F28EF3 /* UserNamePickerViewController.m */; };
-		95F84B781A153D4700F28EF3 /* FirstLaunchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B771A153D4700F28EF3 /* FirstLaunchHandler.m */; };
+		95F84B781A153D4700F28EF3 /* LaunchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B771A153D4700F28EF3 /* LaunchHandler.m */; };
+		95F84B7B1A1544E400F28EF3 /* UdIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */; };
+		95F84B7E1A15500E00F28EF3 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B7D1A15500E00F28EF3 /* StartViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,10 +127,10 @@
 		95F84B431A153AF100F28EF3 /* RailsApiDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiDao.m; sourceTree = "<group>"; };
 		95F84B441A153AF100F28EF3 /* RailsApiErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiErrorMapper.h; sourceTree = "<group>"; };
 		95F84B451A153AF100F28EF3 /* RailsApiErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiErrorMapper.m; sourceTree = "<group>"; };
-		95F84B461A153AF100F28EF3 /* UIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdGenerator.h; sourceTree = "<group>"; };
-		95F84B471A153AF100F28EF3 /* UIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGenerator.m; sourceTree = "<group>"; };
-		95F84B481A153AF100F28EF3 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
-		95F84B491A153AF100F28EF3 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
+		95F84B461A153AF100F28EF3 /* KeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainWrapper.h; sourceTree = "<group>"; };
+		95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapper.m; sourceTree = "<group>"; };
+		95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsWrapper.h; sourceTree = "<group>"; };
+		95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsWrapper.m; sourceTree = "<group>"; };
 		95F84B4A1A153AF100F28EF3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		95F84B4B1A153AF100F28EF3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		95F84B4C1A153AF100F28EF3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -148,8 +150,12 @@
 		95F84B5C1A153AF100F28EF3 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewViewController.m; sourceTree = "<group>"; };
 		95F84B5D1A153AF100F28EF3 /* UserNamePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNamePickerViewController.h; sourceTree = "<group>"; };
 		95F84B5E1A153AF100F28EF3 /* UserNamePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNamePickerViewController.m; sourceTree = "<group>"; };
-		95F84B761A153D4700F28EF3 /* FirstLaunchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLaunchHandler.h; sourceTree = "<group>"; };
-		95F84B771A153D4700F28EF3 /* FirstLaunchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLaunchHandler.m; sourceTree = "<group>"; };
+		95F84B761A153D4700F28EF3 /* LaunchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchHandler.h; sourceTree = "<group>"; };
+		95F84B771A153D4700F28EF3 /* LaunchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandler.m; sourceTree = "<group>"; };
+		95F84B791A1544E400F28EF3 /* UdIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdIdGenerator.h; sourceTree = "<group>"; };
+		95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UdIdGenerator.m; sourceTree = "<group>"; };
+		95F84B7C1A15500E00F28EF3 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		95F84B7D1A15500E00F28EF3 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		D3A6D4B45940492A9973C4BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -261,12 +267,14 @@
 			isa = PBXGroup;
 			children = (
 				95F84B3C1A153AF100F28EF3 /* API */,
-				95F84B461A153AF100F28EF3 /* UIdGenerator.h */,
-				95F84B471A153AF100F28EF3 /* UIdGenerator.m */,
-				95F84B481A153AF100F28EF3 /* UserDefaults.h */,
-				95F84B491A153AF100F28EF3 /* UserDefaults.m */,
-				95F84B761A153D4700F28EF3 /* FirstLaunchHandler.h */,
-				95F84B771A153D4700F28EF3 /* FirstLaunchHandler.m */,
+				95F84B461A153AF100F28EF3 /* KeyChainWrapper.h */,
+				95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */,
+				95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */,
+				95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */,
+				95F84B761A153D4700F28EF3 /* LaunchHandler.h */,
+				95F84B771A153D4700F28EF3 /* LaunchHandler.m */,
+				95F84B791A1544E400F28EF3 /* UdIdGenerator.h */,
+				95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -274,11 +282,11 @@
 		95F84B3C1A153AF100F28EF3 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				95F84B411A153AF100F28EF3 /* DeviceCabinetDAO.h */,
 				95F84B3D1A153AF100F28EF3 /* CloudKitDao.h */,
 				95F84B3E1A153AF100F28EF3 /* CloudKitDao.m */,
 				95F84B3F1A153AF100F28EF3 /* CloudKitErrorMapper.h */,
 				95F84B401A153AF100F28EF3 /* CloudKitErrorMapper.m */,
-				95F84B411A153AF100F28EF3 /* DeviceCabinetDAO.h */,
 				95F84B421A153AF100F28EF3 /* RailsApiDao.h */,
 				95F84B431A153AF100F28EF3 /* RailsApiDao.m */,
 				95F84B441A153AF100F28EF3 /* RailsApiErrorMapper.h */,
@@ -313,6 +321,8 @@
 				95F84B5C1A153AF100F28EF3 /* OverviewViewController.m */,
 				95F84B5D1A153AF100F28EF3 /* UserNamePickerViewController.h */,
 				95F84B5E1A153AF100F28EF3 /* UserNamePickerViewController.m */,
+				95F84B7C1A15500E00F28EF3 /* StartViewController.h */,
+				95F84B7D1A15500E00F28EF3 /* StartViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -512,12 +522,14 @@
 				95F84B741A153AF100F28EF3 /* UserNamePickerViewController.m in Sources */,
 				95F84B701A153AF100F28EF3 /* CreatePersonViewController.m in Sources */,
 				95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */,
-				95F84B681A153AF100F28EF3 /* UIdGenerator.m in Sources */,
+				95F84B681A153AF100F28EF3 /* KeyChainWrapper.m in Sources */,
 				95F84B641A153AF100F28EF3 /* CloudKitDao.m in Sources */,
+				95F84B7B1A1544E400F28EF3 /* UdIdGenerator.m in Sources */,
 				95F84B6F1A153AF100F28EF3 /* CreateDeviceViewController.m in Sources */,
-				95F84B781A153D4700F28EF3 /* FirstLaunchHandler.m in Sources */,
+				95F84B781A153D4700F28EF3 /* LaunchHandler.m in Sources */,
 				95F84B6B1A153AF100F28EF3 /* main.m in Sources */,
-				95F84B691A153AF100F28EF3 /* UserDefaults.m in Sources */,
+				95F84B7E1A15500E00F28EF3 /* StartViewController.m in Sources */,
+				95F84B691A153AF100F28EF3 /* UserDefaultsWrapper.m in Sources */,
 				95F84B721A153AF100F28EF3 /* DeviceViewController.m in Sources */,
 				95F84B711A153AF100F28EF3 /* DecisionViewController.m in Sources */,
 			);

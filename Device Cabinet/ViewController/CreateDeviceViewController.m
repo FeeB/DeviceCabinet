@@ -8,12 +8,13 @@
 
 #import "CreateDeviceViewController.h"
 #import "Device.h"
-#import "UIdGenerator.h"
+#import "KeyChainWrapper.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
 #import "AppDelegate.h"
 #import "UIDevice-Hardware.h"
-#import "UserDefaults.h"
+#import "UserDefaultsWrapper.h"
+#import "UdIdGenerator.h"
 
 NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceView";
 
@@ -77,22 +78,23 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         if (self.switchCurrentDevice.isOn) {
-            self.isCurrentDevice = YES;
+            self.shouldRegisterCurrentDevice = YES;
         }
-        
-        UIdGenerator *uIdGenerator = [[UIdGenerator alloc] init];
-        uIdGenerator.isCurrentDevice = self.isCurrentDevice;
         
         self.device = [[Device alloc] init];
         self.device.deviceName = self.deviceNameTextField.text;
         self.device.category = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
-        self.device.deviceId = [uIdGenerator getDeviceId];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         self.device.deviceType = self.deviceTypeTextField.text;
-        
-        if (self.isCurrentDevice) {
-            UserDefaults *userDefaults = [[UserDefaults alloc]init];
-            [userDefaults storeDeviceWithDevice:self.device];
+   
+        if (self.shouldRegisterCurrentDevice) {
+            self.device.deviceUdId = [UdIdGenerator generateUID];
+
+            KeyChainWrapper *keyChainWrapper = [[KeyChainWrapper alloc] init];
+            [keyChainWrapper setDeviceUdId:self.device.deviceUdId];
+
+            UserDefaultsWrapper *userDefaults = [[UserDefaultsWrapper alloc] init];
+            [userDefaults setDevice:self.device];
         }
         
         [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {

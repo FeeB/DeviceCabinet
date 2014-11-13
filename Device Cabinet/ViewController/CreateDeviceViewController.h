@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) void (^onCompletion)(id result);
-@property (nonatomic, assign) BOOL isCurrentDevice;
+@property (nonatomic, assign) BOOL shouldRegisterCurrentDevice;
 
 - (IBAction)storeDevice;
 - (IBAction)backButton;

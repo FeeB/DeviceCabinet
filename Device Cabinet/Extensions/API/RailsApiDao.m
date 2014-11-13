@@ -45,7 +45,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)deleteDevice:(Device *)device completionHandler:(void (^)( NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -97,7 +97,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
-- (void) fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
+- (void) fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device_id": deviceId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -114,7 +114,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 - (void)fetchDeviceRecordWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -199,7 +199,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": person.personRecordId, @"is_booked": @"YES"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -216,7 +216,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"person_id": (id)[NSNull null], @"is_booked": @"NO"};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -253,7 +253,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     NSString *imageBase64Encoded = [imageAsResizedJpegData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *storeParameters = @{@"image_data_encoded": imageBase64Encoded};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -270,7 +270,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)updateSystemVersion:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
     NSDictionary *storeParameters = @{@"system_version": device.systemVersion};
     NSDictionary *parameters = @{@"device": storeParameters};
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceRecordId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -86,7 +86,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     [publicDatabase addOperation:queryOperation];
 }
 
-- (void)fetchDeviceWithDeviceId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
+- (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler {
     
     //query with specific user name
     NSPredicate *predicate = [NSPredicate predicateWithFormat:PredicateFormatForDeviceId, deviceId];
@@ -269,7 +269,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     device.deviceName = record[RecordTypeDeviceNameField];
     device.category = record[RecordTypeDeviceCategoryField];
     device.recordId = record.recordID;
-    device.deviceId = record[RecordTypeDeviceIdField];
+    device.deviceUdId = record[RecordTypeDeviceIdField];
     device.systemVersion = record[RecordTypeDeviceSystemVersionField];
     
     CKAsset *photoAsset = record[RecordTypeDeviceImageField];
@@ -300,7 +300,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
     CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:RecordTypeDevice];
     [deviceRecord setObject:device.deviceName forKey: RecordTypeDeviceNameField];
     [deviceRecord setObject:device.category forKey: RecordTypeDeviceCategoryField];
-    [deviceRecord setObject:device.deviceId forKey:RecordTypeDeviceIdField];
+    [deviceRecord setObject:device.deviceUdId forKey:RecordTypeDeviceIdField];
     [deviceRecord setObject:device.systemVersion forKey:RecordTypeDeviceSystemVersionField];
     
     return deviceRecord;

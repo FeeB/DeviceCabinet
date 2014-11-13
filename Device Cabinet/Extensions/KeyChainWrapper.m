@@ -6,42 +6,21 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "UIdGenerator.h"
+#import "KeyChainWrapper.h"
 #import "KeychainItemWrapper.h"
+#import "UdIdGenerator.h"
 
 NSString * const KeyForKeychain = @"deviceId";
 
-@implementation UIdGenerator
+@implementation KeyChainWrapper
 
-
-- (NSString *)getDeviceId {
-    
-    if (self.isCurrentDevice) {
-        NSString *udidString = [self getIdfromKeychain];
-        if([udidString isEqualToString:@""]) {
-            udidString = [self generateUID];
-            [self setDeviceId:udidString];
-        }
-        return udidString;
-    } else {
-        return [self generateUID];
-    }
-}
-
-- (NSString *)generateUID {
-    CFUUIDRef cfuuid = CFUUIDCreate(kCFAllocatorDefault);
-    NSString *udidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, cfuuid));
-    CFRelease(cfuuid);
-    return udidString;
-}
-
-- (void)setDeviceId:(NSString *)deviceId {
+- (void)setDeviceUdId:(NSString *)deviceId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     [keychain setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
     [keychain setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
 }
 
-- (NSString *)getIdfromKeychain {
+- (NSString *)getDeviceUdId {
     KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
     NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
     return object;
@@ -52,8 +31,8 @@ NSString * const KeyForKeychain = @"deviceId";
     [keychain resetKeychainItem];
 }
 
-- (BOOL)hasDeviceIdInKeyChain {
-    if ([[self getIdfromKeychain] isEqualToString:@""]) {
+- (BOOL)hasDeviceUdId {
+    if ([[self getDeviceUdId] isEqualToString:@""]) {
         return NO;
     } else {
         return YES;
