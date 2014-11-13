@@ -76,7 +76,7 @@ NSString * const FromCreateDeviceToDeviceViewSegue = @"FromCreateDeviceToDeviceV
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
-        if (self.switchCurrentDevice.isEnabled) {
+        if (self.switchCurrentDevice.isOn) {
             self.isCurrentDevice = YES;
         }
         
