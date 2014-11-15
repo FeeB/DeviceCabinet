@@ -43,12 +43,6 @@
 "MESSAGE_SAVED_DEVICE" = "Das Gerät %@ wurde in der Kategorie %@ registriert";
 "MESSAGE_SAVED_PERSON" = "Person %@ %@ wurde registriert";
 
-"HEADLINE_USERNAME_EMPTY" = "Wähle erst deinen Namen!";
-"MESSAGE_USERNAME_EMPTY" = "Wähle deinene Namen aus der Liste";
-"HEADLINE_USERNAME_NOT_FOUND" = "Username nicht gefunden";
-"MESSAGE_USERNAME_NOT_FOUND" = "Bitte gebe deinen Usernamen erneut ein oder registriere dich";
-"HEADLINE_REGISTER_DEVICE" = "Gerät registrieren";
-"MESSAGE_REGISTER_DEVICE" = "Das Gerät ist noch nicht registriert, bitte registriere es jetzt";
 "HEADLINE_EMPTY_TEXTFIELD" = "Fülle alle Textfelder aus";
 "MESSAGE_EMPTY_TEXTFIELD" = "Das Textfeld %@ darf nicht leer sein";
 "HEADLINE_ALREADY_BOOKED" = "Gerät wurde ausgeliehen";

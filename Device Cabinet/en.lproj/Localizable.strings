@@ -44,10 +44,6 @@
 "MESSAGE_SAVED_DEVICE" = "The device %@ was registered in the category %@";
 "MESSAGE_SAVED_PERSON" = "The person %@ %@ was registered";
 
-"HEADLINE_USERNAME_EMPTY" = "Choose your name first!";
-"MESSAGE_USERNAME_EMPTY" = "Choose your name from the list";
-"HEADLINE_USERNAME_NOT_FOUND" = "Username not found";
-"MESSAGE_USERNAME_NOT_FOUND" = "Please try again to enter you username or register as a new user";
 "HEADLINE_REGISTER_DEVICE" = "Register the device";
 "MESSAGE_REGISTER_DEVICE" = "The device is not registered yet, please register it now";
 "HEADLINE_EMPTY_TEXTFIELD" = "Please fill out the textfields";
