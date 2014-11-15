@@ -260,11 +260,11 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil);
+            completionHandler ? completionHandler(nil) : nil;
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler ? completionHandler(nil) : nil;
         });
     }];
 

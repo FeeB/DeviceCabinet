@@ -75,7 +75,6 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                [self.spinner stopAnimating];
             } else {
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), self.person.firstName, self.person.lastName]

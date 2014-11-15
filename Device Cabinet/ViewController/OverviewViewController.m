@@ -104,7 +104,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     if (self.device) {
         [AppDelegate.dao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
-                if (![RailsApiErrorMapper itemNotFoundInDatabaseError]) {
+                if (!error.code == [RailsApiErrorMapper itemNotFoundInDatabaseError].code) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                                message:error.localizedRecoverySuggestion
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
@@ -113,18 +113,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
                     [UserDefaultsWrapper setDevice:device];
-                    RailsApiDao *railsApi = [[RailsApiDao alloc]init];
-                    [self updateTable];
-                    [railsApi updateSystemVersion:self.device completionHandler:^(NSError *error) {
-                        if (error) {
-                            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                            [self.spinner stopAnimating];
-                            
-                            [[[UIAlertView alloc]initWithTitle:error.localizedDescription
-                                                       message:error.localizedRecoverySuggestion
-                                                      delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-                        }
-                    }];
+                    RailsApiDao *railsApi = [[RailsApiDao alloc] init];
+                    [railsApi updateSystemVersion:self.device completionHandler:nil];
                     [self updateTable];
                 }
             }
@@ -136,7 +126,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     return 1;
 }
 
-//standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.currentList.count;
 }
@@ -171,7 +160,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     return cell;
 }
 
-//On click on one cell the device view will appear
 - (IBAction)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];
 }
@@ -218,7 +206,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     }];
 }
 
-//get all devices for the device overview
 - (void)getAllDevices {
     [self.spinner startAnimating];
 
@@ -258,10 +245,10 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
         if (self.forwardToDevice) {
-            controller.deviceObject = self.forwardToDevice;
+            controller.device = self.forwardToDevice;
             self.forwardToDevice = nil;
         } else {
-            controller.deviceObject = [self.currentList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+            controller.device = [self.currentList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         }
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;

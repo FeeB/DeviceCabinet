@@ -73,8 +73,8 @@
 
 - (IBAction)storeDevice {
     if (self.deviceNameTextField.text && self.deviceNameTextField.text.length > 0) {
-        [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self.spinner startAnimating];
         
         if (self.switchCurrentDevice.isOn) {
             self.shouldRegisterCurrentDevice = YES;
@@ -94,11 +94,11 @@
         
         [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            [self.spinner stopAnimating];
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                [self.spinner stopAnimating];
             } else {
                 self.device = storedDevice;
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

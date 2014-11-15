@@ -49,7 +49,7 @@
     Device *device = [[Device alloc] init];
     device.bookedByPerson = NO;
     
-    controller.deviceObject = device;
+    controller.device = device;
     
     [controller updateView];
     [controller viewDidLoad];
@@ -68,7 +68,7 @@
     device.bookedByPersonFullName = person.fullName;
     device.bookedByPersonId = person.personRecordId;
     
-    controller.deviceObject = device;
+    controller.device = device;
     [controller updateView];
     [controller viewDidLoad];
     

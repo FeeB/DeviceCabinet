@@ -25,8 +25,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
 
-@property (nonatomic, strong) Device *deviceObject;
-@property (nonatomic, strong) Person *personObject;
+@property (nonatomic, strong) Device *device;
+@property (nonatomic, strong) Person *person;
 @property (nonatomic, strong) UserNamePickerViewController *userNamePicker;
 
 - (void)storeReference;
