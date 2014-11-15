@@ -19,11 +19,8 @@
 NSString * const FromDecisionToRegisterDeviceSegue = @"FromDecisionToRegisterDevice";
 NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
-
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     self.navigationItem.hidesBackButton = YES;
-
 }
 
 - (void)viewDidLoad {

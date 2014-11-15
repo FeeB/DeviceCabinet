@@ -40,6 +40,10 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 NSString * const FromOverViewToRegisterSegue = @"FromOverViewToRegister";
 NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice";
 
+- (void)awakeFromNib {
+    self.navigationItem.hidesBackButton = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
