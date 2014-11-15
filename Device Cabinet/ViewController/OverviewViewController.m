@@ -77,7 +77,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     self.device = [UserDefaultsWrapper getDevice];
     [self checkForSystemVersionUpdate];
     [self handleIfAppRunsOnTestDevice];
-    
     [self getAllDevices];
 }
 
@@ -93,15 +92,19 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     }
 }
 
-- (IBAction)sectionDidChange:(UISegmentedControl *)segmentedControl {
-    if (segmentedControl.selectedSegmentIndex == 0 + (self.device ? 1 : 0)) {
+- (void)fillListBasedOnSegmentedControl {
+    if (self.segmentedControl.selectedSegmentIndex == 0 + (self.device ? 1 : 0)) {
         self.currentList = self.availableDevices;
-    } else if (segmentedControl.selectedSegmentIndex == 1 + (self.device ? 1 : 0)) {
+    } else if (self.segmentedControl.selectedSegmentIndex == 1 + (self.device ? 1 : 0)) {
         self.currentList = self.bookedDevices;
     } else {
         self.currentList = self.currentDevice;
     }
     [self.tableView reloadData];
+}
+
+- (IBAction)sectionDidChange:(UISegmentedControl *)segmentedControl {
+    [self fillListBasedOnSegmentedControl];
 }
 
 - (void)checkForSystemVersionUpdate {
@@ -193,18 +196,19 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
-        }
-        
-        if (device.deviceUdId && [device.deviceUdId isEqualToString:self.device.deviceUdId]) {
-            [UserDefaultsWrapper reset];
-            [KeyChainWrapper reset];
-            self.device = nil;
-            
-            if (self.currentList == self.currentDevice) {
-                self.currentList = self.availableDevices;
-                [self.segmentedControl updateConstraints];
+        } else {
+            // Handle case that the current device was deleted
+            if (device.deviceUdId && [device.deviceUdId isEqualToString:self.device.deviceUdId]) {
+                [UserDefaultsWrapper reset];
+                [KeyChainWrapper reset];
+                self.device = nil;
+                [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
+                
+                if (self.currentList == self.currentDevice) {
+                    self.currentList = self.availableDevices;
+                    [self.segmentedControl setSelectedSegmentIndex:0];
+                }
             }
-            [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
         }
         [self getAllDevices];
     }];
@@ -233,11 +237,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 }
             }
             
-            if (self.segmentedControl.numberOfSegments == 2 && self.segmentedControl.selectedSegmentIndex == 0) {
-                self.currentList = self.availableDevices;
-            }
-            
-            [self.tableView reloadData];
+            [self fillListBasedOnSegmentedControl];
         }
     }];
 }
