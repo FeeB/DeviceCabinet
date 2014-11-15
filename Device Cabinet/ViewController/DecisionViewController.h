@@ -13,11 +13,8 @@
 
 @property (nonatomic, strong) IBOutlet UIButton *registerDeviceButton;
 @property (nonatomic, strong) IBOutlet UIButton *noRegisterButton;
-@property (nonatomic, strong) void (^onCompletion)(id result);
-@property (nonatomic, weak) Device *deviceObject;
 
 - (IBAction)onRegisterClick;
 - (IBAction)onNoRegisterClick;
-
 
 @end

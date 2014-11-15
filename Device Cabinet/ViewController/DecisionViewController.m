@@ -19,13 +19,16 @@
 NSString * const FromDecisionToRegisterDeviceSegue = @"FromDecisionToRegisterDevice";
 NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
+
+- (void)awakeFromNib
+{
+    self.navigationItem.hidesBackButton = YES;
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TEDLocalization localize:self];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (IBAction)onRegisterClick {
@@ -36,22 +39,12 @@ NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
     [self performSegueWithIdentifier:FromDecisionToOverviewSegue sender:nil];
 }
 
--(void)dissmissLogInViewDeviceView{
-    if (self.onCompletion) {
-        self.onCompletion(self.deviceObject);
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromDecisionToRegisterDeviceSegue]) {
         CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
         controller.shouldRegisterCurrentDevice = YES;
-        
-        controller.onCompletion = ^(id result) {
-            self.deviceObject = result;
-            [self dissmissLogInViewDeviceView];
+        controller.onCompletion = ^() {
+            [self performSegueWithIdentifier:FromDecisionToOverviewSegue sender:nil];
         };
     }
 }

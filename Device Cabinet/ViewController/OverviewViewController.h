@@ -15,7 +15,6 @@
 @property (nonatomic, strong) Device *forwardToDevice;
 @property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
 
-
 - (void)getAllDevices;
 
 @end

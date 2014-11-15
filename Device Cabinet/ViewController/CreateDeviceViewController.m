@@ -35,7 +35,6 @@
     self.pickerData = @[@"iPhone", @"Android Phone", @"iPad", @"Android Tablet"];
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
-
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);

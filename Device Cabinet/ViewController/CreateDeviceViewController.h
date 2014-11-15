@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *switchCurrentDevice;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) void (^onCompletion)(id result);
+@property (nonatomic, strong) void (^onCompletion)();
 @property (nonatomic, assign) BOOL shouldRegisterCurrentDevice;
 
 - (IBAction)storeDevice;
