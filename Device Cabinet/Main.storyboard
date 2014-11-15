@@ -252,11 +252,11 @@
             <objects>
                 <viewController id="fWZ-Ut-nkS" customClass="CreateDeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hUi-XZ-OJq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Tsu-Mn-eTc">
-                                <rect key="frame" x="-1" y="0.0" width="321" height="504"/>
+                                <rect key="frame" x="-1" y="0.0" width="321" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICENAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qhy-HR-mCf">
@@ -596,9 +596,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xju-vS-6Xe"/>
-        <segue reference="Osa-rt-PcE"/>
-        <segue reference="VeD-io-uAb"/>
+        <segue reference="3xm-Jh-SNA"/>
+        <segue reference="Mdk-TY-iFG"/>
+        <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>

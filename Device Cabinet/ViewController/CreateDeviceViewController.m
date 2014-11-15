@@ -48,6 +48,10 @@
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
+    
+    if (self.shouldRegisterCurrentDevice) {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
