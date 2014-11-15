@@ -267,7 +267,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (Device *)deviceFromRecord:(CKRecord *)record {
     Device *device = [[Device alloc]init];
     device.deviceName = record[RecordTypeDeviceNameField];
-    device.category = record[RecordTypeDeviceCategoryField];
+    device.type = record[RecordTypeDeviceCategoryField];
     device.recordId = record.recordID;
     device.deviceUdId = record[RecordTypeDeviceIdField];
     device.systemVersion = record[RecordTypeDeviceSystemVersionField];
@@ -299,7 +299,7 @@ NSString * const PredicateFormatForDeviceId = @"deviceId = %@";
 - (CKRecord *)recordFromDevice:(Device *)device {
     CKRecord *deviceRecord = [[CKRecord alloc] initWithRecordType:RecordTypeDevice];
     [deviceRecord setObject:device.deviceName forKey: RecordTypeDeviceNameField];
-    [deviceRecord setObject:device.category forKey: RecordTypeDeviceCategoryField];
+    [deviceRecord setObject:device.type forKey: RecordTypeDeviceCategoryField];
     [deviceRecord setObject:device.deviceUdId forKey:RecordTypeDeviceIdField];
     [deviceRecord setObject:device.systemVersion forKey:RecordTypeDeviceSystemVersionField];
     

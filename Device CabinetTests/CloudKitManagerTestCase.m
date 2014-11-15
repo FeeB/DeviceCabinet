@@ -81,7 +81,7 @@
     CKRecord *record = [manager recordFromDevice:device];
     
     XCTAssertEqualObjects(record[@"devicename"], device.deviceName, @"The devicename of the device should be the same in the record");
-    XCTAssertEqualObjects(record[@"category"], device.category, @"The category of the device should be the same in the record");
+    XCTAssertEqualObjects(record[@"category"], device.type, @"The category of the device should be the same in the record");
     XCTAssertEqualObjects(record[@"deviceId"], device.deviceId, @"The device ID of the device should be the same in the record");
     XCTAssertEqualObjects(record[@"systemVersion"], device.systemVersion, @"The system version of the device should be the same in the record");
 }
@@ -93,7 +93,7 @@
     Device *device = [manager deviceFromRecord:record];
     
     XCTAssertEqualObjects(device.deviceName, record[@"devicename"], @"The devicename in the record should be the same in the device object");
-    XCTAssertEqualObjects(device.category, record[@"category"], @"The category in the record should be the same in the device object");
+    XCTAssertEqualObjects(device.type, record[@"category"], @"The category in the record should be the same in the device object");
     XCTAssertEqualObjects(device.deviceId, record[@"deviceId"], @"The device ID in the record should be the same in the device object");
     XCTAssertEqualObjects(device.systemVersion, record[@"systemVersion"], @"The system Version in the record should be the same in the device object");
 }
@@ -111,7 +111,7 @@
 - (Device *)createATestDevice {
     Device *device = [[Device alloc] init];
     device.deviceName = @"devicename";
-    device.category = @"iPhone";
+    device.type = @"iPhone";
     device.deviceId = @"123";
     device.systemVersion = @"8.0";
     

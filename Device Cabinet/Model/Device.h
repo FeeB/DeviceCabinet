@@ -14,7 +14,7 @@
 @interface Device : NSObject
 
 @property NSString *deviceName;
-@property NSString *category;
+@property NSString *type;
 @property (getter=isBookedByPerson) BOOL bookedByPerson;
 @property NSString *bookedByPersonId;
 @property NSString *bookedByPersonFullName;

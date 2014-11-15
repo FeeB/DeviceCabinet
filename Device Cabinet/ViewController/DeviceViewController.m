@@ -35,7 +35,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.view addSubview:self.spinner];
     
     //set label text
-    self.individualDeviceCategoryLabel.text = self.deviceObject.category;
+    self.individualDeviceCategoryLabel.text = self.deviceObject.type;
     self.individualDeviceNameLabel.text = self.deviceObject.deviceName;
     self.individualSystemVersionLabel.text = self.deviceObject.systemVersion;
     self.individualDeviceTypeLabel.text = self.deviceObject.deviceType;

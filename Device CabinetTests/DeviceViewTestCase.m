@@ -80,7 +80,7 @@
 - (Device *)createATestDevice {
     Device *device = [[Device alloc] init];
     device.deviceName = @"devicename";
-    device.category = @"iPhone";
+    device.type = @"iPhone";
     device.deviceId = @"123";
     device.systemVersion = @"8.0";
     

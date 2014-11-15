@@ -12,7 +12,7 @@
 @implementation Device
 
 - (NSDictionary *)toDictionary {
-    NSMutableDictionary *deviceDictionary = @{@"device_name" : self.deviceName, @"category" : self.category, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType}.mutableCopy;
+    NSMutableDictionary *deviceDictionary = @{@"device_name" : self.deviceName, @"category" : self.type, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType}.mutableCopy;
     
     if (self.deviceUdId) {
         [deviceDictionary setValue:self.deviceUdId forKey:@"device_id"];
@@ -28,7 +28,7 @@
         if ([json valueForKey:@"device_id"] != [NSNull null]) {
             self.deviceUdId = [json valueForKey:@"device_id"];
         }
-        self.category = [json valueForKey:@"category"];
+        self.type = [json valueForKey:@"category"];
         self.deviceId = [json valueForKey:@"id"];
         self.systemVersion = [json valueForKey:@"system_version"];
         
@@ -56,7 +56,7 @@
     [encoder encodeObject:self.bookedByPersonFullName forKey:@"bookedByPersonFullName"];
     [encoder encodeObject:self.bookedByPersonId forKey:@"bookedByPersonId"];
     [encoder encodeObject:self.imageUrl forKey:@"imageUrl"];
-    [encoder encodeObject:self.category forKey:@"category"];
+    [encoder encodeObject:self.type forKey:@"category"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -70,7 +70,7 @@
         self.bookedByPersonFullName = [decoder decodeObjectForKey:@"bookedByPersonFullName"];
         self.bookedByPersonId = [decoder decodeObjectForKey:@"bookedByPersonId"];
         self.imageUrl = [decoder decodeObjectForKey:@"imageUrl"];
-        self.category = [decoder decodeObjectForKey:@"category"];
+        self.type = [decoder decodeObjectForKey:@"category"];
     }
     return self;
 }

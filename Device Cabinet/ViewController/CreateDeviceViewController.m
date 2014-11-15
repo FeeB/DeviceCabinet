@@ -82,7 +82,7 @@
         
         self.device = [[Device alloc] init];
         self.device.deviceName = self.deviceNameTextField.text;
-        self.device.category = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
+        self.device.type = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         self.device.deviceType = self.deviceTypeTextField.text;
    
@@ -101,7 +101,7 @@
                 [self.spinner stopAnimating];
             } else {
                 self.device = storedDevice;
-                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.category] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }];
     } else {

@@ -36,13 +36,13 @@
 
 - (void)testInitWithJson {
     Person *storedPerson = [self createATestPerson];
-    NSDictionary *json = @{@"first_name" :storedPerson.firstName, @"last_name" : storedPerson.lastName, @"full_name" : storedPerson.fullName, @"has_booked_device" : storedPerson.hasBookedDevice ? @"Yes" : @"No", @"id" :storedPerson.personRecordId};
+    NSDictionary *json = @{@"first_name" :storedPerson.firstName, @"last_name" : storedPerson.lastName, @"full_name" : storedPerson.fullName, @"has_booked_device" : storedPerson.hasBookedDevice ? @"Yes" : @"No", @"id" :storedPerson.personId};
     
     Person *person = [[Person alloc] initWithJson:json];
     
     XCTAssertEqualObjects(person.fullName, storedPerson.fullName, @"Fullname from person initialized with json should be same like storedPerson");
     XCTAssert(person.hasBookedDevice, @"hasBookedDevice from initialized with json should be true");
-    XCTAssertEqualObjects(person.personRecordId, storedPerson.personRecordId, @"RecordId from person initialized with json should be same like storedPerson");
+    XCTAssertEqualObjects(person.personId, storedPerson.personId, @"RecordId from person initialized with json should be same like storedPerson");
 }
 
 - (void)testToDictionary {
@@ -60,7 +60,7 @@
     person.firstName = @"first";
     person.lastName = @"last";
     person.hasBookedDevice = YES;
-    person.personRecordId = @"1";
+    person.personId = @"1";
     
     return person;
 }
