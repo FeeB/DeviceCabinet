@@ -82,6 +82,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         if (self.segmentedControl.numberOfSegments == 2) {
             [self.segmentedControl insertSegmentWithTitle:NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) atIndex:0 animated:NO];
             self.segmentedControl.selectedSegmentIndex = 0;
+            self.currentList = self.currentDevice;
         }
     }
 }
