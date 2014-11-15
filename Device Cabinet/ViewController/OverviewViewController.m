@@ -61,7 +61,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     }
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(updateTable) forControlEvents:UIControlEventValueChanged];
+    [refreshControl addTarget:self action:@selector(getAllDevices) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
 }
 
@@ -115,7 +115,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                     [UserDefaultsWrapper setDevice:device];
                     RailsApiDao *railsApi = [[RailsApiDao alloc] init];
                     [railsApi updateSystemVersion:self.device completionHandler:nil];
-                    [self updateTable];
+                    [self getAllDevices];
                 }
             }
         }];
@@ -202,7 +202,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             }
             [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
         }
-        [self updateTable];
+        [self getAllDevices];
     }];
 }
 
@@ -211,6 +211,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
     [AppDelegate.dao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
+        [self.refreshControl endRefreshing];
+
         if (error) {
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
@@ -234,11 +236,6 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             [self.tableView reloadData];
         }
     }];
-}
-
-- (void)updateTable {
-    [self getAllDevices];
-    [self.refreshControl endRefreshing];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
