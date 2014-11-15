@@ -51,6 +51,8 @@
     
     if (self.shouldRegisterCurrentDevice) {
         self.navigationItem.leftBarButtonItem = nil;
+        self.switchCurrentDevice.hidden = YES;
+        self.labelSwitchCurrentDevice.hidden = YES;
     }
 }
 

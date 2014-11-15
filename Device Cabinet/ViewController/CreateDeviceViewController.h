@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *deviceTypeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UISwitch *switchCurrentDevice;
+@property (weak, nonatomic) IBOutlet UILabel *labelSwitchCurrentDevice;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) void (^onCompletion)();

@@ -252,11 +252,11 @@
             <objects>
                 <viewController id="fWZ-Ut-nkS" customClass="CreateDeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hUi-XZ-OJq">
-                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Tsu-Mn-eTc">
-                                <rect key="frame" x="-1" y="0.0" width="321" height="568"/>
+                                <rect key="frame" x="-1" y="0.0" width="321" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL_DEVICENAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qhy-HR-mCf">
@@ -350,6 +350,7 @@
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="devicePicker" destination="tEp-tq-fpi" id="l0B-kc-fzb"/>
                         <outlet property="deviceTypeTextField" destination="0JO-CZ-SGX" id="swU-6o-yG3"/>
+                        <outlet property="labelSwitchCurrentDevice" destination="eMB-No-XfF" id="5LH-i0-15m"/>
                         <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
                         <outlet property="scrollView" destination="Tsu-Mn-eTc" id="ZZK-Po-LPn"/>
                         <outlet property="switchCurrentDevice" destination="QVr-47-i5H" id="4zP-gT-Ez9"/>
@@ -600,8 +601,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Osa-rt-PcE"/>
-        <segue reference="3xm-Jh-SNA"/>
-        <segue reference="Phs-EO-HNL"/>
+        <segue reference="Xju-vS-6Xe"/>
+        <segue reference="VeD-io-uAb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>
