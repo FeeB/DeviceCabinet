@@ -513,8 +513,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="BWm-NZ-BIl"/>
                     <connections>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromStartToOverviewSegue" id="Osa-rt-PcE"/>
-                        <segue destination="sQN-jd-qJM" kind="push" identifier="FromStartToDecisionSegue" id="Cse-r0-oB9"/>
+                        <segue destination="iw6-Gk-HuI" kind="custom" identifier="FromStartToOverviewSegue" customClass="PushNoAnimationSegue" id="Osa-rt-PcE"/>
+                        <segue destination="sQN-jd-qJM" kind="custom" identifier="FromStartToDecisionSegue" customClass="PushNoAnimationSegue" id="Cse-r0-oB9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j6S-Gh-Dxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,8 +599,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Osa-rt-PcE"/>
         <segue reference="3xm-Jh-SNA"/>
-        <segue reference="Mdk-TY-iFG"/>
         <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
