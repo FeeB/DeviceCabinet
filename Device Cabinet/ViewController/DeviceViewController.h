@@ -20,7 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
 @property (nonatomic, weak) IBOutlet UILabel *individualSystemVersionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
