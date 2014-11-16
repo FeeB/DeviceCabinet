@@ -9,11 +9,10 @@
 
 "LABEL_FIRSTNAME" = "Vorname";
 "LABEL_LASTNAME" = "Nachname";
-"LABEL_USERNAME" = "Username";
 
 "LABEL_OVERVIEW" = "Geräte Übersicht";
 
-"LABEL_DEVICENAME" = "Gerätename";
+"LABEL_DEVICENAME" = "Name";
 "LABEL_CATEGORY" = "Typ";
 "LABEL_SYSTEM_VERSION" = "Version";
 "LABEL_DEVICE_TYPE" = "Model";
@@ -23,7 +22,7 @@
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
 "BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen";
-"LABEL_CURRENT_DEVICE" = "Aktuelles Testgerät?";
+"LABEL_CURRENT_DEVICE" = "Aktuelles Gerät";
 
 "SECTION_ACTUAL_DEVICE" = "Aktuell";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehen";

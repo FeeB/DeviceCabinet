@@ -20,9 +20,10 @@
 @interface CreateDeviceViewController ()
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) NSArray *pickerData;
 @property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) NSString *deviceType;
+@property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *deviceTypeButtons;
 
 @end
 
@@ -32,7 +33,8 @@
     [super viewDidLoad];
     [TEDLocalization localize:self];
     
-    self.pickerData = @[@"iPhone", @"Android Phone", @"iPad", @"Android Tablet"];
+    self.deviceType = @"iPhone";
+    
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
     
@@ -40,9 +42,6 @@
     self.spinner.center = CGPointMake(160, 240);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
-    
-    self.devicePicker.dataSource = self;
-    self.devicePicker.delegate = self;
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
     
@@ -56,20 +55,16 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.pickerData.count;
-}
-
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return _pickerData[row];
+- (IBAction)deviceTypeSelected:(UIButton *)sender
+{
+    for (UIButton *b in self.deviceTypeButtons) {
+        if (b == sender) {
+            b.tintColor = [UIColor colorWithRed:68.0f/255.0f green:181.0f/255.0f blue:200.0f/255.0f alpha:1];
+        } else {
+            b.tintColor = [UIColor lightGrayColor];
+        }
+    }
+    self.deviceType = sender.titleLabel.text;
 }
 
 - (IBAction)textFieldReturn:(id)sender {
@@ -87,7 +82,7 @@
         
         self.device = [[Device alloc] init];
         self.device.deviceName = self.deviceNameTextField.text;
-        self.device.type = [_pickerData objectAtIndex:[_devicePicker selectedRowInComponent:0]];
+        self.device.type = self.deviceType;
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         self.device.deviceType = self.deviceTypeTextField.text;
 

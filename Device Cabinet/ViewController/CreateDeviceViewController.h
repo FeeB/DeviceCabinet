@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Device.h"
 
-@interface CreateDeviceViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIAlertViewDelegate>
+@interface CreateDeviceViewController : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPickerView *devicePicker;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;

@@ -11,7 +11,7 @@
 
 "LABEL_OVERVIEW" = "Devices Overview";
 
-"LABEL_DEVICENAME" = "Device name";
+"LABEL_DEVICENAME" = "Name";
 "LABEL_CATEGORY" = "Type";
 "LABEL_SYSTEM_VERSION" = "Version";
 "LABEL_DEVICE_TYPE" = "Model";
@@ -23,7 +23,7 @@
 "BUTTON_USERNAME_PCIKER" = "Choose your name";
 "BUTTON_USERNAME" = "Selected Namen: %@";
 "BUTTON_LAST_USERNAME" = "Last name chosen: %@";
-"LABEL_CURRENT_DEVICE" = "Current test device?";
+"LABEL_CURRENT_DEVICE" = "Current device";
 
 "SECTION_ACTUAL_DEVICE" = "Current";
 "SECTION_BOOKED_DEVICES" = "Booked";
