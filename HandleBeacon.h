@@ -21,6 +21,8 @@
 @property (nonatomic) NSString *userIdentifier;
 @property (nonatomic) NSString *userType;
 @property (nonatomic) Device *deviceObject;
+@property (nonatomic, assign) bool notificationToReturnDeviceWasSend;
+@property (nonatomic, assign) bool notificationToBookDeviceWasSend;
 
 - (void)searchForBeacon;
 

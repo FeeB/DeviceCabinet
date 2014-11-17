@@ -16,9 +16,6 @@
 
 @implementation HandleBeacon
 
-
-@synthesize locationManager;
-
 - (void)searchForBeacon
 {
     // Create a NSUUID with the same UUID as the broadcasting beacon
@@ -52,20 +49,38 @@
         notification.alertBody = message;
         notification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    } else {
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
     }
 }
 
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
+    NSLog(@"Device did Enter Region");
+    
+    if ([self.userType isEqualToString:@"device"]) {
+        [self checkCurrentDeviceWithCompletionHandler:^(Device *device, NSError *error) {
+            if (self.deviceObject.isBookedByPerson && !self.notificationToReturnDeviceWasSend) {
+                [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
+                self.notificationToReturnDeviceWasSend = YES;
+                self.notificationToBookDeviceWasSend = NO;
+                NSLog(@"Return notification was send from didEnter");
+            }
+        }];
+    }
+    
     [manager startRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager startUpdatingLocation];
+    
+    
 }
 
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
+    NSLog(@"Device did Exit Region");
+    
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
-    if (!self.deviceObject.isBookedByPerson) {
-        [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
+    if (!self.deviceObject.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
+        [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
+        self.notificationToBookDeviceWasSend = YES;
+        self.notificationToReturnDeviceWasSend = NO;
+        NSLog(@"Book notification was send from didExit");
     }
     
     [self.locationManager stopUpdatingLocation];
@@ -73,33 +88,66 @@
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     
+    NSLog(@"rangeBeacons");
+    
     if(beacons.count > 0) {
         CLBeacon *nearestBeacon = beacons.firstObject;
         
-        if(nearestBeacon.proximity == self.lastProximity ||
-           nearestBeacon.proximity == CLProximityUnknown) {
+        if(nearestBeacon.proximity == self.lastProximity || nearestBeacon.proximity == CLProximityUnknown) {
+            NSLog(@"same proximity");
             return;
+        }
+        
+        switch (nearestBeacon.proximity) {
+            case CLProximityImmediate:
+                NSLog(@"Immediate");
+                break;
+            case CLProximityNear:
+                NSLog(@"Near");
+                break;
+            case CLProximityFar:
+                NSLog(@"Far");
+                break;
+            case CLProximityUnknown:
+                NSLog(@"Unknown");
+                break;
+            default:
+                break;
         }
         
         if ([self.userType isEqualToString:@"device"]) {
             [self checkCurrentDeviceWithCompletionHandler:^(Device *device, NSError *error) {
+                if (self.deviceObject.isBookedByPerson != device.isBookedByPerson) {
+                    self.notificationToBookDeviceWasSend = NO;
+                    self.notificationToReturnDeviceWasSend = NO;
+                }
                 self.deviceObject = device;
                 
                 if (device.isBookedByPerson) {
-                    if (nearestBeacon.proximity == CLProximityImmediate ) {
-                        [self sendLocalNotificationWithMessage:@"Willst du das Gerät zurückgeben?"];
+                    if (!self.notificationToReturnDeviceWasSend && (nearestBeacon.proximity == CLProximityImmediate || nearestBeacon.proximity == CLProximityNear)) {
+                        [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
+                        self.notificationToReturnDeviceWasSend = YES;
+                        self.notificationToBookDeviceWasSend = NO;
+                        NSLog(@"Return notification was send from region immediate or near");
                     }
                 } else {
-                    if (nearestBeacon.proximity == CLProximityNear || nearestBeacon.proximity == CLProximityFar) {
-                        [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
+                    if (!self.notificationToBookDeviceWasSend && nearestBeacon.proximity == CLProximityFar) {
+                        [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
+                        self.notificationToBookDeviceWasSend = YES;
+                        self.notificationToReturnDeviceWasSend = NO;
+                        NSLog(@"Book notification was send from region far");
                     }
                 }
                 self.lastProximity = nearestBeacon.proximity;
             }];
-        } else {
-            if (!self.deviceObject.isBookedByPerson) {
-                [self sendLocalNotificationWithMessage:@"Bitte leihe das Gerät aus!"];
-            }
+        }
+    }else {
+        if (!self.deviceObject.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
+            [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
+            self.notificationToBookDeviceWasSend = YES;
+            self.notificationToReturnDeviceWasSend = NO;
+            NSLog(@"Book notification was send from when no beacons were found");
+
         }
     }
 }
