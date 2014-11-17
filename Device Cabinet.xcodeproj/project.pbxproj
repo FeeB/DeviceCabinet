@@ -10,7 +10,6 @@
 		22BB0258F7FF4740B82A5881 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		3A1BB836199BB94B00888298 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1BB835199BB94B00888298 /* MessageUI.framework */; };
 		3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */; };
-		3A58C9011A07AC6300F1A3A3 /* MockingKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */; };
 		3A5E178119654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E178319654AC700681289 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178219654AC700681289 /* CoreGraphics.framework */; };
 		3A5E178519654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
@@ -21,11 +20,8 @@
 		3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17A519654AC700681289 /* Device_CabinetTests.m */; };
 		3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */; };
 		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
 		3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */; };
-		3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */; };
-		3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */; };
 		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		955CAA3D1A1801D500C80F66 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */; };
@@ -95,7 +91,6 @@
 		19E8A0D3227D45BBA4DD749B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3A1BB835199BB94B00888298 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTestCase.m; sourceTree = "<group>"; };
-		3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockingKeyChain.m; sourceTree = "<group>"; };
 		3A5E177D19654AC700681289 /* Device Cabinet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Device Cabinet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5E178019654AC700681289 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A5E178219654AC700681289 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,11 +102,8 @@
 		3A5E17A519654AC700681289 /* Device_CabinetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Device_CabinetTests.m; sourceTree = "<group>"; };
 		3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitManagerTestCase.m; sourceTree = "<group>"; };
 		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
 		3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperTestCase.m; sourceTree = "<group>"; };
-		3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
-		3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGeneratorTestCase.m; sourceTree = "<group>"; };
 		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		955CAA3B1A1801D500C80F66 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
@@ -232,12 +224,8 @@
 				3A5E17A019654AC700681289 /* Supporting Files */,
 				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
 				3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */,
-				3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */,
 				3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */,
-				3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */,
-				3A58C9001A07AC6300F1A3A3 /* MockingKeyChain.m */,
 				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
-				3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */,
 			);
 			path = "Device CabinetTests";
 			sourceTree = "<group>";
@@ -546,14 +534,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
-				3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */,
-				3A58C9011A07AC6300F1A3A3 /* MockingKeyChain.m in Sources */,
 				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
 				3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */,
 				3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */,
-				3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */,
 				3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */,
-				3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */,
 				3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

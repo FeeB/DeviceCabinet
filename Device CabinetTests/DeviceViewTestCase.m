@@ -55,7 +55,8 @@
     [controller viewDidLoad];
 
     XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_BOOK", nil), @"Book Button should have book now title");
-    XCTAssertFalse([controller.usernamePickerButton isHidden], @"The username text field shouldn't be hidden");
+    XCTAssertFalse([controller.bookDevice isHidden], @"The book button shouldn't be hidden");
+    XCTAssertTrue([controller.bookedFromLabelText isHidden], @"The book from label should be hidden");
 }
 
 - (void)testHiddenTextFieldsWhenDeviceIsBookedFromPerson {
@@ -66,14 +67,13 @@
     device.bookedByPerson = YES;
     Person *person = [self createATestPerson];
     device.bookedByPersonFullName = person.fullName;
-    device.bookedByPersonId = person.personRecordId;
+    device.bookedByPersonId = person.personId;
     
     controller.device = device;
     [controller updateView];
     [controller viewDidLoad];
     
     XCTAssertEqualObjects(controller.bookDevice.currentTitle, NSLocalizedString(@"BUTTON_RETURN", nil), @"Book Button should have return title");
-    XCTAssertFalse([controller.bookedFromLabel isHidden], @"The booked from label shouldn't be hidden");
     XCTAssertFalse([controller.bookedFromLabelText isHidden], @"The booked from label text shouldn't be hidden");
 }
 
