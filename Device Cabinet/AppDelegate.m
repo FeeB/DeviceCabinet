@@ -31,6 +31,12 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
+    NSString *logFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+    
     return YES;
 }
 
@@ -74,12 +80,13 @@
             [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:initialnavigationController animated:YES completion:nil];
             overviewController.device = device;
             overviewController.forwardToDeviceView = YES;
-            if ([notification.alertBody isEqualToString:@"Willst du das Gerät zurückgeben?"]) {
+            if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
                 overviewController.automaticReturn = YES;
             }
             [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
             
         }];
+    } else {
         
     }
 }
