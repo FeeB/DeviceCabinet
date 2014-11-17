@@ -58,6 +58,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     if (self.automaticReturn) {
         [self deleteReference];
+        self.automaticReturn = NO;
     }
 }
 
