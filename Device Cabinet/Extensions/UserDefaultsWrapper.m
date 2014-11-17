@@ -13,7 +13,6 @@
 #import "RailsApiErrorMapper.h"
 
 NSString * const KeyForDevice = @"currentDevice";
-NSString * const KeyForBooleanFirstLaunch = @"isFirstLaunch";
 NSString * const KeyForFirstLaunch = @"firstLaunch";
 
 @implementation UserDefaultsWrapper
@@ -28,7 +27,7 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
     return NO;
 }
 
-+ (Device *)getDevice {
++ (Device *)getLocalDevice {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *encodedObject = [userDefaults valueForKey:KeyForDevice];
     if (encodedObject) {
@@ -37,10 +36,14 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
     return nil;
 }
 
-+ (void)setDevice:(Device *)device {
++ (void)setLocalDevice:(Device *)device {
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:device];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:encodedObject forKey:KeyForDevice];
+}
+
++ (BOOL)isLocalDevice {
+    return [self getLocalDevice] ? YES : NO;
 }
 
 + (void)reset {

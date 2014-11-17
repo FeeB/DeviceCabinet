@@ -29,6 +29,8 @@
 @property (nonatomic, strong) Person *person;
 @property (nonatomic, strong) UserNamePickerViewController *userNamePicker;
 
+@property (nonatomic, assign) BOOL automaticReturn;
+
 - (void)storeReference;
 - (void)deleteReference;
 - (void)updateView;

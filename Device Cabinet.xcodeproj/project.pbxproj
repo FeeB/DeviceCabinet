@@ -25,6 +25,7 @@
 		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		955CAA3D1A1801D500C80F66 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */; };
+		95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E539D71A1A856B00718E63 /* HandleBeacon.m */; };
 		95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B311A153AF100F28EF3 /* AppDelegate.m */; };
 		95F84B611A153AF100F28EF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B341A153AF100F28EF3 /* Localizable.strings */; };
 		95F84B641A153AF100F28EF3 /* CloudKitDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B3E1A153AF100F28EF3 /* CloudKitDao.m */; };
@@ -108,6 +109,8 @@
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		955CAA3B1A1801D500C80F66 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
 		955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
+		95E539D61A1A856B00718E63 /* HandleBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleBeacon.h; sourceTree = "<group>"; };
+		95E539D71A1A856B00718E63 /* HandleBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleBeacon.m; sourceTree = "<group>"; };
 		95F84B301A153AF100F28EF3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95F84B311A153AF100F28EF3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		95F84B351A153AF100F28EF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -258,16 +261,18 @@
 			isa = PBXGroup;
 			children = (
 				95F84B3C1A153AF100F28EF3 /* API */,
+				95E539D61A1A856B00718E63 /* HandleBeacon.h */,
+				95E539D71A1A856B00718E63 /* HandleBeacon.m */,
 				95F84B461A153AF100F28EF3 /* KeyChainWrapper.h */,
 				95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */,
-				95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */,
-				95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */,
 				95F84B761A153D4700F28EF3 /* LaunchHandler.h */,
 				95F84B771A153D4700F28EF3 /* LaunchHandler.m */,
-				95F84B791A1544E400F28EF3 /* UdIdGenerator.h */,
-				95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */,
 				955CAA3B1A1801D500C80F66 /* PushNoAnimationSegue.h */,
 				955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */,
+				95F84B791A1544E400F28EF3 /* UdIdGenerator.h */,
+				95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */,
+				95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */,
+				95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -511,6 +516,7 @@
 				95F84B6E1A153AF100F28EF3 /* Person.m in Sources */,
 				95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */,
 				95F84B731A153AF100F28EF3 /* OverviewViewController.m in Sources */,
+				95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */,
 				95F84B6D1A153AF100F28EF3 /* Device.m in Sources */,
 				95F84B741A153AF100F28EF3 /* UserNamePickerViewController.m in Sources */,
 				95F84B701A153AF100F28EF3 /* CreatePersonViewController.m in Sources */,

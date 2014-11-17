@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "DeviceCabinetDAO.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@class HandleBeacon;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property NSObject<DeviceCabinetDao> *dao;
+@property (nonatomic) HandleBeacon *handleBeacon;
 
 + (NSObject<DeviceCabinetDao> *)dao;
 

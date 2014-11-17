@@ -21,7 +21,7 @@
             NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
             [AppDelegate.dao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
-                    [UserDefaultsWrapper setDevice:device];
+                    [UserDefaultsWrapper setLocalDevice:device];
                     [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];
                 } else {
                     [LaunchHandler shouldShowDecision:YES completionHandler:completionHandler];

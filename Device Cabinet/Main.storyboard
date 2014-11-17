@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UaO-JA-1VG">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -373,10 +372,10 @@
                     <connections>
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="deviceTypeTextField" destination="0JO-CZ-SGX" id="swU-6o-yG3"/>
-                        <outlet property="labelSwitchCurrentDevice" destination="eMB-No-XfF" id="5LH-i0-15m"/>
+                        <outlet property="labelSwitchLocalDevice" destination="eMB-No-XfF" id="rmt-Qk-em2"/>
                         <outlet property="saveButton" destination="wGe-vD-vOB" id="XsX-wi-dWh"/>
                         <outlet property="scrollView" destination="Tsu-Mn-eTc" id="ZZK-Po-LPn"/>
-                        <outlet property="switchCurrentDevice" destination="QVr-47-i5H" id="4zP-gT-Ez9"/>
+                        <outlet property="switchLocalDevice" destination="QVr-47-i5H" id="7Un-bX-cwN"/>
                         <outletCollection property="deviceTypeButtons" destination="OBL-ec-0ej" id="cw6-gI-QbE"/>
                         <outletCollection property="deviceTypeButtons" destination="iAZ-fK-9xf" id="uxe-1t-8l1"/>
                         <outletCollection property="deviceTypeButtons" destination="wqY-Ex-q3K" id="GpP-Kx-OQ3"/>

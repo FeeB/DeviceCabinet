@@ -11,8 +11,9 @@
 @interface UserDefaultsWrapper : NSObject
 
 + (BOOL)isFirstLaunch;
-+ (Device *)getDevice;
-+ (void)setDevice:(Device *)device;
++ (Device *)getLocalDevice;
++ (void)setLocalDevice:(Device *)device;
++ (BOOL)isLocalDevice;
 + (void)reset;
 
 @end

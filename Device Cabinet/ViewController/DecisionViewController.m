@@ -39,7 +39,7 @@ NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromDecisionToRegisterDeviceSegue]) {
         CreateDeviceViewController *controller = (CreateDeviceViewController *)segue.destinationViewController;
-        controller.shouldRegisterCurrentDevice = YES;
+        controller.shouldRegisterLocalDevice = YES;
         controller.onCompletion = ^() {
             [self performSegueWithIdentifier:FromDecisionToOverviewSegue sender:nil];
         };

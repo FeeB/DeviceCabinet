@@ -24,7 +24,7 @@
 
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 
-@property (nonatomic, strong) NSMutableArray *currentDevice;
+@property (nonatomic, strong) NSMutableArray *localDevice;
 @property (nonatomic, strong) NSMutableArray *bookedDevices;
 @property (nonatomic, strong) NSMutableArray *availableDevices;
 
@@ -74,7 +74,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.device = [UserDefaultsWrapper getDevice];
+    self.device = [UserDefaultsWrapper getLocalDevice];
     [self checkForSystemVersionUpdate];
     [self handleIfAppRunsOnTestDevice];
     [self getAllDevices];
@@ -82,12 +82,12 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)handleIfAppRunsOnTestDevice {
     if (self.device) {
-        self.currentDevice = [[NSMutableArray alloc] init];
-        [self.currentDevice addObject:self.device];
+        self.localDevice = [[NSMutableArray alloc] init];
+        [self.localDevice addObject:self.device];
         if (self.segmentedControl.numberOfSegments == 2) {
             [self.segmentedControl insertSegmentWithTitle:NSLocalizedString(@"SECTION_ACTUAL_DEVICE", nil) atIndex:0 animated:NO];
             self.segmentedControl.selectedSegmentIndex = 0;
-            self.currentList = self.currentDevice;
+            self.currentList = self.localDevice;
         }
     }
 }
@@ -98,7 +98,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     } else if (self.segmentedControl.selectedSegmentIndex == 1 + (self.device ? 1 : 0)) {
         self.currentList = self.bookedDevices;
     } else {
-        self.currentList = self.currentDevice;
+        self.currentList = self.localDevice;
     }
     [self.tableView reloadData];
 }
@@ -119,7 +119,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             } else {
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
-                    [UserDefaultsWrapper setDevice:device];
+                    [UserDefaultsWrapper setLocalDevice:device];
                     RailsApiDao *railsApi = [[RailsApiDao alloc] init];
                     [railsApi updateSystemVersion:self.device completionHandler:nil];
                     [self getAllDevices];
@@ -204,7 +204,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 self.device = nil;
                 [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
                 
-                if (self.currentList == self.currentDevice) {
+                if (self.currentList == self.localDevice) {
                     self.currentList = self.availableDevices;
                     [self.segmentedControl setSelectedSegmentIndex:0];
                 }
@@ -254,7 +254,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     } else if([segue.identifier isEqualToString:FromOverViewToCreateDeviceSegue]) {
         UINavigationController *navigationController = (UINavigationController *)segue.destinationViewController;
         CreateDeviceViewController *controller = (CreateDeviceViewController *)navigationController.topViewController;
-        controller.shouldRegisterCurrentDevice = NO;
+        controller.shouldRegisterLocalDevice = NO;
         controller.onCompletion = ^(id result) {
             self.forwardToDevice = result;
             [self performSegueWithIdentifier:FromOverViewToDeviceViewSegue sender:nil];

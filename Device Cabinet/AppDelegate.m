@@ -9,14 +9,46 @@
 #import "AppDelegate.h"
 #import "CloudKitDao.h"
 #import "RailsApiDao.h"
+#import "HandleBeacon.h"
+#import "OverviewViewController.h"
+#import "UserDefaultsWrapper.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.dao = [[RailsApiDao alloc] init];
+    
+    self.handleBeacon = [[HandleBeacon alloc] init];
+    [self.handleBeacon searchForBeacon];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
+    NSString *logFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    if (application.applicationState != UIApplicationStateActive) {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UINavigationController *initialnavigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"InitialNavigation"];
+        OverviewViewController *overviewController = (OverviewViewController *)initialnavigationController.topViewController;
+        
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:initialnavigationController animated:YES completion:nil];
+        overviewController.forwardToDevice = [UserDefaultsWrapper getLocalDevice];
+        if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
+            overviewController.automaticReturn = YES;
+        }
+        [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
+    } else {
+        
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

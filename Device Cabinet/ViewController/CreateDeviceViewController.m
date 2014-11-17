@@ -48,10 +48,10 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:self.tap];
     
-    if (self.shouldRegisterCurrentDevice) {
+    if (self.shouldRegisterLocalDevice) {
         self.navigationItem.leftBarButtonItem = nil;
-        self.switchCurrentDevice.hidden = YES;
-        self.labelSwitchCurrentDevice.hidden = YES;
+        self.switchLocalDevice.hidden = YES;
+        self.labelSwitchLocalDevice.hidden = YES;
     }
 }
 
@@ -76,8 +76,8 @@
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         [self.spinner startAnimating];
         
-        if (self.switchCurrentDevice.isOn) {
-            self.shouldRegisterCurrentDevice = YES;
+        if (self.switchLocalDevice.isOn) {
+            self.shouldRegisterLocalDevice = YES;
         }
         
         self.device = [[Device alloc] init];
@@ -86,7 +86,7 @@
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
         self.device.deviceType = self.deviceTypeTextField.text;
 
-        if (self.shouldRegisterCurrentDevice) {
+        if (self.shouldRegisterLocalDevice) {
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
@@ -99,9 +99,9 @@
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             } else {
                 self.device = storedDevice;
-                if (self.shouldRegisterCurrentDevice) {
+                if (self.shouldRegisterLocalDevice) {
                     [KeyChainWrapper setDeviceUdId:self.device.deviceUdId];
-                    [UserDefaultsWrapper setDevice:self.device];
+                    [UserDefaultsWrapper setLocalDevice:self.device];
                 }
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }

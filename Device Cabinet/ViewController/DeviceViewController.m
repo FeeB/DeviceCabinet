@@ -42,8 +42,11 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     [self.imageView setImageWithURL:self.device.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     
-    
     [self showOrHideTextFields];
+    
+    if (self.automaticReturn) {
+        [self deleteReference];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
