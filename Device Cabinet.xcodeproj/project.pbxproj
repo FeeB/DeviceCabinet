@@ -35,15 +35,9 @@
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
 		3AA2EC7019B5ACE5007D1147 /* placeholder_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AA2EC6F19B5ACE5007D1147 /* placeholder_image.png */; };
 		3AA2EC7519B5D5BF007D1147 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */; };
-		3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */; };
 		3AC5A813198FB19C00576854 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5A812198FB19C00576854 /* OverviewViewController.m */; };
 		3ACD51F519E3DBCD0094EDB5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACD51F419E3DBCD0094EDB5 /* CoreBluetooth.framework */; };
 		3ACD51F719E3DD920094EDB5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACD51F619E3DD920094EDB5 /* CoreLocation.framework */; };
-		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
-		3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */; };
-		3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */; };
-		3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */; };
-		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		3AE45F1419A73D3700FFCB3E /* CloudKitErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE45F1319A73D3700FFCB3E /* CloudKitErrorMapper.m */; };
 		3AEA37F7199CA763001AAF71 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA37F6199CA763001AAF71 /* UserDefaults.m */; };
 		3AEA37FD199CBD76001AAF71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AEA37FF199CBD76001AAF71 /* Localizable.strings */; };
@@ -134,16 +128,10 @@
 		3AA2EC7319B5D5BF007D1147 /* RailsApiDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiDao.h; sourceTree = "<group>"; };
 		3AA2EC7419B5D5BF007D1147 /* RailsApiDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiDao.m; sourceTree = "<group>"; };
 		3AB5D5DE19A3484200D71CD2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitManagerTestCase.m; sourceTree = "<group>"; };
 		3AC5A811198FB19C00576854 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverviewViewController.h; path = ../OverviewViewController.h; sourceTree = "<group>"; };
 		3AC5A812198FB19C00576854 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverviewViewController.m; path = ../OverviewViewController.m; sourceTree = "<group>"; };
 		3ACD51F419E3DBCD0094EDB5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		3ACD51F619E3DD920094EDB5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
-		3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperTestCase.m; sourceTree = "<group>"; };
-		3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
-		3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdGeneratorTestCase.m; sourceTree = "<group>"; };
-		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AE45F1219A73D3700FFCB3E /* CloudKitErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitErrorMapper.h; sourceTree = "<group>"; };
 		3AE45F1319A73D3700FFCB3E /* CloudKitErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitErrorMapper.m; sourceTree = "<group>"; };
 		3AEA37F5199CA763001AAF71 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
@@ -294,12 +282,6 @@
 			children = (
 				3A5E17A519654AC700681289 /* Device_CabinetTests.m */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
-				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
-				3AE15A3919AB6F970003BF60 /* ErrorMapperTestCase.m */,
-				3AE15A3B19AB71D60003BF60 /* UserDefaultsTestCase.m */,
-				3AE15A3D19AB751F0003BF60 /* UIdGeneratorTestCase.m */,
-				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
-				3ABD090C19AC715900ED86C0 /* CloudKitManagerTestCase.m */,
 			);
 			path = "Device CabinetTests";
 			sourceTree = "<group>";
@@ -558,13 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
-				3AE15A3C19AB71D60003BF60 /* UserDefaultsTestCase.m in Sources */,
-				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
-				3AE15A3A19AB6F970003BF60 /* ErrorMapperTestCase.m in Sources */,
-				3ABD090D19AC715900ED86C0 /* CloudKitManagerTestCase.m in Sources */,
 				3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */,
-				3AE15A3E19AB751F0003BF60 /* UIdGeneratorTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

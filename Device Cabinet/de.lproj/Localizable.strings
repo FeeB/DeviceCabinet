@@ -5,8 +5,6 @@
   Created by Braun,Fee on 14.08.14.
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
-"LABEL_TESTER" = "LogIn als Tester";
-"LABEL_DEVICE" = "LogIn als Testgerät";
 
 "BUTTON_REGISTER_DEVICE" = "Jetzt neues Testgerät registrieren";
 "BUTTON_REGISTER_USER" = "Jetzt als neuer User registrieren";
@@ -27,6 +25,9 @@
 "LABEL_TEST_DEVICE_DECISION" = "Soll dieses Gerät als Testgerät registriert werden?";
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
+
+"NOTIFICATION_RETURN_LABEL" = "Willst du das Gerät zurückgeben?";
+"NOTIFICATION_BOOK_LABEL" = "Bitte leihe das Gerät aus!";
 
 "SECTION_BOOKED_DEVICES" = "Ausgeliehene Geräte";
 "SECTION_FREE_DEVICES" = "Verfügbare Geräte";

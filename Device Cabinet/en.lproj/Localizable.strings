@@ -28,6 +28,9 @@
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";
 
+"NOTIFICATION_RETURN_LABEL" = "Do you want to return the device?";
+"NOTIFICATION_BOOK_LABEL" = "Please book the device!";
+
 "SECTION_BOOKED_DEVICES" = "Booked devices";
 "SECTION_FREE_DEVICES" = "Available devices";
 "SECTION_ERROR" = "Error message";
