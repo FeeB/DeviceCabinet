@@ -15,7 +15,6 @@
 
 @property NSString *firstName;
 @property NSString *lastName;
-@property BOOL hasBookedDevice;
 @property (readonly) NSString *fullName;
 @property NSString *personId;
 

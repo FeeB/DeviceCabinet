@@ -7,6 +7,7 @@
 //
 
 #import "Person.h"
+#import "NSDictionary+NotNSNull.h"
 
 @implementation Person
 
@@ -19,22 +20,15 @@
 {
     self = [super init];
     if (self) {
-        self.firstName = [json valueForKey:@"first_name"];
-        self.lastName = [json valueForKey:@"last_name"];
-        self.personId = [json valueForKey:@"id"];
-        
-        if ([json valueForKey:@"has_booked_device"] != (id)[NSNull null]) {
-            self.hasBookedDevice = YES;
-        } else {
-            self.hasBookedDevice = NO;
-        }
-
+        self.firstName = [json objectForKeyNotNSNull:@"first_name"];
+        self.lastName = [json objectForKeyNotNSNull:@"last_name"];
+        self.personId = [json objectForKeyNotNSNull:@"id"];
     }
     return self;
 }
 
 - (NSDictionary *)toDictionary {
-    return @{@"first_name" : self.firstName, @"last_name" : self.lastName, @"full_name" : self.fullName, @"has_booked_device" : self.hasBookedDevice ? @"Yes" : @"No"};
+    return @{@"first_name" : self.firstName, @"last_name" : self.lastName, @"full_name" : self.fullName};
 }
 
 @end
