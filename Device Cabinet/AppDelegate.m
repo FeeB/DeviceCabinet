@@ -18,9 +18,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.dao = [[RailsApiDao alloc] init];
-    
     self.handleBeacon = [[HandleBeacon alloc] init];
     [self.handleBeacon searchForBeacon];
+    
+    //For iOS8 to ask for permission to send notifications (http://stackoverflow.com/questions/24946650/ask-for-permission-for-local-notifications-in-ios-8-but-still-have-the-app-supp)
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
