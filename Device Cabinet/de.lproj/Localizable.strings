@@ -6,7 +6,6 @@
   Copyright (c) 2014 Braun,Fee. All rights reserved.
 */
 
-
 "LABEL_FIRSTNAME" = "Vorname";
 "LABEL_LASTNAME" = "Nachname";
 
@@ -27,6 +26,9 @@
 "SECTION_ACTUAL_DEVICE" = "Aktuell";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehen";
 "SECTION_FREE_DEVICES" = "Verfügbar";
+
+"NOTIFICATION_RETURN_LABEL" = "Willst du das Gerät zurückgeben?";
+"NOTIFICATION_BOOK_LABEL" = "Bitte leihe das Gerät aus!";
 
 "BUTTON_SAVE" = "speichern";
 

@@ -30,6 +30,9 @@
 "SECTION_FREE_DEVICES" = "Available";
 "SECTION_ERROR" = "Error message";
 
+"NOTIFICATION_RETURN_LABEL" = "Do you want to return the device?";
+"NOTIFICATION_BOOK_LABEL" = "Please book the device!";
+
 "BUTTON_SAVE" = "Save";
 
 "BUTTON_BOOK" = "Book Now!";

@@ -21,9 +21,12 @@
     self.handleBeacon = [[HandleBeacon alloc] init];
     [self.handleBeacon searchForBeacon];
     
-    //For iOS8 to ask for permission to send notifications (http://stackoverflow.com/questions/24946650/ask-for-permission-for-local-notifications-in-ios-8-but-still-have-the-app-supp)
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
@@ -41,7 +44,7 @@
     
     if (application.applicationState != UIApplicationStateActive) {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *initialnavigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"InitialNavigation"];
+        UINavigationController *initialnavigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"OverviewViewController"];
         OverviewViewController *overviewController = (OverviewViewController *)initialnavigationController.topViewController;
         
         [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:initialnavigationController animated:YES completion:nil];
