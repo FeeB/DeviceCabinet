@@ -79,6 +79,9 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil)
                                            message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_PERSON", nil), self.person.firstName, self.person.lastName]
                                           delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
+                //necessary to get personId to store reference (device will directly be booked)
+                self.person = storedPerson;
             }
 
         }];
