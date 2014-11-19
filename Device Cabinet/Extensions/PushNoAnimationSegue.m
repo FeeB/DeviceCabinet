@@ -11,7 +11,9 @@
 @implementation PushNoAnimationSegue
 
 - (void) perform{
-    [[[self sourceViewController] navigationController] pushViewController:[self destinationViewController] animated:NO];
+    UINavigationController *navigationController = (UINavigationController *)[self destinationViewController];
+    UIViewController *controller = navigationController.topViewController;
+    [[[self sourceViewController] navigationController] pushViewController:controller animated:NO];
 }
 
 @end

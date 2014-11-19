@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHi-xa-x3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="1199"/>
+            <point key="canvasLocation" x="609" y="1199"/>
         </scene>
         <!--USERNAME_PICKER-->
         <scene sceneID="XAN-cB-SnS">
@@ -173,7 +173,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wr-zF-zzp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="681" y="1227"/>
+            <point key="canvasLocation" x="1213" y="1227"/>
         </scene>
         <!--TITLE_CREATE_PERSON-->
         <scene sceneID="LlY-R0-IyL">
@@ -237,7 +237,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zWJ-oL-87p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1089" y="1227"/>
+            <point key="canvasLocation" x="1621" y="1227"/>
         </scene>
         <!--TITLE_CREATE_DEVICE-->
         <scene sceneID="fBC-mR-p0D">
@@ -386,7 +386,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="398"/>
+            <point key="canvasLocation" x="609" y="398"/>
         </scene>
         <!--Decision View Controller-->
         <scene sceneID="hWT-GU-h8D">
@@ -431,7 +431,7 @@
                     <connections>
                         <outlet property="noRegisterButton" destination="TC5-KL-d5h" id="eS4-ZK-UBy"/>
                         <outlet property="registerDeviceButton" destination="b7e-0S-i59" id="ImH-mh-b5S"/>
-                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDecisionToOverview" id="Mdk-TY-iFG"/>
+                        <segue destination="gyl-jv-tog" kind="push" identifier="FromDecisionToOverview" id="Mdk-TY-iFG"/>
                         <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromDecisionToRegisterDevice" id="3xm-Jh-SNA"/>
                     </connections>
                 </viewController>
@@ -529,7 +529,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZD-5j-Bzv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="727"/>
+            <point key="canvasLocation" x="-27" y="727"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="ypZ-cf-3tN">
@@ -542,7 +542,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="BWm-NZ-BIl"/>
                     <connections>
-                        <segue destination="iw6-Gk-HuI" kind="custom" identifier="FromStartToOverviewSegue" customClass="PushNoAnimationSegue" id="Osa-rt-PcE"/>
+                        <segue destination="gyl-jv-tog" kind="custom" identifier="FromStartToOverviewSegue" customClass="PushNoAnimationSegue" id="Osa-rt-PcE"/>
                         <segue destination="sQN-jd-qJM" kind="custom" identifier="FromStartToDecisionSegue" customClass="PushNoAnimationSegue" id="Cse-r0-oB9"/>
                     </connections>
                 </viewController>
@@ -570,7 +570,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIt-V5-9TG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="649" y="1199"/>
+            <point key="canvasLocation" x="1181" y="1199"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZPp-9o-0RY">
@@ -593,7 +593,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJ7-mr-2av" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="37" y="342"/>
+            <point key="canvasLocation" x="569" y="342"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u2Z-WD-fxh">
@@ -618,6 +618,25 @@
             </objects>
             <point key="canvasLocation" x="-2053" y="-225"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BCQ-d6-HMN">
+            <objects>
+                <navigationController storyboardIdentifier="OverviewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="gyl-jv-tog" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Atv-Gi-4Cf"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XvV-75-iqO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iw6-Gk-HuI" kind="relationship" relationship="rootViewController" id="6N9-Im-D9y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pWj-MI-pJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-559" y="727"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icon_android_phone" width="43" height="43"/>
@@ -632,9 +651,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Xju-vS-6Xe"/>
+        <segue reference="Mdk-TY-iFG"/>
         <segue reference="VeD-io-uAb"/>
-        <segue reference="Osa-rt-PcE"/>
-        <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>
