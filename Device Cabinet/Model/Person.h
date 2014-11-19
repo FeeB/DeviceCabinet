@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CloudKit/CloudKit.h>
 
-@class Device;
-
 @interface Person : NSObject
 
 @property NSString *firstName;
