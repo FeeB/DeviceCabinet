@@ -19,7 +19,6 @@
 @property (nonatomic) CLBeaconRegion *myBeaconRegion;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property CLProximity lastProximity;
-@property CLProximity beforeLastProximity;
 @property (nonatomic) Device *device;
 @property (nonatomic, assign) bool notificationToReturnDeviceWasSend;
 @property (nonatomic, assign) bool notificationToBookDeviceWasSend;
@@ -45,7 +44,6 @@
         
         self.locationManager.delegate = self;
         self.locationManager.pausesLocationUpdatesAutomatically = NO;
-        self.locationManager.activityType = CLActivityTypeFitness;
         
         [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
         [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];

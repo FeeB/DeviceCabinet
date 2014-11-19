@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Device.h"
 
 @interface HandleBeacon : NSObject <CLLocationManagerDelegate>
 
