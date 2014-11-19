@@ -97,7 +97,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                     self.device.bookedByPerson = YES;
                     self.device.bookedByPersonId = self.person.personId;
                     self.device.bookedByPersonFullName = self.person.fullName;
-                    if (self.device.deviceUdId == [UserDefaultsWrapper getLocalDevice].deviceUdId) {
+                    if ([self.device.deviceUdId isEqualToString:[UserDefaultsWrapper getLocalDevice].deviceUdId]) {
                         [UserDefaultsWrapper setLocalDevice:self.device];
                     }
                     
@@ -129,7 +129,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.device.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
             self.device.bookedByPerson = NO;
-            if (self.device.deviceUdId == [UserDefaultsWrapper getLocalDevice].deviceUdId) {
+            if ([self.device.deviceUdId isEqualToString:[UserDefaultsWrapper getLocalDevice].deviceUdId]) {
                 [UserDefaultsWrapper setLocalDevice:self.device];
             }
         }
