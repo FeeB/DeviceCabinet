@@ -42,10 +42,6 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     [self.view addGestureRecognizer:self.tap];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (IBAction)storePerson {
     BOOL isStorable = true;
     NSMutableArray *txtFields = [[NSMutableArray alloc]initWithObjects:self.firstNameTextField.text, self.lastNameTextField.text, nil];
