@@ -25,6 +25,9 @@
 "BUTTON_LAST_USERNAME" = "Last name chosen: %@";
 "LABEL_CURRENT_DEVICE" = "Current device";
 
+"NOTIFICATION_BOOK_LABEL" = "Please book the device!";
+"NOTIFICATION_RETURN_LABEL" = "Do you want to return the device?";
+
 "SECTION_ACTUAL_DEVICE" = "Current";
 "SECTION_BOOKED_DEVICES" = "Booked";
 "SECTION_FREE_DEVICES" = "Available";

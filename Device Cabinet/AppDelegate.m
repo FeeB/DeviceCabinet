@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.m
 //  Device Cabinet
@@ -37,10 +38,9 @@
     
     if (application.applicationState != UIApplicationStateActive) {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UINavigationController *initialnavigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"InitialNavigation"];
-        OverviewViewController *overviewController = (OverviewViewController *)initialnavigationController.topViewController;
+        OverviewViewController *overviewController = [mainStoryboard instantiateViewControllerWithIdentifier:@"Overview"];
         
-        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:initialnavigationController animated:YES completion:nil];
+        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:overviewController animated:YES completion:nil];
         overviewController.forwardToDevice = [UserDefaultsWrapper getLocalDevice];
         if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
             overviewController.automaticReturn = YES;

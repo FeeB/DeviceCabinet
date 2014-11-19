@@ -24,6 +24,9 @@
 "BUTTON_USERNAME_PCIKER" = "Wähle deinen Namen";
 "LABEL_CURRENT_DEVICE" = "Aktuelles Gerät";
 
+"NOTIFICATION_BOOK_LABEL" = "Bitte leihe das Gerät aus!";
+"NOTIFICATION_RETURN_LABEL" = "Möchtest du das Gerät zurückgeben?";
+
 "SECTION_ACTUAL_DEVICE" = "Aktuell";
 "SECTION_BOOKED_DEVICES" = "Ausgeliehen";
 "SECTION_FREE_DEVICES" = "Verfügbar";

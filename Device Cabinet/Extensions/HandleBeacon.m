@@ -29,6 +29,10 @@
 
 - (void)searchForBeacon {
     if ([UserDefaultsWrapper isLocalDevice]) {
+        
+        NSLog(@"Bool Return: %@", self.notificationToReturnDeviceWasSend ? @"YES" : @"NO");
+        NSLog(@"Bool Book: %@", self.notificationToBookDeviceWasSend ? @"YES" : @"NO");
+        
         // Create a NSUUID with the same UUID as the broadcasting beacon
         NSUUID *beaconUuid = [[NSUUID alloc] initWithUUIDString:@"f0018b9b-7509-4c31-a905-1a27d39c003c"];
         NSString *beaconIdentifier = @"deviceCabinetBeacon";
@@ -49,6 +53,7 @@
         [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
         
         self.device = [UserDefaultsWrapper getLocalDevice];
+        
     }
 }
 

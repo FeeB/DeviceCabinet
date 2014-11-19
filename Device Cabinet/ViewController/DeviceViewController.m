@@ -13,6 +13,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "OverviewViewController.h"
 #import "UserNamePickerViewController.h"
+#import "UserDefaultsWrapper.h"
 
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 
@@ -95,6 +96,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                     [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_RETURN", nil) forState:UIControlStateNormal];
                     self.device.bookedByPerson = YES;
                     self.device.bookedByPersonId = self.person.personId;
+                    self.device.bookedByPersonFullName = self.person.fullName;
+                    [UserDefaultsWrapper setLocalDevice:self.device];
                 }
             }];
         } else {
@@ -122,6 +125,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         } else {
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.device.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
+            self.device.bookedByPerson = NO;
+            [UserDefaultsWrapper setLocalDevice:self.device];
         }
     }];
 }
