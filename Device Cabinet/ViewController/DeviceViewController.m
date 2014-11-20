@@ -20,7 +20,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 
 @interface DeviceViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
 @end
 
 @implementation DeviceViewController

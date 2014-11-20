@@ -198,6 +198,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
                                     <action selector="textFieldReturn:" destination="fWZ-Ut-nkS" eventType="editingDidEndOnExit" id="14K-7f-Z2K"/>
+                                    <action selector="textFieldReturn:" destination="pnJ-Ah-xaZ" eventType="editingDidEndOnExit" id="EZR-qi-ei3"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="RoH-5f-XAV">
@@ -206,6 +207,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
+                                    <action selector="textFieldReturn:" destination="pnJ-Ah-xaZ" eventType="editingDidEndOnExit" id="Wqd-nC-Wuu"/>
                                     <action selector="textFieldReturn:" destination="fWZ-Ut-nkS" eventType="editingDidEndOnExit" id="s75-we-eSc"/>
                                 </connections>
                             </textField>

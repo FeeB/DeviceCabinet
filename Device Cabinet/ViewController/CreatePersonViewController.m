@@ -19,8 +19,6 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
 @property (readonly) CKContainer *container;
 @property (readonly) CKDatabase *publicDatabase;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, strong) UITextField *actualTextField;
 @property (nonatomic, strong) Person *person;
 
 @end
@@ -37,9 +35,6 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     self.spinner.center = CGPointMake(160, 240);
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
-    
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:self.tap];
 }
 
 - (IBAction)storePerson {
@@ -91,18 +86,13 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+- (IBAction)textFieldReturn:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
-}
-
-- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-    self.actualTextField = textField;
-    return YES;
-}
-
-- (void) dismissKeyboard {
-    [self.actualTextField resignFirstResponder];
 }
 
 @end

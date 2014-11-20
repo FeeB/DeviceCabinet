@@ -21,7 +21,6 @@
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) Device *device;
-@property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) NSString *deviceType;
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *deviceTypeButtons;
 
@@ -43,11 +42,6 @@
     self.spinner.hidesWhenStopped = YES;
     [self.view addSubview:self.spinner];
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.scrollView.bounds.size.height*1.2);
-    
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:self.tap];
-    
     if (self.shouldRegisterLocalDevice) {
         self.navigationItem.leftBarButtonItem = nil;
         self.switchLocalDevice.hidden = YES;
@@ -67,9 +61,7 @@
     self.deviceType = sender.titleLabel.text;
 }
 
-- (IBAction)textFieldReturn:(id)sender {
-    [sender resignFirstResponder];
-}
+
 
 - (IBAction)storeDevice {
     if (self.deviceNameTextField.text && self.deviceNameTextField.text.length > 0) {
@@ -118,18 +110,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)textFieldReturn:(id)sender {
+    [sender resignFirstResponder];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentOffset:CGPointMake(0,100) animated:YES];
-    return YES;
-}
-
-- (void) dismissKeyboard {
-    [self.deviceNameTextField resignFirstResponder];
 }
 
 - (IBAction)backButton {
