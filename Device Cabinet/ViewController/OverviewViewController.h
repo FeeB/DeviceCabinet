@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) Device *forwardToDevice;
-@property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
 @property (nonatomic, assign) BOOL automaticReturn;
 
 - (void)getAllDevices;

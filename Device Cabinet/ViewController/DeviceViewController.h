@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Device.h"
-#import "Person.h"
-#import "UserNamePickerViewController.h"
+@class Device;
+@class Person;
+@class UserNamePickerViewController;
 
 @interface DeviceViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -19,7 +19,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *bookedFromLabelText;
 @property (nonatomic, weak) IBOutlet UIButton *bookDevice;
 @property (nonatomic, weak) IBOutlet UILabel *individualSystemVersionLabel;
-@property (nonatomic, weak) IBOutlet UILabel *systemVersionLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;

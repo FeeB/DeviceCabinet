@@ -15,8 +15,6 @@
 NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
 @interface CreatePersonViewController ()
-@property (readonly) CKContainer *container;
-@property (readonly) CKDatabase *publicDatabase;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) Person *person;
 

@@ -7,10 +7,10 @@
 //
 
 #import "UserNamePickerViewController.h"
-#import "AppDelegate.h"
 #import "CreatePersonViewController.h"
 #import "TEDLocalization.h"
 #import "RailsApiDao.h"
+#import "Person.h"
 
 @interface UserNamePickerViewController ()
 

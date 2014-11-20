@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Device.h"
+@class Device;
 
 @interface CreateDeviceViewController : UIViewController <UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIPickerView *devicePicker;
 @property (weak, nonatomic) IBOutlet UITextField *deviceNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *deviceTypeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;

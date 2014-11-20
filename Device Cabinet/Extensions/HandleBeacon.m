@@ -9,7 +9,6 @@
 #import "HandleBeacon.h"
 #import <CoreLocation/CoreLocation.h>
 #import "UserDefaultsWrapper.h"
-#import "AppDelegate.h"
 #import "RailsApiErrorMapper.h"
 #import "Device.h"
 @import AudioToolbox;

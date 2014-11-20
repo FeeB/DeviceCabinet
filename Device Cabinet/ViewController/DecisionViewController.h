@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Device.h"
+@class Device;
 
 @interface DecisionViewController : UIViewController
 

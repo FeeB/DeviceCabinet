@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Person.h"
+@class Person;
 
 @interface CreatePersonViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 

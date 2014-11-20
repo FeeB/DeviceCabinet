@@ -10,7 +10,6 @@
 #import "DeviceViewController.h"
 #import "KeyChainWrapper.h"
 #import "TEDLocalization.h"
-#import "AppDelegate.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DecisionViewController.h"
 #import "CreateDeviceViewController.h"
@@ -18,6 +17,7 @@
 #import "RailsApiErrorMapper.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"
+#import "Device.h"
 
 @interface OverviewViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;

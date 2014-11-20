@@ -9,7 +9,6 @@
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
 #import "Device.h"
-#import "AppDelegate.h"
 #import "RailsApiErrorMapper.h"
 
 NSString * const KeyForDevice = @"currentDevice";

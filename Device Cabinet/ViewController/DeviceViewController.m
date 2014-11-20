@@ -13,6 +13,8 @@
 #import "OverviewViewController.h"
 #import "UserNamePickerViewController.h"
 #import "UserDefaultsWrapper.h"
+#import "Device.h"
+#import "Person.h"
 
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 

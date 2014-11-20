@@ -20,6 +20,7 @@
     self.handleBeacon = [[HandleBeacon alloc] init];
     [self.handleBeacon searchForBeacon];
     
+    //register Notification for ios8 and ask for permission
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
@@ -28,6 +29,7 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
+    //Write NSLog in a File
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
