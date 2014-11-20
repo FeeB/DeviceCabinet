@@ -50,6 +50,7 @@
     [encoder encodeObject:self.deviceName forKey:@"deviceName"];
     [encoder encodeObject:self.deviceType forKey:@"deviceType"];
     [encoder encodeObject:self.deviceId forKey:@"deviceRecordId"];
+    [encoder encodeObject:self.systemVersion forKey:@"systemVersion"];
     [encoder encodeBool:self.bookedByPerson forKey:@"bookedByPerson"];
     [encoder encodeObject:self.bookedByPersonFullName forKey:@"bookedByPersonFullName"];
     [encoder encodeObject:self.bookedByPersonId forKey:@"bookedByPersonId"];
@@ -64,6 +65,7 @@
         self.deviceName = [decoder decodeObjectForKey:@"deviceName"];
         self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
         self.deviceId = [decoder decodeObjectForKey:@"deviceRecordId"];
+        self.systemVersion = [decoder decodeObjectForKey:@"systemVersion"];
         self.bookedByPerson = [decoder decodeBoolForKey:@"bookedByPerson"];
         self.bookedByPersonFullName = [decoder decodeObjectForKey:@"bookedByPersonFullName"];
         self.bookedByPersonId = [decoder decodeObjectForKey:@"bookedByPersonId"];
