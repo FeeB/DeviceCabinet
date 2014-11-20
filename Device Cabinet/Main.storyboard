@@ -61,7 +61,7 @@
                             </button>
                             <view contentMode="scaleToFill" id="B0Y-O4-iEf">
                                 <rect key="frame" x="0.0" y="186" width="320" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OvO-Kh-jRv">
                                         <rect key="frame" x="125" y="8" width="187" height="20"/>
@@ -91,7 +91,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99293718434343436" green="0.99293718434343436" blue="0.99293718434343436" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.topBorder" value="YES"/>
                                 </userDefinedRuntimeAttributes>
