@@ -14,6 +14,7 @@
 #import "OverviewViewController.h"
 #import "UserNamePickerViewController.h"
 #import "UserDefaultsWrapper.h"
+#import <QuartzCore/QuartzCore.h>
 
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 
@@ -48,6 +49,17 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     if (self.automaticReturn) {
         [self deleteReference];
     }
+    
+    self.separatingView.clipsToBounds = YES;
+    
+    //http://stackoverflow.com/questions/6446279/what-is-the-uicolor-of-the-default-uitableview-separator
+    //http://stackoverflow.com/questions/7022656/calayer-add-a-border-only-at-one-side
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0].CGColor;
+    topBorder.borderWidth = 1;
+    topBorder.frame = CGRectMake(0, 0, CGRectGetWidth(self.separatingView.frame), 1);
+    
+    [self.separatingView.layer addSublayer:topBorder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

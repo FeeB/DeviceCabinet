@@ -24,6 +24,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *individualDeviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *deviceTypeLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *userPhoto;
+@property (nonatomic) IBOutlet UIView *separatingView;
 
 @property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) Person *person;

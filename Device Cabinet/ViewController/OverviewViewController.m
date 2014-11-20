@@ -147,12 +147,19 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         
     UILabel *cellLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *cellLabelDeviceType = (UILabel *)[cell viewWithTag:200];
+    UILabel *cellLabelSystemVersion = (UILabel *)[cell viewWithTag:500];
     UILabel *cellLabelBookedByPerson = (UILabel *)[cell viewWithTag:300];
     UIImageView *cellUserPhoto = (UIImageView *) [cell viewWithTag:400];
+    UIImageView *cellSystemVersionPhoto = (UIImageView *) [cell viewWithTag:600];
     
     Device *cellDevice = [self.currentList objectAtIndex:indexPath.row];
     cellLabel.text = cellDevice.deviceName;
     cellLabelDeviceType.text = cellDevice.deviceType;
+    cellLabelSystemVersion.text = cellDevice.systemVersion;
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
+    [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    
     if (cellDevice.bookedByPerson) {
         cellLabelBookedByPerson.text = cellDevice.bookedByPersonFullName;
         cellUserPhoto.hidden = NO;
@@ -161,8 +168,13 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         cellUserPhoto.hidden = YES;
     }
     
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
-    [imageView setImageWithURL:cellDevice.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    if ([cellDevice.type isEqualToString:@"iPhone"] || [cellDevice.type isEqualToString:@"iPad"]) {
+        [cellSystemVersionPhoto setImage:[UIImage imageNamed:@"apple.png"]];
+    } else {
+        [cellSystemVersionPhoto setImage:[UIImage imageNamed:@"android.png"]];
+    }
+    
+    
     
     return cell;
 }
