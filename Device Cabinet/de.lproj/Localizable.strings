@@ -31,7 +31,7 @@
 "SECTION_BOOKED_DEVICES" = "Ausgeliehen";
 "SECTION_FREE_DEVICES" = "Verfügbar";
 
-"BUTTON_SAVE" = "speichern";
+"BUTTON_SAVE" = "Speichern";
 
 "BUTTON_BOOK" = "Jetzt ausleihen";
 "BUTTON_RETURN" = "Zurückgeben";
