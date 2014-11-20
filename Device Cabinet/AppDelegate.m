@@ -31,11 +31,11 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
-//    NSString *logFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
-//    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
+    NSString *logFilePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
@@ -45,19 +45,23 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
     if (application.applicationState != UIApplicationStateActive) {
+        
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        
         UINavigationController *navigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"OverviewNavigationController"];
         OverviewViewController *overviewController = (OverviewViewController *)navigationController.topViewController;
         
-        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:navigationController animated:NO completion:nil];
+        self.window.rootViewController = navigationController;
+        [self.window makeKeyAndVisible];
+        
+//        [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:navigationController animated:NO completion:nil];
         overviewController.forwardToDevice = [UserDefaultsWrapper getLocalDevice];
         if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
             overviewController.automaticReturn = YES;
         }
         [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
-    } else {
-        
-    }
+    } 
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
