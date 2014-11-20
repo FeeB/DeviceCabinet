@@ -95,66 +95,13 @@
 }
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
-    
-    NSLog(@"rangeBeacons");
-    
-    if(beacons.count > 0) {
-        CLBeacon *nearestBeacon = beacons.firstObject;
         
-        if(nearestBeacon.proximity == self.lastProximity || nearestBeacon.proximity == CLProximityUnknown) {
-            NSLog(@"same proximity");
-            return;
-        }
-        
-        switch (nearestBeacon.proximity) {
-            case CLProximityImmediate:
-                NSLog(@"Immediate");
-                break;
-            case CLProximityNear:
-                NSLog(@"Near");
-                break;
-            case CLProximityFar:
-                NSLog(@"Far");
-                break;
-            case CLProximityUnknown:
-                NSLog(@"Unknown");
-                break;
-            default:
-                break;
-        }
-        
-        [self checkLocalDeviceWithCompletionHandler:^(Device *device, NSError *error) {
-            if (self.device.isBookedByPerson != device.isBookedByPerson) {
-                self.notificationToBookDeviceWasSend = NO;
-                self.notificationToReturnDeviceWasSend = NO;
-            }
-            self.device = device;
-            
-            if (self.device.isBookedByPerson) {
-                if (!self.notificationToReturnDeviceWasSend && (nearestBeacon.proximity == CLProximityImmediate || nearestBeacon.proximity == CLProximityNear)) {
-                    [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
-                    self.notificationToReturnDeviceWasSend = YES;
-                    self.notificationToBookDeviceWasSend = NO;
-                    NSLog(@"Return notification was send from region immediate or near");
-                }
-            } else {
-                if (!self.notificationToBookDeviceWasSend && nearestBeacon.proximity == CLProximityFar) {
-                    [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
-                    self.notificationToBookDeviceWasSend = YES;
-                    self.notificationToReturnDeviceWasSend = NO;
-                    NSLog(@"Book notification was send from region far");
-                }
-            }
-            self.lastProximity = nearestBeacon.proximity;
-        }];
-        
-    } else {
+    if(!beacons.count > 0) {
         if (!self.device.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
             [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
             self.notificationToBookDeviceWasSend = YES;
             self.notificationToReturnDeviceWasSend = NO;
             NSLog(@"Book notification was send from when no beacons were found");
-
         }
     }
 }
