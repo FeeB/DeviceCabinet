@@ -73,7 +73,6 @@
 "BUTTON_TAKE_A_PICTURE" = "Take a picture of this device";
 
 "ERROR_HEADLINE_NO_CONNECTION" = "A network error occured";
-"ERROR_MESSAGE_NO_CONNECTION_CLOUDKIT" = "CloudKit has a problem with the network. Please try again later.";
 "ERROR_MESSAGE_NO_CONNECTION" = "The app can't connect to the server. Please try again later.";
 "ERROR_HEADLINE_NO_ICLOUD" = "iCloud Account missing";
 "ERROR_MESSAGE_NO_ICLOUD" = "Please log in your iCloud account on your phone to perform this action";

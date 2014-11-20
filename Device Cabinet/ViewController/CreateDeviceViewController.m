@@ -11,7 +11,7 @@
 #import "KeyChainWrapper.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "AppDelegate.h"
+#import "RailsApiDao.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"
 #import "UdIdGenerator.h"
@@ -82,7 +82,7 @@
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
-        [AppDelegate.dao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
+        [[[RailsApiDao alloc]init] storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

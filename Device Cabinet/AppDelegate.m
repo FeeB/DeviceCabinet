@@ -8,7 +8,6 @@
 //
 
 #import "AppDelegate.h"
-#import "CloudKitDao.h"
 #import "RailsApiDao.h"
 #import "HandleBeacon.h"
 #import "OverviewViewController.h"
@@ -17,9 +16,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.dao = [[RailsApiDao alloc] init];
-    
+{    
     self.handleBeacon = [[HandleBeacon alloc] init];
     [self.handleBeacon searchForBeacon];
     
@@ -62,11 +59,6 @@
         }
         [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
     } 
-}
-
-+ (NSObject<DeviceCabinetDao> *)dao
-{
-    return ((AppDelegate *)[[UIApplication sharedApplication] delegate]).dao;
 }
 
 @end

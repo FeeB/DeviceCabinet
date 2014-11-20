@@ -42,8 +42,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 //get all people for the device overview
 - (void)getAllPeople {
     
-    RailsApiDao *apiDao = [[RailsApiDao alloc]init];
-    [apiDao fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
+    [[[RailsApiDao alloc]init] fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
         if (error) {
             self.userNames = [[NSMutableArray alloc] init];
             NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
@@ -104,8 +103,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Person *person = [self.userNames objectAtIndex:indexPath.row];
-        RailsApiDao *railsApi = [[RailsApiDao alloc]init];
-        [railsApi deletePerson:person completionHandler:^(NSError *error) {
+        [[[RailsApiDao alloc]init] deletePerson:person completionHandler:^(NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion

@@ -10,8 +10,7 @@
 #import "Person.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
-#import "CloudKitErrorMapper.h"
-#import "AppDelegate.h"
+#import "RailsApiDao.h"
 
 NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
@@ -59,7 +58,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         self.person.firstName = self.firstNameTextField.text;
         self.person.lastName = self.lastNameTextField.text;
         
-        [AppDelegate.dao storePerson:self.person completionHandler:^(Person *storedPerson, NSError *error) {
+        [[[RailsApiDao alloc]init] storePerson:self.person completionHandler:^(Person *storedPerson, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

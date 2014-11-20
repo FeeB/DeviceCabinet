@@ -8,13 +8,11 @@
 
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "AppDelegate.h"
 #import "RailsApiDao.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "OverviewViewController.h"
 #import "UserNamePickerViewController.h"
 #import "UserDefaultsWrapper.h"
-#import <QuartzCore/QuartzCore.h>
 
 NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameList";
 
@@ -74,7 +72,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     if (!self.device.imageUrl) {
         [self.imageView setImageWithURL:self.device.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     } else {
-        [AppDelegate.dao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [[[RailsApiDao alloc] init] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
@@ -91,9 +89,9 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [AppDelegate.dao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+    [[[RailsApiDao alloc] init] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
         if (!device.isBookedByPerson) {
-            [AppDelegate.dao storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
+            [[[RailsApiDao alloc] init] storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 
@@ -127,7 +125,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [AppDelegate.dao deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
+    [[[RailsApiDao alloc] init] deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         [self.spinner stopAnimating];
         
@@ -191,8 +189,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
-        RailsApiDao *apiDao = [[RailsApiDao alloc] init];
-        [apiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(NSError *error) {
+        [[[RailsApiDao alloc] init] uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

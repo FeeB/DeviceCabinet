@@ -9,8 +9,8 @@
 #import "LaunchHandler.h"
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
-#import "AppDelegate.h"
 #import "RailsApiErrorMapper.h"
+#import "RailsApiDao.h"
 
 @implementation LaunchHandler
 
@@ -19,7 +19,7 @@
     if ([UserDefaultsWrapper isFirstLaunch]) {
         if ([KeyChainWrapper hasDeviceUdId]) {
             NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
-            [AppDelegate.dao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
+            [[[RailsApiDao alloc]init] fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
                     [UserDefaultsWrapper setLocalDevice:device];
                     [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];

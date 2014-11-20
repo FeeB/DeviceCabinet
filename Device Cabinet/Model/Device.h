@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CloudKit/CloudKit.h>
 
 @class Person;
 
@@ -23,10 +22,6 @@
 @property NSString *deviceId;
 @property NSURL *imageUrl;
 @property NSString *deviceType;
-
-//Only for CloudKit
-@property CKRecordID *recordId;
-@property CKRecordID *bookedByPersonIdCloudKit;
 
 - (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CloudKitDao.h"
 
+@class Device;
 @interface OverviewViewController : UITableViewController <NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) Device *device;

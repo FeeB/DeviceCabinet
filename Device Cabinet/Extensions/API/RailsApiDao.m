@@ -9,6 +9,8 @@
 #import "RailsApiDao.h"
 #import "AFNetworking.h"
 #import "RailsApiErrorMapper.h"
+#import "Device.h"
+#import "Person.h"
 
 #define ROOT_URL @"http://cryptic-journey-8537.herokuapp.com/"
 //#define ROOT_URL @"http://localhost:3000/"
