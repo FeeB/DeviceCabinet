@@ -67,36 +67,53 @@
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
     NSLog(@"Device did Enter Region");
     
-    [self checkLocalDeviceWithCompletionHandler:^(Device *device, NSError *error) {
-        if (device.isBookedByPerson && !self.notificationToReturnDeviceWasSend) {
-            [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
-            self.notificationToReturnDeviceWasSend = YES;
-            self.notificationToBookDeviceWasSend = NO;
-            NSLog(@"Return notification was send from didEnter");
-        }
-    }];
-    
+    self.device = [UserDefaultsWrapper getLocalDevice];
+    NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
+    NSLog(@"notif. return %@", self.notificationToReturnDeviceWasSend ? @"YES" : @"NO");
+    if (self.device.isBookedByPerson && !self.notificationToReturnDeviceWasSend) {
+        [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
+        self.notificationToReturnDeviceWasSend = YES;
+        self.notificationToBookDeviceWasSend = NO;
+        NSLog(@"Return notification was send from didEnter");
+    }
+
     [manager startRangingBeaconsInRegion:(CLBeaconRegion*)region];
     [self.locationManager startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didExitRegion:(CLBeaconRegion*)region {
     NSLog(@"Device did Exit Region");
+    NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
+    NSLog(@"notif. book %@", self.notificationToBookDeviceWasSend ? @"YES" : @"NO");
     
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
+    self.device = [UserDefaultsWrapper getLocalDevice];
     if (!self.device.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
         [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
         self.notificationToBookDeviceWasSend = YES;
         self.notificationToReturnDeviceWasSend = NO;
         NSLog(@"Book notification was send from didExit");
     }
-    
+
     [self.locationManager stopUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
-        
-    if(!beacons.count > 0) {
+    
+    self.device = [UserDefaultsWrapper getLocalDevice];
+    
+    if(beacons.count > 0) {
+        NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
+        NSLog(@"notif. return %@", self.notificationToReturnDeviceWasSend ? @"YES" : @"NO");
+        if (self.device.isBookedByPerson && !self.notificationToReturnDeviceWasSend) {
+            [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)];
+            self.notificationToReturnDeviceWasSend = YES;
+            self.notificationToBookDeviceWasSend = NO;
+            NSLog(@"Return notification was send from beacons found");
+        }
+    } else {
+        NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
+        NSLog(@"notif. book %@", self.notificationToBookDeviceWasSend ? @"YES" : @"NO");
         if (!self.device.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
             [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
             self.notificationToBookDeviceWasSend = YES;
@@ -108,16 +125,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"%@", error);
-}
-
-- (void)checkLocalDeviceWithCompletionHandler:(void (^)(Device *, NSError *))completionHandler  {
-    [AppDelegate.dao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
-        if (!error) {
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                completionHandler(device, nil);
-            });
-        }
-    }];
 }
 
 @end
