@@ -52,14 +52,13 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     self.separatingView.clipsToBounds = YES;
     
-    //http://stackoverflow.com/questions/6446279/what-is-the-uicolor-of-the-default-uitableview-separator
-    //http://stackoverflow.com/questions/7022656/calayer-add-a-border-only-at-one-side
-    CALayer *topBorder = [CALayer layer];
-    topBorder.borderColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0].CGColor;
-    topBorder.borderWidth = 1;
-    topBorder.frame = CGRectMake(0, 0, CGRectGetWidth(self.separatingView.frame), 1);
+    [self topBorder];
     
-    [self.separatingView.layer addSublayer:topBorder];
+    if ([self.device.type isEqualToString:@"iPhone"] || [self.device.type isEqualToString:@"iPad"]) {
+        [self.systemVersionPhoto setImage:[UIImage imageNamed:@"apple.png"]];
+    } else {
+        [self.systemVersionPhoto setImage:[UIImage imageNamed:@"android.png"]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -234,6 +233,17 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             }
         };
     }
+}
+
+- (void)topBorder {
+    //http://stackoverflow.com/questions/6446279/what-is-the-uicolor-of-the-default-uitableview-separator
+    //http://stackoverflow.com/questions/7022656/calayer-add-a-border-only-at-one-side
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0].CGColor;
+    topBorder.borderWidth = 1;
+    topBorder.frame = CGRectMake(0, 0, CGRectGetWidth(self.separatingView.frame), 1);
+    
+    [self.separatingView.layer addSublayer:topBorder];
 }
 
 @end
