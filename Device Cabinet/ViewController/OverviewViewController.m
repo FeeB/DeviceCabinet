@@ -255,6 +255,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:FromOverViewToDeviceViewSegue]) {
         DeviceViewController *controller = (DeviceViewController *)segue.destinationViewController;
+        controller.automaticReturn = self.automaticReturn;
         if (self.forwardToDevice) {
             controller.device = self.forwardToDevice;
             self.forwardToDevice = nil;
