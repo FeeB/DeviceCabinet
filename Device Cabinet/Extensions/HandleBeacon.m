@@ -87,7 +87,7 @@
     
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
     self.device = [UserDefaultsWrapper getLocalDevice];
-    if (!self.device.isBookedByPerson && !self.notificationToBookDeviceWasSend) {
+    if (!self.device.isBookedByPerson) {
         [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
         self.notificationToBookDeviceWasSend = YES;
         self.notificationToReturnDeviceWasSend = NO;
