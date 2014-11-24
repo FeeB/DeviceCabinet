@@ -247,11 +247,11 @@
             <objects>
                 <viewController id="fWZ-Ut-nkS" customClass="CreateDeviceViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hUi-XZ-OJq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Tsu-Mn-eTc">
-                                <rect key="frame" x="0.0" y="0.0" width="321" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="321" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="6Kk-Lq-hrI">
@@ -434,13 +434,13 @@
                     <connections>
                         <outlet property="noRegisterButton" destination="TC5-KL-d5h" id="eS4-ZK-UBy"/>
                         <outlet property="registerDeviceButton" destination="b7e-0S-i59" id="ImH-mh-b5S"/>
-                        <segue destination="gyl-jv-tog" kind="push" identifier="FromDecisionToOverview" id="Mdk-TY-iFG"/>
                         <segue destination="fWZ-Ut-nkS" kind="push" identifier="FromDecisionToRegisterDevice" id="3xm-Jh-SNA"/>
+                        <segue destination="iw6-Gk-HuI" kind="push" identifier="FromDecisionToOverview" id="bep-AH-rKa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uR1-Cy-su3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="-638"/>
+            <point key="canvasLocation" x="-575" y="-218"/>
         </scene>
         <!--Overview View Controller-->
         <scene sceneID="uZb-EK-JUo">
@@ -517,7 +517,7 @@
                     <navigationItem key="navigationItem" id="Kby-7z-Zbi">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4Ee-5T-d6K">
-                            <rect key="frame" x="57" y="8" width="206" height="29"/>
+                            <rect key="frame" x="57" y="7.5" width="206" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title=""/>
@@ -655,7 +655,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pWj-MI-pJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="727"/>
+            <point key="canvasLocation" x="-849" y="727"/>
         </scene>
     </scenes>
     <resources>
@@ -671,9 +671,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Osa-rt-PcE"/>
-        <segue reference="VeD-io-uAb"/>
-        <segue reference="Phs-EO-HNL"/>
+        <segue reference="bep-AH-rKa"/>
+        <segue reference="3xm-Jh-SNA"/>
+        <segue reference="Xju-vS-6Xe"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>
