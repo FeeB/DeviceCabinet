@@ -7,13 +7,18 @@
 //
 
 #import "PushNoAnimationSegue.h"
+#import "DecisionViewController.h"
 
 @implementation PushNoAnimationSegue
 
 - (void) perform{
-    UINavigationController *navigationController = (UINavigationController *)[self destinationViewController];
-    UIViewController *controller = navigationController.topViewController;
-    [[[self sourceViewController] navigationController] pushViewController:controller animated:NO];
+    if ([[self destinationViewController] isKindOfClass:[DecisionViewController class]]) {
+        [[[self sourceViewController] navigationController] pushViewController:[self destinationViewController] animated:NO];
+    } else {
+        UINavigationController *navigationController = (UINavigationController *)[self destinationViewController];
+        UIViewController *controller = navigationController.topViewController;
+        [[[self sourceViewController] navigationController] pushViewController:controller animated:NO];
+    }
 }
 
 @end
