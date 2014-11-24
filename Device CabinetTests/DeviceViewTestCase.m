@@ -13,6 +13,8 @@
 #import <OCMockito/OCMockito.h>
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
+#import "Device.h"
+#import "Person.h"
 
 @interface DeviceViewTestCase : XCTestCase
 

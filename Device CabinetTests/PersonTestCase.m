@@ -51,7 +51,6 @@
    XCTAssertEqualObjects(person.fullName, [json valueForKey:@"full_name"], @"Fullname should be same in json");
    XCTAssertEqualObjects(person.firstName, [json valueForKey:@"first_name"], @"firstname should be same in json");
    XCTAssertEqualObjects(person.lastName, [json valueForKey:@"last_name"], @"lastname should be same in json");
-   XCTAssertTrue([json valueForKey:@"has_booked_device"], @"hasBookedDevice should be same in json");
 }
 
 - (Person *)createATestPerson {
