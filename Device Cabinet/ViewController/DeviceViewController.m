@@ -47,6 +47,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     
     if (self.automaticReturn) {
         [self deleteReference];
+        self.automaticReturn = NO;
     }
     
     self.separatingView.clipsToBounds = YES;
