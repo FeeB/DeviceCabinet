@@ -19,7 +19,7 @@
     if ([UserDefaultsWrapper isFirstLaunch]) {
         if ([KeyChainWrapper hasDeviceUdId]) {
             NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
-            [[[RailsApiDao alloc]init] fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
+            [[RailsApiDao sharedInstance] fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
                     [UserDefaultsWrapper setLocalDevice:device];
                     [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];

@@ -10,6 +10,7 @@
 @class Person;
 @interface RailsApiDao : NSObject
 
++ (RailsApiDao*)sharedInstance;
 
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;

@@ -109,7 +109,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)checkForSystemVersionUpdate {
     if (self.device) {
-        [[[RailsApiDao alloc]init] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [[RailsApiDao sharedInstance] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 if (!error.code == [RailsApiErrorMapper itemNotFoundInDatabaseError].code) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -120,7 +120,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
                     [UserDefaultsWrapper setLocalDevice:device];
-                    [[[RailsApiDao alloc]init] updateSystemVersion:self.device completionHandler:nil];
+                    [[RailsApiDao sharedInstance] updateSystemVersion:self.device completionHandler:nil];
                     [self getAllDevices];
                 }
             }
@@ -201,7 +201,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)deleteRowAtIndexPath {
     Device *device = [self.currentList objectAtIndex:self.indexPathToBeDeleted.row];
-    [[[RailsApiDao alloc]init] deleteDevice:device completionHandler:^(NSError *error) {
+    [[RailsApiDao sharedInstance] deleteDevice:device completionHandler:^(NSError *error) {
         if (error) {
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
@@ -227,7 +227,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)getAllDevices {
     [self.spinner startAnimating];
     
-    [[[RailsApiDao alloc]init] fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+    [[RailsApiDao sharedInstance] fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
         [self.refreshControl endRefreshing];
 

@@ -22,6 +22,16 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 @implementation RailsApiDao
 
++ (RailsApiDao*)sharedInstance {
+    static RailsApiDao *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[RailsApiDao alloc] init];
+    });
+    return _sharedInstance;
+}
+
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     
     [self checkIfDeviceIsAlreadyExistingWithDeviceName:device.deviceName completionHandler:^(Device *databaseDevice, NSError *error) {

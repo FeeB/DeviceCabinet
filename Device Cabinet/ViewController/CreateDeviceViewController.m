@@ -82,7 +82,7 @@
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
-        [[[RailsApiDao alloc]init] storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
+        [[RailsApiDao sharedInstance] storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
