@@ -11,6 +11,8 @@
 
 @interface HandleBeacon : NSObject <CLLocationManagerDelegate>
 
+- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper;
 - (void)searchForBeacon;
+- (void)didReceiveLocalNotification:(UILocalNotification *)notification;
 
 @end

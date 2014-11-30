@@ -16,12 +16,12 @@
 
 + (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler {
     
-    if ([UserDefaultsWrapper isFirstLaunch]) {
+    if ([Injector.sharedInstance.userDefaultsWrapper isFirstLaunch]) {
         if ([KeyChainWrapper hasDeviceUdId]) {
             NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
-            [[RailsApiDao sharedInstance] fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
+            [Injector.sharedInstance.railsApiDao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
-                    [UserDefaultsWrapper setLocalDevice:device];
+                    [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
                     [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];
                 } else {
                     [LaunchHandler shouldShowDecision:YES completionHandler:completionHandler];

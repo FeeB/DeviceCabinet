@@ -11,6 +11,9 @@
 #import "UserDefaultsWrapper.h"
 #import "RailsApiErrorMapper.h"
 #import "Device.h"
+#import "OverviewViewController.h"
+#import <UIKit/UIKit.h>
+
 @import AudioToolbox;
 
 @interface HandleBeacon ()
@@ -21,13 +24,25 @@
 @property (nonatomic) Device *device;
 @property (nonatomic, assign) bool notificationToReturnDeviceWasSend;
 @property (nonatomic, assign) bool notificationToBookDeviceWasSend;
+@property (nonatomic) UserDefaultsWrapper *userDefaultsWrapper;
 
 @end
 
 @implementation HandleBeacon
 
+- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper
+{
+    NSParameterAssert(userDefaultsWrapper);
+
+    self = [super init];
+    if (self) {
+        _userDefaultsWrapper = userDefaultsWrapper;
+    }
+    return self;
+}
+
 - (void)searchForBeacon {
-    if ([UserDefaultsWrapper isLocalDevice]) {
+    if ([self.userDefaultsWrapper isLocalDevice]) {
         
         // Create a NSUUID with the same UUID as the broadcasting beacon
         NSUUID *beaconUuid = [[NSUUID alloc] initWithUUIDString:@"f0018b9b-7509-4c31-a905-1a27d39c003c"];
@@ -48,7 +63,7 @@
         [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
         [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
         
-        self.device = [UserDefaultsWrapper getLocalDevice];
+        self.device = [self.userDefaultsWrapper getLocalDevice];
         
     }
 }
@@ -66,7 +81,7 @@
 - (void)locationManager:(CLLocationManager*)manager didEnterRegion:(CLBeaconRegion*)region {
     NSLog(@"Device did Enter Region");
     
-    self.device = [UserDefaultsWrapper getLocalDevice];
+    self.device = [self.userDefaultsWrapper getLocalDevice];
     NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
     NSLog(@"notif. return %@", self.notificationToReturnDeviceWasSend ? @"YES" : @"NO");
     if (self.device.isBookedByPerson && !self.notificationToReturnDeviceWasSend) {
@@ -86,7 +101,7 @@
     NSLog(@"notif. book %@", self.notificationToBookDeviceWasSend ? @"YES" : @"NO");
     
     [manager stopRangingBeaconsInRegion:(CLBeaconRegion*)region];
-    self.device = [UserDefaultsWrapper getLocalDevice];
+    self.device = [self.userDefaultsWrapper getLocalDevice];
     if (!self.device.isBookedByPerson) {
         [self sendLocalNotificationWithMessage:NSLocalizedString(@"NOTIFICATION_BOOK_LABEL", nil)];
         self.notificationToBookDeviceWasSend = YES;
@@ -99,7 +114,7 @@
 
 - (void)locationManager:(CLLocationManager*)manager didRangeBeacons:(NSArray*)beacons inRegion:(CLBeaconRegion*)region {
     
-    self.device = [UserDefaultsWrapper getLocalDevice];
+    self.device = [self.userDefaultsWrapper getLocalDevice];
     
     if(beacons.count > 0) {
         NSLog(@"booked %@", self.device.isBookedByPerson ? @"YES" : @"NO");
@@ -124,6 +139,25 @@
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"%@", error);
+}
+
+- (void)didReceiveLocalNotification:(UILocalNotification *)notification {
+    //http://stackoverflow.com/questions/15287678/warning-attempt-to-present-viewcontroller-whose-view-is-not-in-the-window-hiera
+
+    UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    UINavigationController *navigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"OverviewNavigationController"];
+    OverviewViewController *overviewController = (OverviewViewController *)navigationController.topViewController;
+    
+    window.rootViewController = navigationController;
+    [window makeKeyAndVisible];
+    
+    overviewController.forwardToDevice = [Injector.sharedInstance.userDefaultsWrapper getLocalDevice];
+    if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
+        overviewController.automaticReturn = YES;
+    }
+    [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
 }
 
 @end

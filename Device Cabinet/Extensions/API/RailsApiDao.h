@@ -8,9 +8,11 @@
 
 @class Device;
 @class Person;
+@class AFHTTPRequestOperationManager;
+
 @interface RailsApiDao : NSObject
 
-+ (RailsApiDao*)sharedInstance;
+- (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager;
 
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *deviceObjects, NSError *error))completionHandler;
 - (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *device, NSError *error))completionHandler;

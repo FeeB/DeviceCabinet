@@ -74,7 +74,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.device = [UserDefaultsWrapper getLocalDevice];
+    self.device = [Injector.sharedInstance.userDefaultsWrapper getLocalDevice];
     [self checkForSystemVersionUpdate];
     [self handleIfAppRunsOnTestDevice];
     [self getAllDevices];
@@ -109,7 +109,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)checkForSystemVersionUpdate {
     if (self.device) {
-        [[RailsApiDao sharedInstance] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 if (!error.code == [RailsApiErrorMapper itemNotFoundInDatabaseError].code) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
@@ -119,8 +119,8 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             } else {
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
-                    [UserDefaultsWrapper setLocalDevice:device];
-                    [[RailsApiDao sharedInstance] updateSystemVersion:self.device completionHandler:nil];
+                    [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
+                    [Injector.sharedInstance.railsApiDao updateSystemVersion:self.device completionHandler:nil];
                     [self getAllDevices];
                 }
             }
@@ -201,7 +201,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)deleteRowAtIndexPath {
     Device *device = [self.currentList objectAtIndex:self.indexPathToBeDeleted.row];
-    [[RailsApiDao sharedInstance] deleteDevice:device completionHandler:^(NSError *error) {
+    [Injector.sharedInstance.railsApiDao deleteDevice:device completionHandler:^(NSError *error) {
         if (error) {
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
@@ -209,7 +209,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         } else {
             // Handle case that the current device was deleted
             if (device.deviceUdId && [device.deviceUdId isEqualToString:self.device.deviceUdId]) {
-                [UserDefaultsWrapper reset];
+                [Injector.sharedInstance.userDefaultsWrapper reset];
                 [KeyChainWrapper reset];
                 self.device = nil;
                 [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
@@ -227,7 +227,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)getAllDevices {
     [self.spinner startAnimating];
     
-    [[RailsApiDao sharedInstance] fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+    [Injector.sharedInstance.railsApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
         [self.refreshControl endRefreshing];
 

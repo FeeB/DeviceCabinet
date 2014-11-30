@@ -20,16 +20,23 @@ NSString* const DevicePathWithId = ROOT_URL @"devices/%@";
 NSString* const PersonPath = ROOT_URL @"persons";
 NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
+@interface RailsApiDao ()
+
+@property AFHTTPRequestOperationManager *requestOperationManager;
+
+@end
+
 @implementation RailsApiDao
 
-+ (RailsApiDao*)sharedInstance {
-    static RailsApiDao *_sharedInstance = nil;
-    static dispatch_once_t oncePredicate;
+- (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager
+{
+    NSParameterAssert(requestOperationManager);
     
-    dispatch_once(&oncePredicate, ^{
-        _sharedInstance = [[RailsApiDao alloc] init];
-    });
-    return _sharedInstance;
+    self = [super init];
+    if (self) {
+        _requestOperationManager = requestOperationManager;
+    }
+    return self;
 }
 
 - (void)storeDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
@@ -38,8 +45,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
         if (error) {
             NSDictionary *parameters = @{@"device": device.toDictionary};
             
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            [manager POST:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.requestOperationManager POST:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 dispatch_async(dispatch_get_main_queue(), ^(void){
                     Device *device = [[Device alloc] initWithJson:responseObject];
                     completionHandler(device, nil);
@@ -59,8 +65,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)deleteDevice:(Device *)device completionHandler:(void (^)( NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil);
         });
@@ -75,8 +80,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     
     NSDictionary *parameters = @{@"device_name": deviceName};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Device *device = [[Device alloc] initWithJson:responseObject];
             completionHandler(device, nil);
@@ -91,8 +95,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 - (void)fetchDevicesWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager GET:DevicePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
             Device *device = [[Device alloc] initWithJson:dictionary];
@@ -112,8 +115,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void) fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device_id": deviceId};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Device *device = [[Device alloc] initWithJson:responseObject];
             completionHandler(device, nil);
@@ -128,8 +130,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Device *device = [[Device alloc] initWithJson:responseObject];
             completionHandler(device, nil);
@@ -145,8 +146,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)storePerson:(Person *)person completionHandler:(void (^)(Person *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"person": person.toDictionary};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager POST:PersonPath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             Person *person = [[Person alloc] initWithJson:responseObject];
             completionHandler(person, nil);
@@ -161,8 +161,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 - (void)deletePerson:(Person *)person completionHandler:(void (^)( NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:PersonPathWithId, person.personId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil);
         });
@@ -174,8 +173,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)fetchPeopleWithCompletionHandler:(void (^)(NSArray *, NSError *))completionHandler {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:PersonPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager GET:PersonPath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSMutableArray *resultObjects = [[NSMutableArray alloc] init];
         for (NSDictionary *dictionary in responseObject) {
             Person *person = [[Person alloc] initWithJson:dictionary];
@@ -198,8 +196,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil);
         });
@@ -215,8 +212,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [NSString stringWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil);
         });
@@ -252,8 +248,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil);
         });
@@ -269,8 +264,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     NSDictionary *parameters = @{@"device": storeParameters};
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler ? completionHandler(nil) : nil;
         });

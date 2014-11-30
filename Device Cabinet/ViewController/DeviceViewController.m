@@ -75,7 +75,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     if (!self.device.imageUrl) {
         [self.imageView setImageWithURL:self.device.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     } else {
-        [[RailsApiDao sharedInstance] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
@@ -92,9 +92,9 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [[RailsApiDao sharedInstance] fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+    [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
         if (!device.isBookedByPerson) {
-            [[RailsApiDao sharedInstance] storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
+            [Injector.sharedInstance.railsApiDao storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 
@@ -108,8 +108,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                     self.device.bookedByPerson = YES;
                     self.device.bookedByPersonId = self.person.personId;
                     self.device.bookedByPersonFullName = self.person.fullName;
-                    if ([self.device.deviceUdId isEqualToString:[UserDefaultsWrapper getLocalDevice].deviceUdId]) {
-                        [UserDefaultsWrapper setLocalDevice:self.device];
+                    if ([self.device.deviceUdId isEqualToString:[Injector.sharedInstance.userDefaultsWrapper getLocalDevice].deviceUdId]) {
+                        [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:self.device];
                     }
                     
                 }
@@ -128,7 +128,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [[RailsApiDao sharedInstance] deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
+    [Injector.sharedInstance.railsApiDao deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         [self.spinner stopAnimating];
         
@@ -140,8 +140,8 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
             [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_RETURN_SUCCESS", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_RETURN_SUCCESS", nil), self.device.deviceName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             [self.bookDevice setTitle:NSLocalizedString(@"BUTTON_BOOK", nil) forState:UIControlStateNormal];
             self.device.bookedByPerson = NO;
-            if ([self.device.deviceUdId isEqualToString:[UserDefaultsWrapper getLocalDevice].deviceUdId]) {
-                [UserDefaultsWrapper setLocalDevice:self.device];
+            if ([self.device.deviceUdId isEqualToString:[Injector.sharedInstance.userDefaultsWrapper getLocalDevice].deviceUdId]) {
+                [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:self.device];
             }
         }
     }];
@@ -192,7 +192,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
-        [[RailsApiDao sharedInstance] uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(NSError *error) {
+        [Injector.sharedInstance.railsApiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

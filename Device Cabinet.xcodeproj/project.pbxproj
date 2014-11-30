@@ -17,15 +17,17 @@
 		3A5E179B19654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E179C19654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
 		3A5E17A419654AC700681289 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17A219654AC700681289 /* InfoPlist.strings */; };
-		3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E17A519654AC700681289 /* Device_CabinetTests.m */; };
 		3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
 		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
 		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
-		955CAA3D1A1801D500C80F66 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */; };
+		956EB0051A2B8EBB00F3447F /* Injector.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0041A2B8EBB00F3447F /* Injector.m */; };
+		956EB00C1A2B977700F3447F /* NSDictionary+NotNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */; };
+		956EB00D1A2B977700F3447F /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB00B1A2B977700F3447F /* PushNoAnimationSegue.m */; };
+		956EB0101A2B979300F3447F /* UdIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB00F1A2B979300F3447F /* UdIdGenerator.m */; };
+		956EB0121A2B987400F3447F /* RailsAPIDaoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */; };
 		95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E539D71A1A856B00718E63 /* HandleBeacon.m */; };
-		95E539DB1A1BC26B00718E63 /* NSDictionary+NotNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E539DA1A1BC26B00718E63 /* NSDictionary+NotNSNull.m */; };
 		95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B311A153AF100F28EF3 /* AppDelegate.m */; };
 		95F84B611A153AF100F28EF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B341A153AF100F28EF3 /* Localizable.strings */; };
 		95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B431A153AF100F28EF3 /* RailsApiDao.m */; };
@@ -44,7 +46,6 @@
 		95F84B731A153AF100F28EF3 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B5C1A153AF100F28EF3 /* OverviewViewController.m */; };
 		95F84B741A153AF100F28EF3 /* UserNamePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B5E1A153AF100F28EF3 /* UserNamePickerViewController.m */; };
 		95F84B781A153D4700F28EF3 /* LaunchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B771A153D4700F28EF3 /* LaunchHandler.m */; };
-		95F84B7B1A1544E400F28EF3 /* UdIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */; };
 		95F84B7E1A15500E00F28EF3 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B7D1A15500E00F28EF3 /* StartViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -98,18 +99,22 @@
 		3A5E179919654AC700681289 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3A5E17A119654AC700681289 /* Device CabinetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Device CabinetTests-Info.plist"; sourceTree = "<group>"; };
 		3A5E17A319654AC700681289 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3A5E17A519654AC700681289 /* Device_CabinetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Device_CabinetTests.m; sourceTree = "<group>"; };
 		3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
 		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		955CAA3B1A1801D500C80F66 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
-		955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
+		956EB0031A2B8EBB00F3447F /* Injector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Injector.h; path = Extensions/Injector.h; sourceTree = "<group>"; };
+		956EB0041A2B8EBB00F3447F /* Injector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Injector.m; path = Extensions/Injector.m; sourceTree = "<group>"; };
+		956EB0071A2B977700F3447F /* NSDictionary+NotNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NotNSNull.h"; sourceTree = "<group>"; };
+		956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NotNSNull.m"; sourceTree = "<group>"; };
+		956EB00A1A2B977700F3447F /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
+		956EB00B1A2B977700F3447F /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
+		956EB00E1A2B979300F3447F /* UdIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdIdGenerator.h; sourceTree = "<group>"; };
+		956EB00F1A2B979300F3447F /* UdIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UdIdGenerator.m; sourceTree = "<group>"; };
+		956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsAPIDaoTest.m; sourceTree = "<group>"; };
 		95E539D61A1A856B00718E63 /* HandleBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleBeacon.h; sourceTree = "<group>"; };
 		95E539D71A1A856B00718E63 /* HandleBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleBeacon.m; sourceTree = "<group>"; };
-		95E539D91A1BC26B00718E63 /* NSDictionary+NotNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NotNSNull.h"; sourceTree = "<group>"; };
-		95E539DA1A1BC26B00718E63 /* NSDictionary+NotNSNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NotNSNull.m"; sourceTree = "<group>"; };
 		95F84B301A153AF100F28EF3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		95F84B311A153AF100F28EF3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		95F84B351A153AF100F28EF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -144,8 +149,6 @@
 		95F84B5E1A153AF100F28EF3 /* UserNamePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNamePickerViewController.m; sourceTree = "<group>"; };
 		95F84B761A153D4700F28EF3 /* LaunchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchHandler.h; sourceTree = "<group>"; };
 		95F84B771A153D4700F28EF3 /* LaunchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandler.m; sourceTree = "<group>"; };
-		95F84B791A1544E400F28EF3 /* UdIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdIdGenerator.h; sourceTree = "<group>"; };
-		95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UdIdGenerator.m; sourceTree = "<group>"; };
 		95F84B7C1A15500E00F28EF3 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
 		95F84B7D1A15500E00F28EF3 /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		D3A6D4B45940492A9973C4BC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,12 +219,12 @@
 		3A5E179F19654AC700681289 /* Device CabinetTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A5E17A519654AC700681289 /* Device_CabinetTests.m */,
 				3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
 				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
 				3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */,
 				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
+				956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */,
 			);
 			path = "Device CabinetTests";
 			sourceTree = "<group>";
@@ -235,11 +238,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		956EB0061A2B977700F3447F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				956EB00E1A2B979300F3447F /* UdIdGenerator.h */,
+				956EB00F1A2B979300F3447F /* UdIdGenerator.m */,
+				956EB0071A2B977700F3447F /* NSDictionary+NotNSNull.h */,
+				956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		956EB0091A2B977700F3447F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				956EB00A1A2B977700F3447F /* PushNoAnimationSegue.h */,
+				956EB00B1A2B977700F3447F /* PushNoAnimationSegue.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		95F84B2F1A153AF100F28EF3 /* Device Cabinet */ = {
 			isa = PBXGroup;
 			children = (
 				95F84B301A153AF100F28EF3 /* AppDelegate.h */,
 				95F84B311A153AF100F28EF3 /* AppDelegate.m */,
+				956EB0031A2B8EBB00F3447F /* Injector.h */,
+				956EB0041A2B8EBB00F3447F /* Injector.m */,
 				95F84B521A153AF100F28EF3 /* ViewController */,
 				95F84B4D1A153AF100F28EF3 /* Model */,
 				95F84B3B1A153AF100F28EF3 /* Extensions */,
@@ -253,6 +278,8 @@
 		95F84B3B1A153AF100F28EF3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				956EB0061A2B977700F3447F /* Helper */,
+				956EB0091A2B977700F3447F /* UI */,
 				95F84B3C1A153AF100F28EF3 /* API */,
 				95E539D61A1A856B00718E63 /* HandleBeacon.h */,
 				95E539D71A1A856B00718E63 /* HandleBeacon.m */,
@@ -260,14 +287,8 @@
 				95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */,
 				95F84B761A153D4700F28EF3 /* LaunchHandler.h */,
 				95F84B771A153D4700F28EF3 /* LaunchHandler.m */,
-				955CAA3B1A1801D500C80F66 /* PushNoAnimationSegue.h */,
-				955CAA3C1A1801D500C80F66 /* PushNoAnimationSegue.m */,
-				95F84B791A1544E400F28EF3 /* UdIdGenerator.h */,
-				95F84B7A1A1544E400F28EF3 /* UdIdGenerator.m */,
 				95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */,
 				95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */,
-				95E539D91A1BC26B00718E63 /* NSDictionary+NotNSNull.h */,
-				95E539DA1A1BC26B00718E63 /* NSDictionary+NotNSNull.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -509,17 +530,18 @@
 				95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */,
 				95F84B731A153AF100F28EF3 /* OverviewViewController.m in Sources */,
 				95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */,
+				956EB0101A2B979300F3447F /* UdIdGenerator.m in Sources */,
 				95F84B6D1A153AF100F28EF3 /* Device.m in Sources */,
+				956EB00C1A2B977700F3447F /* NSDictionary+NotNSNull.m in Sources */,
 				95F84B741A153AF100F28EF3 /* UserNamePickerViewController.m in Sources */,
 				95F84B701A153AF100F28EF3 /* CreatePersonViewController.m in Sources */,
 				95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */,
+				956EB0051A2B8EBB00F3447F /* Injector.m in Sources */,
+				956EB00D1A2B977700F3447F /* PushNoAnimationSegue.m in Sources */,
 				95F84B681A153AF100F28EF3 /* KeyChainWrapper.m in Sources */,
-				95E539DB1A1BC26B00718E63 /* NSDictionary+NotNSNull.m in Sources */,
-				95F84B7B1A1544E400F28EF3 /* UdIdGenerator.m in Sources */,
 				95F84B6F1A153AF100F28EF3 /* CreateDeviceViewController.m in Sources */,
 				95F84B781A153D4700F28EF3 /* LaunchHandler.m in Sources */,
 				95F84B6B1A153AF100F28EF3 /* main.m in Sources */,
-				955CAA3D1A1801D500C80F66 /* PushNoAnimationSegue.m in Sources */,
 				95F84B7E1A15500E00F28EF3 /* StartViewController.m in Sources */,
 				95F84B691A153AF100F28EF3 /* UserDefaultsWrapper.m in Sources */,
 				95F84B721A153AF100F28EF3 /* DeviceViewController.m in Sources */,
@@ -531,10 +553,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				956EB0121A2B987400F3447F /* RailsAPIDaoTest.m in Sources */,
 				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
 				3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */,
-				3A5E17A619654AC700681289 /* Device_CabinetTests.m in Sources */,
 				3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

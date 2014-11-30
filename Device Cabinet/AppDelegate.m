@@ -16,9 +16,8 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
-    self.handleBeacon = [[HandleBeacon alloc] init];
-    [self.handleBeacon searchForBeacon];
+{
+    [[Injector sharedInstance].handleBeacon searchForBeacon];
     
     //register Notification for ios8 and ask for permission
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -42,25 +41,9 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    
     if (application.applicationState != UIApplicationStateActive) {
-        
-        //http://stackoverflow.com/questions/15287678/warning-attempt-to-present-viewcontroller-whose-view-is-not-in-the-window-hiera
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        
-        UINavigationController *navigationController = [mainStoryboard instantiateViewControllerWithIdentifier:@"OverviewNavigationController"];
-        OverviewViewController *overviewController = (OverviewViewController *)navigationController.topViewController;
-        
-        self.window.rootViewController = navigationController;
-        [self.window makeKeyAndVisible];
-        
-        overviewController.forwardToDevice = [UserDefaultsWrapper getLocalDevice];
-        if ([notification.alertBody isEqualToString:NSLocalizedString(@"NOTIFICATION_RETURN_LABEL", nil)]) {
-            overviewController.automaticReturn = YES;
-        }
-        [overviewController performSegueWithIdentifier:@"FromOverviewToDeviceView" sender:nil];
-    } 
+        [Injector.sharedInstance.handleBeacon didReceiveLocalNotification:notification];
+    }
 }
 
 @end

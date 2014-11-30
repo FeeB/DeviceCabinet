@@ -82,7 +82,7 @@
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
-        [[RailsApiDao sharedInstance] storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
+        [Injector.sharedInstance.railsApiDao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
@@ -93,7 +93,7 @@
                 self.device = storedDevice;
                 if (self.shouldRegisterLocalDevice) {
                     [KeyChainWrapper setDeviceUdId:self.device.deviceUdId];
-                    [UserDefaultsWrapper setLocalDevice:self.device];
+                    [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:self.device];
                 }
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }

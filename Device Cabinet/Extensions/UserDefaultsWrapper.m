@@ -14,40 +14,53 @@
 NSString * const KeyForDevice = @"currentDevice";
 NSString * const KeyForFirstLaunch = @"firstLaunch";
 
+@interface UserDefaultsWrapper ()
+
+@property NSUserDefaults *userDefaults;
+
+@end
+
 @implementation UserDefaultsWrapper
 
-+ (BOOL)isFirstLaunch {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults objectForKey:KeyForFirstLaunch] == nil) {
-        [userDefaults setObject:@"value" forKey:KeyForFirstLaunch];
-        [userDefaults setBool:NO forKey:KeyForFirstLaunch];
+- (instancetype)initWithUserDefaults:(NSUserDefaults *)userDefaults
+{
+    NSParameterAssert(userDefaults);
+
+    self = [super init];
+    if (self) {
+        _userDefaults = userDefaults;
+    }
+    return self;
+}
+
+- (BOOL)isFirstLaunch {
+    if ([self.userDefaults objectForKey:KeyForFirstLaunch] == nil) {
+        [self.userDefaults setObject:@"value" forKey:KeyForFirstLaunch];
+        [self.userDefaults setBool:NO forKey:KeyForFirstLaunch];
         return YES;
     }
     return NO;
 }
 
-+ (Device *)getLocalDevice {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *encodedObject = [userDefaults valueForKey:KeyForDevice];
+- (Device *)getLocalDevice {
+    NSData *encodedObject = [self.userDefaults valueForKey:KeyForDevice];
     if (encodedObject) {
         return [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
     }
     return nil;
 }
 
-+ (void)setLocalDevice:(Device *)device {
+- (void)setLocalDevice:(Device *)device {
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:device];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:encodedObject forKey:KeyForDevice];
+    [self.userDefaults setObject:encodedObject forKey:KeyForDevice];
 }
 
-+ (BOOL)isLocalDevice {
+- (BOOL)isLocalDevice {
     return [self getLocalDevice] ? YES : NO;
 }
 
-+ (void)reset {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults removeObjectForKey:KeyForDevice];
+- (void)reset {
+    [self.userDefaults removeObjectForKey:KeyForDevice];
 }
 
 @end

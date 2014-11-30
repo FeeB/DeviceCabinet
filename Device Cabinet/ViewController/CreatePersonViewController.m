@@ -56,7 +56,7 @@ NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview"
         self.person.firstName = self.firstNameTextField.text;
         self.person.lastName = self.lastNameTextField.text;
         
-        [[RailsApiDao sharedInstance] storePerson:self.person completionHandler:^(Person *storedPerson, NSError *error) {
+        [Injector.sharedInstance.railsApiDao storePerson:self.person completionHandler:^(Person *storedPerson, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
