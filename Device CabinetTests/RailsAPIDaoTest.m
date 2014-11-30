@@ -9,32 +9,57 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface RailsAPIDaoTeest : XCTestCase
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
+
+#define MOCKITO_SHORTHAND
+#import <OCMockito/OCMockito.h>
+
+#import "RailsApiDao.h"
+#import "AFNetworking.h"
+#import "Device.h"
+
+@interface RailsAPIDaoTest : XCTestCase
+
+@property RailsApiDao *railsApiDao;
+@property AFHTTPRequestOperationManager *requestOperationManagerMock;
 
 @end
 
-@implementation RailsAPIDaoTeest
+@implementation RailsAPIDaoTest
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+
+    self.requestOperationManagerMock = mock([AFHTTPRequestOperationManager class]);
+    self.railsApiDao = [[RailsApiDao alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
 - (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+    XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
+    
+    [self.railsApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+        //toDo Count Devices
+        XCTAssertTrue([((Device *)deviceObjects[0]).deviceName isEqualToString:@"Hallo Fee!"]);
+        [expectation fulfill];
     }];
+
+    MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
+    [verify(self.requestOperationManagerMock) GET:anything()
+                     parameters:nil
+                        success:[argument capture]
+                        failure:anything()];
+    
+    // Retrieve Block which assigned to the Mock-AFHTTPRequestOperationManager before
+    void (^success)(AFHTTPRequestOperation *, id) = [argument value];
+    // Execute Bock
+    success(nil, @[@{@"device_name": @"Hallo Fee!"}]);
+    
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
 @end
