@@ -5,34 +5,45 @@
 //  Created by Braun,Fee on 18.08.14.
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
-
 #import "KeyChainWrapper.h"
 #import "KeychainItemWrapper.h"
 #import "UdIdGenerator.h"
 
 NSString * const KeyForKeychain = @"deviceId";
 
+@interface KeyChainWrapper ()
+
+@property KeychainItemWrapper *keyChainItemWrapper;
+
+@end
+
 @implementation KeyChainWrapper
 
-+ (void)setDeviceUdId:(NSString *)deviceId {
-    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
-    [keychain setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
-    [keychain setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
+- (instancetype)initWithKeyChainWrapperItem: (KeychainItemWrapper *)keyChainItemWrapper
+{
+    self = [super init];
+    if (self) {
+        _keyChainItemWrapper = keyChainItemWrapper;
+    }
+    return self;
 }
 
-+ (NSString *)getDeviceUdId {
-    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
-    NSString *object = [keychain objectForKey:(__bridge id)(kSecAttrAccount)];
+- (void)setDeviceUdId:(NSString *)deviceId {
+    [self.keyChainItemWrapper setObject:@"Myappstring" forKey: (__bridge id)kSecAttrService];
+    [self.keyChainItemWrapper setObject:deviceId forKey:(__bridge id)(kSecAttrAccount)];
+}
+
+- (NSString *)getDeviceUdId {
+    NSString *object = [self.keyChainItemWrapper objectForKey:(__bridge id)(kSecAttrAccount)];
     return object;
 }
 
-+ (void)reset {
-    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil];
-    [keychain resetKeychainItem];
+- (void)reset {
+    [self.keyChainItemWrapper resetKeychainItem];
 }
 
-+ (BOOL)hasDeviceUdId {
-    if ([[KeyChainWrapper getDeviceUdId] isEqualToString:@""]) {
+- (BOOL)hasDeviceUdId {
+    if ([[self getDeviceUdId] isEqualToString:@""]) {
         return NO;
     } else {
         return YES;

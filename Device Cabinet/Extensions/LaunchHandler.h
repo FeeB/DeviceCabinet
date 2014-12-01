@@ -10,6 +10,8 @@
 
 @interface LaunchHandler : NSObject
 
-+ (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler;
+- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper railsApiDao:(RailsApiDao *)railsApiDao;
+
+- (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler;
 
 @end

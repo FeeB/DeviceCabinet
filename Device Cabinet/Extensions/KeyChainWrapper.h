@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeychainItemWrapper.h"
 
 @interface KeyChainWrapper : NSObject
 
-+ (void)setDeviceUdId:(NSString *)deviceId;
-+ (NSString *)getDeviceUdId;
-+ (BOOL)hasDeviceUdId;
+- (instancetype)initWithKeyChainWrapperItem:(KeychainItemWrapper *)keyChainItemWrapper;
 
-+ (void)reset;
+- (void)setDeviceUdId:(NSString *)deviceId;
+- (NSString *)getDeviceUdId;
+- (BOOL)hasDeviceUdId;
+
+- (void)reset;
 
 @end

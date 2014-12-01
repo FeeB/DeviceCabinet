@@ -21,6 +21,9 @@
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
 		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
 		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
+		3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */; };
+		3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */; };
+		3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		956EB0051A2B8EBB00F3447F /* Injector.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0041A2B8EBB00F3447F /* Injector.m */; };
 		956EB00C1A2B977700F3447F /* NSDictionary+NotNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */; };
@@ -104,6 +107,9 @@
 		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
 		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTestCase.m; sourceTree = "<group>"; };
+		3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandlerTestCase.m; sourceTree = "<group>"; };
+		3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
 		956EB0031A2B8EBB00F3447F /* Injector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Injector.h; path = Extensions/Injector.h; sourceTree = "<group>"; };
 		956EB0041A2B8EBB00F3447F /* Injector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Injector.m; path = Extensions/Injector.m; sourceTree = "<group>"; };
 		956EB0071A2B977700F3447F /* NSDictionary+NotNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NotNSNull.h"; sourceTree = "<group>"; };
@@ -225,6 +231,9 @@
 				3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */,
 				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
 				956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */,
+				3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */,
+				3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */,
+				3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */,
 			);
 			path = "Device CabinetTests";
 			sourceTree = "<group>";
@@ -556,8 +565,11 @@
 				956EB0121A2B987400F3447F /* RailsAPIDaoTest.m in Sources */,
 				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
+				3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */,
+				3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */,
 				3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */,
 				3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */,
+				3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

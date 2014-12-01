@@ -17,7 +17,7 @@ NSString * const FromStartToOverviewSegue = @"FromStartToOverviewSegue";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [LaunchHandler handleFirstLaunchWithCompletionHandler:^(BOOL shouldShowDecision) {
+    [Injector.sharedInstance.launchHandler handleFirstLaunchWithCompletionHandler:^(BOOL shouldShowDecision) {
         if (shouldShowDecision) {
             [self performSegueWithIdentifier:FromStartToDecisionSegue sender:nil];
         } else {

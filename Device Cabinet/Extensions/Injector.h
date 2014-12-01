@@ -11,12 +11,16 @@
 @class RailsApiDao;
 @class UserDefaultsWrapper;
 @class HandleBeacon;
+@class KeyChainWrapper;
+@class LaunchHandler;
 
 @interface Injector : NSObject
 
 @property UserDefaultsWrapper *userDefaultsWrapper;
 @property RailsApiDao *railsApiDao;
 @property HandleBeacon *handleBeacon;
+@property KeyChainWrapper *keyChainWrapper;
+@property LaunchHandler *launchHandler;
 
 + (instancetype)sharedInstance;
 

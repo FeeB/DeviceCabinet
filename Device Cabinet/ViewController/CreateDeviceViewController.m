@@ -61,8 +61,6 @@
     self.deviceType = sender.titleLabel.text;
 }
 
-
-
 - (IBAction)storeDevice {
     if (self.deviceNameTextField.text && self.deviceNameTextField.text.length > 0) {
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
@@ -92,7 +90,7 @@
             } else {
                 self.device = storedDevice;
                 if (self.shouldRegisterLocalDevice) {
-                    [KeyChainWrapper setDeviceUdId:self.device.deviceUdId];
+                    [Injector.sharedInstance.keyChainWrapper setDeviceUdId:self.device.deviceUdId];
                     [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:self.device];
                 }
                 [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"HEADLINE_SAVED", nil) message:[NSString stringWithFormat: NSLocalizedString(@"MESSAGE_SAVED_DEVICE", nil), self.device.deviceName, self.device.type] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

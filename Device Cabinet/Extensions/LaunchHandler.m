@@ -12,30 +12,53 @@
 #import "RailsApiErrorMapper.h"
 #import "RailsApiDao.h"
 
+@interface LaunchHandler ()
+
+@property UserDefaultsWrapper *userDefaults;
+@property KeyChainWrapper *keyChainWrapper;
+@property RailsApiDao *railsApiDao;
+
+@end
+
 @implementation LaunchHandler
 
-+ (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler {
+- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper railsApiDao:(RailsApiDao *)railsApiDao
+{
+    NSParameterAssert(userDefaults);
+    NSParameterAssert(keyChainWrapper);
+    NSParameterAssert(railsApiDao);
     
-    if ([Injector.sharedInstance.userDefaultsWrapper isFirstLaunch]) {
-        if ([KeyChainWrapper hasDeviceUdId]) {
-            NSString *deviceUdId = [KeyChainWrapper getDeviceUdId];
-            [Injector.sharedInstance.railsApiDao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
+    self = [super init];
+    if (self) {
+        _userDefaults = userDefaults;
+        _keyChainWrapper = keyChainWrapper;
+        _railsApiDao = railsApiDao;
+    }
+    return self;
+}
+
+- (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler {
+    
+    if ([self.userDefaults isFirstLaunch]) {
+        if ([self.keyChainWrapper hasDeviceUdId]) {
+            NSString *deviceUdId = [self.keyChainWrapper getDeviceUdId];
+            [self.railsApiDao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
-                    [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
-                    [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];
+                    [self.userDefaults setLocalDevice:device];
+                    [self shouldShowDecision:NO completionHandler:completionHandler];
                 } else {
-                    [LaunchHandler shouldShowDecision:YES completionHandler:completionHandler];
+                    [self shouldShowDecision:YES completionHandler:completionHandler];
                 }
             }];
         } else {
-            [LaunchHandler shouldShowDecision:YES completionHandler:completionHandler];
+            [self shouldShowDecision:YES completionHandler:completionHandler];
         }
     } else {
-        [LaunchHandler shouldShowDecision:NO completionHandler:completionHandler];
+        [self shouldShowDecision:NO completionHandler:completionHandler];
     }
 }
 
-+ (void)shouldShowDecision:(BOOL)runOverview completionHandler:(void (^)(BOOL))completionHandler {
+- (void)shouldShowDecision:(BOOL)runOverview completionHandler:(void (^)(BOOL))completionHandler {
     dispatch_async(dispatch_get_main_queue(), ^(void){
         completionHandler(runOverview);
     });

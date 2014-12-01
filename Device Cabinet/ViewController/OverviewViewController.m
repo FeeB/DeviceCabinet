@@ -210,7 +210,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             // Handle case that the current device was deleted
             if (device.deviceUdId && [device.deviceUdId isEqualToString:self.device.deviceUdId]) {
                 [Injector.sharedInstance.userDefaultsWrapper reset];
-                [KeyChainWrapper reset];
+                [Injector.sharedInstance.keyChainWrapper reset];
                 self.device = nil;
                 [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
                 
