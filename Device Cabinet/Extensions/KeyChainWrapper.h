@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "KeychainItemWrapper.h"
 
+NSString * const KeyForKeychain;
+
 @interface KeyChainWrapper : NSObject
 
 - (instancetype)initWithKeyChainWrapperItem:(KeychainItemWrapper *)keyChainItemWrapper;
