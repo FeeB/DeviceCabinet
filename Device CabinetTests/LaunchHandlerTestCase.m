@@ -35,12 +35,7 @@
     self.keyChainWrapperMock = mock([KeyChainWrapper class]);
     self.userDefaultsMock = mock([UserDefaultsWrapper class]);
     self.railsApiDaoMock = mock([RailsApiDao class]);
-    self.launchHandler = [[LaunchHandler alloc]initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+    self.launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
 }
 
 - (void)testHandleFirstLaunchWhenFirstLaunchFalse {

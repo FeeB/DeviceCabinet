@@ -31,11 +31,6 @@
     self.keyChainWrapper = [[KeyChainWrapper alloc]initWithKeyChainWrapperItem:self.keyChainItemWrapperMock];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
 - (void)testSetDeviceUdId {
     [self.keyChainWrapper setDeviceUdId:anything()];
     [verifyCount(self.keyChainItemWrapperMock, times(2)) setObject:anything() forKey:anything()];
