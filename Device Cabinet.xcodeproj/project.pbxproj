@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		22BB0258F7FF4740B82A5881 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		3A1BB836199BB94B00888298 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1BB835199BB94B00888298 /* MessageUI.framework */; };
-		3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */; };
 		3A5E178119654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E178319654AC700681289 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178219654AC700681289 /* CoreGraphics.framework */; };
 		3A5E178519654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
@@ -17,19 +16,20 @@
 		3A5E179B19654AC700681289 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178019654AC700681289 /* Foundation.framework */; };
 		3A5E179C19654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
 		3A5E17A419654AC700681289 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17A219654AC700681289 /* InfoPlist.strings */; };
-		3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A3719AB6D440003BF60 /* PersonTestCase.m */; };
 		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */; };
 		3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */; };
 		3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */; };
+		3AFF13DA1A2CAE43000D5308 /* DeviceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D81A2CAE43000D5308 /* DeviceTestCase.m */; };
+		3AFF13DB1A2CAE43000D5308 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D91A2CAE43000D5308 /* PersonTestCase.m */; };
+		3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */; };
+		3AFF13E01A2CAE5F000D5308 /* RailsAPIDaoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		956EB0051A2B8EBB00F3447F /* Injector.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0041A2B8EBB00F3447F /* Injector.m */; };
 		956EB00C1A2B977700F3447F /* NSDictionary+NotNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */; };
 		956EB00D1A2B977700F3447F /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB00B1A2B977700F3447F /* PushNoAnimationSegue.m */; };
 		956EB0101A2B979300F3447F /* UdIdGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB00F1A2B979300F3447F /* UdIdGenerator.m */; };
-		956EB0121A2B987400F3447F /* RailsAPIDaoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */; };
 		95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E539D71A1A856B00718E63 /* HandleBeacon.m */; };
 		95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B311A153AF100F28EF3 /* AppDelegate.m */; };
 		95F84B611A153AF100F28EF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B341A153AF100F28EF3 /* Localizable.strings */; };
@@ -93,7 +93,6 @@
 /* Begin PBXFileReference section */
 		19E8A0D3227D45BBA4DD749B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3A1BB835199BB94B00888298 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTestCase.m; sourceTree = "<group>"; };
 		3A5E177D19654AC700681289 /* Device Cabinet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Device Cabinet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5E178019654AC700681289 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3A5E178219654AC700681289 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,14 +101,16 @@
 		3A5E179919654AC700681289 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3A5E17A119654AC700681289 /* Device CabinetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Device CabinetTests-Info.plist"; sourceTree = "<group>"; };
 		3A5E17A319654AC700681289 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3AE15A3719AB6D440003BF60 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTestCase.m; sourceTree = "<group>"; };
 		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTestCase.m; sourceTree = "<group>"; };
 		3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandlerTestCase.m; sourceTree = "<group>"; };
 		3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
+		3AFF13D81A2CAE43000D5308 /* DeviceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTestCase.m; path = Model/DeviceTestCase.m; sourceTree = "<group>"; };
+		3AFF13D91A2CAE43000D5308 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonTestCase.m; path = Model/PersonTestCase.m; sourceTree = "<group>"; };
+		3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorMapperRailsTestCase.m; path = API/ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
+		3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RailsAPIDaoTest.m; path = API/RailsAPIDaoTest.m; sourceTree = "<group>"; };
 		956EB0031A2B8EBB00F3447F /* Injector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Injector.h; path = Extensions/Injector.h; sourceTree = "<group>"; };
 		956EB0041A2B8EBB00F3447F /* Injector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Injector.m; path = Extensions/Injector.m; sourceTree = "<group>"; };
 		956EB0071A2B977700F3447F /* NSDictionary+NotNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NotNSNull.h"; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		956EB00B1A2B977700F3447F /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
 		956EB00E1A2B979300F3447F /* UdIdGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UdIdGenerator.h; sourceTree = "<group>"; };
 		956EB00F1A2B979300F3447F /* UdIdGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UdIdGenerator.m; sourceTree = "<group>"; };
-		956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsAPIDaoTest.m; sourceTree = "<group>"; };
 		95E539D61A1A856B00718E63 /* HandleBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleBeacon.h; sourceTree = "<group>"; };
 		95E539D71A1A856B00718E63 /* HandleBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleBeacon.m; sourceTree = "<group>"; };
 		95F84B301A153AF100F28EF3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -225,12 +225,10 @@
 		3A5E179F19654AC700681289 /* Device CabinetTests */ = {
 			isa = PBXGroup;
 			children = (
-				3A58C8FE1A0796D400F1A3A3 /* DeviceTestCase.m */,
+				3AFF13DC1A2CAE4C000D5308 /* API */,
+				3AFF13D71A2CADC6000D5308 /* Model */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
-				3AE15A3719AB6D440003BF60 /* PersonTestCase.m */,
-				3A783B9A19FE78BE000E0794 /* ErrorMapperRailsTestCase.m */,
 				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
-				956EB0111A2B987400F3447F /* RailsAPIDaoTest.m */,
 				3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */,
 				3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */,
 				3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */,
@@ -245,6 +243,24 @@
 				3A5E17A219654AC700681289 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3AFF13D71A2CADC6000D5308 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3AFF13D81A2CAE43000D5308 /* DeviceTestCase.m */,
+				3AFF13D91A2CAE43000D5308 /* PersonTestCase.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3AFF13DC1A2CAE4C000D5308 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */,
+				3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		956EB0061A2B977700F3447F /* Helper */ = {
@@ -562,14 +578,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				956EB0121A2B987400F3447F /* RailsAPIDaoTest.m in Sources */,
 				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
-				3AE15A3819AB6D440003BF60 /* PersonTestCase.m in Sources */,
 				3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */,
 				3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */,
-				3A783B9B19FE78BE000E0794 /* ErrorMapperRailsTestCase.m in Sources */,
-				3A58C8FF1A0796D400F1A3A3 /* DeviceTestCase.m in Sources */,
 				3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */,
+				3AFF13DA1A2CAE43000D5308 /* DeviceTestCase.m in Sources */,
+				3AFF13DB1A2CAE43000D5308 /* PersonTestCase.m in Sources */,
+				3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m in Sources */,
+				3AFF13E01A2CAE5F000D5308 /* RailsAPIDaoTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
