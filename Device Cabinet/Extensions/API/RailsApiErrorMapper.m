@@ -10,7 +10,7 @@
 NSString * const RailsApiErrorDomain = @"com.fee.deviceCabinet";
 NSInteger const RailsApiNoConnectionErrorCode = 4097;
 NSInteger const RailsApiNoConnectionToServerRESTErrorCode = 500;
-NSInteger const RailsApiNoConnectionToServerErrorCode = -1004;
+NSInteger const RailsApiNoConnectionToServerErrorCode = -1009;
 NSInteger const RailsApiitemNotFoundInDatabaseRESTErroCode = 404;
 NSInteger const RailsApiitemNotFoundInDatabaseCocoaErroCode = 3840;
 
