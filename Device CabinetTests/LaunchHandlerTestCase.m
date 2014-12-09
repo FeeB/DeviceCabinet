@@ -35,12 +35,7 @@
     self.keyChainWrapperMock = mock([KeyChainWrapper class]);
     self.userDefaultsMock = mock([UserDefaultsWrapper class]);
     self.railsApiDaoMock = mock([RailsApiDao class]);
-    self.launchHandler = [[LaunchHandler alloc]initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+    self.launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
 }
 
 - (void)testHandleFirstLaunchWhenFirstLaunchFalse {
@@ -75,12 +70,16 @@
     
     [given([self.userDefaultsMock isFirstLaunch]) willReturn:[NSNumber numberWithBool:YES]];
     [given([self.keyChainWrapperMock hasDeviceUdId]) willReturn:[NSNumber numberWithBool:YES]];
-//    [given([self.railsApiDaoMock fetchDeviceWithDeviceUdId:anything() completionHandler:anything()]) willReturn:[self createATestDevice]];
-    
+
     [self.launchHandler handleFirstLaunchWithCompletionHandler:^(BOOL shouldShowDecision) {
         XCTAssertFalse(shouldShowDecision);
         [expectation fulfill];
     }];
+
+    MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
+    [verify(self.railsApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
+    void(^completionHandler)(Device*, NSError*) = [argument value];
+    completionHandler([self createATestDevice], nil);
     
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
@@ -90,12 +89,16 @@
     
     [given([self.userDefaultsMock isFirstLaunch]) willReturn:[NSNumber numberWithBool:YES]];
     [given([self.keyChainWrapperMock hasDeviceUdId]) willReturn:[NSNumber numberWithBool:YES]];
-//    [given([self.railsApiDaoMock fetchDeviceWithDeviceUdId:anything() completionHandler:anything()]) willReturn:[self createATestDevice]];
     
     [self.launchHandler handleFirstLaunchWithCompletionHandler:^(BOOL shouldShowDecision) {
         XCTAssertTrue(shouldShowDecision);
         [expectation fulfill];
     }];
+
+    MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
+    [verify(self.railsApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
+    void(^completionHandler)(Device*, NSError*) = [argument value];
+    completionHandler(nil, [[NSError alloc] init]);
     
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }

@@ -36,10 +36,6 @@
     self.railsApiDao = [[RailsApiDao alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
 }
 
-- (void)tearDown {
-    [super tearDown];
-}
-
 - (void)testfetchDevicesGetMethodAndCountOfArrayAndSuccessBlock {
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     
@@ -166,7 +162,7 @@
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
--(NSDictionary *)DeviceDictionary{
+- (NSDictionary *)DeviceDictionary {
     return @{@"device_name" : @"B4F-iPhone-001", @"device_id" : @"123455", @"category" : @"iPhone", @"system_version" : @"7.0.1", @"is_booked" : @"NO", @"device_type" : @"iPhone4", @"image_url" : @"", @"is_booked" : @"No", @"person_id" : @""};
 }
 

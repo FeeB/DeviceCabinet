@@ -112,7 +112,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 
-- (void) fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
+- (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSDictionary *parameters = @{@"device_id": deviceId};
     
     [self.requestOperationManager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

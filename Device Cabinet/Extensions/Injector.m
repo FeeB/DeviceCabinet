@@ -35,7 +35,7 @@
         _railsApiDao = [[RailsApiDao alloc] initWithRequestOperationManager:[AFHTTPRequestOperationManager manager]];
         _userDefaultsWrapper = [[UserDefaultsWrapper alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
         _handleBeacon = [[HandleBeacon alloc] initWithUserDefaultsWrapper:self.userDefaultsWrapper];
-        _keyChainWrapper = [[KeyChainWrapper alloc] initWithKeyChainWrapperItem:[[KeychainItemWrapper alloc] initWithIdentifier:@"deviceId" accessGroup:nil]];
+        _keyChainWrapper = [[KeyChainWrapper alloc] initWithKeyChainWrapperItem:[[KeychainItemWrapper alloc] initWithIdentifier:KeyForKeychain accessGroup:nil]];
         _launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsWrapper keyChainWrapper:self.keyChainWrapper railsApiDao:self.railsApiDao];
     }
     return self;

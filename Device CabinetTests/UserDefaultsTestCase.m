@@ -31,11 +31,6 @@
     self.userDefaultsWrapper = [[UserDefaultsWrapper alloc]initWithUserDefaults:self.userDefaultsMock];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
 - (void)testSetLocalDevice {
     [self.userDefaultsWrapper setLocalDevice:[self createATestDevice]];
     [verify(self.userDefaultsMock) setObject:anything() forKey:anything()];
