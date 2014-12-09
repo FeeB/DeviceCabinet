@@ -235,6 +235,17 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+            
+            [self.segmentedControl setSelectedSegmentIndex:0];
+            [self fillListBasedOnSegmentedControl];
+            
+            if (self.currentList[0] == self.device) {
+                self.localDevice = nil;
+                [self.segmentedControl removeSegmentAtIndex:0 animated:NO];
+                self.currentList = self.availableDevices;
+                [self.segmentedControl setSelectedSegmentIndex:0];
+                [self fillListBasedOnSegmentedControl];
+            }
         } else {
             self.bookedDevices = [[NSMutableArray alloc] init];
             self.availableDevices = [[NSMutableArray alloc] init];
@@ -247,6 +258,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 }
             }
             
+            [self handleIfAppRunsOnTestDevice];
             [self fillListBasedOnSegmentedControl];
         }
     }];
