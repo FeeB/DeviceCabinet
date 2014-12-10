@@ -192,7 +192,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
-        [Injector.sharedInstance.railsApiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(NSError *error) {
+        [Injector.sharedInstance.railsApiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(Device *device, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
@@ -200,7 +200,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
                                            message:error.localizedRecoverySuggestion
                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
             } else {
-                self.device.imageUrl = nil;
+                self.device.imageUrl = device.imageUrl;
                 [self updateView];
             }
         }];

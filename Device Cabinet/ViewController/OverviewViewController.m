@@ -172,9 +172,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     } else {
         [cellSystemVersionPhoto setImage:[UIImage imageNamed:@"android.png"]];
     }
-    
-    
-    
+
     return cell;
 }
 

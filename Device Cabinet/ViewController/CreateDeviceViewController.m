@@ -31,9 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TEDLocalization localize:self];
-    
-    self.deviceType = @"iPhone";
-    
+        
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
     

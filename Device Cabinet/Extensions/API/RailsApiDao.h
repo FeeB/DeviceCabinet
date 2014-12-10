@@ -26,7 +26,7 @@
 - (void)storePersonObjectAsReferenceWithDevice:(Device *)device person:(Person *)person completionHandler:(void (^)(NSError *error))completionHandler;
 - (void)deleteReferenceInDeviceWithDevice:(Device *)device completionHandler:(void (^)(NSError *error))completionHandler;
 
-- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler;
+- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(Device *,NSError *))completionHandler;
 - (void)updateSystemVersion:(Device *)device completionHandler:(void (^)(NSError *))completionHandler;
 
 

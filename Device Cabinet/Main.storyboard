@@ -384,7 +384,6 @@
                         <outletCollection property="deviceTypeButtons" destination="iAZ-fK-9xf" id="uxe-1t-8l1"/>
                         <outletCollection property="deviceTypeButtons" destination="wqY-Ex-q3K" id="GpP-Kx-OQ3"/>
                         <outletCollection property="deviceTypeButtons" destination="Ae2-nc-hbz" id="aYj-yw-Eh4"/>
-                        <segue destination="Eqs-YC-kYu" kind="push" identifier="FromCreateDeviceToDeviceView" id="Phs-EO-HNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvG-ui-L1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -608,7 +607,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJ7-mr-2av" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-177" y="-48"/>
+            <point key="canvasLocation" x="-165" y="-40"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="u2Z-WD-fxh">
@@ -673,7 +672,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="bep-AH-rKa"/>
         <segue reference="VeD-io-uAb"/>
-        <segue reference="Phs-EO-HNL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.2666666667" green="0.70980392160000005" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -241,7 +241,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     return data;
 }
 
-- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSData *imageAsResizedJpegData = [self resizedJpegDataForImage:image];
     NSString *imageBase64Encoded = [imageAsResizedJpegData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *storeParameters = @{@"image_data_encoded": imageBase64Encoded};
@@ -250,11 +250,12 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     
     [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil);
+            Device *device = [[Device alloc]initWithJson:responseObject];
+            completionHandler(device ,nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
 }
