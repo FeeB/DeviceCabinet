@@ -17,7 +17,6 @@
 		3A5E179C19654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
 		3A5E17A419654AC700681289 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17A219654AC700681289 /* InfoPlist.strings */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */; };
 		3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */; };
 		3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */; };
@@ -102,7 +101,6 @@
 		3A5E17A119654AC700681289 /* Device CabinetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Device CabinetTests-Info.plist"; sourceTree = "<group>"; };
 		3A5E17A319654AC700681289 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTestCase.m; sourceTree = "<group>"; };
 		3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandlerTestCase.m; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				3AFF13DC1A2CAE4C000D5308 /* API */,
 				3AFF13D71A2CADC6000D5308 /* Model */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
-				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
 				3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */,
 				3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */,
 				3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */,
@@ -578,7 +575,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */,
 				3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */,
 				3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */,

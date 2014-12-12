@@ -40,7 +40,6 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     
     [self.railsApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
-        //toDo Count Devices
         XCTAssertTrue([deviceObjects count] == 1);
         [expectation fulfill];
     }];

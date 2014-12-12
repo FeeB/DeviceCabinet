@@ -29,6 +29,7 @@
     }
     
     //Write NSLog in a File
+    //http://azizuysal.com/2011/01/02/redirecting-nslog-output-to-a-file-on-demand-for-iphone-debugging/
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *fileName =[NSString stringWithFormat:@"%@.log",[NSDate date]];
