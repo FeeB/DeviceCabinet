@@ -15,14 +15,14 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "AFNetworking.h"
 #import "Device.h"
 #import "Person.h"
 
 @interface RailsAPIDaoTest : XCTestCase
 
-@property RailsApiDao *railsApiDao;
+@property RESTApiClient *railsApiDao;
 @property AFHTTPRequestOperationManager *requestOperationManagerMock;
 
 @end
@@ -33,7 +33,7 @@
     [super setUp];
 
     self.requestOperationManagerMock = mock([AFHTTPRequestOperationManager class]);
-    self.railsApiDao = [[RailsApiDao alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
+    self.railsApiDao = [[RESTApiClient alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
 }
 
 - (void)testfetchDevicesGetMethodAndCountOfArrayAndSuccessBlock {

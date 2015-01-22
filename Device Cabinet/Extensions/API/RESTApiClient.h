@@ -10,7 +10,7 @@
 @class Person;
 @class AFHTTPRequestOperationManager;
 
-@interface RailsApiDao : NSObject
+@interface RESTApiClient : NSObject
 
 - (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager;
 

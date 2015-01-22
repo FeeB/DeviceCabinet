@@ -9,7 +9,7 @@
 #import "UserNamePickerViewController.h"
 #import "CreatePersonViewController.h"
 #import "TEDLocalization.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "Person.h"
 
 @interface UserNamePickerViewController ()

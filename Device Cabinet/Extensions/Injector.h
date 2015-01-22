@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RailsApiDao;
+@class RESTApiClient;
 @class UserDefaultsWrapper;
 @class HandleBeacon;
 @class KeyChainWrapper;
@@ -17,7 +17,7 @@
 @interface Injector : NSObject
 
 @property UserDefaultsWrapper *userDefaultsWrapper;
-@property RailsApiDao *railsApiDao;
+@property RESTApiClient *railsApiDao;
 @property HandleBeacon *handleBeacon;
 @property KeyChainWrapper *keyChainWrapper;
 @property LaunchHandler *launchHandler;

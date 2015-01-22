@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "AFNetworking.h"
 #import "RailsApiErrorMapper.h"
 #import "Device.h"
@@ -20,13 +20,13 @@ NSString* const DevicePathWithId = ROOT_URL @"devices/%@";
 NSString* const PersonPath = ROOT_URL @"persons";
 NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
-@interface RailsApiDao ()
+@interface RESTApiClient ()
 
 @property AFHTTPRequestOperationManager *requestOperationManager;
 
 @end
 
-@implementation RailsApiDao
+@implementation RESTApiClient
 
 - (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager
 {
@@ -113,7 +113,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"device_id": deviceId};
+    NSDictionary *parameters = @{@"device_id": @"3456789"};
     
     [self.requestOperationManager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -128,7 +128,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     }];
 }
 - (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId,  @"3456789"];
     
     [self.requestOperationManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){

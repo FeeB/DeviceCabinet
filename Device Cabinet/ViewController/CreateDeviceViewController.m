@@ -11,7 +11,7 @@
 #import "KeyChainWrapper.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"
 #import "UdIdGenerator.h"

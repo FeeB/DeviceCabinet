@@ -8,7 +8,7 @@
 //
 
 #import "AppDelegate.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "HandleBeacon.h"
 #import "OverviewViewController.h"
 #import "UserDefaultsWrapper.h"

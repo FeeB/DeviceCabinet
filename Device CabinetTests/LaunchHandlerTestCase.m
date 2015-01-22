@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "LaunchHandler.h"
 #import "Device.h"
 
@@ -24,7 +24,7 @@
 @property LaunchHandler *launchHandler;
 @property UserDefaultsWrapper *userDefaultsMock;
 @property KeyChainWrapper *keyChainWrapperMock;
-@property RailsApiDao *railsApiDaoMock;
+@property RESTApiClient *railsApiDaoMock;
 
 @end
 
@@ -34,7 +34,7 @@
     [super setUp];
     self.keyChainWrapperMock = mock([KeyChainWrapper class]);
     self.userDefaultsMock = mock([UserDefaultsWrapper class]);
-    self.railsApiDaoMock = mock([RailsApiDao class]);
+    self.railsApiDaoMock = mock([RESTApiClient class]);
     self.launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
 }
 

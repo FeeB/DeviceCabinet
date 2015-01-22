@@ -10,19 +10,19 @@
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
 #import "RailsApiErrorMapper.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 
 @interface LaunchHandler ()
 
 @property UserDefaultsWrapper *userDefaults;
 @property KeyChainWrapper *keyChainWrapper;
-@property RailsApiDao *railsApiDao;
+@property RESTApiClient *railsApiDao;
 
 @end
 
 @implementation LaunchHandler
 
-- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper railsApiDao:(RailsApiDao *)railsApiDao
+- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper railsApiDao:(RESTApiClient *)railsApiDao
 {
     NSParameterAssert(userDefaults);
     NSParameterAssert(keyChainWrapper);

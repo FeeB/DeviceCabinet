@@ -8,7 +8,7 @@
 
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "OverviewViewController.h"
 #import "UserNamePickerViewController.h"

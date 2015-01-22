@@ -13,7 +13,7 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DecisionViewController.h"
 #import "CreateDeviceViewController.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "RailsApiErrorMapper.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"

@@ -10,7 +10,7 @@
 #import "Person.h"
 #import "OverviewViewController.h"
 #import "TEDLocalization.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 
 NSString * const FromCreatePersonToOverviewSegue = @"FromCreatePersonToOverview";
 
