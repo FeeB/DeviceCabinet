@@ -42,7 +42,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 //get all people for the device overview
 - (void)getAllPeople {
     
-    [Injector.sharedInstance.railsApiDao fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
+    [Injector.sharedInstance.restApiClient fetchPeopleWithCompletionHandler:^(NSArray *peopleObjects, NSError *error) {
         if (error) {
             self.userNames = [[NSMutableArray alloc] init];
             NSMutableArray *errorMessage = [[NSMutableArray alloc] init];
@@ -103,7 +103,7 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Person *person = [self.userNames objectAtIndex:indexPath.row];
-        [Injector.sharedInstance.railsApiDao deletePerson:person completionHandler:^(NSError *error) {
+        [Injector.sharedInstance.restApiClient deletePerson:person completionHandler:^(NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion

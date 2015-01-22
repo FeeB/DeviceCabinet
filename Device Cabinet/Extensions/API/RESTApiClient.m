@@ -8,7 +8,7 @@
 
 #import "RESTApiClient.h"
 #import "AFNetworking.h"
-#import "RailsApiErrorMapper.h"
+#import "RESTApiErrorMapper.h"
 #import "Device.h"
 #import "Person.h"
 
@@ -56,7 +56,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
                 });
             }];
         } else {
-            NSError *error = [RailsApiErrorMapper duplicateDeviceError];
+            NSError *error = [RESTApiErrorMapper duplicateDeviceError];
             completionHandler(nil, error);
         }
     }];
@@ -86,7 +86,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -105,7 +105,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -113,7 +113,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 }
 
 - (void)fetchDeviceWithDeviceUdId:(NSString *)deviceId completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSDictionary *parameters = @{@"device_id": @"3456789"};
+    NSDictionary *parameters = @{@"device_id": deviceId};
     
     [self.requestOperationManager GET:DevicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -121,14 +121,14 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
     }];
 }
 - (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId,  @"3456789"];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId,  device.deviceId];
     
     [self.requestOperationManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -136,7 +136,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -183,7 +183,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });

@@ -75,7 +75,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     if (!self.device.imageUrl) {
         [self.imageView setImageWithURL:self.device.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     } else {
-        [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
                 [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                            message:error.localizedRecoverySuggestion
@@ -92,9 +92,9 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+    [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
         if (!device.isBookedByPerson) {
-            [Injector.sharedInstance.railsApiDao storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
+            [Injector.sharedInstance.restApiClient storePersonObjectAsReferenceWithDevice:self.device person:self.person completionHandler:^(NSError *error) {
                 [self.spinner stopAnimating];
                 [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                 
@@ -128,7 +128,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     [self.spinner startAnimating];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-    [Injector.sharedInstance.railsApiDao deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
+    [Injector.sharedInstance.restApiClient deleteReferenceInDeviceWithDevice:self.device completionHandler:^(NSError *error) {
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         [self.spinner stopAnimating];
         
@@ -192,7 +192,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
         [self.spinner startAnimating];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
-        [Injector.sharedInstance.railsApiDao uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [Injector.sharedInstance.restApiClient uploadImage:info[UIImagePickerControllerOriginalImage] forDevice:self.device completionHandler:^(Device *device, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

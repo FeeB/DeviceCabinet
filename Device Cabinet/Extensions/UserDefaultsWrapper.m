@@ -9,7 +9,7 @@
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
 #import "Device.h"
-#import "RailsApiErrorMapper.h"
+#import "RESTApiErrorMapper.h"
 
 NSString * const KeyForDevice = @"currentDevice";
 NSString * const KeyForFirstLaunch = @"firstLaunch";

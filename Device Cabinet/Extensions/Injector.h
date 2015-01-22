@@ -17,7 +17,7 @@
 @interface Injector : NSObject
 
 @property UserDefaultsWrapper *userDefaultsWrapper;
-@property RESTApiClient *railsApiDao;
+@property RESTApiClient *restApiClient;
 @property HandleBeacon *handleBeacon;
 @property KeyChainWrapper *keyChainWrapper;
 @property LaunchHandler *launchHandler;

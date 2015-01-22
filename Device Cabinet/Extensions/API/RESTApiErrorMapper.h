@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RailsApiErrorMapper : NSObject
+@interface RESTApiErrorMapper : NSObject
 
 + (NSError *)itemNotFoundInDatabaseError;
 + (NSError *)localErrorWithRemoteError:(NSError *)error;

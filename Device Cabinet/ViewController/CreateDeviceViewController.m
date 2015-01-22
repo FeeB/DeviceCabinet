@@ -78,7 +78,7 @@
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
-        [Injector.sharedInstance.railsApiDao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
+        [Injector.sharedInstance.restApiClient storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {
