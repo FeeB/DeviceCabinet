@@ -20,14 +20,14 @@
 #import "Device.h"
 #import "Person.h"
 
-@interface RailsAPIDaoTest : XCTestCase
+@interface RESTApiClientTest : XCTestCase
 
 @property RESTApiClient *railsApiDao;
 @property AFHTTPRequestOperationManager *requestOperationManagerMock;
 
 @end
 
-@implementation RailsAPIDaoTest
+@implementation RESTApiClientTest
 
 - (void)setUp {
     [super setUp];
