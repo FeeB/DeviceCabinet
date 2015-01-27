@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "AFNetworking.h"
-#import "RailsApiErrorMapper.h"
+#import "RESTApiErrorMapper.h"
 #import "Device.h"
 #import "Person.h"
 
@@ -20,13 +20,13 @@ NSString* const DevicePathWithId = ROOT_URL @"devices/%@";
 NSString* const PersonPath = ROOT_URL @"persons";
 NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
-@interface RailsApiDao ()
+@interface RESTApiClient ()
 
 @property AFHTTPRequestOperationManager *requestOperationManager;
 
 @end
 
-@implementation RailsApiDao
+@implementation RESTApiClient
 
 - (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager
 {
@@ -56,7 +56,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
                 });
             }];
         } else {
-            NSError *error = [RailsApiErrorMapper duplicateDeviceError];
+            NSError *error = [RESTApiErrorMapper duplicateDeviceError];
             completionHandler(nil, error);
         }
     }];
@@ -86,7 +86,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -105,7 +105,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -121,14 +121,14 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
     }];
 }
 - (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
-    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId, device.deviceId];
+    NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId,  device.deviceId];
     
     [self.requestOperationManager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -136,7 +136,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(device, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -183,7 +183,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler(resultObjects, nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSError *localError = [RailsApiErrorMapper localErrorWithRemoteError:error];
+        NSError *localError = [RESTApiErrorMapper localErrorWithRemoteError:error];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             completionHandler(nil, localError);
         });
@@ -241,7 +241,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     return data;
 }
 
-- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(NSError *))completionHandler {
+- (void)uploadImage:(UIImage*)image forDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSData *imageAsResizedJpegData = [self resizedJpegDataForImage:image];
     NSString *imageBase64Encoded = [imageAsResizedJpegData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *storeParameters = @{@"image_data_encoded": imageBase64Encoded};
@@ -250,11 +250,12 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
     
     [self.requestOperationManager PATCH:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(nil);
+            Device *device = [[Device alloc]initWithJson:responseObject];
+            completionHandler(device ,nil);
         });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            completionHandler(error);
+            completionHandler(nil, error);
         });
     }];
 }

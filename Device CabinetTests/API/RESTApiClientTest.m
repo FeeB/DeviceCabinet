@@ -1,5 +1,5 @@
 //
-//  RailsAPIDaoTeest.m
+//  RESTApiClientTest.m
 //  Device Cabinet
 //
 //  Created by Fee Kristin Braun on 30.11.14.
@@ -15,32 +15,31 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "AFNetworking.h"
 #import "Device.h"
 #import "Person.h"
 
-@interface RailsAPIDaoTest : XCTestCase
+@interface RESTApiClientTest : XCTestCase
 
-@property RailsApiDao *railsApiDao;
+@property RESTApiClient *restApiDao;
 @property AFHTTPRequestOperationManager *requestOperationManagerMock;
 
 @end
 
-@implementation RailsAPIDaoTest
+@implementation RESTApiClientTest
 
 - (void)setUp {
     [super setUp];
 
     self.requestOperationManagerMock = mock([AFHTTPRequestOperationManager class]);
-    self.railsApiDao = [[RailsApiDao alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
+    self.restApiDao = [[RESTApiClient alloc] initWithRequestOperationManager:self.requestOperationManagerMock];
 }
 
 - (void)testfetchDevicesGetMethodAndCountOfArrayAndSuccessBlock {
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     
-    [self.railsApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
-        //toDo Count Devices
+    [self.restApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         XCTAssertTrue([deviceObjects count] == 1);
         [expectation fulfill];
     }];
@@ -62,7 +61,7 @@
 - (void)testFetchDeviceWithDeviceUdIdErrorBlock {
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     
-    [self.railsApiDao fetchDeviceWithDeviceUdId:anything() completionHandler:^(Device *device, NSError *error) {
+    [self.restApiDao fetchDeviceWithDeviceUdId:anything() completionHandler:^(Device *device, NSError *error) {
         XCTAssertTrue(error.code == 2);
         [expectation fulfill];
     }];
@@ -83,7 +82,7 @@
 - (void)testFetchDeviceWithDeviceUdIdRecieveOneDevice {
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     
-    [self.railsApiDao fetchDeviceWithDeviceUdId:anything() completionHandler:^(Device *device, NSError *error) {
+    [self.restApiDao fetchDeviceWithDeviceUdId:anything() completionHandler:^(Device *device, NSError *error) {
         XCTAssertTrue([device isKindOfClass:[Device class]]);
         [expectation fulfill];
     }];
@@ -105,7 +104,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     Device *device = [self createATestDevice];
     
-    [self.railsApiDao deleteDevice:device completionHandler:^(NSError *error) {
+    [self.restApiDao deleteDevice:device completionHandler:^(NSError *error) {
         [expectation fulfill];
     }];
     
@@ -125,7 +124,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"network"];
     Person *person = [self createATestPerson];
     
-    [self.railsApiDao storePerson:person completionHandler:^(Person *person, NSError *error) {
+    [self.restApiDao storePerson:person completionHandler:^(Person *person, NSError *error) {
         [expectation fulfill];
     }];
     
@@ -146,7 +145,7 @@
     Person *person = [self createATestPerson];
     Device *device = [self createATestDevice];
     
-    [self.railsApiDao storePersonObjectAsReferenceWithDevice:device person:person completionHandler:^(NSError *error) {
+    [self.restApiDao storePersonObjectAsReferenceWithDevice:device person:person completionHandler:^(NSError *error) {
         [expectation fulfill];
     }];
     

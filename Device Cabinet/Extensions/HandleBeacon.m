@@ -9,7 +9,7 @@
 #import "HandleBeacon.h"
 #import <CoreLocation/CoreLocation.h>
 #import "UserDefaultsWrapper.h"
-#import "RailsApiErrorMapper.h"
+#import "RESTApiErrorMapper.h"
 #import "Device.h"
 #import "OverviewViewController.h"
 #import <UIKit/UIKit.h>

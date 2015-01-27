@@ -11,7 +11,7 @@
 #import "KeyChainWrapper.h"
 #import "DeviceViewController.h"
 #import "TEDLocalization.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"
 #import "UdIdGenerator.h"
@@ -31,9 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [TEDLocalization localize:self];
-    
-    self.deviceType = @"iPhone";
-    
+        
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
     
@@ -80,7 +78,7 @@
             self.device.deviceUdId = [UdIdGenerator generateUID];
         }
         
-        [Injector.sharedInstance.railsApiDao storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
+        [Injector.sharedInstance.restApiClient storeDevice:self.device completionHandler:^(Device *storedDevice, NSError *error) {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
             [self.spinner stopAnimating];
             if (error) {

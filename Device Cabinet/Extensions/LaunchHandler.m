@@ -9,30 +9,30 @@
 #import "LaunchHandler.h"
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
-#import "RailsApiErrorMapper.h"
-#import "RailsApiDao.h"
+#import "RESTApiErrorMapper.h"
+#import "RESTApiClient.h"
 
 @interface LaunchHandler ()
 
 @property UserDefaultsWrapper *userDefaults;
 @property KeyChainWrapper *keyChainWrapper;
-@property RailsApiDao *railsApiDao;
+@property RESTApiClient *restApiDao;
 
 @end
 
 @implementation LaunchHandler
 
-- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper railsApiDao:(RailsApiDao *)railsApiDao
+- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper restApiDao:(RESTApiClient *)restApiDao
 {
     NSParameterAssert(userDefaults);
     NSParameterAssert(keyChainWrapper);
-    NSParameterAssert(railsApiDao);
+    NSParameterAssert(restApiDao);
     
     self = [super init];
     if (self) {
         _userDefaults = userDefaults;
         _keyChainWrapper = keyChainWrapper;
-        _railsApiDao = railsApiDao;
+        _restApiDao = restApiDao;
     }
     return self;
 }
@@ -42,7 +42,7 @@
     if ([self.userDefaults isFirstLaunch]) {
         if ([self.keyChainWrapper hasDeviceUdId]) {
             NSString *deviceUdId = [self.keyChainWrapper getDeviceUdId];
-            [self.railsApiDao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
+            [self.restApiDao fetchDeviceWithDeviceUdId:deviceUdId completionHandler:^(Device *device, NSError *error) {
                 if (device) {
                     [self.userDefaults setLocalDevice:device];
                     [self shouldShowDecision:NO completionHandler:completionHandler];

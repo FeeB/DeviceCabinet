@@ -17,14 +17,13 @@
 		3A5E179C19654AC700681289 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E178419654AC700681289 /* UIKit.framework */; };
 		3A5E17A419654AC700681289 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3A5E17A219654AC700681289 /* InfoPlist.strings */; };
 		3A84064219A206DD007E3A6B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A84064119A206DD007E3A6B /* Security.framework */; };
-		3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */; };
 		3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */; };
 		3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */; };
 		3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */; };
 		3AFF13DA1A2CAE43000D5308 /* DeviceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D81A2CAE43000D5308 /* DeviceTestCase.m */; };
 		3AFF13DB1A2CAE43000D5308 /* PersonTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13D91A2CAE43000D5308 /* PersonTestCase.m */; };
-		3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */; };
-		3AFF13E01A2CAE5F000D5308 /* RailsAPIDaoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */; };
+		3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRESTTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRESTTestCase.m */; };
+		3AFF13E01A2CAE5F000D5308 /* RESTApiClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF13DE1A2CAE5F000D5308 /* RESTApiClientTest.m */; };
 		58F60DB70C28412EA2B6599D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A6D4B45940492A9973C4BC /* libPods.a */; };
 		956EB0051A2B8EBB00F3447F /* Injector.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0041A2B8EBB00F3447F /* Injector.m */; };
 		956EB00C1A2B977700F3447F /* NSDictionary+NotNSNull.m in Sources */ = {isa = PBXBuildFile; fileRef = 956EB0081A2B977700F3447F /* NSDictionary+NotNSNull.m */; };
@@ -33,8 +32,8 @@
 		95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E539D71A1A856B00718E63 /* HandleBeacon.m */; };
 		95F84B5F1A153AF100F28EF3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B311A153AF100F28EF3 /* AppDelegate.m */; };
 		95F84B611A153AF100F28EF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B341A153AF100F28EF3 /* Localizable.strings */; };
-		95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B431A153AF100F28EF3 /* RailsApiDao.m */; };
-		95F84B671A153AF100F28EF3 /* RailsApiErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B451A153AF100F28EF3 /* RailsApiErrorMapper.m */; };
+		95F84B661A153AF100F28EF3 /* RESTApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B431A153AF100F28EF3 /* RESTApiClient.m */; };
+		95F84B671A153AF100F28EF3 /* RESTApiErrorMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B451A153AF100F28EF3 /* RESTApiErrorMapper.m */; };
 		95F84B681A153AF100F28EF3 /* KeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */; };
 		95F84B691A153AF100F28EF3 /* UserDefaultsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 95F84B491A153AF100F28EF3 /* UserDefaultsWrapper.m */; };
 		95F84B6A1A153AF100F28EF3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F84B4A1A153AF100F28EF3 /* Images.xcassets */; };
@@ -102,15 +101,14 @@
 		3A5E17A119654AC700681289 /* Device CabinetTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Device CabinetTests-Info.plist"; sourceTree = "<group>"; };
 		3A5E17A319654AC700681289 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A84064119A206DD007E3A6B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceViewTestCase.m; sourceTree = "<group>"; };
 		3AEA37FC199CBD4D001AAF71 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapperTestCase.m; sourceTree = "<group>"; };
 		3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandlerTestCase.m; sourceTree = "<group>"; };
 		3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsTestCase.m; sourceTree = "<group>"; };
 		3AFF13D81A2CAE43000D5308 /* DeviceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTestCase.m; path = Model/DeviceTestCase.m; sourceTree = "<group>"; };
 		3AFF13D91A2CAE43000D5308 /* PersonTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonTestCase.m; path = Model/PersonTestCase.m; sourceTree = "<group>"; };
-		3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorMapperRailsTestCase.m; path = API/ErrorMapperRailsTestCase.m; sourceTree = "<group>"; };
-		3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RailsAPIDaoTest.m; path = API/RailsAPIDaoTest.m; sourceTree = "<group>"; };
+		3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRESTTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorMapperRESTTestCase.m; path = API/ErrorMapperRESTTestCase.m; sourceTree = "<group>"; };
+		3AFF13DE1A2CAE5F000D5308 /* RESTApiClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RESTApiClientTest.m; path = API/RESTApiClientTest.m; sourceTree = "<group>"; };
 		956EB0031A2B8EBB00F3447F /* Injector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Injector.h; path = Extensions/Injector.h; sourceTree = "<group>"; };
 		956EB0041A2B8EBB00F3447F /* Injector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Injector.m; path = Extensions/Injector.m; sourceTree = "<group>"; };
 		956EB0071A2B977700F3447F /* NSDictionary+NotNSNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NotNSNull.h"; sourceTree = "<group>"; };
@@ -126,10 +124,10 @@
 		95F84B351A153AF100F28EF3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		95F84B361A153AF100F28EF3 /* Device Cabinet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Device Cabinet-Info.plist"; sourceTree = "<group>"; };
 		95F84B3A1A153AF100F28EF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		95F84B421A153AF100F28EF3 /* RailsApiDao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiDao.h; sourceTree = "<group>"; };
-		95F84B431A153AF100F28EF3 /* RailsApiDao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiDao.m; sourceTree = "<group>"; };
-		95F84B441A153AF100F28EF3 /* RailsApiErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RailsApiErrorMapper.h; sourceTree = "<group>"; };
-		95F84B451A153AF100F28EF3 /* RailsApiErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RailsApiErrorMapper.m; sourceTree = "<group>"; };
+		95F84B421A153AF100F28EF3 /* RESTApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTApiClient.h; sourceTree = "<group>"; };
+		95F84B431A153AF100F28EF3 /* RESTApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTApiClient.m; sourceTree = "<group>"; };
+		95F84B441A153AF100F28EF3 /* RESTApiErrorMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTApiErrorMapper.h; sourceTree = "<group>"; };
+		95F84B451A153AF100F28EF3 /* RESTApiErrorMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTApiErrorMapper.m; sourceTree = "<group>"; };
 		95F84B461A153AF100F28EF3 /* KeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainWrapper.h; sourceTree = "<group>"; };
 		95F84B471A153AF100F28EF3 /* KeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainWrapper.m; sourceTree = "<group>"; };
 		95F84B481A153AF100F28EF3 /* UserDefaultsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsWrapper.h; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				3AFF13DC1A2CAE4C000D5308 /* API */,
 				3AFF13D71A2CADC6000D5308 /* Model */,
 				3A5E17A019654AC700681289 /* Supporting Files */,
-				3AE15A4019AB7BBD0003BF60 /* DeviceViewTestCase.m */,
 				3AFF13D11A2C7BCF000D5308 /* KeyChainWrapperTestCase.m */,
 				3AFF13D31A2C867C000D5308 /* LaunchHandlerTestCase.m */,
 				3AFF13D51A2C9CA1000D5308 /* UserDefaultsTestCase.m */,
@@ -257,8 +254,8 @@
 		3AFF13DC1A2CAE4C000D5308 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m */,
-				3AFF13DE1A2CAE5F000D5308 /* RailsAPIDaoTest.m */,
+				3AFF13DD1A2CAE5F000D5308 /* ErrorMapperRESTTestCase.m */,
+				3AFF13DE1A2CAE5F000D5308 /* RESTApiClientTest.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -321,10 +318,10 @@
 		95F84B3C1A153AF100F28EF3 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				95F84B421A153AF100F28EF3 /* RailsApiDao.h */,
-				95F84B431A153AF100F28EF3 /* RailsApiDao.m */,
-				95F84B441A153AF100F28EF3 /* RailsApiErrorMapper.h */,
-				95F84B451A153AF100F28EF3 /* RailsApiErrorMapper.m */,
+				95F84B421A153AF100F28EF3 /* RESTApiClient.h */,
+				95F84B431A153AF100F28EF3 /* RESTApiClient.m */,
+				95F84B441A153AF100F28EF3 /* RESTApiErrorMapper.h */,
+				95F84B451A153AF100F28EF3 /* RESTApiErrorMapper.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -550,9 +547,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95F84B671A153AF100F28EF3 /* RailsApiErrorMapper.m in Sources */,
+				95F84B671A153AF100F28EF3 /* RESTApiErrorMapper.m in Sources */,
 				95F84B6E1A153AF100F28EF3 /* Person.m in Sources */,
-				95F84B661A153AF100F28EF3 /* RailsApiDao.m in Sources */,
+				95F84B661A153AF100F28EF3 /* RESTApiClient.m in Sources */,
 				95F84B731A153AF100F28EF3 /* OverviewViewController.m in Sources */,
 				95E539D81A1A856B00718E63 /* HandleBeacon.m in Sources */,
 				956EB0101A2B979300F3447F /* UdIdGenerator.m in Sources */,
@@ -578,14 +575,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE15A4119AB7BBD0003BF60 /* DeviceViewTestCase.m in Sources */,
 				3AFF13D21A2C7BCF000D5308 /* KeyChainWrapperTestCase.m in Sources */,
 				3AFF13D61A2C9CA1000D5308 /* UserDefaultsTestCase.m in Sources */,
 				3AFF13D41A2C867C000D5308 /* LaunchHandlerTestCase.m in Sources */,
 				3AFF13DA1A2CAE43000D5308 /* DeviceTestCase.m in Sources */,
 				3AFF13DB1A2CAE43000D5308 /* PersonTestCase.m in Sources */,
-				3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRailsTestCase.m in Sources */,
-				3AFF13E01A2CAE5F000D5308 /* RailsAPIDaoTest.m in Sources */,
+				3AFF13DF1A2CAE5F000D5308 /* ErrorMapperRESTTestCase.m in Sources */,
+				3AFF13E01A2CAE5F000D5308 /* RESTApiClientTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

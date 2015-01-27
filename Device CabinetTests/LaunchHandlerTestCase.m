@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "UserDefaultsWrapper.h"
 #import "KeyChainWrapper.h"
-#import "RailsApiDao.h"
+#import "RESTApiClient.h"
 #import "LaunchHandler.h"
 #import "Device.h"
 
@@ -24,7 +24,7 @@
 @property LaunchHandler *launchHandler;
 @property UserDefaultsWrapper *userDefaultsMock;
 @property KeyChainWrapper *keyChainWrapperMock;
-@property RailsApiDao *railsApiDaoMock;
+@property RESTApiClient *restApiDaoMock;
 
 @end
 
@@ -34,8 +34,8 @@
     [super setUp];
     self.keyChainWrapperMock = mock([KeyChainWrapper class]);
     self.userDefaultsMock = mock([UserDefaultsWrapper class]);
-    self.railsApiDaoMock = mock([RailsApiDao class]);
-    self.launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock railsApiDao:self.railsApiDaoMock];
+    self.restApiDaoMock = mock([RESTApiClient class]);
+    self.launchHandler = [[LaunchHandler alloc] initWithUserDefaults:self.userDefaultsMock keyChainWrapper:self.keyChainWrapperMock restApiDao:self.restApiDaoMock];
 }
 
 - (void)testHandleFirstLaunchWhenFirstLaunchFalse {
@@ -77,7 +77,7 @@
     }];
 
     MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
-    [verify(self.railsApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
+    [verify(self.restApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
     void(^completionHandler)(Device*, NSError*) = [argument value];
     completionHandler([self createATestDevice], nil);
     
@@ -96,7 +96,7 @@
     }];
 
     MKTArgumentCaptor *argument = [[MKTArgumentCaptor alloc] init];
-    [verify(self.railsApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
+    [verify(self.restApiDaoMock) fetchDeviceWithDeviceUdId:anything() completionHandler:[argument capture]];
     void(^completionHandler)(Device*, NSError*) = [argument value];
     completionHandler(nil, [[NSError alloc] init]);
     

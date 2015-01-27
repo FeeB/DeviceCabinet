@@ -13,8 +13,8 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "DecisionViewController.h"
 #import "CreateDeviceViewController.h"
-#import "RailsApiDao.h"
-#import "RailsApiErrorMapper.h"
+#import "RESTApiClient.h"
+#import "RESTApiErrorMapper.h"
 #import "UIDevice-Hardware.h"
 #import "UserDefaultsWrapper.h"
 #import "Device.h"
@@ -109,9 +109,9 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)checkForSystemVersionUpdate {
     if (self.device) {
-        [Injector.sharedInstance.railsApiDao fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+        [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
             if (error) {
-                if (!error.code == [RailsApiErrorMapper itemNotFoundInDatabaseError].code) {
+                if (!error.code == [RESTApiErrorMapper itemNotFoundInDatabaseError].code) {
                     [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                                message:error.localizedRecoverySuggestion
                                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
@@ -120,7 +120,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
                     [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
-                    [Injector.sharedInstance.railsApiDao updateSystemVersion:self.device completionHandler:nil];
+                    [Injector.sharedInstance.restApiClient updateSystemVersion:self.device completionHandler:nil];
                     [self getAllDevices];
                 }
             }
@@ -172,9 +172,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     } else {
         [cellSystemVersionPhoto setImage:[UIImage imageNamed:@"android.png"]];
     }
-    
-    
-    
+
     return cell;
 }
 
@@ -201,7 +199,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 
 - (void)deleteRowAtIndexPath {
     Device *device = [self.currentList objectAtIndex:self.indexPathToBeDeleted.row];
-    [Injector.sharedInstance.railsApiDao deleteDevice:device completionHandler:^(NSError *error) {
+    [Injector.sharedInstance.restApiClient deleteDevice:device completionHandler:^(NSError *error) {
         if (error) {
             [[[UIAlertView alloc]initWithTitle:error.localizedDescription
                                        message:error.localizedRecoverySuggestion
@@ -227,7 +225,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
 - (void)getAllDevices {
     [self.spinner startAnimating];
     
-    [Injector.sharedInstance.railsApiDao fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
+    [Injector.sharedInstance.restApiClient fetchDevicesWithCompletionHandler:^(NSArray *deviceObjects, NSError *error) {
         [self.spinner stopAnimating];
         [self.refreshControl endRefreshing];
 
