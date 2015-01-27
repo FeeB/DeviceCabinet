@@ -22,8 +22,7 @@ NSString * const KeyForFirstLaunch = @"firstLaunch";
 
 @implementation UserDefaultsWrapper
 
-- (instancetype)initWithUserDefaults:(NSUserDefaults *)userDefaults
-{
+- (instancetype)initWithUserDefaults:(NSUserDefaults *)userDefaults {
     NSParameterAssert(userDefaults);
 
     self = [super init];

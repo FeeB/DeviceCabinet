@@ -20,17 +20,15 @@
 #import "Device.h"
 
 @interface OverviewViewController ()
+
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
-
 @property (nonatomic, strong) NSMutableArray *localDevice;
 @property (nonatomic, strong) NSMutableArray *bookedDevices;
 @property (nonatomic, strong) NSMutableArray *availableDevices;
-
 @property (nonatomic, strong) NSArray *currentList;
-
 @property (nonatomic, strong) NSIndexPath *indexPathToBeDeleted;
+
 @end
 
 @implementation OverviewViewController
@@ -40,13 +38,10 @@ NSString * const FromProfileButtonToProfileSegue = @"FromProfileButtonToProfile"
 NSString * const FromOverViewToRegisterSegue = @"FromOverViewToRegister";
 NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice";
 
-- (void)awakeFromNib {
-    self.navigationItem.hidesBackButton = YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.hidesBackButton = YES;
     [TEDLocalization localize:self];
 
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];

@@ -47,8 +47,7 @@
     }
 }
 
-- (IBAction)deviceTypeSelected:(UIButton *)sender
-{
+- (IBAction)deviceTypeSelected:(UIButton *)sender {
     for (UIButton *b in self.deviceTypeButtons) {
         if (b == sender) {
             b.tintColor = [UIColor colorWithRed:68.0f/255.0f green:181.0f/255.0f blue:200.0f/255.0f alpha:1];

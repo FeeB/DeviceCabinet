@@ -19,12 +19,10 @@
 NSString * const FromDecisionToRegisterDeviceSegue = @"FromDecisionToRegisterDevice";
 NSString * const FromDecisionToOverviewSegue = @"FromDecisionToOverview";
 
-- (void)awakeFromNib {
-    self.navigationItem.hidesBackButton = YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
+
     [TEDLocalization localize:self];
 }
 

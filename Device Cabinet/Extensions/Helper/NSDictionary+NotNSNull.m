@@ -10,8 +10,7 @@
 
 @implementation NSDictionary (NotNSNull)
 
-- (id)objectForKeyNotNSNull:(id)key
-{
+- (id)objectForKeyNotNSNull:(id)key {
     id object = [self objectForKey:key];
     return object == [NSNull null] ? nil : object;
 }

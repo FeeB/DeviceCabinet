@@ -24,7 +24,6 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
     [super viewDidLoad];
     [self getAllPeople];
     [TEDLocalization localize:self];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,8 +65,6 @@ NSString *const FromNameListToCreatePersonSegue = @"FromNameListToCreatePerson";
     }];
 }
 
-
-//standard methods for tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.userNames.count;
 }

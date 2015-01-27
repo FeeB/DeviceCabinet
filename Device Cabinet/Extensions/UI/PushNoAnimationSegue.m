@@ -11,7 +11,7 @@
 
 @implementation PushNoAnimationSegue
 
-- (void) perform{
+- (void)perform {
     if ([[self destinationViewController] isKindOfClass:[DecisionViewController class]]) {
         [[[self sourceViewController] navigationController] pushViewController:[self destinationViewController] animated:NO];
     } else {

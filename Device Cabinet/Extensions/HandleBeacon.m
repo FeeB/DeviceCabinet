@@ -30,8 +30,7 @@
 
 @implementation HandleBeacon
 
-- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper
-{
+- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper {
     NSParameterAssert(userDefaultsWrapper);
 
     self = [super init];
