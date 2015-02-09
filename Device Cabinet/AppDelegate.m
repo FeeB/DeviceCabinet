@@ -16,6 +16,13 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:Injector.sharedInstance.userDefaultsWrapper.getLocalDevice completionHandler:^(Device *device, NSError *error) {
+        if (!error) {
+            [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
+        }
+    }];
+    
     [[Injector sharedInstance].handleBeacon searchForBeacon];
     
     //register Notification for ios8 and ask for permission

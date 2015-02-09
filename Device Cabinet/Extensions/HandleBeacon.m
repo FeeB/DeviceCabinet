@@ -13,6 +13,7 @@
 #import "Device.h"
 #import "OverviewViewController.h"
 #import <UIKit/UIKit.h>
+#import "RESTApiClient.h"
 
 @import AudioToolbox;
 
@@ -63,7 +64,6 @@
         [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
         
         self.device = [self.userDefaultsWrapper getLocalDevice];
-        
     }
 }
 
