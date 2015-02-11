@@ -11,8 +11,8 @@ NSString * const RESTApiErrorDomain = @"com.fee.deviceCabinet";
 NSInteger const RESTApiNoConnectionErrorCode = 4097;
 NSInteger const RESTApiNoConnectionToServerRESTErrorCode = 500;
 NSInteger const RESTApiNoConnectionToServerErrorCode = -1009;
-NSInteger const RESTApiitemNotFoundInDatabaseRESTErroCode = 404;
-NSInteger const RESTApiitemNotFoundInDatabaseCocoaErroCode = 3840;
+NSInteger const RESTApiItemNotFoundInDatabaseRESTErroCode = 404;
+NSInteger const RESTApiItemNotFoundInDatabaseCocoaErroCode = 3840;
 
 
 @implementation RESTApiErrorMapper
@@ -59,8 +59,8 @@ NSInteger const RESTApiitemNotFoundInDatabaseCocoaErroCode = 3840;
         case RESTApiNoConnectionToServerRESTErrorCode:
         case RESTApiNoConnectionToServerErrorCode:
             return [RESTApiErrorMapper noConnectionError];
-        case RESTApiitemNotFoundInDatabaseRESTErroCode:
-        case RESTApiitemNotFoundInDatabaseCocoaErroCode:
+        case RESTApiItemNotFoundInDatabaseRESTErroCode:
+        case RESTApiItemNotFoundInDatabaseCocoaErroCode:
             return [RESTApiErrorMapper itemNotFoundInDatabaseError];
         default:
             return [RESTApiErrorMapper somethingWentWrongError];
