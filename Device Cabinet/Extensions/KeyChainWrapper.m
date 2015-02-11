@@ -19,8 +19,7 @@ NSString * const KeyForKeychain = @"deviceId";
 
 @implementation KeyChainWrapper
 
-- (instancetype)initWithKeyChainWrapperItem: (KeychainItemWrapper *)keyChainItemWrapper
-{
+- (instancetype)initWithKeyChainWrapperItem: (KeychainItemWrapper *)keyChainItemWrapper {
     self = [super init];
     if (self) {
         _keyChainItemWrapper = keyChainItemWrapper;

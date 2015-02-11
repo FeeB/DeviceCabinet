@@ -13,6 +13,7 @@
 #import "Device.h"
 #import "OverviewViewController.h"
 #import <UIKit/UIKit.h>
+#import "RESTApiClient.h"
 
 @import AudioToolbox;
 
@@ -30,8 +31,7 @@
 
 @implementation HandleBeacon
 
-- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper
-{
+- (instancetype)initWithUserDefaultsWrapper:(UserDefaultsWrapper *)userDefaultsWrapper {
     NSParameterAssert(userDefaultsWrapper);
 
     self = [super init];
@@ -64,7 +64,6 @@
         [self.locationManager startRangingBeaconsInRegion:self.myBeaconRegion];
         
         self.device = [self.userDefaultsWrapper getLocalDevice];
-        
     }
 }
 

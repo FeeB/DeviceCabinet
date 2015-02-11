@@ -4,7 +4,7 @@
 //  Device Cabinet
 //
 //  Created by Braun,Fee on 03.07.14.
-//  Copyright (c) 2014 ___FULLUSERNAME___. All rights reserved.
+//  Copyright (c) 2014 Braun,Fee. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -15,8 +15,14 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:Injector.sharedInstance.userDefaultsWrapper.getLocalDevice completionHandler:^(Device *device, NSError *error) {
+        if (!error) {
+            [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
+        }
+    }];
+    
     [[Injector sharedInstance].handleBeacon searchForBeacon];
     
     //register Notification for ios8 and ask for permission

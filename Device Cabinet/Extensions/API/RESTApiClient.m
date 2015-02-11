@@ -28,8 +28,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
 
 @implementation RESTApiClient
 
-- (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager
-{
+- (instancetype)initWithRequestOperationManager:(AFHTTPRequestOperationManager *)requestOperationManager {
     NSParameterAssert(requestOperationManager);
     
     self = [super init];
@@ -127,6 +126,7 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
         });
     }];
 }
+
 - (void)fetchDeviceWithDevice:(Device *)device completionHandler:(void (^)(Device *, NSError *))completionHandler {
     NSString *url = [[NSString alloc] initWithFormat:DevicePathWithId,  device.deviceId];
     
@@ -274,7 +274,6 @@ NSString* const PersonPathWithId = ROOT_URL @"persons/%@";
             completionHandler ? completionHandler(nil) : nil;
         });
     }];
-
 }
                         
 @end

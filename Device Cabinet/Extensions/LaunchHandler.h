@@ -11,7 +11,6 @@
 @interface LaunchHandler : NSObject
 
 - (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper restApiDao:(RESTApiClient *)restApiDao;
-
 - (void)handleFirstLaunchWithCompletionHandler:(void (^)(BOOL shouldShowDecision))completionHandler;
 
 @end

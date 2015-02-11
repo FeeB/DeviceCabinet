@@ -152,7 +152,6 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
 }
 
 - (BOOL)isStorable {
-    
     if (!self.device.isBookedByPerson) {
         return YES;
     } else {
@@ -172,6 +171,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     }
 }
 
+//https://developer.apple.com/library/ios/samplecode/PhotoPicker/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010196-Intro-DontLinkElementID_2
 - (IBAction)takePhoto {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -234,9 +234,9 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     }
 }
 
+//http://stackoverflow.com/questions/6446279/what-is-the-uicolor-of-the-default-uitableview-separator
+//http://stackoverflow.com/questions/7022656/calayer-add-a-border-only-at-one-side
 - (void)topBorder {
-    //http://stackoverflow.com/questions/6446279/what-is-the-uicolor-of-the-default-uitableview-separator
-    //http://stackoverflow.com/questions/7022656/calayer-add-a-border-only-at-one-side
     CALayer *topBorder = [CALayer layer];
     topBorder.borderColor = [UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0].CGColor;
     topBorder.borderWidth = 1;

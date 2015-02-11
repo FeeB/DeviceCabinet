@@ -49,8 +49,7 @@ NSInteger const RESTApiItemNotFoundInDatabaseCocoaErroCode = 3840;
     return [[NSError alloc] initWithDomain:RESTApiErrorDomain code:4 userInfo:userInfo];
 }
 
-+ (NSError *)localErrorWithRemoteError:(NSError *)error
-{
++ (NSError *)localErrorWithRemoteError:(NSError *)error {
     if (!error) {
         return nil;
     }

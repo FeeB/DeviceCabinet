@@ -43,8 +43,6 @@
     return self;
 }
 
-
-
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.deviceUdId forKey:@"deviceId"];
     [encoder encodeObject:self.deviceName forKey:@"deviceName"];

@@ -22,8 +22,7 @@
 
 @implementation LaunchHandler
 
-- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper restApiDao:(RESTApiClient *)restApiDao
-{
+- (instancetype)initWithUserDefaults: (UserDefaultsWrapper *)userDefaults keyChainWrapper:(KeyChainWrapper *)keyChainWrapper restApiDao:(RESTApiClient *)restApiDao {
     NSParameterAssert(userDefaults);
     NSParameterAssert(keyChainWrapper);
     NSParameterAssert(restApiDao);

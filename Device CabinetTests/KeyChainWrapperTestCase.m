@@ -46,5 +46,4 @@
     [verify(self.keyChainItemWrapperMock) resetKeychainItem];
 }
 
-
 @end

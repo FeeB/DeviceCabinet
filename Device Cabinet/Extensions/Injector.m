@@ -28,8 +28,7 @@
     return _sharedInstance;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _restApiClient = [[RESTApiClient alloc] initWithRequestOperationManager:[AFHTTPRequestOperationManager manager]];
