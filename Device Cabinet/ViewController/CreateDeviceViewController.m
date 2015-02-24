@@ -23,6 +23,7 @@
 @property (nonatomic, strong) Device *device;
 @property (nonatomic, strong) NSString *deviceType;
 @property (nonatomic, retain) IBOutletCollection(UIButton) NSArray *deviceTypeButtons;
+@property IBOutlet UIButton *defaultiPhoneButton;
 
 @end
 
@@ -34,6 +35,7 @@
         
     self.deviceNameTextField.text = [[UIDevice currentDevice] name];
     self.deviceTypeTextField.text = [[UIDevice currentDevice] platformString];
+    self.deviceType = self.defaultiPhoneButton.titleLabel.text;
     
     self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.spinner.center = CGPointMake(160, 240);
@@ -71,7 +73,7 @@
         self.device.deviceName = self.deviceNameTextField.text;
         self.device.type = self.deviceType;
         self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
-        self.device.deviceType = self.deviceTypeTextField.text;
+        self.device.deviceModel = self.deviceTypeTextField.text;
 
         if (self.shouldRegisterLocalDevice) {
             self.device.deviceUdId = [UdIdGenerator generateUID];

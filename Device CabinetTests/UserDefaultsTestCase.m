@@ -52,7 +52,7 @@
     device.type = @"iPhone";
     device.deviceUdId = @"123";
     device.systemVersion = @"8.0";
-    device.deviceType = @"iPhone 5c";
+    device.deviceModel = @"iPhone 5c";
     
     return device;
 }

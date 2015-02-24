@@ -374,6 +374,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="defaultiPhoneButton" destination="Ae2-nc-hbz" id="Fwa-65-jiB"/>
                         <outlet property="deviceNameTextField" destination="mGa-u4-eqF" id="nJU-1z-chX"/>
                         <outlet property="deviceTypeTextField" destination="0JO-CZ-SGX" id="swU-6o-yG3"/>
                         <outlet property="labelSwitchLocalDevice" destination="eMB-No-XfF" id="rmt-Qk-em2"/>
@@ -516,7 +517,7 @@
                     <navigationItem key="navigationItem" id="Kby-7z-Zbi">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="4Ee-5T-d6K">
-                            <rect key="frame" x="57" y="7.5" width="206" height="29"/>
+                            <rect key="frame" x="57" y="8" width="206" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title=""/>

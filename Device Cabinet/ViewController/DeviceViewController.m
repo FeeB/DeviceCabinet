@@ -39,7 +39,7 @@ NSString * const FromDeviceOverviewToNameListSegue = @"FromDeviceOverviewToNameL
     self.individualDeviceCategoryLabel.text = self.device.type;
     self.individualDeviceNameLabel.text = self.device.deviceName;
     self.individualSystemVersionLabel.text = self.device.systemVersion;
-    self.individualDeviceTypeLabel.text = self.device.deviceType;
+    self.individualDeviceTypeLabel.text = self.device.deviceModel;
     
     [self.imageView setImageWithURL:self.device.imageUrl placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     

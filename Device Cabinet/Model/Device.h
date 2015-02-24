@@ -21,7 +21,7 @@
 @property NSString *systemVersion;
 @property NSString *deviceId;
 @property NSURL *imageUrl;
-@property NSString *deviceType;
+@property NSString *deviceModel;
 
 - (instancetype)initWithJson:(NSDictionary *)json;
 - (NSDictionary *)toDictionary;

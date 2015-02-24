@@ -13,7 +13,7 @@
 @implementation Device
 
 - (NSDictionary *)toDictionary {
-    NSMutableDictionary *deviceDictionary = @{@"device_name" : self.deviceName, @"category" : self.type, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceType}.mutableCopy;
+    NSMutableDictionary *deviceDictionary = @{@"device_name" : self.deviceName, @"category" : self.type, @"system_version" : self.systemVersion, @"is_booked" : self.isBookedByPerson ? @"YES" : @"NO", @"device_type" : self.deviceModel}.mutableCopy;
     
     if (self.deviceUdId) {
         [deviceDictionary setValue:self.deviceUdId forKey:@"device_id"];
@@ -32,7 +32,7 @@
         self.systemVersion = [json objectForKeyNotNSNull:@"system_version"];
         self.bookedByPerson = [[json objectForKeyNotNSNull:@"is_booked"] isEqualToString:@"YES"] ? YES : NO;
         self.bookedByPersonId = [json objectForKeyNotNSNull:@"person_id"];
-        self.deviceType = [json objectForKeyNotNSNull:@"device_type"];
+        self.deviceModel = [json objectForKeyNotNSNull:@"device_type"];
         self.bookedByPersonFullName = [[json objectForKeyNotNSNull:@"person"] objectForKeyNotNSNull:@"full_name"];
         
         NSString *imageUrlString = [json objectForKeyNotNSNull:@"image_url"];
@@ -46,7 +46,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.deviceUdId forKey:@"deviceId"];
     [encoder encodeObject:self.deviceName forKey:@"deviceName"];
-    [encoder encodeObject:self.deviceType forKey:@"deviceType"];
+    [encoder encodeObject:self.deviceModel forKey:@"deviceType"];
     [encoder encodeObject:self.deviceId forKey:@"deviceRecordId"];
     [encoder encodeObject:self.systemVersion forKey:@"systemVersion"];
     [encoder encodeBool:self.bookedByPerson forKey:@"bookedByPerson"];
@@ -61,7 +61,7 @@
         //decode properties, other class vars
         self.deviceUdId = [decoder decodeObjectForKey:@"deviceId"];
         self.deviceName = [decoder decodeObjectForKey:@"deviceName"];
-        self.deviceType = [decoder decodeObjectForKey:@"deviceType"];
+        self.deviceModel = [decoder decodeObjectForKey:@"deviceType"];
         self.deviceId = [decoder decodeObjectForKey:@"deviceRecordId"];
         self.systemVersion = [decoder decodeObjectForKey:@"systemVersion"];
         self.bookedByPerson = [decoder decodeBoolForKey:@"bookedByPerson"];

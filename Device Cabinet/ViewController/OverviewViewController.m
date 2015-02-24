@@ -148,7 +148,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
     
     Device *cellDevice = [self.currentList objectAtIndex:indexPath.row];
     cellLabel.text = cellDevice.deviceName;
-    cellLabelDeviceType.text = cellDevice.deviceType;
+    cellLabelDeviceType.text = cellDevice.deviceModel;
     cellLabelSystemVersion.text = cellDevice.systemVersion;
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:100];
