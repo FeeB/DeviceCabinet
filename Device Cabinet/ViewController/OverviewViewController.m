@@ -114,6 +114,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             } else {
                 if (![device.systemVersion isEqualToString:[[UIDevice currentDevice] systemVersion]]) {
                     self.device.systemVersion = [[UIDevice currentDevice] systemVersion];
+                    
                     [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
                     [Injector.sharedInstance.restApiClient updateSystemVersion:self.device completionHandler:nil];
                     [self getAllDevices];
@@ -122,6 +123,25 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
         }];
     }
 }
+
+- (void)updateCurrentDevice {
+    if (self.device) {
+        [Injector.sharedInstance.restApiClient fetchDeviceWithDevice:self.device completionHandler:^(Device *device, NSError *error) {
+            if (error) {
+                if (!error.code == [RESTApiErrorMapper itemNotFoundInDatabaseError].code) {
+                    [[[UIAlertView alloc]initWithTitle:error.localizedDescription
+                                               message:error.localizedRecoverySuggestion
+                                              delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+                }
+            } else {
+                self.device = device;
+                [Injector.sharedInstance.userDefaultsWrapper setLocalDevice:device];
+                
+            }
+        }];
+    }
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -253,6 +273,7 @@ NSString * const FromOverViewToCreateDeviceSegue = @"FromOverViewToCreateDevice"
             
             [self handleIfAppRunsOnTestDevice];
             [self fillListBasedOnSegmentedControl];
+            [self updateCurrentDevice];
         }
     }];
 }
