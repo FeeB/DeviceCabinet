@@ -1,4 +1,5 @@
-== DeviceCabinet
+DeviceCabinet
+
 * Use Workspace because of Pods
 * Run command $ sudo gem install cocoapods
 * AFNetworking for API communication
